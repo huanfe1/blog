@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function Archives({ categories }) {
     return (
-        <Layout categories="归档页">
+        <Layout title="归档页">
             <div className="w-full">
                 {categories.map(categorie => (
                     <div key={categorie.year}>
@@ -15,6 +15,7 @@ export default function Archives({ categories }) {
                                     href={'/post/' + post.abbrlink}
                                     className="flex items-center justify-between rounded-lg bg-white p-4 shadow"
                                     prefetch={false}
+                                    key={post.abbrlink}
                                 >
                                     <div>{post.title}</div>
                                     <div>{post.date}</div>

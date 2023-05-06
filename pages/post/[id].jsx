@@ -24,7 +24,7 @@ export default function Post(props) {
                         {post.tags.length !== 0 && (
                             <div className="ml-2 mt-3">
                                 {post.tags.map(tag => (
-                                    <Link href={'/tags/' + tag} className="mr-2" prefetch={false}>
+                                    <Link href={'/tags/' + tag} className="mr-2" prefetch={false} key={tag}>
                                         {'#' + tag}
                                     </Link>
                                 ))}

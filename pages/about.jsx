@@ -2,7 +2,7 @@ import Layout from '@/components/layout';
 
 export default function About() {
     return (
-        <Layout>
+        <Layout title='关于页'>
             <section id="about" className="relative rounded-xl bg-white p-5 pt-6 shadow">
                 <p>趁着年轻，我想多做一些傻事，多挨一些毒打</p>
                 <h2>关于我</h2>
