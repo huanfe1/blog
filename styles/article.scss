@@ -1,0 +1,47 @@
+article {
+    a {
+        @apply text-blue-500 hover:text-blue-600 hover:underline;
+    }
+    p {
+        @apply my-3;
+    }
+    img {
+        @apply m-auto rounded shadow;
+    }
+    h1 {
+        @apply my-2 text-3xl;
+    }
+    h2 {
+        @apply my-2 text-2xl;
+    }
+    h3 {
+        @apply my-2 text-xl;
+    }
+    ol {
+        @apply mt-3 list-decimal pl-5;
+        li {
+            @apply my-1;
+        }
+    }
+    ul {
+        @apply mt-3 list-disc pl-5;
+        li {
+            @apply my-1;
+        }
+    }
+    br {
+        content: '';
+        @apply my-2 block;
+    }
+    // 单行代码
+    :not(pre) > code {
+        @apply mx-1 rounded bg-gray-200 px-2 py-1;
+    }
+    // 引用框
+    blockquote {
+        @apply my-3 space-y-3 border-l-4 border-gray-300 bg-gray-100 p-3;
+        p {
+            margin: 0;
+        }
+    }
+}
