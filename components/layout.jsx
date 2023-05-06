@@ -3,7 +3,7 @@ import Footer from './footer';
 import Head from 'next/head';
 import Top from './top';
 
-export default function Layout({ children, title = '标题测试' }) {
+export default function Layout({ children, title }) {
     return (
         <>
             <Head>
