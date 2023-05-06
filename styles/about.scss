@@ -1,0 +1,11 @@
+#about {
+    h2 {
+        @apply text-2xl;
+    }
+    p {
+        @apply my-2;
+    }
+    a {
+        @apply mx-1 text-blue-700 hover:underline;
+    }
+}
