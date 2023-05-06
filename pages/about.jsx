@@ -12,8 +12,8 @@ export default function About() {
                 <h2>关于本站</h2>
                 <p>
                     <span>本站始于2022年5月15日, 现基于</span>
-                    <a href="https://nuxt.com" target="_blank" rel="noopener external nofollow noreferrer">
-                        Nuxt
+                    <a href="https://nextjs.org" target="_blank" rel="noopener external nofollow noreferrer">
+                        NextJs
                     </a>
                     <span>和</span>
                     <a href="https://hexo.io" target="_blank" rel="noopener external nofollow noreferrer">

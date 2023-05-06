@@ -14,7 +14,6 @@ export default function Archives({ categories }) {
                                 <Link
                                     href={'/post/' + post.abbrlink}
                                     className="flex items-center justify-between rounded-lg bg-white p-4 shadow"
-                                    prefetch={false}
                                     key={post.abbrlink}
                                 >
                                     <div>{post.title}</div>

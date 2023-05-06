@@ -13,13 +13,13 @@ export default function header() {
     return (
         <nav className="bg-main flex w-full flex-row items-center justify-between bg-white px-16 shadow">
             <div className="flex">
-                <Link href="/" className={linkStyle} prefetch={false}>
+                <Link href="/" className={linkStyle}>
                     幻非
                 </Link>
             </div>
             <div className="flex">
                 {items.map(item => (
-                    <Link href={item.link} key={item.title} className={linkStyle} prefetch={false}>
+                    <Link href={item.link} key={item.title} className={linkStyle}>
                         {item.title}
                     </Link>
                 ))}

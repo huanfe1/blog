@@ -14,7 +14,7 @@ export default function Tags({ tags }) {
             <div className="mt-3 rounded-xl bg-white p-5 shadow">
                 {tags.map(tag => (
                     <span className="m-3" key={tag.name}>
-                        <Link href={`/tags/${tag.name}`} className="hover:text-blue-700" prefetch={false}>
+                        <Link href={`/tags/${tag.name}`} className="hover:text-blue-700">
                             {tag.name}
                         </Link>
                     </span>

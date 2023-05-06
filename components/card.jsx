@@ -2,11 +2,7 @@ import Link from 'next/link';
 
 export default function Card({ post }) {
     return (
-        <Link
-            href={'/post/' + post.abbrlink}
-            className="block overflow-hidden rounded-xl bg-white shadow"
-            prefetch={false}
-        >
+        <Link href={'/post/' + post.abbrlink} className="block overflow-hidden rounded-xl bg-white shadow">
             {post.cover && (
                 <div className="flex max-h-80 items-center overflow-hidden">
                     <img src={post.cover} alt={post.title} loading="lazy" />
