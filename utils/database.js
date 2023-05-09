@@ -32,7 +32,6 @@ export const fetchPost = async abbrlink => {
         title: post.title,
         date: dayjs(post.date).format('YYYY-MM-DD'),
         content: post.content,
-        excerpt: truncate(stripHTML(post.content), { length: 120 }).replace(/[\n\r]/g, ''),
         cover: post.cover === undefined ? false : post.cover,
         comment: post.comment === undefined ? true : false,
         copyright: post.copyright === undefined ? true : false,
@@ -50,6 +49,34 @@ export const fetchAllPosts = async () => {
         cover: post.cover || false,
         abbrlink: post.abbrlink,
     }));
+};
+
+export const fetchPaging = async page => {
+    const hexo = await initHexo();
+    const per_page = hexo.config.per_page;
+    const posts = hexo.database
+        .model('Post')
+        .find({})
+        .sort('-date')
+        .map(post => ({
+            title: post.title,
+            date: dayjs(post.date).format('YYYY-MM-DD'),
+            excerpt: truncate(stripHTML(post.content), { length: 120 }).replace(/[\n\r]/g, ''),
+            cover: post.cover || false,
+            abbrlink: post.abbrlink,
+        }));
+    return {
+        posts: posts.splice((page - 1) * per_page, per_page),
+        total: Math.ceil(posts.length / per_page) + 1,
+    };
+};
+
+export const fetchPagingPaths = async () => {
+    const hexo = await initHexo();
+    const posts = hexo.database.model('Post').find({});
+    const per_page = hexo.config.per_page;
+    const total = Math.ceil(posts.length / per_page);
+    return total;
 };
 
 export const fetchAllPostsPaths = async () => {
