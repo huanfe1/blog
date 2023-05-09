@@ -1,6 +1,6 @@
 export default function License() {
     return (
-        <section className="border-border my-5 space-y-2 rounded border bg-gray-100 p-5 dark:border-none">
+        <section className="border-border my-5 space-y-2 rounded border bg-gray-100 p-5">
             <div className="text-lg">许可协议</div>
             <div className="text-sm">
                 <span>本文采用</span>

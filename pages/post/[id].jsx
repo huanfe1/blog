@@ -9,13 +9,18 @@ export default function Post(props) {
     return (
         <Layout title={post.title}>
             <div className="overflow-hidden rounded-xl bg-white shadow">
+                {post.cover && (
+                    <div className="flex max-h-80 items-center overflow-hidden">
+                        <img src={post.cover} alt="" />
+                    </div>
+                )}
                 <article className="p-5">
                     <header>
                         <h1 className="mb-3 text-3xl">{post.title}</h1>
                         <div className="text-subtitle">
                             <time dateTime={post.date}>{post.date}</time>
                             <span className="mx-1">·</span>
-                            <span>{'约 ' + wordcount(post.content) + ' 字'}</span>
+                            <span>{'约 ' + post.wordcount + ' 字'}</span>
                         </div>
                     </header>
                     <section dangerouslySetInnerHTML={{ __html: post.content }}></section>
@@ -39,6 +44,7 @@ export default function Post(props) {
 
 export async function getStaticProps({ params }) {
     const post = await fetchPost(params.id);
+    post.wordcount = wordcount(post.content);
     return { props: { post } };
 }
 

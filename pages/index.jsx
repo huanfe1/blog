@@ -19,3 +19,11 @@ export async function getStaticProps() {
     const posts = await fetchAllPosts();
     return { props: { posts } };
 }
+
+export const metadata = {
+  title: 'Acme',
+  openGraph: {
+    title: 'Acme',
+    description: 'Acme is a...',
+  },
+};

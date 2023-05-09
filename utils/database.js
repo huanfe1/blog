@@ -2,7 +2,8 @@ import Hexo from 'hexo';
 import dayjs from 'dayjs';
 import { basename } from 'path';
 import { truncate, stripHTML } from 'hexo-util';
-import { getArchives } from './archives';
+import getArchives from './archives';
+import { totalcount } from './wordcount';
 
 let __SECRET_HEXO_INSTANCE__ = null;
 
@@ -82,8 +83,24 @@ export const fetchTag = async name => {
     };
 };
 
-export const fetchAllCategories = async () => {
+export const fetchCategories = async () => {
     const hexo = await initHexo();
     const posts = hexo.database.model('Post').find({}).sort('-date');
     return getArchives(posts);
+};
+
+export const createPost = async title => {
+    const hexo = await initHexo();
+    hexo.post.create({ title: title });
+};
+
+export const fetchShowData = async () => {
+    const hexo = await initHexo();
+    const posts = hexo.database.model('Post').find({}).sort('-date').data;
+    return {
+        posts: posts.length,
+        wordcount: totalcount(posts, false),
+        tags: hexo.database.model('Tag').find({}).length,
+        update: dayjs().diff(dayjs(posts[0].date), 'days'),
+    };
 };

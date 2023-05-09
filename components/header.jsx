@@ -7,12 +7,14 @@ const items = [
     { title: '关于', link: '/about' },
 ];
 
+if (process.env.NODE_ENV !== 'production') items.push({ title: '管理', link: '/admin' });
+
 const linkStyle = 'px-3 py-4 hover:bg-gray-300 hover:text-blue-700';
 
 export default function header() {
     return (
-        <nav className="bg-main flex w-full flex-row items-center justify-between bg-white px-16 shadow">
-            <div className="flex">
+        <nav className="bg-main flex w-full flex-row items-center justify-center bg-white px-3 shadow sm:justify-between sm:px-16">
+            <div className="hidden sm:flex">
                 <Link href="/" className={linkStyle}>
                     幻非
                 </Link>

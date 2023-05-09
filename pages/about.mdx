@@ -1,0 +1,30 @@
+import Layout from '@/components/layout';
+
+趁着年轻，想多做一些傻事，多挨一些毒打
+
+## 关于我
+
+喜欢写点代码，入门语言为 Python ，目前正在学习前端相关技术
+
+希望能为开源社区贡献一份力量
+
+## 关于本站
+
+本站始于 2022 年 5 月 15 日, 现基于 <Link title='Nextjs' href='https://nextjs.org/' /> 和 <Link title='Hexo' href='https://hexo.io/' /> 搭建
+
+export function Link({ title, href }) {
+    return (
+        <a href={href} target="_blank" rel="noopener external nofollow noreferrer">
+            {title}
+        </a>
+    );
+}
+
+export default function about({ children }) {
+    children.props.valueOf();
+    return (
+        <Layout title="关于页">
+            <article className="relative rounded-xl bg-white py-3 px-5 shadow">{children}</article>
+        </Layout>
+    );
+}
