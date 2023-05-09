@@ -1,9 +1,9 @@
-import { fetchAllPosts } from '@/utils/database';
+import { fetchPaging } from '@/utils/database';
 import Layout from '@/components/layout';
 import Card from '@/components/card';
+import Pagination from '@/components/pagination';
 
-export default function Home(props) {
-    const posts = props.posts;
+export default function Home({ posts, current, total }) {
     return (
         <Layout title="首页">
             <div className="space-y-4">
@@ -11,19 +11,12 @@ export default function Home(props) {
                     <Card post={post} key={post.abbrlink} />
                 ))}
             </div>
+            <Pagination current={current} total={total} />
         </Layout>
     );
 }
 
 export async function getStaticProps() {
-    const posts = await fetchAllPosts();
-    return { props: { posts } };
+    const { posts, total } = await fetchPaging(1);
+    return { props: { current: 1, posts, total } };
 }
-
-export const metadata = {
-  title: 'Acme',
-  openGraph: {
-    title: 'Acme',
-    description: 'Acme is a...',
-  },
-};

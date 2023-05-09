@@ -79,7 +79,7 @@ export function ShowData({ data }) {
         { title: '文章数量', data: data.posts },
         { title: '总字数', data: data.wordcount },
         { title: '标签', data: data.tags },
-        { title: '距上次更新天数', data: data.update },
+        { title: '距上次更新', data: data.update },
     ];
     return (
         <ul className="grid grid-cols-4 gap-x-3">
