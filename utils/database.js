@@ -1,9 +1,13 @@
 import Hexo from 'hexo';
+import fs from 'fs';
+import path from 'path';
 import dayjs from 'dayjs';
 import { basename } from 'path';
 import { truncate, stripHTML } from 'hexo-util';
 import getArchives from './archives';
 import { totalcount } from './wordcount';
+import feedGenerator from 'hexo-generator-feed/lib/generator.js';
+import betterSitemapGenerator from 'hexo-generator-sitemap/lib/generator.js';
 
 let __SECRET_HEXO_INSTANCE__ = null;
 
@@ -130,4 +134,15 @@ export const fetchShowData = async () => {
         tags: hexo.database.model('Tag').find({}).length,
         update: dayjs().diff(dayjs(posts[0].date), 'days'),
     };
+};
+
+export const generateSubscribe = async () => {
+    const hexo = await initHexo();
+    const arr = [];
+    arr.push(feedGenerator.call(hexo, hexo.locals.toObject(), 'atom', 'atom.xml'));
+    arr.push(feedGenerator.call(hexo, hexo.locals.toObject(), 'rss2', './rss.xml'));
+    arr.push(...betterSitemapGenerator.call(hexo, hexo.locals.toObject(), './sitemap.xml'));
+    arr.forEach(item => {
+        fs.writeFileSync(path.join('./public', item.path), item.data);
+    });
 };
