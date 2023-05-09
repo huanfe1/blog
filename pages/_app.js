@@ -3,6 +3,7 @@ import 'nprogress/nprogress.css';
 import { useEffect } from 'react';
 import NProgress from 'nprogress';
 import { useRouter } from 'next/router';
+import { DefaultSeo } from 'next-seo';
 
 export default function App({ Component, pageProps }) {
     const router = useRouter();
@@ -17,5 +18,10 @@ export default function App({ Component, pageProps }) {
             NProgress.done();
         });
     }, []);
-    return <Component {...pageProps} />;
+    return (
+        <>
+            <DefaultSeo title="幻非" description="幻非的个人博客，一个发表自己言论的地方" />
+            <Component {...pageProps} />
+        </>
+    );
 }
