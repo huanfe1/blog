@@ -1,4 +1,4 @@
-import { fetchPaging } from '@/utils/database';
+import { fetchPaging, generateSubscribe } from '@/utils/database';
 import Layout from '@/components/layout';
 import Card from '@/components/card';
 import Pagination from '@/components/pagination';
@@ -18,5 +18,6 @@ export default function Home({ posts, current, total }) {
 
 export async function getStaticProps() {
     const { posts, total } = await fetchPaging(1);
+    if (process.env.NODE_ENV !== 'development') await generateSubscribe();
     return { props: { current: 1, posts, total } };
 }
