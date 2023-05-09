@@ -1,6 +1,8 @@
 'use strict';
+import { stripHTML } from 'hexo-util';
 
 const counter = content => {
+    content = stripHTML(content)
     const cn = (content.match(/[\u4E00-\u9FA5]/g) || []).length;
     const en = (
         content

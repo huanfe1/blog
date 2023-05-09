@@ -1,4 +1,4 @@
-import { fetchAllCategories } from '@/utils/database';
+import { fetchCategories } from '@/utils/database';
 import Layout from '@/components/layout';
 import Link from 'next/link';
 
@@ -29,7 +29,7 @@ export default function Archives({ categories }) {
 }
 
 export async function getStaticProps() {
-    const categories = await fetchAllCategories();
+    const categories = await fetchCategories();
     return {
         props: {
             categories,

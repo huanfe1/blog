@@ -10,6 +10,10 @@ body {
     background-color: #f2f5f8;
 }
 
+html {
+    font-family: 'HarmonyOS_Regular';
+}
+
 main {
     @apply w-11/12;
     @screen sm {

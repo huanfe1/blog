@@ -1,13 +1,13 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 
-export const getArchives = posts => {
+export default function getArchives(posts) {
     const arr = [];
     posts.forEach(post => {
-        const year = moment(post.date).format('YYYY');
+        const year = dayjs(post.date).format('YYYY');
         const index = arr.findIndex(item => item.year === year);
         const temp = {
             title: post.title,
-            date: moment(post.date).format('MM-DD'),
+            date: dayjs(post.date).format('MM-DD'),
             abbrlink: post.abbrlink,
         };
         if (index !== -1) {
@@ -33,4 +33,4 @@ export const getArchives = posts => {
         return { year: item.year, posts: item.posts.sort(sortByKey('date')) };
     });
     return arr;
-};
+}
