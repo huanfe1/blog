@@ -3,6 +3,7 @@ import Layout from '@/components/layout';
 import License from '@/components/license';
 import { wordcount } from '@/utils/wordcount.mjs';
 import Link from 'next/link';
+import Waline from '@/components/waline';
 
 export default function Post(props) {
     const post = props.post;
@@ -38,6 +39,11 @@ export default function Post(props) {
                     </footer>
                 </article>
             </div>
+            {/* {post.comment && (
+                <div className="mt-5 px-3 py-4 overflow-hidden rounded-xl bg-white shadow">
+                    <Waline />
+                </div>
+            )} */}
         </Layout>
     );
 }

@@ -9,6 +9,7 @@
         "lint": "next lint"
     },
     "devDependencies": {
+        "@waline/client": "^2.15.5-alpha.0",
         "hexo": "^7.0.0-rc1",
         "hexo-abbrlink": "^2.2.1",
         "hexo-generator-category": "^2.0.0",
