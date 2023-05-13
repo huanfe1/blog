@@ -1,0 +1,18 @@
+#waline {
+    .wl-emoji {
+        height: 2.5rem !important;
+        width: 2.5rem;
+        box-shadow: none;
+    }
+    .wl-editor {
+        padding: 0.5rem;
+        box-sizing: border-box !important;
+    }
+    .wl-emoji-popup .wl-tabs {
+        overflow-x: auto !important;
+    }
+    .wl-editor,
+    .wl-input {
+        transition: none !important;
+    }
+}

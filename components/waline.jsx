@@ -9,7 +9,7 @@ export default function Waline() {
         imageUploader: false,
         login: 'disable',
         search: false,
-        emoji: ['https://unpkg.com/@waline/emojis@1.1.0/tw-emoji', 'https://unpkg.com/@waline/emojis@1.1.0/bmoji'],
+        emoji: ['https://cdn.jsdelivr.net/gh/walinejs/emojis@main/tw-emoji', 'https://cdn.jsdelivr.net/gh/walinejs/emojis@main/bmoji'],
     };
     const walineInstanceRef = useRef(null);
     const containerRef = React.createRef();
