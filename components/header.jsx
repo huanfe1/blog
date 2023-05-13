@@ -4,6 +4,7 @@ const items = [
     { title: '首页', link: '/' },
     { title: '标签', link: '/tags' },
     { title: '归档', link: '/archives' },
+    { title: '订阅', link: '/atom.xml' },
     { title: '关于', link: '/about' },
 ];
 
@@ -13,7 +14,7 @@ const linkStyle = 'px-3 py-4 hover:bg-gray-300 hover:text-blue-700';
 
 export default function header() {
     return (
-        <nav className="bg-main flex w-full flex-row items-center justify-center bg-white px-3 shadow sm:justify-between sm:px-16">
+        <nav className="flex w-full flex-row items-center justify-center bg-white px-3 shadow sm:justify-between sm:px-16">
             <div className="hidden sm:flex">
                 <Link href="/" className={linkStyle}>
                     幻非
