@@ -146,3 +146,8 @@ export const generateSubscribe = async () => {
         fs.writeFileSync(path.join('./public', item.path), item.data);
     });
 };
+export const renderMarkdown = async text => {
+    const hexo = await initHexo();
+    const result = hexo.render.renderSync({ text, engine: 'md' });
+    return result;
+};
