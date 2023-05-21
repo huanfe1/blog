@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }) {
     }, []);
     return (
         <>
-            <DefaultSeo title="幻非" description="幻非的个人博客，一个发表自己言论的地方" />
+            <DefaultSeo title="幻非" description="幻非的个人博客" />
             <Component {...pageProps} />
         </>
     );

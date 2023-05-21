@@ -11,26 +11,17 @@ export default function getArchives(posts) {
             abbrlink: post.abbrlink,
         };
         if (index !== -1) {
-            arr[index]['posts'].push(temp);
+            arr[index].posts.push(temp);
         } else {
             arr.push({
-                year: year,
+                year,
                 posts: [temp],
             });
         }
     });
-    function sortByKey(keys) {
-        return function (a, b) {
-            if (a[keys] < b[keys]) {
-                return 1;
-            } else {
-                return -1;
-            }
-        };
-    }
-    arr.sort(sortByKey('year'));
-    arr.map(item => {
-        return { year: item.year, posts: item.posts.sort(sortByKey('date')) };
+    arr.sort((a, b) => b.year - a.year);
+    arr.forEach(item => {
+        item.posts.sort((a, b) => b.date - a.date);
     });
     return arr;
 }
