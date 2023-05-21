@@ -2,24 +2,23 @@ import Hexo from 'hexo';
 import fs from 'fs';
 import path from 'path';
 import dayjs from 'dayjs';
-import { basename } from 'path';
 import { truncate, stripHTML } from 'hexo-util';
 import getArchives from './archives';
-import { totalcount } from './wordcount';
+import { totalcount, wordcount } from './wordcount';
 import feedGenerator from 'hexo-generator-feed/lib/generator.js';
 import betterSitemapGenerator from 'hexo-generator-sitemap/lib/generator.js';
+import child_process from 'child_process';
 
 let __SECRET_HEXO_INSTANCE__ = null;
 
-async function initHexo() {
+const initHexo = async () => {
     if (__SECRET_HEXO_INSTANCE__) {
         await __SECRET_HEXO_INSTANCE__.load();
         return __SECRET_HEXO_INSTANCE__;
     }
-
-    const hexo = new Hexo(process.cwd() + '/hexo', {
+    const hexo = new Hexo(path.join(process.cwd(), 'hexo'), {
         silent: true,
-        drafts: false,
+        draft: false,
     });
 
     await hexo.init();
@@ -27,7 +26,7 @@ async function initHexo() {
 
     __SECRET_HEXO_INSTANCE__ = hexo;
     return hexo;
-}
+};
 
 export const fetchPost = async abbrlink => {
     const hexo = await initHexo();
@@ -36,16 +35,16 @@ export const fetchPost = async abbrlink => {
         title: post.title,
         date: dayjs(post.date).format('YYYY-MM-DD'),
         content: post.content,
-        cover: post.cover === undefined ? false : post.cover,
-        comment: post.comment === undefined ? true : false,
-        copyright: post.copyright === undefined ? true : false,
+        cover: post.cover || false,
+        comments: post.comments || false,
+        copyright: post.copyright || true,
         tags: post.tags.map(tag => tag.name),
     };
 };
 
 export const fetchAllPosts = async () => {
     const hexo = await initHexo();
-    const posts = hexo.database.model('Post').find({}).sort('-date');
+    const posts = hexo.locals.get('posts').sort('-date');
     return posts.map(post => ({
         title: post.title,
         date: dayjs(post.date).format('YYYY-MM-DD'),
@@ -55,20 +54,16 @@ export const fetchAllPosts = async () => {
     }));
 };
 
+export const fetchAllPostsPaths = async () => {
+    const hexo = await initHexo();
+    const posts = await fetchAllPosts();
+    return posts.map(post => post.abbrlink);
+};
+
 export const fetchPaging = async page => {
     const hexo = await initHexo();
     const per_page = hexo.config.per_page;
-    const posts = hexo.database
-        .model('Post')
-        .find({})
-        .sort('-date')
-        .map(post => ({
-            title: post.title,
-            date: dayjs(post.date).format('YYYY-MM-DD'),
-            excerpt: truncate(stripHTML(post.content), { length: 120 }).replace(/[\n\r]/g, ''),
-            cover: post.cover || false,
-            abbrlink: post.abbrlink,
-        }));
+    const posts = await fetchAllPosts();
     return {
         posts: posts.splice((page - 1) * per_page, per_page),
         total: Math.ceil(posts.length / per_page) + 1,
@@ -77,21 +72,15 @@ export const fetchPaging = async page => {
 
 export const fetchPagingPaths = async () => {
     const hexo = await initHexo();
-    const posts = hexo.database.model('Post').find({});
+    const posts = await fetchAllPosts();
     const per_page = hexo.config.per_page;
     const total = Math.ceil(posts.length / per_page);
     return total;
 };
 
-export const fetchAllPostsPaths = async () => {
-    const hexo = await initHexo();
-    const posts = hexo.database.model('Post').find({}).sort('-date');
-    return posts.map(post => basename(post.abbrlink));
-};
-
 export const fetchAllTags = async () => {
     const hexo = await initHexo();
-    const tags = hexo.database.model('Tag').find({});
+    const tags = hexo.locals.get('tags');
     return tags.map(tag => ({
         name: tag.name,
         length: tag.posts.length,
@@ -115,23 +104,45 @@ export const fetchTag = async name => {
 };
 
 export const fetchCategories = async () => {
-    const hexo = await initHexo();
-    const posts = hexo.database.model('Post').find({}).sort('-date');
+    const posts = await fetchAllPosts();
     return getArchives(posts);
 };
 
-export const createPost = async title => {
+export const fetchDrafts = async () => {
     const hexo = await initHexo();
-    hexo.post.create({ title: title });
+    const posts = hexo.database.model('Post').find({ published: false }).sort('-date');
+    return posts.map(post => ({
+        title: post.title,
+        slug: post.slug,
+        date: dayjs(post.date).format('YYYY-MM-DD'),
+        wordcount: wordcount(post.content),
+        excerpt: truncate(stripHTML(post.content), { length: 120 }).replace(/[\n\r]/g, ''),
+        source: post.source,
+    }));
+};
+
+export const createDraft = async title => {
+    const hexo = await initHexo();
+    hexo.post.create({ title: title, layout: 'draft' });
+};
+
+export const publishDraft = async slug => {
+    const hexo = await initHexo();
+    hexo.post.publish({ slug: slug });
+};
+
+export const openDraft = async source => {
+    const slug = path.join(process.cwd(), 'hexo', 'source', source);
+    child_process.exec(`start ${slug}`);
 };
 
 export const fetchShowData = async () => {
     const hexo = await initHexo();
-    const posts = hexo.database.model('Post').find({}).sort('-date').data;
+    const posts = hexo.locals.get('posts').sort('-date').data;
     return {
         posts: posts.length,
-        wordcount: totalcount(posts, false),
-        tags: hexo.database.model('Tag').find({}).length,
+        wordcount: totalcount(posts),
+        tags: hexo.locals.get('tags').length,
         update: dayjs().diff(dayjs(posts[0].date), 'days'),
     };
 };
@@ -146,6 +157,7 @@ export const generateSubscribe = async () => {
         fs.writeFileSync(path.join('./public', item.path), item.data);
     });
 };
+
 export const renderMarkdown = async text => {
     const hexo = await initHexo();
     const result = hexo.render.renderSync({ text, engine: 'md' });

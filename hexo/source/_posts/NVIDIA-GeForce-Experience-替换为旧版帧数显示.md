@@ -9,7 +9,7 @@ copyright: false
 
 新版本 NVIDIA GeForce Experience 的帧数显示功能总是有着各种大大小小的问题，本想着回退到老版本，可是它却总是强制更新，于是经过一番查找，找到了个解决方法。
 
-1. [下载](https://wwe.lanzoul.com/i8exnzhq7ni)相应地文件并解压
+1. [下载](https://wwe.lanzoul.com/i8exnzhq7ni) 相应地文件并解压
 
 2. 关闭 GeForce Experience 游戏内覆盖
    ![image](https://img13.360buyimg.com/ddimg/jfs/t1/142359/30/30652/67750/637c4ea6E2706dbc1/213ce9c9cf0b02e4.png)

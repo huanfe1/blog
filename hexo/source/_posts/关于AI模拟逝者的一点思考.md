@@ -1,10 +1,11 @@
 ---
 title: 关于 AI 模拟逝者的一点思考
 author: 幻非
-tags: [ChatGPT, 胡思乱想]
+tags: [ChatGPT]
 cover: https://pic.bibiu.cc/2023/05/09/645a1ad7f0a80.jpg
 abbrlink: ec0ebf15
 date: 2023-05-08 15:49:05
+categories: 胡思乱想
 ---
 
 ChatGPT 的推出已经有了一段时间，就像黄仁勋在 NVIDIA GTC 大会主题演讲上所说的那样，AI 的 「 iPhone 」时刻已经到来。他所引领的 AI 浪潮席卷了整个互联网，太多的人在讨论着它的发展会对未来产生什么影响。

@@ -35,7 +35,7 @@ article {
     }
     // 单行代码
     :not(pre) > code {
-        @apply mx-1 rounded bg-gray-200 px-2 py-1;
+        @apply mx-1 rounded bg-gray-100 px-2 py-1 border;
     }
     // 引用框
     blockquote {
