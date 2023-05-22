@@ -11,7 +11,7 @@ export default async function handler(req, res) {
                 publishDraft(req.query.slug);
                 break;
             case 'openfile':
-                openDraft(req.query.slug)
+                openDraft(req.query.slug);
                 break;
             default:
                 res.status(200).json({ code: 1, message: '参数错误' });

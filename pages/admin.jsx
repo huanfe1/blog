@@ -6,7 +6,7 @@ import { fetchDrafts, fetchShowData } from '@/utils/database';
 import { Toaster } from 'react-hot-toast';
 
 export default function Admin({ posts, data }) {
-    if (process.env.NODE_ENV !== 'development') return <Layout title="管理页面">404</Layout>;
+    if (process.env.NODE_ENV !== 'development') return;
     return (
         <Layout title="管理页面">
             <Toaster />

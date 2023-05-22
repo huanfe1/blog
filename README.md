@@ -2,9 +2,9 @@
 
 ## TODO
 
-- Meta
-- 黑暗模式
-- 样式更新
-- 指定合集隐藏功能
-- RSS Sitemap
-- MDX
+-   Meta
+-   黑暗模式
+-   样式更新
+-   指定合集隐藏功能
+-   RSS Sitemap
+-   MDX
