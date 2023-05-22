@@ -4,15 +4,11 @@ import '@waline/client/dist/waline.css';
 
 export default function Waline() {
     const props = {
-        serverURL: 'https://waline.ixory.com/',
+        serverURL: 'https://waline.huanfei.top/',
         lang: 'zh-CN',
         imageUploader: false,
-        login: 'disable',
         search: false,
-        emoji: [
-            'https://cdn.jsdelivr.net/gh/walinejs/emojis@main/tw-emoji',
-            'https://cdn.jsdelivr.net/gh/walinejs/emojis@main/bmoji',
-        ],
+        emoji: ['https://cdn.jsdelivr.net/gh/walinejs/emojis@main/tw-emoji'],
     };
     const walineInstanceRef = useRef(null);
     const containerRef = React.createRef();
