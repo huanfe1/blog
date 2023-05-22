@@ -5,6 +5,19 @@ import { wordcount } from '@/utils/wordcount.mjs';
 import Link from 'next/link';
 import Waline from '@/components/waline';
 
+function Tags({ tags }) {
+    if (tags.length === 0) return;
+    return (
+        <div className="ml-2 mt-3 space-x-2">
+            {tags.map(tag => (
+                <Link href={'/tags/' + tag} className="text-blue-500 hover:text-blue-600 hover:underline" key={tag}>
+                    {'#' + tag}
+                </Link>
+            ))}
+        </div>
+    );
+}
+
 export default function Post(props) {
     const post = props.post;
     return (
@@ -22,20 +35,20 @@ export default function Post(props) {
                             <time dateTime={post.date}>{post.date}</time>
                             <span className="mx-1">·</span>
                             <span>{'约 ' + post.wordcount + ' 字'}</span>
+                            {post.categories.length !== 0 && (
+                                <>
+                                    <span className="mx-1">·</span>
+                                    <Link className="hover:text-blue-600" href={'/categories/' + post.categories}>
+                                        {post.categories}
+                                    </Link>
+                                </>
+                            )}
                         </div>
                     </header>
-                    <section dangerouslySetInnerHTML={{ __html: post.content }}></section>
+                    <section id="post" dangerouslySetInnerHTML={{ __html: post.content }}></section>
                     <footer>
                         {post.copyright && <License />}
-                        {post.tags.length !== 0 && (
-                            <div className="ml-2 mt-3">
-                                {post.tags.map(tag => (
-                                    <Link href={'/tags/' + tag} className="mr-2" key={tag}>
-                                        {'#' + tag}
-                                    </Link>
-                                ))}
-                            </div>
-                        )}
+                        <Tags tags={post.tags} />
                     </footer>
                 </article>
             </div>

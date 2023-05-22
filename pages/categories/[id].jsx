@@ -1,18 +1,18 @@
 import Layout from '@/components/layout';
-import { fetchAllTags, fetchTag } from '@/utils/database';
+import { fetchCategories, fetchCategoriesPaths } from '@/utils/database';
 import Card from '@/components/card';
 
-export default function Tag({ tag }) {
+export default function Categories({ category }) {
     return (
-        <Layout>
+        <Layout title="分类">
             <div className="flex justify-between rounded-xl bg-white p-5 shadow">
                 <div className="flex space-x-1">
-                    <div>{`标签:${tag.name}`}</div>
+                    <div>{`分类:${category.name}`}</div>
                 </div>
-                <div>{`共${tag.length}篇文章`}</div>
+                <div>{`共${category.length}篇文章`}</div>
             </div>
             <div className="mt-3 space-y-4">
-                {tag.posts.map(post => (
+                {category.posts.map(post => (
                     <Card post={post} key={post.abbrlink} />
                 ))}
             </div>
@@ -21,16 +21,14 @@ export default function Tag({ tag }) {
 }
 
 export async function getStaticProps({ params }) {
-    const tag = await fetchTag(params.id);
-    return {
-        props: { tag },
-    };
+    const category = await fetchCategories(params.id);
+    return { props: { category } };
 }
 
 export async function getStaticPaths() {
-    const tags = await fetchAllTags();
+    const paths = await fetchCategoriesPaths();
     return {
-        paths: tags.map(tag => ({ params: { id: tag.name } })),
+        paths: paths.map(path => ({ params: { id: path } })),
         fallback: false,
     };
 }
