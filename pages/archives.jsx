@@ -1,12 +1,12 @@
-import { fetchCategories } from '@/utils/database';
+import { fetchArchives } from '@/utils/database';
 import Layout from '@/components/layout';
 import Link from 'next/link';
 
-export default function Archives({ categories }) {
+export default function Archives({ archives }) {
     return (
         <Layout title="归档页">
             <div className="w-full">
-                {categories.map(categorie => (
+                {archives.map(categorie => (
                     <div key={categorie.year}>
                         <div className="py-3 pl-1 text-2xl font-bold">{categorie.year}</div>
                         <div className="space-y-3">
@@ -29,10 +29,10 @@ export default function Archives({ categories }) {
 }
 
 export async function getStaticProps() {
-    const categories = await fetchCategories();
+    const archives = await fetchArchives();
     return {
         props: {
-            categories,
+            archives,
         },
     };
 }

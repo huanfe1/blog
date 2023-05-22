@@ -1,4 +1,4 @@
-article {
+#post {
     a {
         @apply text-blue-500 hover:text-blue-600 hover:underline;
     }
@@ -35,7 +35,7 @@ article {
     }
     // 单行代码
     :not(pre) > code {
-        @apply mx-1 rounded bg-gray-100 px-2 py-1 border;
+        @apply mx-1 rounded border bg-gray-100 px-2 py-1;
     }
     // 引用框
     blockquote {

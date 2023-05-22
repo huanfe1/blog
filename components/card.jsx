@@ -10,7 +10,7 @@ export default function Card({ post }) {
             )}
             <div className="p-5">
                 <h2 className="mb-2 text-xl">{post.title}</h2>
-                <p className="my-2 text-sm line-clamp-2 sm:line-clamp-none">{post.excerpt}</p>
+                <p className="my-2 line-clamp-2 text-sm sm:line-clamp-none">{post.excerpt}</p>
                 <div className="time text-sm">{post.date}</div>
             </div>
         </Link>

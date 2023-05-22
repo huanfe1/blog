@@ -39,6 +39,7 @@ export const fetchPost = async abbrlink => {
         comments: post.comments || false,
         copyright: post.copyright || true,
         tags: post.tags.map(tag => tag.name),
+        categories: post.categories.map(category => category.name),
     };
 };
 
@@ -103,7 +104,7 @@ export const fetchTag = async name => {
     };
 };
 
-export const fetchCategories = async () => {
+export const fetchArchives = async () => {
     const posts = await fetchAllPosts();
     return getArchives(posts);
 };
@@ -128,7 +129,9 @@ export const createDraft = async title => {
 
 export const publishDraft = async slug => {
     const hexo = await initHexo();
-    hexo.post.publish({ slug: slug });
+    console.log(slug);
+    hexo.post.create({ title: slug }, '测试.md');
+    // hexo.post.publish({ slug: slug });
 };
 
 export const openDraft = async source => {
@@ -145,6 +148,28 @@ export const fetchShowData = async () => {
         tags: hexo.locals.get('tags').length,
         update: dayjs().diff(dayjs(posts[0].date), 'days'),
     };
+};
+
+export const fetchCategories = async name => {
+    const hexo = await initHexo();
+    const category = hexo.database.model('Category').findOne({ name });
+    return {
+        name: category.name,
+        length: category.length,
+        posts: category.posts.map(post => ({
+            title: post.title,
+            date: dayjs(post.date).format('YYYY-MM-DD'),
+            excerpt: truncate(stripHTML(post.content), { length: 120 }).replace(/[\n\r]/g, ''),
+            cover: post.cover || false,
+            abbrlink: post.abbrlink,
+        })),
+    };
+};
+
+export const fetchCategoriesPaths = async () => {
+    const hexo = await initHexo();
+    const categories = hexo.locals.get('categories');
+    return categories.map(category => category.name);
 };
 
 export const generateSubscribe = async () => {

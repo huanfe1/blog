@@ -9,7 +9,10 @@ export default function Waline() {
         imageUploader: false,
         login: 'disable',
         search: false,
-        emoji: ['https://cdn.jsdelivr.net/gh/walinejs/emojis@main/tw-emoji', 'https://cdn.jsdelivr.net/gh/walinejs/emojis@main/bmoji'],
+        emoji: [
+            'https://cdn.jsdelivr.net/gh/walinejs/emojis@main/tw-emoji',
+            'https://cdn.jsdelivr.net/gh/walinejs/emojis@main/bmoji',
+        ],
     };
     const walineInstanceRef = useRef(null);
     const containerRef = React.createRef();
@@ -27,5 +30,5 @@ export default function Waline() {
         walineInstanceRef.current?.update(props);
     }, props);
 
-    return <div ref={containerRef} id='waline' />;
+    return <div ref={containerRef} id="waline" />;
 }

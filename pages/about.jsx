@@ -23,6 +23,7 @@ export default function About({ content }) {
     return (
         <Layout title="关于页">
             <article
+                id="post"
                 className="relative rounded-xl bg-white px-5 py-3 shadow"
                 dangerouslySetInnerHTML={{ __html: content }}
             ></article>
