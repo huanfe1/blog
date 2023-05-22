@@ -52,11 +52,11 @@ export default function Post(props) {
                     </footer>
                 </article>
             </div>
-            {/* {post.comment && (
-                <div className="mt-5 px-3 py-4 overflow-hidden rounded-xl bg-white shadow">
+            {post.comments && (
+                <div className="mt-5 overflow-hidden rounded-xl bg-white px-3 py-4 shadow">
                     <Waline />
                 </div>
-            )} */}
+            )}
         </Layout>
     );
 }
