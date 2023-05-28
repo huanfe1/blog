@@ -1,6 +1,5 @@
 import Header from './header';
 import Footer from './footer';
-import Head from 'next/head';
 import Top from './top';
 import { NextSeo } from 'next-seo';
 
