@@ -1,7 +1,8 @@
-import { fetchPaging, generateSubscribe } from '@/utils/database';
 import Layout from '@/components/layout';
 import Card from '@/components/card';
 import Pagination from '@/components/pagination';
+import { allPosts } from '@/.contentlayer/generated';
+import dayjs from 'dayjs';
 
 export default function Home({ posts, current, total }) {
     return (
@@ -17,7 +18,17 @@ export default function Home({ posts, current, total }) {
 }
 
 export async function getStaticProps() {
-    const { posts, total } = await fetchPaging(1);
-    if (process.env.NODE_ENV !== 'development') await generateSubscribe();
-    return { props: { current: 1, posts, total } };
+    const per_page = 6;
+    allPosts.sort((a, b) => dayjs(b.date) - dayjs(a.date));
+    const posts = allPosts.slice(0, per_page).map(post => ({
+        title: post.title,
+        date: post.date,
+        excerpt: post.excerpt,
+        cover: post.cover,
+        abbrlink: post.abbrlink,
+    }));
+    const total = Math.ceil(posts.length / per_page) + 1;
+    return {
+        props: { current: 1, posts, total },
+    };
 }
