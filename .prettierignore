@@ -34,5 +34,15 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# hexo
-/hexo
+# custom
+/public/atom.xml
+/public/rss.xml
+/public/sitemap.xml
+/public/sitemap.txt
+
+# Contentlayer
+.contentlayer
+
+# posts
+/posts/**/*.mdx
+/posts/**/*.md

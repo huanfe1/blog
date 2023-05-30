@@ -1,6 +1,33 @@
-import { fetchArchives } from '@/utils/database';
 import Layout from '@/components/layout';
 import Link from 'next/link';
+import { allPosts } from '@/.contentlayer/generated';
+import dayjs from 'dayjs';
+
+function getArchives(posts) {
+    const arr = [];
+    posts.forEach(post => {
+        const year = dayjs(post.date).format('YYYY');
+        const index = arr.findIndex(item => item.year === year);
+        const temp = {
+            title: post.title,
+            date: dayjs(post.date).format('MM-DD'),
+            abbrlink: post.abbrlink,
+        };
+        if (index !== -1) {
+            arr[index].posts.push(temp);
+        } else {
+            arr.push({
+                year,
+                posts: [temp],
+            });
+        }
+    });
+    arr.sort((a, b) => b.year - a.year);
+    arr.forEach(item => {
+        item.posts.sort((a, b) => b.date - a.date);
+    });
+    return arr;
+}
 
 export default function Archives({ archives }) {
     return (
@@ -29,7 +56,13 @@ export default function Archives({ archives }) {
 }
 
 export async function getStaticProps() {
-    const archives = await fetchArchives();
+    const archives = getArchives(
+        allPosts.map(post => ({
+            title: post.title,
+            date: post.date,
+            abbrlink: post.abbrlink,
+        }))
+    );
     return {
         props: {
             archives,

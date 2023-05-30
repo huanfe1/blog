@@ -1,9 +1,8 @@
-import { fetchAllPostsPaths, fetchPost } from '@/utils/database';
 import Layout from '@/components/layout';
 import License from '@/components/license';
-import { wordcount } from '@/utils/wordcount.mjs';
 import Link from 'next/link';
 import Waline from '@/components/waline';
+import { allPosts } from '@/.contentlayer/generated';
 
 function Tags({ tags }) {
     if (tags.length === 0) return;
@@ -18,8 +17,7 @@ function Tags({ tags }) {
     );
 }
 
-export default function Post(props) {
-    const post = props.post;
+export default function Post({ post }) {
     return (
         <Layout title={post.title}>
             <div className="overflow-hidden rounded-xl bg-white shadow">
@@ -61,16 +59,28 @@ export default function Post(props) {
     );
 }
 
-export async function getStaticProps({ params }) {
-    const post = await fetchPost(params.id);
-    post.wordcount = wordcount(post.content);
-    return { props: { post } };
+export function getStaticProps({ params }) {
+    const post = allPosts.find(post => post.abbrlink === params.id);
+    return {
+        props: {
+            post: {
+                title: post.title,
+                date: post.date,
+                content: post.body.html,
+                wordcount: post.wordcount,
+                categories: post.categories,
+                tags: post.tags,
+                cover: post.cover,
+                comments: post.comments,
+                copyright: post.copyright,
+            },
+        },
+    };
 }
 
-export async function getStaticPaths() {
-    const paths = await fetchAllPostsPaths();
+export function getStaticPaths() {
     return {
-        paths: paths.map(path => ({ params: { id: path } })),
+        paths: allPosts.map(post => ({ params: { id: post.abbrlink } })),
         fallback: false,
     };
 }
