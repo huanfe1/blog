@@ -35,7 +35,10 @@ yarn-error.log*
 next-env.d.ts
 
 # custom
-public/atom.xml
-public/rss.xml
-public/sitemap.xml
-public/sitemap.txt
+/public/atom.xml
+/public/rss.xml
+/public/sitemap.xml
+/public/sitemap.txt
+
+# Contentlayer
+.contentlayer

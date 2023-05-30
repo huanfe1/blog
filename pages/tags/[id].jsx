@@ -1,15 +1,15 @@
 import Layout from '@/components/layout';
-import { fetchAllTags, fetchTag } from '@/utils/database';
 import Card from '@/components/card';
+import { allPosts } from '@/.contentlayer/generated';
 
 export default function Tag({ tag }) {
     return (
-        <Layout>
+        <Layout title={`标签: ${tag.name}`}>
             <div className="flex justify-between rounded-xl bg-white p-5 shadow">
                 <div className="flex space-x-1">
-                    <div>{`标签:${tag.name}`}</div>
+                    <div>{`标签: ${tag.name}`}</div>
                 </div>
-                <div>{`共${tag.length}篇文章`}</div>
+                <div>{`共 ${tag.posts.length}篇文章`}</div>
             </div>
             <div className="mt-3 space-y-4">
                 {tag.posts.map(post => (
@@ -20,17 +20,23 @@ export default function Tag({ tag }) {
     );
 }
 
-export async function getStaticProps({ params }) {
-    const tag = await fetchTag(params.id);
-    return {
-        props: { tag },
+export function getStaticProps({ params }) {
+    const tag = {
+        name: params.id,
+        posts: allPosts
+            .filter(post => post.tags.includes(params.id))
+            .map(post => ({
+                title: post.title,
+                date: post.date,
+                excerpt: post.excerpt,
+                cover: post.cover,
+                abbrlink: post.abbrlink,
+            })),
     };
+    return { props: { tag } };
 }
 
-export async function getStaticPaths() {
-    const tags = await fetchAllTags();
-    return {
-        paths: tags.map(tag => ({ params: { id: tag.name } })),
-        fallback: false,
-    };
+export function getStaticPaths() {
+    const tags = [...new Set(allPosts.map(post => post.tags).flat())];
+    return { paths: tags.map(tag => ({ params: { id: tag } })), fallback: false };
 }

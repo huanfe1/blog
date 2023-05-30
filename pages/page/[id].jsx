@@ -1,11 +1,12 @@
-import { fetchPagingPaths, fetchPaging } from '@/utils/database';
 import Layout from '@/components/layout';
 import Card from '@/components/card';
 import Pagination from '@/components/pagination';
+import { allPosts } from '@/.contentlayer/generated';
+import dayjs from 'dayjs';
 
 export default function Page({ posts, current, total }) {
     return (
-        <Layout title={`文章列表:第${current}页`}>
+        <Layout title={`文章列表: 第${current}页`}>
             <div className="space-y-4">
                 {posts.map(post => (
                     <Card post={post} key={post.abbrlink} />
@@ -16,13 +17,24 @@ export default function Page({ posts, current, total }) {
     );
 }
 
-export async function getStaticProps({ params }) {
-    const { posts, total } = await fetchPaging(params.id);
-    return { props: { current: parseInt(params.id), posts, total } };
+const per_page = 6;
+
+export function getStaticProps({ params }) {
+    const current = parseInt(params.id);
+    allPosts.sort((a, b) => dayjs(b.date) - dayjs(a.date));
+    const posts = allPosts.slice((current - 1) * per_page, per_page + (current - 1) * per_page).map(post => ({
+        title: post.title,
+        date: post.date,
+        excerpt: post.excerpt,
+        cover: post.cover,
+        abbrlink: post.abbrlink,
+    }));
+    const total = Math.ceil(posts.length / per_page) + 1;
+    return { props: { current, posts, total } };
 }
 
-export async function getStaticPaths() {
-    const num = await fetchPagingPaths();
+export function getStaticPaths() {
+    const num = Math.ceil(allPosts.length / per_page);
     return {
         paths: Array(num - 1)
             .fill()

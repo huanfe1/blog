@@ -1,6 +1,6 @@
 import Layout from '@/components/layout';
-import { fetchAllTags } from '@/utils/database';
 import Link from 'next/link';
+import { allPosts } from '@/.contentlayer/generated';
 
 export default function Tags({ tags }) {
     return (
@@ -13,9 +13,9 @@ export default function Tags({ tags }) {
             </div>
             <div className="mt-3 space-x-6 space-y-2 rounded-xl bg-white p-5 shadow">
                 {tags.map(tag => (
-                    <span key={tag.name}>
-                        <Link href={`/tags/${tag.name}`} className="hover:text-blue-700">
-                            {tag.name}
+                    <span key={tag}>
+                        <Link href={`/tags/${tag}`} className="hover:text-blue-700">
+                            {tag}
                         </Link>
                     </span>
                 ))}
@@ -25,8 +25,6 @@ export default function Tags({ tags }) {
 }
 
 export async function getStaticProps() {
-    const tags = await fetchAllTags();
-    return {
-        props: { tags },
-    };
+    const tags = [...new Set(allPosts.map(post => post.tags).flat())];
+    return { props: { tags } };
 }
