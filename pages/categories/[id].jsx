@@ -9,7 +9,7 @@ export default function Categories({ category }) {
                 <div className="flex space-x-1">
                     <div>{`分类: ${category.name}`}</div>
                 </div>
-                <div>{`共 ${category.posts.length}篇文章`}</div>
+                <div>{`共 ${category.posts.length} 篇文章`}</div>
             </div>
             <div className="mt-3 space-y-4">
                 {category.posts.map(post => (

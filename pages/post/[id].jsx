@@ -2,7 +2,7 @@ import Layout from '@/components/layout';
 import License from '@/components/license';
 import Link from 'next/link';
 import Waline from '@/components/waline';
-import { allPosts } from '@/.contentlayer/generated';
+import { allPosts, allDrafts } from '@/.contentlayer/generated';
 
 function Tags({ tags }) {
     if (tags.length === 0) return;
@@ -60,7 +60,9 @@ export default function Post({ post }) {
 }
 
 export function getStaticProps({ params }) {
-    const post = allPosts.find(post => post.abbrlink === params.id);
+    const posts = [...allPosts];
+    if (process.env.NODE_ENV === 'development') posts.push(...allDrafts);
+    const post = posts.find(post => post.abbrlink === params.id);
     return {
         props: {
             post: {
@@ -79,8 +81,10 @@ export function getStaticProps({ params }) {
 }
 
 export function getStaticPaths() {
+    const posts = [...allPosts];
+    if (process.env.NODE_ENV === 'development') posts.push(...allDrafts);
     return {
-        paths: allPosts.map(post => ({ params: { id: post.abbrlink } })),
+        paths: posts.map(post => ({ params: { id: post.abbrlink } })),
         fallback: false,
     };
 }
