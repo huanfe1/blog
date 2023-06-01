@@ -9,7 +9,7 @@ export default function Tags({ tags }) {
                 <div className="flex space-x-1">
                     <div>标签页</div>
                 </div>
-                <div>{`共${tags.length}个标签`}</div>
+                <div>{`共 ${tags.length} 个标签`}</div>
             </div>
             <div className="mt-3 space-x-6 space-y-2 rounded-xl bg-white p-5 shadow">
                 {tags.map(tag => (

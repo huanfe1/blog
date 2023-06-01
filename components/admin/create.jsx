@@ -24,19 +24,17 @@ export default function Input() {
     const [title, setTitle] = useState('');
     const click = () => {
         if (!title) return;
-        if (confirm('是否创建名为 ' + title + ' 的草稿')) {
-            fetch('/api/database/createdraft?title=' + title)
-                .then(res => res.json())
-                .then(res => {
-                    if (res.code === 0) {
-                        toast.success('已成功创建草稿');
-                        setTitle('');
-                        location.reload();
-                    } else {
-                        toast.error('草稿创建失败');
-                    }
-                });
-        }
+        if (!confirm('是否创建名为 ' + title + ' 的草稿')) return;
+        fetch('/api/posts/create?title=' + title)
+            .then(res => res.json())
+            .then(res => {
+                if (res.code === 0) {
+                    toast.success('已成功创建草稿');
+                    setTitle('');
+                } else {
+                    toast.error('草稿创建失败');
+                }
+            });
     };
     return (
         <div className="mt-5 flex w-full overflow-hidden rounded-xl border bg-white p-1">
