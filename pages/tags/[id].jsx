@@ -9,7 +9,7 @@ export default function Tag({ tag }) {
                 <div className="flex space-x-1">
                     <div>{`标签: ${tag.name}`}</div>
                 </div>
-                <div>{`共 ${tag.posts.length}篇文章`}</div>
+                <div>{`共 ${tag.posts.length} 篇文章`}</div>
             </div>
             <div className="mt-3 space-y-4">
                 {tag.posts.map(post => (

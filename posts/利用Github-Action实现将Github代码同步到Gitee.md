@@ -3,7 +3,7 @@ title: 利用GitHub Actions实现将GitHub代码同步到Gitee
 author: 幻非
 abbrlink: 2be65f67
 date: 2022-05-29 12:24:20
-tags: [Github]
+tags: [GitHub]
 cover: https://img12.360buyimg.com/ddimg/jfs/t1/117849/39/31323/57620/63c130baF7ca348dc/55d957d1c1392617.webp
 ---
 
