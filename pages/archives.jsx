@@ -56,13 +56,14 @@ export default function Archives({ archives }) {
 }
 
 export async function getStaticProps() {
-    const archives = getArchives(
-        allPosts.map(post => ({
+    const posts = allPosts
+        .sort((a, b) => dayjs(b.date) - dayjs(a.date))
+        .map(post => ({
             title: post.title,
             date: post.date,
             abbrlink: post.abbrlink,
-        }))
-    );
+        }));
+    const archives = getArchives(posts);
     return {
         props: {
             archives,

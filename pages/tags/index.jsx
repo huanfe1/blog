@@ -11,9 +11,9 @@ export default function Tags({ tags }) {
                 </div>
                 <div>{`共 ${tags.length} 个标签`}</div>
             </div>
-            <div className="mt-3 space-x-6 space-y-2 rounded-xl bg-white p-5 shadow">
+            <div className="mt-3 rounded-xl bg-white p-5 shadow">
                 {tags.map(tag => (
-                    <span key={tag}>
+                    <span key={tag} className='mx-2 inline-block'>
                         <Link href={`/tags/${tag}`} className="hover:text-blue-700">
                             {tag}
                         </Link>
