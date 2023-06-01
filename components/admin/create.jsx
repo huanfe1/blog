@@ -32,7 +32,7 @@ export default function Input() {
                     toast.success('已成功创建草稿');
                     setTitle('');
                 } else {
-                    toast.error('草稿创建失败');
+                    toast.error('草稿创建失败' + res.message);
                 }
             });
     };

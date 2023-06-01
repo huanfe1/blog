@@ -1,9 +1,19 @@
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 export default function Draft({ posts }) {
     const click = slug => {
         if (!confirm('是否发布该草稿')) return;
-        fetch('/api/posts/publish?slug=' + slug);
+        fetch('/api/posts/publish?slug=' + slug)
+            .then(res => res.json())
+            .then(res => {
+                if (res.code === 0) {
+                    toast.success('已成功发布草稿');
+                    setTitle('');
+                } else {
+                    toast.error('草稿发布失败' + res.message);
+                }
+            });
     };
     return (
         <div className="mt-5">
