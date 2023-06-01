@@ -6,8 +6,7 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint",
-        "postinstall": "patch-package"
+        "lint": "next lint"
     },
     "devDependencies": {
         "@waline/client": "^2.15.5",
@@ -18,12 +17,11 @@
     },
     "dependencies": {
         "autoprefixer": "10.4.14",
-        "contentlayer": "^0.3.2",
+        "contentlayer": "^0.3.3",
         "dayjs": "^1.11.7",
         "next": "13.3.4",
-        "next-contentlayer": "^0.3.2",
+        "next-contentlayer": "^0.3.3",
         "nprogress": "^0.2.0",
-        "patch-package": "^7.0.0",
         "postcss": "8.4.23",
         "react": "18.2.0",
         "react-dom": "18.2.0",
