@@ -1,6 +1,7 @@
 import Layout from '@/components/layout';
 import Card from '@/components/card';
 import { allPosts } from '@/.contentlayer/generated';
+import dayjs from 'dayjs';
 
 export default function Categories({ category }) {
     return (
@@ -24,12 +25,12 @@ export function getStaticProps({ params }) {
     const category = {
         name: params.id,
         posts: allPosts
-            .filter(post => post.categories.includes(params.id))
+            .filter(post => post.categories === params.id)
+            .sort((a, b) => dayjs(b.date) - dayjs(a.date))
             .map(post => ({
                 title: post.title,
                 date: post.date,
                 excerpt: post.excerpt,
-                cover: post.cover,
                 abbrlink: post.abbrlink,
             })),
     };
