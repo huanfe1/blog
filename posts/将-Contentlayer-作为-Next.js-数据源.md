@@ -20,7 +20,7 @@ Hexo 是一个博客框架，但我只使用了其提供的数据处理功能，
 
 官网介绍到 Contentlayer 是一个 **Content SDK** ，用于验证内容并将其转化为类型安全的 JSON 数据，使您可以轻易将其导入到应用中去。
 
-此项目起步于 2022 年，目前处于测试阶段，与很多项目的对接还处于实验阶段，目前仅支持处理本地 **MD/MDX** 文件，并只能将其导入到 Next.js 中，但作者却很自信说出了要成为管理 Next.js 项目内容的首选工具的豪言壮志。
+此项目起步于 2022 年，目前还处于测试阶段，仅支持处理本地 **MD/MDX** 文件，且只支持 Next.js，但文档所写已经完全支持 Next.js ，并且很自信说出了想要成为管理 Next.js 项目内容的首选工具。
 
 ![image-20230530221458703](https://pic.bibiu.cc/2023/05/31/64772d8817e24.png)
 
@@ -34,12 +34,12 @@ Hexo 是一个博客框架，但我只使用了其提供的数据处理功能，
 
 -   支持 TypeScript ，并能根据配置文件自动生成相应的类型文件
 -   更快的处理速度，采取了增量和并行构建，并加入了缓存系统
--   可以监控文件修改，进行增量更新，并实时刷新页面内容
+-   可以监控文件修改，并实时刷新页面内容
 -   所需编写代码较少，上手容易
 
 ## 工作流程
 
-官网也大体描述了 Contentlayer 的工作过程。
+官网大体描述了 Contentlayer 的工作流程。
 
 首先需要在本地配置好基本的类型定义以及项目目录。
 
@@ -65,7 +65,7 @@ export default makeSource({
 
 ![image-20230530231638302](https://pic.bibiu.cc/2023/05/31/64772dd0bbf3a.png)
 
-在自动生成的 `index.mjs` 文件内接着通过 `import` 的方式导入这些 `JSON` 文件并将数据导出为一个合集以便外部引用。
+在自动生成的 `index.mjs` 文件内通过 `import` 的方式导入这些 `JSON` 文件并将数据合并导出以便外部引用。
 
 ![image-20230530233326709](https://pic.bibiu.cc/2023/05/31/64772d883adf6.png)
 
@@ -74,8 +74,15 @@ export default makeSource({
 ```javascript
 import { allPosts } from 'contentlayer/generated'
  
-export function getStaticProps() {
-  return { props: { posts: allPosts } }
+export function getStaticProps({ params }) {
+  return { props: { posts: allPosts.find(post => post.slug === params.slug) } }
+}
+
+export function getStaticPaths() {
+    return {
+        paths: allPosts.map(post => ({ params: { slug: post.slug } })),
+        fallback: false,
+    };
 }
 ```
 
@@ -83,7 +90,10 @@ export function getStaticProps() {
 
 ## 结语
 
-在搭建 Contentlayer 时还遇到了一个 BUG ，并给项目提交了一个 [PR](https://github.com/contentlayerdev/contentlayer/pull/470) ，虽说没有成功合并，但成功解决了 BUG，想查看详细信息的可以点击链接查看具体细节。
+在搭建 Contentlayer 时还遇到了一个中文语言的 BUG ，在提交 [PR](https://github.com/contentlayerdev/contentlayer/pull/470) 并与开发者一番交流后已成功在新版本中修复。
 
-弃用 Hexo 后，其提供的一系列扩展或工具便需要自己编写。但此次更新还是较为满意，博客的文章处理和构建速度得到了较大提升。
+![image-20230601100233330](https://pic.bibiu.cc/2023/06/01/6477fb5f32c86.png)
 
+弃用 Hexo 后，其提供的一系列扩展或工具便需要自己编写。但此次更新还是较为满意，博客的文章处理和构建速度以及使用体验都得到了较大提升。
+
+在博客框架经历了 Hexo、Astro、Nuxt.js、Next.js 的迭代后，发现还是 Next.js 更适合自己，其在各个方面的编写体验都感到很流畅，以后可能会在很长一段时间内继续使用，不再变更。
