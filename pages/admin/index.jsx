@@ -1,14 +1,16 @@
 import Layout from '@/components/layout';
 import Create from '@/components/admin/create';
 import Draft from '@/components/admin/draft';
+import Data from '@/components/admin/data';
 import { Toaster } from 'react-hot-toast';
-import { allDrafts } from '@/.contentlayer/generated';
+import { allPosts, allDrafts } from '@/.contentlayer/generated';
 
-export default function Admin({ drafts }) {
+export default function Admin({ posts, drafts }) {
     if (process.env.NODE_ENV !== 'development') return;
     return (
         <Layout title="管理页面">
             <Toaster />
+            <Data posts={posts} />
             <Create />
             {drafts.length > 0 && <Draft posts={drafts} />}
         </Layout>
@@ -24,6 +26,6 @@ export async function getStaticProps() {
         date: post.date,
     }));
     return {
-        props: { drafts },
+        props: { drafts, posts: allPosts },
     };
 }
