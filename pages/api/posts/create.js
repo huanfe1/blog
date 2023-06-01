@@ -41,7 +41,12 @@ export default async function handler(req, res) {
         content += `${key}: ${value}\n`;
     }
     content += '---\n';
-    const filePath = await getFilePath(title.replace(/\s+/g, '-'));
-    await fs.promises.writeFile(filePath, content);
-    res.status(200).json({ code: 0, message: content });
+    try {
+        const filePath = await getFilePath(title.replace(/\s+/g, '-'));
+        await fs.promises.writeFile(filePath, content);
+    } catch (e) {
+        res.status(200).json({ code: 1, message: e.message });
+    } finally {
+        res.status(200).json({ code: 0, message: 'success' });
+    }
 }
