@@ -4,6 +4,7 @@ const items = [
     { title: '首页', link: '/' },
     { title: '标签', link: '/tags' },
     { title: '归档', link: '/archives' },
+    { title: '订阅', link: '/atom.xml' },
 ];
 
 if (process.env.NODE_ENV !== 'production') items.push({ title: '管理', link: '/admin' });

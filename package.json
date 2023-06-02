@@ -19,6 +19,7 @@
         "autoprefixer": "10.4.14",
         "contentlayer": "^0.3.3",
         "dayjs": "^1.11.7",
+        "feed": "^4.2.2",
         "next": "13.3.4",
         "next-contentlayer": "^0.3.3",
         "nprogress": "^0.2.0",
