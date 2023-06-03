@@ -9,5 +9,8 @@
                 }
             ]
         }
-    ]
+    ],
+    "github": {
+        "silent": true
+    }
 }
