@@ -13,7 +13,7 @@ export default function Tags({ tags }) {
             </div>
             <div className="mt-3 rounded-xl bg-white p-5 shadow">
                 {tags.map(tag => (
-                    <span key={tag} className='mx-2 inline-block'>
+                    <span key={tag} className="mx-2 inline-block">
                         <Link href={`/tags/${tag}`} className="hover:text-blue-700">
                             {tag}
                         </Link>
