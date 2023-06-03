@@ -4,6 +4,7 @@ import Pagination from '@/components/pagination';
 import { allPosts } from '@/.contentlayer/generated';
 import dayjs from 'dayjs';
 import feed from '@/utils/feed';
+import sitemap from '@/utils/sitemap';
 
 export default function Home({ posts, current, total }) {
     return (
@@ -19,7 +20,10 @@ export default function Home({ posts, current, total }) {
 }
 
 export async function getStaticProps() {
-    if (process.env.NODE_ENV !== 'development') feed();
+    if (process.env.NODE_ENV !== 'development') {
+        sitemap();
+        feed();
+    }
     const per_page = 6;
     allPosts.sort((a, b) => dayjs(b.date) - dayjs(a.date));
     const posts = allPosts.slice(0, per_page).map(post => ({
