@@ -16,7 +16,7 @@ html {
 }
 
 main {
-    @apply w-11/12;
+    @apply w-full;
     @screen sm {
         @apply w-4/5;
     }
