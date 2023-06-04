@@ -5,13 +5,13 @@ import { allPosts } from '@/.contentlayer/generated';
 export default function Tags({ tags }) {
     return (
         <Layout title="标签页">
-            <div className="flex justify-between rounded-xl bg-white p-5 shadow">
+            <div className="flex justify-between rounded-xl bg-[--main] p-5 shadow">
                 <div className="flex space-x-1">
                     <div>标签页</div>
                 </div>
                 <div>{`共 ${tags.length} 个标签`}</div>
             </div>
-            <div className="mt-3 rounded-xl bg-white p-5 shadow">
+            <div className="mt-3 rounded-xl bg-[--main] p-5 shadow">
                 {tags.map(tag => (
                     <span key={tag} className="mx-2 inline-block">
                         <Link href={`/tags/${tag}`} className="hover:text-blue-700">

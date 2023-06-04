@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 export default function Tag({ tag }) {
     return (
         <Layout title={`标签: ${tag.name}`}>
-            <div className="flex justify-between rounded-xl bg-white p-5 shadow">
+            <div className="flex justify-between rounded-xl bg-[--main] p-5 shadow">
                 <div className="flex space-x-1">
                     <div>{`标签: ${tag.name}`}</div>
                 </div>

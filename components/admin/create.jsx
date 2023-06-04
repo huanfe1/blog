@@ -9,7 +9,7 @@ function Clear({ title, setTitle }) {
             onClick={() => {
                 setTitle('');
             }}
-            className="absolute right-3 mr-1 h-5 w-5 cursor-pointer rounded-full bg-gray-200 p-1 hover:bg-gray-300"
+            className="absolute right-3 mr-1 h-5 w-5 cursor-pointer rounded-full bg-gray-500 p-1 hover:bg-gray-700"
             style={{ visibility: title ? 'inherit' : 'hidden' }}
         >
             <path
@@ -37,7 +37,7 @@ export default function Input() {
             });
     };
     return (
-        <div className="mt-5 flex w-full overflow-hidden rounded-xl border bg-white p-1">
+        <div className="mt-5 flex w-full overflow-hidden rounded-xl border border-[--border] bg-[--main] p-1">
             <div className="relative flex w-full items-center">
                 <input
                     type="text"
