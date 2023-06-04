@@ -14,7 +14,10 @@ export default function Data({ posts }) {
     return (
         <ul className="grid grid-cols-4 gap-x-3">
             {items.map(item => (
-                <li key={item.title} className="flex flex-col space-y-1 rounded-xl bg-white p-3 text-center shadow-sm">
+                <li
+                    key={item.title}
+                    className="flex flex-col space-y-1 rounded-xl bg-[--main] p-3 text-center shadow-sm"
+                >
                     <span>{item.title}</span>
                     <span>{item.data}</span>
                 </li>

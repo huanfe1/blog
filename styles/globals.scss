@@ -4,11 +4,11 @@
 
 @import './highlight.scss';
 @import './article.scss';
-@import './about.scss';
 @import './waline.scss';
+@import './variables.scss';
 
 body {
-    background-color: #f2f5f8;
+    @apply bg-[--bg] text-[--text];
 }
 
 html {
