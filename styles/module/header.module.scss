@@ -1,12 +1,12 @@
 .nav {
-    @apply flex w-full flex-col items-center justify-center bg-white shadow;
+    @apply flex w-full flex-col items-center justify-center bg-[--main] shadow;
     @screen sm {
         @apply flex-row justify-between px-16;
     }
     & > div {
         @apply flex;
         a {
-            @apply px-3 py-2 hover:bg-gray-300 hover:text-blue-700;
+            @apply px-3 py-2 hover:bg-[--main-hover] hover:text-blue-700;
             @screen sm {
                 @apply py-4;
             }
