@@ -44,7 +44,7 @@ export default function Archives({ archives }) {
                                     key={post.abbrlink}
                                 >
                                     <div>{post.title}</div>
-                                    <div>{post.date}</div>
+                                    <div className='flex-none'>{post.date}</div>
                                 </Link>
                             ))}
                         </div>
