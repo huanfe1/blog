@@ -20,7 +20,7 @@ function Tags({ tags }) {
 export default function Post({ post }) {
     return (
         <Layout title={post.title}>
-            <div className="overflow-hidden rounded-xl bg-white shadow">
+            <div className="overflow-hidden rounded-xl bg-[--main] shadow">
                 {post.cover && (
                     <div className="flex max-h-80 items-center overflow-hidden">
                         <img src={post.cover} alt="" />
@@ -51,7 +51,7 @@ export default function Post({ post }) {
                 </article>
             </div>
             {post.comments && (
-                <div className="mt-5 overflow-hidden rounded-xl bg-white px-3 py-4 shadow">
+                <div className="mt-5 overflow-hidden rounded-xl bg-[--main] px-3 py-4 shadow">
                     <Waline />
                 </div>
             )}

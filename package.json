@@ -6,7 +6,8 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "format": "prettier --write ."
     },
     "devDependencies": {
         "@waline/client": "^2.15.5",
@@ -17,6 +18,7 @@
     },
     "dependencies": {
         "autoprefixer": "10.4.14",
+        "classnames": "^2.3.2",
         "contentlayer": "^0.3.3",
         "dayjs": "^1.11.7",
         "feed": "^4.2.2",

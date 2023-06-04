@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { nav } from '@/styles/module/header.module.scss';
+import Color from './color';
 
 const development = process.env.NODE_ENV === 'development';
 
@@ -17,6 +18,7 @@ export default function header() {
                     订阅
                 </Link>
                 {development && <Link href="/admin">管理</Link>}
+                <Color />
             </div>
         </nav>
     );

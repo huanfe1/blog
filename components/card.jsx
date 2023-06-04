@@ -2,10 +2,10 @@ import Link from 'next/link';
 
 export default function Card({ post }) {
     return (
-        <Link href={'/post/' + post.abbrlink} className="block overflow-hidden rounded-xl bg-white shadow">
+        <Link href={'/post/' + post.abbrlink} className="block overflow-hidden rounded-xl bg-[--main] shadow">
             {post.cover && (
                 <div
-                    className="hidden items-center overflow-hidden bg-gray-200 sm:flex sm:h-56 md:h-64 lg:h-80"
+                    className="hidden items-center overflow-hidden bg-gray-200 dark:brightness-[0.8] sm:flex sm:h-56 md:h-64 lg:h-80"
                     style={{
                         backgroundImage: `url(${post.cover})`,
                         backgroundSize: 'cover',

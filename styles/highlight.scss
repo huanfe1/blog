@@ -3,7 +3,7 @@ pre {
 }
 
 pre code.hljs {
-    @apply my-3 block overflow-x-auto rounded border bg-gray-50 p-4;
+    @apply my-3 block overflow-x-auto rounded border border-[--border] bg-gray-50 p-4 dark:bg-gray-800;
 }
 
 code.hljs::-webkit-scrollbar {
