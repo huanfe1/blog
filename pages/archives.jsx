@@ -40,7 +40,7 @@ export default function Archives({ archives }) {
                             {categorie.posts.map(post => (
                                 <Link
                                     href={'/post/' + post.abbrlink}
-                                    className="flex items-center justify-between rounded-lg bg-white p-4 shadow"
+                                    className="flex items-center justify-between rounded-lg bg-[--main] p-4 shadow"
                                     key={post.abbrlink}
                                 >
                                     <div>{post.title}</div>

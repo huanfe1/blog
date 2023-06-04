@@ -1,0 +1,22 @@
+html {
+    color-scheme: light;
+    --bg: #f2f5f8;
+    --main: #fff;
+    --main-hover: #d1d5db;
+    --border: #e5e7eb;
+    --code: #f3f4f6;
+    --text: #000;
+}
+
+html.dark {
+    color-scheme: dark;
+    --bg: #181c27;
+    --main: #252d38;
+    --main-hover: #374151;
+    --border: #374151;
+    --code: #374151;
+    --text: hsla(0, 0%, 100%, 0.86);
+    img {
+        filter: brightness(0.8);
+    }
+}
