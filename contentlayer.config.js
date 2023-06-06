@@ -47,6 +47,10 @@ export const Draft = defineDocumentType(() => ({
     computedFields: {
         date: { type: 'string', resolve: post => dayjs(post.date).format('YYYY-MM-DD') },
         wordcount: { type: 'number', resolve: post => wordcount(post.body.html.replace(/<[^>]+>/g, '')) },
+        excerpt: {
+            type: 'string',
+            resolve: post => truncate(post.body.html.replace(/<[^>]+>/g, ''), { length: 120 }).replace(/[\n\r]/g, ''),
+        },
     },
 }));
 
