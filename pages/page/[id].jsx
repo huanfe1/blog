@@ -3,17 +3,21 @@ import Card from '@/components/card';
 import Pagination from '@/components/pagination';
 import { allPosts } from '@/.contentlayer/generated';
 import dayjs from 'dayjs';
+import { NextSeo } from 'next-seo';
 
 export default function Page({ posts, current, total }) {
     return (
-        <Layout title={`文章列表: 第${current}页`}>
-            <div className="space-y-4">
-                {posts.map(post => (
-                    <Card post={post} key={post.abbrlink} />
-                ))}
-            </div>
-            <Pagination current={current} total={total} />
-        </Layout>
+        <>
+            <NextSeo title={`文章列表: 第${current}页`} />
+            <Layout>
+                <div className="space-y-4">
+                    {posts.map(post => (
+                        <Card post={post} key={post.abbrlink} />
+                    ))}
+                </div>
+                <Pagination current={current} total={total} />
+            </Layout>
+        </>
     );
 }
 

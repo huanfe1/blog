@@ -5,17 +5,25 @@ import { allPosts } from '@/.contentlayer/generated';
 import dayjs from 'dayjs';
 import feed from '@/utils/feed';
 import sitemap from '@/utils/sitemap';
+import { NextSeo } from 'next-seo';
 
 export default function Home({ posts, current, total }) {
     return (
-        <Layout title="首页">
-            <div className="space-y-4">
-                {posts.map(post => (
-                    <Card post={post} key={post.abbrlink} />
-                ))}
-            </div>
-            <Pagination current={current} total={total} />
-        </Layout>
+        <>
+            <NextSeo
+                title="首页"
+                canonical="https://blog.huanfei.top/"
+                description="幻非的个人博客，记录一些技术或者想法"
+            />
+            <Layout>
+                <div className="space-y-4">
+                    {posts.map(post => (
+                        <Card post={post} key={post.abbrlink} />
+                    ))}
+                </div>
+                <Pagination current={current} total={total} />
+            </Layout>
+        </>
     );
 }
 

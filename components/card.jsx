@@ -13,11 +13,11 @@ export default function Card({ post }) {
                     }}
                 ></div>
             )}
-            <div className="p-5">
+            <article className="p-5">
                 <h2 className="mb-2 text-xl">{post.title}</h2>
-                <p className="my-2 line-clamp-2 text-sm sm:line-clamp-none">{post.excerpt}</p>
-                <div className="time text-sm">{post.date}</div>
-            </div>
+                <section className="my-2 line-clamp-2 text-sm sm:line-clamp-none">{post.excerpt}</section>
+                <time className="time text-sm">{post.date}</time>
+            </article>
         </Link>
     );
 }

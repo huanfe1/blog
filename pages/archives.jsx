@@ -2,6 +2,7 @@ import Layout from '@/components/layout';
 import Link from 'next/link';
 import { allPosts } from '@/.contentlayer/generated';
 import dayjs from 'dayjs';
+import { NextSeo } from 'next-seo';
 
 function getArchives(posts) {
     const arr = [];
@@ -31,27 +32,30 @@ function getArchives(posts) {
 
 export default function Archives({ archives }) {
     return (
-        <Layout title="归档页">
-            <div className="w-full">
-                {archives.map(categorie => (
-                    <div key={categorie.year}>
-                        <div className="py-3 pl-1 text-2xl font-bold">{categorie.year}</div>
-                        <div className="space-y-3">
-                            {categorie.posts.map(post => (
-                                <Link
-                                    href={'/post/' + post.abbrlink}
-                                    className="flex items-center justify-between rounded-lg bg-[--main] p-4 shadow"
-                                    key={post.abbrlink}
-                                >
-                                    <div>{post.title}</div>
-                                    <div className='flex-none'>{post.date}</div>
-                                </Link>
-                            ))}
+        <>
+            <NextSeo title="归档页" />
+            <Layout>
+                <div className="w-full">
+                    {archives.map(categorie => (
+                        <div key={categorie.year}>
+                            <div className="py-3 pl-1 text-2xl font-bold">{categorie.year}</div>
+                            <div className="space-y-3">
+                                {categorie.posts.map(post => (
+                                    <Link
+                                        href={'/post/' + post.abbrlink}
+                                        className="flex items-center justify-between rounded-lg bg-[--main] p-4 shadow"
+                                        key={post.abbrlink}
+                                    >
+                                        <div>{post.title}</div>
+                                        <div className="flex-none">{post.date}</div>
+                                    </Link>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </div>
-        </Layout>
+                    ))}
+                </div>
+            </Layout>
+        </>
     );
 }
 
