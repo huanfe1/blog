@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Waline from '@/components/waline';
 import { allPosts, allDrafts } from '@/.contentlayer/generated';
 import { NextSeo } from 'next-seo';
+import { parser } from 'posthtml-parser';
+import { posthtmlToReact } from '@/utils/posthtmlToReact';
 
 function Tags({ tags }) {
     if (tags.length === 0) return;
@@ -61,20 +63,41 @@ export default function Post({ post }) {
                                 )}
                             </div>
                         </header>
-                        <section id="post" dangerouslySetInnerHTML={{ __html: post.content }}></section>
+                        <section id="post">
+                            <GetMdxContent content={post.content} />
+                        </section>
                         <footer>
                             {post.copyright && <License />}
                             <Tags tags={post.tags} />
                         </footer>
                     </article>
                 </div>
-                {post.comments && (
+                {post.comments && process.env.NODE_ENV !== 'development' && (
                     <div className="mt-5 overflow-hidden rounded-xl bg-[--main] px-3 py-4 shadow">
                         <Waline />
                     </div>
                 )}
             </Layout>
         </>
+    );
+}
+
+function GetMdxContent({ content }) {
+    const tree = parser(content);
+    return posthtmlToReact(tree, { pre: Pre });
+}
+
+function Pre(props) {
+    console.log(props);
+    return (
+        <pre
+            {...props}
+            onClick={() => {
+                console.log('测试');
+            }}
+        >
+            {...props.children}
+        </pre>
     );
 }
 
