@@ -3,6 +3,7 @@ import License from '@/components/license';
 import Link from 'next/link';
 import Waline from '@/components/waline';
 import { allPosts, allDrafts } from '@/.contentlayer/generated';
+import { NextSeo } from 'next-seo';
 
 function Tags({ tags }) {
     if (tags.length === 0) return;
@@ -19,43 +20,61 @@ function Tags({ tags }) {
 
 export default function Post({ post }) {
     return (
-        <Layout title={post.title}>
-            <div className="overflow-hidden rounded-xl bg-[--main] shadow">
-                {post.cover && (
-                    <div className="flex max-h-80 items-center overflow-hidden">
-                        <img src={post.cover} alt="" />
+        <>
+            <NextSeo
+                title={post.title}
+                canonical={'https://blog.huanfei.top/post/' + post.abbrlink}
+                description={post.excerpt}
+                openGraph={{
+                    url: 'https://blog.huanfei.top/post/' + post.abbrlink,
+                    type: 'article',
+                    article: {
+                        publishedTime: post.date,
+                        modifiedTime: post.date,
+                        authors: ['https://huanfei.top'],
+                        tags: post.tags,
+                    },
+                    images: [{ url: post.cover }],
+                }}
+            />
+            <Layout>
+                <div className="overflow-hidden rounded-xl bg-[--main] shadow">
+                    {post.cover && (
+                        <div className="flex max-h-80 items-center overflow-hidden">
+                            <img src={post.cover} alt="" />
+                        </div>
+                    )}
+                    <article className="p-5">
+                        <header>
+                            <h1 className="mb-3 text-3xl">{post.title}</h1>
+                            <div className="text-subtitle">
+                                <time dateTime={post.date}>{post.date}</time>
+                                <span className="mx-1">·</span>
+                                <span>{'约 ' + post.wordcount + ' 字'}</span>
+                                {post.categories.length !== 0 && (
+                                    <>
+                                        <span className="mx-1">·</span>
+                                        <Link className="hover:text-blue-600" href={'/categories/' + post.categories}>
+                                            {post.categories}
+                                        </Link>
+                                    </>
+                                )}
+                            </div>
+                        </header>
+                        <section id="post" dangerouslySetInnerHTML={{ __html: post.content }}></section>
+                        <footer>
+                            {post.copyright && <License />}
+                            <Tags tags={post.tags} />
+                        </footer>
+                    </article>
+                </div>
+                {post.comments && (
+                    <div className="mt-5 overflow-hidden rounded-xl bg-[--main] px-3 py-4 shadow">
+                        <Waline />
                     </div>
                 )}
-                <article className="p-5">
-                    <header>
-                        <h1 className="mb-3 text-3xl">{post.title}</h1>
-                        <div className="text-subtitle">
-                            <time dateTime={post.date}>{post.date}</time>
-                            <span className="mx-1">·</span>
-                            <span>{'约 ' + post.wordcount + ' 字'}</span>
-                            {post.categories.length !== 0 && (
-                                <>
-                                    <span className="mx-1">·</span>
-                                    <Link className="hover:text-blue-600" href={'/categories/' + post.categories}>
-                                        {post.categories}
-                                    </Link>
-                                </>
-                            )}
-                        </div>
-                    </header>
-                    <section id="post" dangerouslySetInnerHTML={{ __html: post.content }}></section>
-                    <footer>
-                        {post.copyright && <License />}
-                        <Tags tags={post.tags} />
-                    </footer>
-                </article>
-            </div>
-            {post.comments && (
-                <div className="mt-5 overflow-hidden rounded-xl bg-[--main] px-3 py-4 shadow">
-                    <Waline />
-                </div>
-            )}
-        </Layout>
+            </Layout>
+        </>
     );
 }
 
@@ -68,6 +87,7 @@ export function getStaticProps({ params }) {
             post: {
                 title: post.title,
                 date: post.date,
+                abbrlink: post.abbrlink,
                 content: post.body.html,
                 wordcount: post.wordcount,
                 categories: post.categories,
@@ -75,6 +95,7 @@ export function getStaticProps({ params }) {
                 cover: post.cover,
                 comments: post.comments,
                 copyright: post.copyright,
+                excerpt: post.excerpt,
             },
         },
     };

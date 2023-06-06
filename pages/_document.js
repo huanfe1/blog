@@ -11,6 +11,8 @@ export default function Document() {
             <Head>
                 <link rel="stylesheet" href="https://s1.hdslb.com/bfs/static/jinkela/long/font/regular.css" />
                 <script dangerouslySetInnerHTML={{ __html: analytics }} />
+                <link rel="icon" href="https://blog.huanfei.top/favicon.ico" type="image/ico" />
+                <link rel="icon" href="https://blog.huanfei.top/avatar.png" type="image/png" sizes="96x96" />
             </Head>
             <body>
                 <script dangerouslySetInnerHTML={{ __html: theme }} />
