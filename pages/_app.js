@@ -3,10 +3,11 @@ import 'nprogress/nprogress.css';
 import { useEffect } from 'react';
 import NProgress from 'nprogress';
 import { useRouter } from 'next/router';
-import { DefaultSeo } from 'next-seo';
+import { DefaultSeo, NextSeo } from 'next-seo';
 
 export default function App({ Component, pageProps }) {
     const router = useRouter();
+    const is404 = Component.name === 'Custom404';
     useEffect(() => {
         router.events.on('routeChangeStart', () => {
             NProgress.start();
@@ -20,7 +21,15 @@ export default function App({ Component, pageProps }) {
     }, []);
     return (
         <>
-            <DefaultSeo title="幻非" description="幻非的个人博客" />
+            <DefaultSeo
+                title="幻非"
+                description="幻非的个人博客"
+                openGraph={{
+                    type: 'website',
+                    images: [{ url: 'https://blog.huanfei.top/avatar.png' }],
+                }}
+            />
+            <NextSeo titleTemplate="%s - 幻非" noindex={is404 ? false : true} nofollow={is404 ? false : true} />
             <Component {...pageProps} />
         </>
     );

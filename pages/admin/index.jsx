@@ -4,16 +4,20 @@ import Draft from '@/components/admin/draft';
 import Data from '@/components/admin/data';
 import { Toaster } from 'react-hot-toast';
 import { allPosts, allDrafts } from '@/.contentlayer/generated';
+import { NextSeo } from 'next-seo';
 
 export default function Admin({ posts, drafts }) {
     if (process.env.NODE_ENV !== 'development') return;
     return (
-        <Layout title="管理页面">
-            <Toaster />
-            <Data posts={posts} />
-            <Create />
-            {drafts.length > 0 && <Draft posts={drafts} />}
-        </Layout>
+        <>
+            <NextSeo title="管理页面" />
+            <Layout>
+                <Toaster />
+                <Data posts={posts} />
+                <Create />
+                {drafts.length > 0 && <Draft posts={drafts} />}
+            </Layout>
+        </>
     );
 }
 
