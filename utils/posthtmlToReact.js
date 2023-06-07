@@ -76,23 +76,6 @@ export const posthtmlToReact = (tree, components = {}, level = 0) => {
             delete node.attrs.class;
         }
 
-        // if (node?.attrs?.tabindex) {
-        //     node.attrs.tabIndex = node.attrs.tabindex;
-        //     delete node.attrs.tabindex;
-        // }
-
-        // if (node?.attrs?.id === "footnote-label") {
-        //   node.content = ["参考资料"];
-        // }
-
-        // if (node?.attrs?.className === 'footnotes') {
-        //     node.tag = 'div';
-        // }
-
-        // if (node?.attrs?.className === 'data-footnote-backref') {
-        //     node.content = [''];
-        // }
-
         if (!Array.isArray(node.content)) {
             if (isFalsyNode(node.content)) {
                 node.content = [];
