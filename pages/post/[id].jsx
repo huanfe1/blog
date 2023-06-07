@@ -1,7 +1,8 @@
 import Layout from '@/components/layout';
 import License from '@/components/license';
-import Link from 'next/link';
+import Code from '@/components/post/code';
 import Waline from '@/components/waline';
+import Link from 'next/link';
 import { allPosts, allDrafts } from '@/.contentlayer/generated';
 import { NextSeo } from 'next-seo';
 import { parser } from 'posthtml-parser';
@@ -64,7 +65,7 @@ export default function Post({ post }) {
                             </div>
                         </header>
                         <section id="post">
-                            <GetMdxContent content={post.content} />
+                            <PosthtmlToReact content={post.content} />
                         </section>
                         <footer>
                             {post.copyright && <License />}
@@ -82,23 +83,9 @@ export default function Post({ post }) {
     );
 }
 
-function GetMdxContent({ content }) {
+function PosthtmlToReact({ content }) {
     const tree = parser(content);
-    return posthtmlToReact(tree, { pre: Pre });
-}
-
-function Pre(props) {
-    console.log(props);
-    return (
-        <pre
-            {...props}
-            onClick={() => {
-                console.log('测试');
-            }}
-        >
-            {...props.children}
-        </pre>
-    );
+    return posthtmlToReact(tree, { pre: Code });
 }
 
 export function getStaticProps({ params }) {
