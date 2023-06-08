@@ -14,7 +14,7 @@ function Tags({ tags }) {
     return (
         <div className="ml-2 mt-3 space-x-2">
             {tags.map(tag => (
-                <Link href={'/tags/' + tag} className="text-blue-500 hover:text-blue-600 hover:underline" key={tag}>
+                <Link href={'/tags/' + tag} className="text-[--link] hover:text-[--link-hover] hover:underline" key={tag}>
                     {'#' + tag}
                 </Link>
             ))}
