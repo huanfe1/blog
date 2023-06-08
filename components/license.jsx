@@ -8,7 +8,7 @@ export default function License() {
                     href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
                     target="_blank"
                     rel="noopener external nofollow noreferrer"
-                    className="mx-1 text-blue-500 hover:text-blue-600 hover:underline"
+                    className="hover:[--link-hover] mx-1 text-[--link] hover:underline"
                 >
                     署名-非商业性使用-相同方式共享 4.0 国际
                 </a>

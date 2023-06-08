@@ -6,9 +6,9 @@ export default function Color() {
     const [theme, setTheme] = useState(null);
     const ref = useRef(null);
     const list = [
+        { title: '跟随系统', icon: <Svg.Robot className="mr-1 h-4 w-4 fill-current" />, theme: 'system' },
         { title: '浅色模式', icon: <Svg.Sun className="mr-1 h-4 w-4 fill-current" />, theme: 'light' },
         { title: '深色模式', icon: <Svg.Moon className="mr-1 h-4 w-4 fill-current" />, theme: 'dark' },
-        { title: '跟随系统', icon: <Svg.Robot className="mr-1 h-4 w-4 fill-current" />, theme: 'system' },
     ];
     useEffect(() => {
         setTheme(localStorage['theme']);
@@ -46,9 +46,9 @@ export default function Color() {
         >
             <div
                 className={classnames(
-                    'flex h-full cursor-pointer items-center px-3 py-2 hover:bg-[--main-hover] hover:text-blue-700',
+                    'flex h-full cursor-pointer items-center px-3 py-2 hover:bg-[--main-hover] hover:text-[--link-hover]',
                     {
-                        'bg-[--main-hover] text-blue-700': status,
+                        'bg-[--main-hover] text-[--link-hover]': status,
                     }
                 )}
             >
@@ -67,7 +67,7 @@ export default function Color() {
                         }}
                         className={classnames(
                             'flex w-28 cursor-pointer select-none items-center justify-center p-2 hover:bg-[--main-hover]',
-                            { 'font-medium text-blue-700': _.theme === theme }
+                            { 'font-medium text-[--link-hover]': _.theme === theme }
                         )}
                     >
                         {_.icon}

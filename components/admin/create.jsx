@@ -56,7 +56,7 @@ export default function Input() {
             <button
                 type="button"
                 className={
-                    'flex-none rounded-xl bg-blue-500 px-7 py-2 text-white hover:bg-blue-600' +
+                    'flex-none rounded-xl bg-[--link] px-7 py-2 text-white hover:bg-[--link-hover]' +
                     (Boolean(title) ? '' : ' cursor-not-allowed')
                 }
                 onClick={click}
