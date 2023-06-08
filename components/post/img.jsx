@@ -1,18 +1,10 @@
 import { createPortal } from 'react-dom';
 import { useState, useRef, useEffect } from 'react';
-import classNames from 'classnames';
 
 function Display({ props, setStatus, imgRef }) {
-    const [transform, setTransform] = useState();
-    const [opacity, setOpacity] = useState(70);
-    const { top, left, width, height } = imgRef.current.getBoundingClientRect();
-    const [placeholder, setPlaceholder] = useState({ top, left, width, height });
+    const [transform, setTransform] = useState('');
+    const [opacity, setOpacity] = useState(0.7);
     const close = () => {
-        setPlaceholder({
-            ...placeholder,
-            top: imgRef.current.offsetTop,
-            left: imgRef.current.offsetLeft,
-        });
         setOpacity(0);
         setTransform('scale(1)');
         setTimeout(() => {
@@ -20,31 +12,35 @@ function Display({ props, setStatus, imgRef }) {
         }, 300);
     };
     useEffect(() => {
-        setTransform(calcFitScale(imgRef));
-        // const handleResize = () => {
-        //     setTransform(calcFitScale(imgRef));
-        // };
-        // window.addEventListener('resize', handleResize);
-        // return () => window.removeEventListener('resize', handleResize);
+        const handleResize = () => {
+            setTransform(calcFitScale(imgRef));
+        };
+        window.addEventListener('resize', handleResize);
+        handleResize();
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
     useEffect(() => {
-        window.addEventListener('scroll', () => close());
-        return () => window.removeEventListener('scroll', () => close());
+        window.addEventListener('scroll', close);
+        return () => window.removeEventListener('scroll', close);
     }, []);
     return createPortal(
-        <div onClick={close}>
+        <div onClick={close} className="cursor-zoom-out">
             <div
-                className={`fixed bottom-0 left-0 right-0 top-0 bg-black/${opacity} transition-colors duration-300`}
+                className="fixed bottom-0 left-0 right-0 top-0 bg-black"
+                style={{
+                    opacity,
+                    transition: 'opacity 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                }}
             ></div>
             <img
                 {...props}
                 className="absolute"
                 style={{
-                    transition: 'transform .3s cubic-bezier(.2,0,.2,1)',
+                    transition: 'transform 300ms cubic-bezier(.2, 0, .2, 1)',
                     top: imgRef.current.offsetTop,
                     left: imgRef.current.offsetLeft,
-                    width: placeholder.width,
-                    height: placeholder.height,
+                    width: imgRef.current.offsetWidth,
+                    height: imgRef.current.offsetHeight,
                     transform: transform,
                 }}
             />
@@ -56,27 +52,35 @@ function Display({ props, setStatus, imgRef }) {
 export default function Img(props) {
     const [status, setStatus] = useState(false);
     const imgRef = useRef(null);
-    const click = () => {
-        setStatus(true);
-    };
     return (
         <>
-            <img {...props} ref={imgRef} className={classNames({ invisible: status })} onClick={click} loading="lazy" />
+            <img
+                {...props}
+                ref={imgRef}
+                className={`cursor-zoom-in ${status ? 'invisible' : ''}`}
+                onClick={() => {
+                    setStatus(true);
+                }}
+                loading="lazy"
+            />
             {status && <Display props={props} setStatus={setStatus} imgRef={imgRef} />}
         </>
     );
 }
 
+/**
+ * 计算图片缩放比例
+ */
 const calcFitScale = imgRef => {
+    const margin = 5;
     const { top, left, width, height } = imgRef.current.getBoundingClientRect();
     const { naturalWidth, naturalHeight } = imgRef.current;
     const viewportWidth = document.documentElement.clientWidth;
     const viewportHeight = document.documentElement.clientHeight;
     const scaleX = Math.min(Math.max(width, naturalWidth), viewportWidth) / width;
     const scaleY = Math.min(Math.max(height, naturalHeight), viewportHeight) / height;
-    const scale = Math.min(scaleX, scaleY) + 0.002;
+    const scale = Math.min(scaleX, scaleY) - margin / Math.min(width, height) + 0.002;
     const translateX = (-left + (viewportWidth - width) / 2) / scale;
     const translateY = (-top + (viewportHeight - height) / 2) / scale;
-    console.log(scale, translateX, translateY);
     return `scale(${scale}) translate3d(${translateX}px, ${translateY}px, 0)`;
 };
