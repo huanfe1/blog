@@ -2,9 +2,10 @@ import reactToString from '@/utils/reactToString';
 import classNames from 'classnames';
 import { useState } from 'react';
 
-const CopySvg = ({ status }) => {
+const CopySvg = ({ status, click }) => {
     return (
         <div
+            onClick={click}
             className={classNames(
                 'absolute right-3 top-3 hidden cursor-pointer rounded-lg border bg-gray-200 p-2 group-hover:block',
                 { 'border-gray-300': !status },
@@ -35,8 +36,8 @@ export default function Code(props) {
         });
     };
     return (
-        <pre {...props} onClick={click} className="group relative">
-            <CopySvg status={status} />
+        <pre {...props} className="group relative">
+            <CopySvg status={status} click={click} />
             {props.children}
         </pre>
     );
