@@ -2,6 +2,7 @@ import Layout from '@/components/layout';
 import License from '@/components/license';
 import Code from '@/components/post/code';
 import Waline from '@/components/waline';
+import Img from '@/components/post/img';
 import Link from 'next/link';
 import { allPosts, allDrafts } from '@/.contentlayer/generated';
 import { NextSeo } from 'next-seo';
@@ -83,9 +84,8 @@ export default function Post({ post }) {
     );
 }
 
-function PosthtmlToReact({ content }) {
-    const tree = parser(content);
-    return posthtmlToReact(tree, { pre: Code });
+function PosthtmlToReact({ content: tree }) {
+    return posthtmlToReact(tree, { pre: Code, img: Img });
 }
 
 export function getStaticProps({ params }) {
@@ -98,7 +98,7 @@ export function getStaticProps({ params }) {
                 title: post.title,
                 date: post.date,
                 abbrlink: post.abbrlink,
-                content: post.body.html,
+                content: parser(post.body.html),
                 wordcount: post.wordcount,
                 categories: post.categories,
                 tags: post.tags,
