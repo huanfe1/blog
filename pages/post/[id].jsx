@@ -1,7 +1,7 @@
 import Layout from '@/components/layout';
 import License from '@/components/license';
 import Code from '@/components/post/code';
-import Waline from '@/components/waline';
+import Waline from '@/components/post/waline';
 import Img from '@/components/post/img';
 import Link from 'next/link';
 import { allPosts, allDrafts } from '@/.contentlayer/generated';
