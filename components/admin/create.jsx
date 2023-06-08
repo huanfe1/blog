@@ -9,7 +9,7 @@ function Clear({ title, setTitle }) {
             onClick={() => {
                 setTitle('');
             }}
-            className="absolute right-3 mr-1 h-5 w-5 cursor-pointer rounded-full bg-gray-500 p-1 hover:bg-gray-700"
+            className="absolute right-3 mr-1 h-5 w-5 cursor-pointer rounded-full bg-gray-200 p-1 hover:bg-gray-300 dark:bg-gray-500 dark:hover:bg-gray-700"
             style={{ visibility: title ? 'inherit' : 'hidden' }}
         >
             <path
