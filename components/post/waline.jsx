@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { init } from '@waline/client';
 import '@waline/client/dist/waline.css';
 
-export default function Waline() {
+function Comments() {
     const props = {
         serverURL: 'https://waline.huanfei.top/',
         lang: 'zh-CN',
@@ -28,4 +28,20 @@ export default function Waline() {
     }, props);
 
     return <div ref={containerRef} id="waline" />;
+}
+
+export default function Waline() {
+    const [status, setStatus] = useState(false);
+    return status ? (
+        <Comments />
+    ) : (
+        <div
+            className="cursor-pointer text-center hover:text-[--link-hover]"
+            onClick={() => {
+                setStatus(true);
+            }}
+        >
+            点击查看评论
+        </div>
+    );
 }
