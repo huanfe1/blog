@@ -1,6 +1,6 @@
 #post {
     a {
-        @apply text-blue-500 hover:text-blue-600 hover:underline;
+        @apply text-[--link] hover:text-[--link-hover] hover:underline;
     }
     p {
         @apply my-3;
