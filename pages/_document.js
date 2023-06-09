@@ -9,7 +9,6 @@ export default function Document() {
     return (
         <Html lang="zh-CN">
             <Head>
-                <link rel="stylesheet" href="https://s1.hdslb.com/bfs/static/jinkela/long/font/regular.css" />
                 <script dangerouslySetInnerHTML={{ __html: analytics }} />
                 <link rel="icon" href="https://blog.huanfei.top/favicon.ico" type="image/ico" />
                 <link rel="icon" href="https://blog.huanfei.top/avatar.png" type="image/png" sizes="96x96" />

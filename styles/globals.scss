@@ -11,10 +11,6 @@ body {
     @apply bg-[--bg] text-[--text];
 }
 
-html {
-    font-family: 'HarmonyOS_Regular';
-}
-
 main {
     @apply w-full;
     @screen sm {
