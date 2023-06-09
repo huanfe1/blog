@@ -6,7 +6,7 @@
     & > div {
         @apply flex;
         a {
-            @apply hover:text-[--link-hover] px-3 py-2 hover:bg-[--main-hover];
+            @apply px-3 py-2 hover:bg-[--main-hover] hover:text-[--link-hover];
             @screen sm {
                 @apply py-4;
             }
