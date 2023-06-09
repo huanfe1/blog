@@ -10,21 +10,21 @@ copyright: true
 categories: 
 ---
 
-Hexo 是我博客创立之初时使用的框架，尽管现在前端方面已经由 Next.js 负责，但后台的数据处理还是由 Hexo 负责。
+Hexo 是我博客创立之初时便使用的框架，在博客经过几次框架更换后，整体框架已经由 Next.js 负责，Hexo 仅作为后台数据源使用，之所以还在使用是因为一直没有找到合适的替代品。
 
-Hexo 作为一个博客框架，其提供了前端页面展示和后台的数据处理以及以及其他一系列的功能。但是当其只作为数据处理工具时，不免便显得有些笨重了，并且其数据监控和实时刷新的功能也无法与 Next.js 进行对接。
+Hexo 作为一个博客框架，让许多人也包括我成功搭建出了属于自己人生中的第一个博客，其提供了全方位的博客处理。但是当其只作为数据处理工具时，其提供的全方位的支持不免便显得有些沉重了。并且让一个博客框架只担任数据处理的功能，显得有点杀鸡用宰牛刀。
 
-于是，其仅剩的数据处理功能被 [Contentlayer](https://github.com/contentlayerdev/contentlayer) 这个年轻人替代，作为「开拓者」的 Hexo 完成了他的使命，退出了历史的舞台。
+于是，在一番对比下来，我选择了用 [Contentlayer](https://www.contentlayer.dev) 代替它的位置
 
 ## 何为 Contentlayer
 
 官网介绍到 Contentlayer 是一个 **Content SDK** ，用于验证内容并将其转化为类型安全的 JSON 数据。
 
-之所以称之为年轻人，是因为此项目起步于 2022 年，目前还处于测试阶段，仅支持处理本地 **MD/MDX** 文件，且仅支持对接 Next.js，但据文档所写 Next.js 已经完全支持，并且还很自信写出了想要成为管理 Next.js 项目内容的首选工具，看来这位年轻人的野心还是很大的。
+其创立于 2022 年，目前还处于测试阶段，仅支持处理本地 **MD/MDX** 文件，且仅支持对接 Next.js，但据文档所写已经对 Next.js 完全支持，并且还很自信写出了想要成为管理 Next.js 项目内容的首选工具。
 
 ![image-20230530221458703](https://pic.bibiu.cc/2023/05/31/64772d8817e24.png)
 
-项目从立项到此文章撰写时共发布了两篇文章介绍 Contentlayer 的优点。
+目前为止项目共发布了两篇文章介绍 Contentlayer 的优点。
 
 [Introducing Contentlayer (Beta): Content Made Easy for Developers](https://www.contentlayer.dev/blog/beta)
 
@@ -37,28 +37,43 @@ Hexo 作为一个博客框架，其提供了前端页面展示和后台的数据
 -   可以监控文件修改，并实时刷新页面内容
 -   重量轻，所需编写代码较少，上手容易
 
-## 工作流程
-
-官网大体描述了 Contentlayer 的工作流程。
+## 项目上手
 
 首先需要在本地配置好基本的类型定义以及项目目录。
 
 ```typescript
-import { defineDocumentType, makeSource } from 'contentlayer/source-files'
- 
+import { defineDocumentType, makeSource } from 'contentlayer/source-files';
+
 const Post = defineDocumentType(() => ({
-  name: 'Post',
-  filePathPattern: `**/*.md`,
-  fields: {
-    title: { type: 'string', required: true },
-    date: { type: 'date', required: true }
-  },
-}))
- 
+    name: 'Post',
+    // 获取文章目录下所有的 mdx 文件
+    filePathPattern: `**/*.mdx`,
+    // 启用 mdx 解析
+    contentType: 'mdx',
+    // 定义文章的 frontmatter 类型
+    fields: {
+        title: {
+            type: 'string',
+            description: 'The title of the post',
+            required: true,
+        },
+        date: {
+            type: 'date',
+            description: 'The date of the post',
+            required: true,
+        },
+    },
+    // 解析文章后，数据后续处理
+    computedFields: {
+        url: { type: 'string', resolve: (doc) => `/posts/${doc._raw.flattenedPath}` },
+    },
+}));
+
 export default makeSource({
-  contentDirPath: 'posts',
-  documentTypes: [Post]
-})
+    // 定义文章目录地址
+    contentDirPath: 'posts',
+    documentTypes: [Post],
+});
 ```
 
 紧接着 Contentlayer 会把项目目录下的 Markdown 文件转化为 JSON 文件并保存到项目根目录下的 `.contentlayer` 文件夹内。
@@ -67,7 +82,13 @@ export default makeSource({
 
 在自动生成的 `index.mjs` 文件内通过 `import` 的方式导入这些 `JSON` 文件并将数据合并导出以便外部引用。
 
-![image-20230530233326709](https://pic.bibiu.cc/2023/05/31/64772d883adf6.png)
+```javascript
+import changeMeMdx from './change-me.mdx.json' assert { type: 'json' }
+import clickMeMdx from './click-me.mdx.json' assert { type: 'json' }
+import whatIsContentlayerMdx from './what-is-contentlayer.mdx.json' assert { type: 'json' }
+
+export const allPosts = [changeMeMdx, clickMeMdx, whatIsContentlayerMdx]
+```
 
 之后便可在文件内导入。
 
