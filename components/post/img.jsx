@@ -1,12 +1,12 @@
 import { createPortal } from 'react-dom';
 import { useState, useRef, useEffect } from 'react';
 
-function Display({ props, setStatus, imgRef }) {
+function Mask({ props, setStatus, imgRef }) {
     const [transform, setTransform] = useState('');
     const [opacity, setOpacity] = useState(0.7);
     const close = () => {
         setOpacity(0);
-        setTransform('scale(1)');
+        setTransform('');
         setTimeout(() => {
             setStatus(false);
         }, 300);
@@ -63,7 +63,7 @@ export default function Img(props) {
                 }}
                 loading="lazy"
             />
-            {status && <Display props={props} setStatus={setStatus} imgRef={imgRef} />}
+            {status && <Mask props={props} setStatus={setStatus} imgRef={imgRef} />}
         </>
     );
 }

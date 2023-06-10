@@ -96,13 +96,14 @@ export function getStaticProps({ params }) {
     const posts = [...allPosts];
     if (process.env.NODE_ENV === 'development') posts.push(...allDrafts);
     const post = posts.find(post => post.abbrlink === params.id);
+    post.content = parser(post.body.html, { decodeEntities: true });
     return {
         props: {
             post: {
                 title: post.title,
                 date: post.date,
                 abbrlink: post.abbrlink,
-                content: parser(post.body.html),
+                content: post.content,
                 wordcount: post.wordcount,
                 categories: post.categories,
                 tags: post.tags,
