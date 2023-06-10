@@ -80,7 +80,7 @@ const calcFitScale = imgRef => {
     const scaleX = Math.min(Math.max(width, naturalWidth), viewportWidth) / width;
     const scaleY = Math.min(Math.max(height, naturalHeight), viewportHeight) / height;
     const scale = Math.min(scaleX, scaleY) - margin / Math.min(width, height) + 0.002;
-    const translateX = (-left + (viewportWidth - width) / 2) / scale;
-    const translateY = (-top + (viewportHeight - height) / 2) / scale;
+    const translateX = ((viewportWidth - width) / 2 - left) / scale;
+    const translateY = ((viewportHeight - height) / 2 - top) / scale;
     return `scale(${scale}) translate3d(${translateX}px, ${translateY}px, 0)`;
 };
