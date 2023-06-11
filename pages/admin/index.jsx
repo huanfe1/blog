@@ -5,6 +5,7 @@ import Data from '@/components/admin/data';
 import { Toaster } from 'react-hot-toast';
 import { allPosts, allDrafts } from '@/.contentlayer/generated';
 import { NextSeo } from 'next-seo';
+import dayjs from 'dayjs';
 
 export default function Admin({ posts, drafts }) {
     if (process.env.NODE_ENV !== 'development') return;
@@ -29,6 +30,7 @@ export async function getStaticProps() {
         abbrlink: post.abbrlink,
         date: post.date,
     }));
+    drafts.sort((a, b) => dayjs(a.date) - dayjs(b.date));
     return {
         props: { drafts, posts: allPosts },
     };
