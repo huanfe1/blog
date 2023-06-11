@@ -9,7 +9,6 @@ export default function Draft({ posts }) {
             .then(res => {
                 if (res.code === 0) {
                     toast.success('已成功发布草稿');
-                    setTitle('');
                 } else {
                     toast.error('草稿发布失败' + res.message);
                 }

@@ -19,13 +19,17 @@ export const Post = defineDocumentType(() => ({
         tags: { type: 'list', of: { type: 'string' }, required: false, default: [] },
         copyright: { type: 'boolean', required: false, default: true },
         categories: { type: 'string', required: false, default: '' },
+        excerpt: { type: 'string', required: false, default: '' },
     },
     computedFields: {
         date: { type: 'string', resolve: post => dayjs(post.date).format('YYYY-MM-DD') },
         wordcount: { type: 'number', resolve: post => wordcount(post.body.html.replace(/<[^>]+>/g, '')) },
         excerpt: {
             type: 'string',
-            resolve: post => truncate(post.body.html.replace(/<[^>]+>/g, ''), { length: 120 }).replace(/[\n\r]/g, ''),
+            resolve: post => {
+                if (post.excerpt !== '') return post.excerpt;
+                return truncate(post.body.html.replace(/<[^>]+>/g, ''), { length: 120 }).replace(/[\n\r]/g, '');
+            },
         },
     },
 }));
@@ -43,13 +47,17 @@ export const Draft = defineDocumentType(() => ({
         tags: { type: 'list', of: { type: 'string' }, required: false, default: [] },
         copyright: { type: 'boolean', required: false, default: true },
         categories: { type: 'string', required: false, default: '' },
+        excerpt: { type: 'string', required: false, default: '' },
     },
     computedFields: {
         date: { type: 'string', resolve: post => dayjs(post.date).format('YYYY-MM-DD') },
         wordcount: { type: 'number', resolve: post => wordcount(post.body.html.replace(/<[^>]+>/g, '')) },
         excerpt: {
             type: 'string',
-            resolve: post => truncate(post.body.html.replace(/<[^>]+>/g, ''), { length: 120 }).replace(/[\n\r]/g, ''),
+            resolve: post => {
+                if (post.excerpt !== '') return post.excerpt;
+                return truncate(post.body.html.replace(/<[^>]+>/g, ''), { length: 120 }).replace(/[\n\r]/g, '');
+            },
         },
     },
 }));
