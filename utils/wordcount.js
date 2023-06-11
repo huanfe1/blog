@@ -21,10 +21,11 @@ export const min2read = (content, { cn = 300, en = 160 } = {}) => {
 export const wordcount = content => {
     const len = counter(content);
     const count = len[0] + len[1];
-    if (count < 1000) {
-        return count;
-    }
-    return Math.round(count / 100) / 10 + 'k';
+    return count;
+    // if (count < 1000) {
+    //     return count;
+    // }
+    // return Math.round(count / 100) / 10 + 'k';
 };
 
 export const totalcount = (posts, tiny = true) => {
