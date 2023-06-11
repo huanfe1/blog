@@ -1,5 +1,5 @@
 import Layout from '@/components/layout';
-import License from '@/components/license';
+import License from '@/components/post/license';
 import Code from '@/components/post/code';
 import Waline from '@/components/post/waline';
 import Img from '@/components/post/img';
@@ -92,11 +92,22 @@ function PosthtmlToReact({ content: tree }) {
     return posthtmlToReact(tree, { pre: Code, img: Img });
 }
 
+function formatNumber(number) {
+    if (number >= 1000 && number < 1000000) {
+        return (number / 1000).toFixed(1) + 'k';
+    } else if (number >= 1000000) {
+        return (number / 1000000).toFixed(1) + 'M';
+    } else {
+        return number.toString();
+    }
+}
+
 export function getStaticProps({ params }) {
     const posts = [...allPosts];
     if (process.env.NODE_ENV === 'development') posts.push(...allDrafts);
     const post = posts.find(post => post.abbrlink === params.id);
     post.content = parser(post.body.html, { decodeEntities: true });
+    post.wordcount = formatNumber(post.wordcount);
     return {
         props: {
             post: {
