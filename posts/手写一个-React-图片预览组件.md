@@ -122,7 +122,7 @@ const translateY = (viewportHeight - height) / 2 - top;
 return `translate(${translateX}px, ${translateY}px) scale(${scale})`;
 ```
 
-### 全部函数
+### 最终代码
 
 最后加上一点滚动监听，屏幕监听，遮罩透明度变化即可得到最终函数
 
