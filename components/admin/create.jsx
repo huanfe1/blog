@@ -37,7 +37,7 @@ export default function Input() {
             });
     };
     return (
-        <div className="mt-5 flex w-full overflow-hidden rounded-xl border border-[--border] bg-[--main] p-1">
+        <div className="mt-5 flex w-full overflow-hidden rounded-xl bg-[--main] p-1 shadow">
             <div className="relative flex w-full items-center">
                 <input
                     type="text"

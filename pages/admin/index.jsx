@@ -15,8 +15,8 @@ export default function Admin({ posts, drafts }) {
             <Layout>
                 <Toaster />
                 <Data posts={posts} />
-                <Create />
                 {drafts.length > 0 && <Draft posts={drafts} />}
+                <Create />
             </Layout>
         </>
     );
