@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 export default function Data({ posts }) {
-    const wordcount = posts.reduce((total, post) => total + post.wordcount, 0);
+    const wordcount = posts.reduce((total, post) => total + parseInt(post.wordcount), 0);
     const tags = [...new Set(posts.map(post => post.tags).flat())].length;
     posts.sort((a, b) => dayjs(b.date) - dayjs(a.date));
     const date = dayjs().diff(dayjs(posts[0].date), 'days');

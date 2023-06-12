@@ -106,7 +106,7 @@ export function getStaticProps({ params }) {
     const posts = [...allPosts];
     if (process.env.NODE_ENV === 'development') posts.push(...allDrafts);
     const post = posts.find(post => post.abbrlink === params.id);
-    post.content = parser(post.body.html, { decodeEntities: true });
+    post.content = parser(post.body.html, { decodeEntities: true }).filter(item => item !== '\n');
     post.wordcount = formatNumber(post.wordcount);
     return {
         props: {
