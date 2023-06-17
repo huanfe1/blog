@@ -7,9 +7,9 @@ const development = process.env.NODE_ENV === 'development';
 export default function header() {
     return (
         <nav className={nav}>
-            <div>
+            <h1>
                 <Link href="/">幻非</Link>
-            </div>
+            </h1>
             <div>
                 <Link href="/">首页</Link>
                 <Link href="/tags">标签</Link>
