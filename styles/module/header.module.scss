@@ -3,7 +3,8 @@
     @screen sm {
         @apply flex-row justify-between px-16;
     }
-    & > div {
+    & > div,
+    h1 {
         @apply flex;
         a {
             @apply px-3 py-2 hover:bg-[--main-hover] hover:text-[--link-hover];
