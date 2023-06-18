@@ -16,7 +16,7 @@ const header = `<?xml version="1.0" encoding="UTF-8"?>
 const posts = allPosts.map(
     post => `
 <url>
-    <loc>https://blog.huanfei.top/post/${post.abbrlink}/</loc>
+    <loc>https://blog.huanfei.top/post/${post.abbrlink}</loc>
     <lastmod>${dayjs(post.date).toISOString()}</lastmod>
 </url>
 `
@@ -24,17 +24,17 @@ const posts = allPosts.map(
 
 const mix = `
 <url>
-    <loc>${url}/archives/</loc>
+    <loc>${url}/archives</loc>
 </url>
 <url>
-    <loc>${url}/tags/</loc>
+    <loc>${url}/tags</loc>
 </url>
 `;
 
 const tags = [...new Set(allPosts.map(post => post.tags).flat())].map(
     tag => `
 <url>
-    <loc>${url}/tags/${encodeURI(tag)}/</loc>
+    <loc>${url}/tags/${encodeURI(tag)}</loc>
 </url>
 `
 );
@@ -44,18 +44,18 @@ const categories = allPosts
     .map(
         post => `
 <url>
-    <loc>${url}/categories/${encodeURI(post.categories)}/</loc>
+    <loc>${url}/categories/${encodeURI(post.categories)}</loc>
 </url>
 `
     );
 
-const txt = `${allPosts.map(post => `${url}/post/${post.abbrlink}/`).join('\n')}
-${url}/archives/
-${url}/tags/
-${[...new Set(allPosts.map(post => post.tags).flat())].map(tag => `${url}/tags/${encodeURI(tag)}/`).join('\n')}
+const txt = `${allPosts.map(post => `${url}/post/${post.abbrlink}`).join('\n')}
+${url}/archives
+${url}/tags
+${[...new Set(allPosts.map(post => post.tags).flat())].map(tag => `${url}/tags/${encodeURI(tag)}`).join('\n')}
 ${allPosts
     .filter(post => post.categories)
-    .map(post => `${url}/categories/${encodeURI(post.categories)}/`)
+    .map(post => `${url}/categories/${encodeURI(post.categories)}`)
     .join('\n')}`;
 
 export default function () {
