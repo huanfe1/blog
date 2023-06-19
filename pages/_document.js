@@ -1,15 +1,12 @@
 import { Html, Head, Main, NextScript } from 'next/document';
+import Analytics from '@/components/analytics';
 
-const analytics =
-    process.env.NODE_ENV !== 'development'
-        ? '!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"JmvyCfPiIR4wTw9W",ck:"JmvyCfPiIR4wTw9W",hashMode:true});'
-        : '';
 const theme = `(()=>{void 0===localStorage.theme&&localStorage.setItem("theme","system");const e="system"!==localStorage.theme?localStorage.theme:matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.classList.add(e)})();`;
 export default function Document() {
     return (
         <Html lang="zh-CN">
             <Head>
-                <script dangerouslySetInnerHTML={{ __html: analytics }} />
+                {process.env.NODE_ENV !== 'development' && <Analytics />}
                 <link rel="icon" href="https://blog.huanfei.top/favicon.ico" type="image/ico" />
                 <link rel="icon" href="https://blog.huanfei.top/avatar.png" type="image/png" sizes="96x96" />
             </Head>
