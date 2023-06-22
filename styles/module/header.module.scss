@@ -1,8 +1,5 @@
 .nav {
-    @apply flex w-full flex-col items-center justify-center bg-[--main] shadow;
-    @screen sm {
-        @apply flex-row justify-between px-16;
-    }
+    @apply mx-auto flex h-20 w-full items-center justify-between border-b border-[--border] px-2 xl:max-w-7xl;
     & > div,
     h1 {
         @apply flex;
