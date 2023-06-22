@@ -13,10 +13,12 @@ export default function Admin({ posts, drafts }) {
         <>
             <NextSeo title="管理页面" />
             <Layout>
-                <Toaster />
-                <Data posts={posts} />
-                {drafts.length > 0 && <Draft posts={drafts} />}
-                <Create />
+                <div className="mx-auto w-[1280px]">
+                    <Toaster />
+                    <Data posts={posts} />
+                    <Create />
+                    {drafts.length > 0 && <Draft posts={drafts} />}
+                </div>
             </Layout>
         </>
     );

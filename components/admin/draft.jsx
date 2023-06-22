@@ -16,7 +16,7 @@ export default function Draft({ posts }) {
     };
     return (
         <div className="mt-5">
-            <div className="flex justify-between rounded-lg bg-[--main] px-5 py-3 shadow">
+            <div className="flex justify-between rounded-lg px-5 py-3">
                 <span>草稿箱</span>
                 <span>{`共有 ${posts.length} 篇草稿`}</span>
             </div>
@@ -25,7 +25,7 @@ export default function Draft({ posts }) {
                     <div key={post.abbrlink}>
                         <Link
                             href={'/post/' + post.abbrlink}
-                            className="flex items-center justify-between rounded-lg bg-[--main] px-5 py-3 shadow"
+                            className="hover:dark:bg-gray-700 flex items-center justify-between rounded-lg px-5 py-3 text-lg hover:bg-gray-200"
                         >
                             <div>{post.title}</div>
                             <div className="flex">
