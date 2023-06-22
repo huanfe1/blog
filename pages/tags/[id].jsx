@@ -9,16 +9,15 @@ export default function Tag({ tag }) {
         <>
             <NextSeo title={`标签: ${tag.name}`} />
             <Layout>
-                <div className="flex justify-between rounded-xl bg-[--main] p-5 shadow">
-                    <div className="flex space-x-1">
-                        <div>{`标签: ${tag.name}`}</div>
-                    </div>
-                    <div>{`共 ${tag.posts.length} 篇文章`}</div>
+                <div className="flex h-96 items-center justify-center bg-slate-400 text-white dark:bg-slate-700">
+                    <h1 className="text-5xl">{tag.name}</h1>
                 </div>
-                <div className="mt-3 space-y-4">
-                    {tag.posts.map(post => (
-                        <Card post={post} key={post.abbrlink} />
-                    ))}
+                <div className="mx-auto my-10 w-full px-3 sm:w-[540px] md:w-[640px] lg:w-[768px] xl:w-[1024px] xl:p-0">
+                    <div className="mt-3 space-y-4">
+                        {tag.posts.map(post => (
+                            <Card post={post} key={post.abbrlink} />
+                        ))}
+                    </div>
                 </div>
             </Layout>
         </>
