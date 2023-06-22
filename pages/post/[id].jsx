@@ -46,16 +46,11 @@ export default function Post({ post }) {
                 }}
             />
             <Layout>
-                <div className="overflow-hidden rounded-xl bg-[--main] shadow">
-                    {post.cover && (
-                        <div className="flex max-h-80 items-center overflow-hidden">
-                            <img src={post.cover} alt="" />
-                        </div>
-                    )}
-                    <article className="p-5">
-                        <header>
-                            <h1 className="mb-3 text-3xl">{post.title}</h1>
-                            <div className="text-subtitle">
+                <div className="mx-auto w-[1024px]">
+                    <article>
+                        <header className="my-10">
+                            <h1 className="mb-3 text-center text-3xl font-bold sm:text-4xl">{post.title}</h1>
+                            <div className="text-subtitle text-center">
                                 <time dateTime={post.date}>{post.date}</time>
                                 <span className="mx-1">·</span>
                                 <span>{'约 ' + post.wordcount + ' 字'}</span>
@@ -69,20 +64,11 @@ export default function Post({ post }) {
                                 )}
                             </div>
                         </header>
-                        <section id="post">
+                        <section id="post" className='mb-20'>
                             <PosthtmlToReact content={post.content} />
                         </section>
-                        <footer>
-                            {post.copyright && <License />}
-                            <Tags tags={post.tags} />
-                        </footer>
                     </article>
                 </div>
-                {post.comments && process.env.NODE_ENV !== 'development' && (
-                    <div className="mt-5 overflow-hidden rounded-xl bg-[--main] px-3 py-4 shadow">
-                        <Waline />
-                    </div>
-                )}
             </Layout>
         </>
     );
