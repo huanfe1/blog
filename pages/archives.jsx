@@ -36,9 +36,9 @@ export default function Archives({ archives }) {
             <NextSeo title="归档页" />
             <Layout>
                 <div
-                    className="flex h-96 items-center justify-center bg-gray-300 text-white dark:bg-slate-700"
+                    className="flex h-96 items-center justify-center bg-gray-300 text-white dark:bg-slate-700 dark:brightness-[0.8]"
                     style={{
-                        backgroundImage: 'url(/archive-banner.jpeg)',
+                        backgroundImage: 'url(123.jpg)',
                         backgroundPosition: 'center',
                         backgroundSize: 'cover',
                     }}

@@ -10,7 +10,7 @@ export default function Page({ posts, current, total }) {
         <>
             <NextSeo title={`文章列表: 第${current}页`} />
             <Layout>
-                <div className="mx-auto my-7 space-y-4 sm:w-[540px] md:w-[640px] lg:w-[768px] xl:w-[1024px]">
+                <div className="mx-auto my-7 mt-20 space-y-16 sm:w-[540px] md:w-[640px] lg:w-[768px] xl:w-[1024px]">
                     {posts.map(post => (
                         <Card post={post} key={post.abbrlink} />
                     ))}

@@ -37,7 +37,7 @@ export default function Input() {
             });
     };
     return (
-        <div className="mx-auto my-10 flex w-2/3 rounded-xl border p-1 border-[--border]">
+        <div className="mx-auto my-10 flex w-2/3 rounded-xl border border-[--border] p-1">
             <div className="relative flex w-full items-center">
                 <input
                     type="text"

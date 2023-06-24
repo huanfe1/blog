@@ -12,7 +12,14 @@ export default function Tags({ tags }) {
                 openGraph={{ url: 'https://blog.huanfei.top/tags/' }}
             />
             <Layout>
-                <div className="flex h-96 items-center justify-center bg-slate-400 text-white dark:bg-slate-700">
+                <div
+                    className="flex h-96 items-center justify-center bg-slate-400 text-white dark:bg-slate-700"
+                    style={{
+                        backgroundImage: 'url(https://w.wallhaven.cc/full/p9/wallhaven-p9jx2e.png)',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                    }}
+                >
                     <h1 className="text-5xl">标签</h1>
                 </div>
                 <div className="mx-auto my-10 w-full px-3 sm:w-[540px] md:w-[640px] lg:w-[768px] xl:w-[1024px] xl:p-0">

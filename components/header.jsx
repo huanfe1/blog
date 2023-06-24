@@ -16,9 +16,6 @@ export default function header() {
                 <Link className="hover:text-[--link-hover]" href="/">
                     首页
                 </Link>
-                <Link className="hover:text-[--link-hover]" href="/tags">
-                    标签
-                </Link>
                 <Link className="hover:text-[--link-hover]" href="/archives">
                     归档
                 </Link>
