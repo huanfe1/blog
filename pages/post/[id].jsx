@@ -47,6 +47,16 @@ export default function Post({ post }) {
             />
             <Layout>
                 <div className="mx-auto px-7 sm:w-[540px] sm:p-0 md:w-[640px] lg:w-[768px] xl:w-[1024px]">
+                    {post.cover && (
+                        <div
+                            className="mt-10 aspect-[5/2] rounded-2xl border border-[--border] bg-gray-300 shadow-sm dark:bg-slate-700"
+                            style={{
+                                backgroundImage: `url(${post.cover})`,
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                            }}
+                        ></div>
+                    )}
                     <article>
                         <header className="my-10">
                             <h1 className="mb-3 text-center text-3xl font-bold sm:text-4xl">{post.title}</h1>

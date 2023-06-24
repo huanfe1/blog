@@ -33,7 +33,13 @@ export async function getStaticProps() {
         date: post.date,
     }));
     drafts.sort((a, b) => dayjs(a.date) - dayjs(b.date));
+    const postData = {
+        length: allPosts.length,
+        wordcount: allPosts.reduce((total, post) => total + parseInt(post.wordcount), 0),
+        tags: [...new Set(allPosts.map(post => post.tags).flat())].length,
+        date: dayjs().diff(dayjs(allPosts[0].date), 'days'),
+    };
     return {
-        props: { drafts, posts: allPosts },
+        props: { drafts, posts: postData },
     };
 }

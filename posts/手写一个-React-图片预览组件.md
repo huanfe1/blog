@@ -3,11 +3,11 @@ title: 手写一个 React 图片预览组件
 date: 2023-06-11 15:45:13
 abbrlink: b4f558c5
 author: 幻非
-cover: 
+cover: https://pic.bibiu.cc/2023/06/24/6496f8d7aaa74.png
 comments: true
 tags: [React]
 copyright: true
-categories: 
+categories:
 ---
 
 前几天打算给博客添加一个图片预览的效果，可在网上找了半天也没找到合适的库，于是自己干脆自己手写了个。
@@ -35,11 +35,11 @@ function Mask({ props, setStatus, imgRef }) {
         setStatus(false);
     };
     return createPortal(
-        <div onClick={close} className='cursor-zoom-out'>
-            <div className='fixed bottom-0 left-0 right-0 top-0 bg-black/75'></div>
+        <div onClick={close} className="cursor-zoom-out">
+            <div className="fixed bottom-0 left-0 right-0 top-0 bg-black/75"></div>
             <img
                 {...props}
-                className='absolute'
+                className="absolute"
                 style={{
                     top: imgRef.current.offsetTop,
                     left: imgRef.current.offsetLeft,
@@ -64,7 +64,7 @@ export default function Img(props) {
                 onClick={() => {
                     setStatus(true);
                 }}
-                loading='lazy'
+                loading="lazy"
             />
             {status && <Mask props={props} setStatus={setStatus} imgRef={imgRef} />}
         </>
@@ -114,7 +114,7 @@ const calcFitScale = imgRef => {
 };
 ```
 
-这里讲一下为什么要在生成偏移量的时候除以缩放倍数，因为 CSS 中 `transform` 的执行是有先后顺序的，图片进行  `scale()` 缩放后其 `translate()` 的偏移距离也会发生变化，所以需要在计算时提前考虑。倘若要先进行偏移后进行缩放，则可以不考虑此因素。
+这里讲一下为什么要在生成偏移量的时候除以缩放倍数，因为 CSS 中 `transform` 的执行是有先后顺序的，图片进行 `scale()` 缩放后其 `translate()` 的偏移距离也会发生变化，所以需要在计算时提前考虑。倘若要先进行偏移后进行缩放，则可以不考虑此因素。
 
 ```javascript
 const translateX = (viewportWidth - width) / 2 - left;
