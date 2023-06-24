@@ -30,4 +30,4 @@
 
 [@Kuizuo](https://github.com/kuizuo)
 
-正是看了此博主的 [Vercel部署个人博客](https://kuizuo.cn/vercel-deploy-blog) ，使我迈出了搭建博客的第一步。
+正是看了此博主的 [Vercel 部署个人博客](https://kuizuo.cn/vercel-deploy-blog) ，使我迈出了搭建博客的第一步。

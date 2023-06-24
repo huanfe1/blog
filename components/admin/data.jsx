@@ -12,9 +12,12 @@ export default function Data({ posts }) {
         { title: '距上次更新天数', data: date },
     ];
     return (
-        <ul className="grid grid-cols-4 gap-x-3 my-20">
+        <ul className="my-20 grid grid-cols-4 gap-x-3">
             {items.map(item => (
-                <li key={item.title} className="flex flex-col space-y-1 rounded-xl bg-blue-700 text-white p-3 text-center">
+                <li
+                    key={item.title}
+                    className="flex flex-col space-y-1 rounded-xl bg-sky-500 p-3 text-center text-white"
+                >
                     <span>{item.title}</span>
                     <span className="text-3xl font-bold">{item.data}</span>
                 </li>

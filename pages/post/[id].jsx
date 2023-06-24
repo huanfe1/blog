@@ -46,7 +46,7 @@ export default function Post({ post }) {
                 }}
             />
             <Layout>
-                <div className="mx-auto w-[1024px]">
+                <div className="mx-auto px-7 sm:w-[540px] sm:p-0 md:w-[640px] lg:w-[768px] xl:w-[1024px]">
                     <article>
                         <header className="my-10">
                             <h1 className="mb-3 text-center text-3xl font-bold sm:text-4xl">{post.title}</h1>
@@ -64,7 +64,7 @@ export default function Post({ post }) {
                                 )}
                             </div>
                         </header>
-                        <section id="post" className='mb-20'>
+                        <section id="post" className="mb-20">
                             <PosthtmlToReact content={post.content} />
                         </section>
                     </article>

@@ -16,7 +16,7 @@ export default function Home({ posts, current, total }) {
                 description="幻非的个人博客，记录一些技术或者想法"
             />
             <Layout>
-                <div className="mx-auto my-7 space-y-4 sm:w-[540px] md:w-[640px] lg:w-[768px] xl:w-[1024px]">
+                <div className="mx-auto my-7 mt-20 space-y-16 px-10 sm:w-[540px] sm:px-0 md:w-[640px] lg:w-[768px] xl:w-[1024px]">
                     {posts.map(post => (
                         <Card post={post} key={post.abbrlink} />
                     ))}

@@ -7,7 +7,7 @@ export default function About() {
                 <h1 className="text-4xl font-bold sm:text-6xl">关于本站</h1>
                 <span className="mt-4 text-base sm:text-lg">我是幻非，一个计算机专业的学生，现居山东</span>
             </div>
-            <div className="mb-52 mt-96 flex flex-col items-center">
+            <div className="mb-52 mt-72 flex flex-col items-center">
                 <h2 className="text-3xl font-bold">本站采用的技术</h2>
                 <div className="mt-10 flex flex-col items-center justify-center space-y-10 lg:flex-row lg:space-x-32 lg:space-y-0">
                     <a href="https://nextjs.org/" target="_blank" rel="noopener external nofollow noreferrer">

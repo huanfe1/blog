@@ -52,12 +52,9 @@ export default function Color() {
                 <Svg.Dark />
             </div>
             <ul
-                className={classnames(
-                    'absolute -left-10 top-12 overflow-hidden rounded bg-[--main] shadow dark:bg-gray-800',
-                    {
-                        hidden: !status,
-                    }
-                )}
+                className={classnames('absolute -left-10 top-12 z-10 overflow-hidden rounded bg-[--pop] shadow', {
+                    hidden: !status,
+                })}
             >
                 {list.map(_ => (
                     <li
