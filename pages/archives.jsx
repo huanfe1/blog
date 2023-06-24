@@ -36,9 +36,9 @@ export default function Archives({ archives }) {
             <NextSeo title="归档页" />
             <Layout>
                 <div
-                    className="flex h-96 items-center justify-center bg-gray-300 text-white dark:bg-slate-700 dark:brightness-[0.8]"
+                    className="flex h-80 items-center justify-center bg-gray-300 text-white dark:bg-slate-700 dark:brightness-[0.8] sm:h-96"
                     style={{
-                        backgroundImage: 'url(123.jpg)',
+                        backgroundImage: 'url(https://pic.bibiu.cc/2023/06/24/6496ed2e1e42a.jpg)',
                         backgroundPosition: 'center',
                         backgroundSize: 'cover',
                     }}
