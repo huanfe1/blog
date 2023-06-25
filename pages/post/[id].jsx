@@ -8,6 +8,7 @@ import { allPosts, allDrafts } from '@/.contentlayer/generated';
 import { NextSeo } from 'next-seo';
 import { parser } from 'posthtml-parser';
 import { posthtmlToReact } from '@/utils/posthtmlToReact';
+import formatNumber from '@/utils/formatNumber';
 
 export default function Post({ post }) {
     return (
@@ -69,16 +70,6 @@ export default function Post({ post }) {
 
 function PosthtmlToReact({ content: tree }) {
     return posthtmlToReact(tree, { pre: Code, img: Img });
-}
-
-function formatNumber(number) {
-    if (number >= 1000 && number < 1000000) {
-        return (number / 1000).toFixed(1) + 'k';
-    } else if (number >= 1000000) {
-        return (number / 1000000).toFixed(1) + 'M';
-    } else {
-        return number.toString();
-    }
 }
 
 export function getStaticProps({ params }) {
