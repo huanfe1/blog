@@ -26,18 +26,7 @@ const mix = `
 <url>
     <loc>${url}/archives</loc>
 </url>
-<url>
-    <loc>${url}/tags</loc>
-</url>
 `;
-
-const tags = [...new Set(allPosts.map(post => post.tags).flat())].map(
-    tag => `
-<url>
-    <loc>${url}/tags/${encodeURI(tag)}</loc>
-</url>
-`
-);
 
 const categories = allPosts
     .filter(post => post.categories)
@@ -51,15 +40,13 @@ const categories = allPosts
 
 const txt = `${allPosts.map(post => `${url}/post/${post.abbrlink}`).join('\n')}
 ${url}/archives
-${url}/tags
-${[...new Set(allPosts.map(post => post.tags).flat())].map(tag => `${url}/tags/${encodeURI(tag)}`).join('\n')}
 ${allPosts
     .filter(post => post.categories)
     .map(post => `${url}/categories/${encodeURI(post.categories)}`)
     .join('\n')}`;
 
 export default function () {
-    const content = [header, ...posts, mix, ...tags, ...categories].join('') + '</urlset>';
+    const content = [header, ...posts, mix, ...categories].join('') + '</urlset>';
     fs.writeFileSync('./public/sitemap.xml', content.replace(/\n(\n)*( )*(\n)*\n/g, '\n'));
     fs.writeFileSync('./public/sitemap.txt', txt);
 }
