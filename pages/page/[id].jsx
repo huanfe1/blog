@@ -1,22 +1,17 @@
-import Layout from '@/components/layout';
-import Card from '@/components/card';
-import Pagination from '@/components/pagination';
 import { allPosts } from '@/.contentlayer/generated';
 import dayjs from 'dayjs';
 import { NextSeo } from 'next-seo';
+import { List } from '../index';
 
 export default function Page({ posts, current, total }) {
     return (
         <>
-            <NextSeo title={`文章列表: 第${current}页`} />
-            <Layout>
-                <div className="mx-auto my-7 mt-20 space-y-16 sm:w-[540px] md:w-[640px] lg:w-[768px] xl:w-[1024px]">
-                    {posts.map(post => (
-                        <Card post={post} key={post.abbrlink} />
-                    ))}
-                    <Pagination current={current} total={total} />
-                </div>
-            </Layout>
+            <NextSeo
+                title={`文章列表: 第${current}页`}
+                canonical={`https://blog.huanfei.top/page/${current}`}
+                description="幻非的个人博客，记录一些技术或者想法"
+            />
+            <List posts={posts} current={current} total={total} />
         </>
     );
 }
