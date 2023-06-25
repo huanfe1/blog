@@ -45,19 +45,19 @@ export default function Color() {
             }}
         >
             <div
-                className={classnames(
-                    'flex h-full cursor-pointer items-center px-3 py-2 hover:bg-[--main-hover] hover:text-[--link-hover]',
-                    {
-                        'bg-[--main-hover] text-[--link-hover]': status,
-                    }
-                )}
+                className={classnames('flex h-full cursor-pointer items-center hover:text-[--link-hover]', {
+                    'text-[--link-hover]': status,
+                })}
             >
                 <Svg.Dark />
             </div>
             <ul
-                className={classnames('absolute -left-10 top-12 overflow-hidden rounded bg-[--main] shadow sm:top-16', {
-                    hidden: !status,
-                })}
+                className={classnames(
+                    'absolute right-0 top-12 z-10 overflow-hidden rounded border border-[--border] bg-white shadow dark:bg-gray-800 2xl:-right-10',
+                    {
+                        hidden: !status,
+                    }
+                )}
             >
                 {list.map(_ => (
                     <li

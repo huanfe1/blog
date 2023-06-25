@@ -8,23 +8,7 @@ import { allPosts, allDrafts } from '@/.contentlayer/generated';
 import { NextSeo } from 'next-seo';
 import { parser } from 'posthtml-parser';
 import { posthtmlToReact } from '@/utils/posthtmlToReact';
-
-function Tags({ tags }) {
-    if (tags.length === 0) return;
-    return (
-        <div className="ml-2 mt-3 space-x-2">
-            {tags.map(tag => (
-                <Link
-                    href={'/tags/' + tag}
-                    className="text-[--link] hover:text-[--link-hover] hover:underline"
-                    key={tag}
-                >
-                    {'#' + tag}
-                </Link>
-            ))}
-        </div>
-    );
-}
+import formatNumber from '@/utils/formatNumber';
 
 export default function Post({ post }) {
     return (
@@ -46,16 +30,21 @@ export default function Post({ post }) {
                 }}
             />
             <Layout>
-                <div className="overflow-hidden rounded-xl bg-[--main] shadow">
+                <div className="resp">
                     {post.cover && (
-                        <div className="flex max-h-80 items-center overflow-hidden">
-                            <img src={post.cover} alt="" />
-                        </div>
+                        <div
+                            className="mt-10 hidden aspect-[5/2] rounded-xl border border-[--border] bg-gray-300 shadow-sm dark:bg-slate-700 sm:block"
+                            style={{
+                                backgroundImage: `url(${post.cover})`,
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                            }}
+                        ></div>
                     )}
-                    <article className="p-5">
-                        <header>
-                            <h1 className="mb-3 text-3xl">{post.title}</h1>
-                            <div className="text-subtitle">
+                    <article>
+                        <header className="my-10">
+                            <h1 className="mb-3 text-center text-3xl font-bold sm:text-4xl">{post.title}</h1>
+                            <div className="text-subtitle text-center">
                                 <time dateTime={post.date}>{post.date}</time>
                                 <span className="mx-1">·</span>
                                 <span>{'约 ' + post.wordcount + ' 字'}</span>
@@ -69,20 +58,11 @@ export default function Post({ post }) {
                                 )}
                             </div>
                         </header>
-                        <section id="post">
+                        <section id="post" className="mb-20">
                             <PosthtmlToReact content={post.content} />
                         </section>
-                        <footer>
-                            {post.copyright && <License />}
-                            <Tags tags={post.tags} />
-                        </footer>
                     </article>
                 </div>
-                {post.comments && process.env.NODE_ENV !== 'development' && (
-                    <div className="mt-5 overflow-hidden rounded-xl bg-[--main] px-3 py-4 shadow">
-                        <Waline />
-                    </div>
-                )}
             </Layout>
         </>
     );
@@ -90,16 +70,6 @@ export default function Post({ post }) {
 
 function PosthtmlToReact({ content: tree }) {
     return posthtmlToReact(tree, { pre: Code, img: Img });
-}
-
-function formatNumber(number) {
-    if (number >= 1000 && number < 1000000) {
-        return (number / 1000).toFixed(1) + 'k';
-    } else if (number >= 1000000) {
-        return (number / 1000000).toFixed(1) + 'M';
-    } else {
-        return number.toString();
-    }
 }
 
 export function getStaticProps({ params }) {

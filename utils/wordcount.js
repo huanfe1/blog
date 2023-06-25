@@ -22,10 +22,6 @@ export const wordcount = content => {
     const len = counter(content);
     const count = len[0] + len[1];
     return count;
-    // if (count < 1000) {
-    //     return count;
-    // }
-    // return Math.round(count / 100) / 10 + 'k';
 };
 
 export const totalcount = (posts, tiny = true) => {

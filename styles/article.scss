@@ -3,19 +3,25 @@
         @apply text-[--link] hover:text-[--link-hover] hover:underline;
     }
     p {
-        @apply my-3;
+        @apply my-3 text-[18px] leading-8;
     }
     img {
         @apply m-auto rounded shadow;
     }
-    h1 {
-        @apply my-2 text-3xl;
-    }
     h2 {
-        @apply my-2 text-2xl;
+        @apply my-2 text-2xl font-bold;
     }
     h3 {
         @apply my-2 text-xl;
+    }
+    h4 {
+        @apply my-2 text-lg;
+    }
+    h5 {
+        @apply my-2 text-base;
+    }
+    h6 {
+        @apply my-2 text-sm;
     }
     ol {
         @apply mt-3 list-decimal pl-5;

@@ -37,7 +37,7 @@ export default function Input() {
             });
     };
     return (
-        <div className="mt-5 flex w-full overflow-hidden rounded-xl bg-[--main] p-1 shadow">
+        <div className="mx-auto my-10 flex w-2/3 rounded-xl border border-[--border] p-1">
             <div className="relative flex w-full items-center">
                 <input
                     type="text"
@@ -56,7 +56,7 @@ export default function Input() {
             <button
                 type="button"
                 className={
-                    'flex-none rounded-xl bg-[--link] px-7 py-2 text-white hover:bg-[--link-hover]' +
+                    'flex-none rounded-xl bg-[--link] px-10 py-2 text-white hover:bg-[--link-hover]' +
                     (Boolean(title) ? '' : ' cursor-not-allowed')
                 }
                 onClick={click}
