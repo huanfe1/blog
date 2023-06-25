@@ -9,23 +9,6 @@ import { NextSeo } from 'next-seo';
 import { parser } from 'posthtml-parser';
 import { posthtmlToReact } from '@/utils/posthtmlToReact';
 
-function Tags({ tags }) {
-    if (tags.length === 0) return;
-    return (
-        <div className="ml-2 mt-3 space-x-2">
-            {tags.map(tag => (
-                <Link
-                    href={'/tags/' + tag}
-                    className="text-[--link] hover:text-[--link-hover] hover:underline"
-                    key={tag}
-                >
-                    {'#' + tag}
-                </Link>
-            ))}
-        </div>
-    );
-}
-
 export default function Post({ post }) {
     return (
         <>
@@ -49,7 +32,7 @@ export default function Post({ post }) {
                 <div className="resp">
                     {post.cover && (
                         <div
-                            className="mt-10 aspect-[5/2] rounded-xl border border-[--border] bg-gray-300 shadow-sm dark:bg-slate-700"
+                            className="mt-10 hidden aspect-[5/2] rounded-xl border border-[--border] bg-gray-300 shadow-sm dark:bg-slate-700 sm:block"
                             style={{
                                 backgroundImage: `url(${post.cover})`,
                                 backgroundSize: 'cover',
