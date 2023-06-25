@@ -53,7 +53,7 @@ export default function Color() {
             </div>
             <ul
                 className={classnames(
-                    'absolute -right-10 top-12 z-10 overflow-hidden rounded bg-white shadow dark:bg-gray-800',
+                    'absolute right-0 top-12 z-10 overflow-hidden rounded border border-[--border] bg-white shadow dark:bg-gray-800 2xl:-right-10',
                     {
                         hidden: !status,
                     }
