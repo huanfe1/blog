@@ -4,9 +4,9 @@ export default function Card({ post }) {
     return (
         <div>
             {post.cover && (
-                <Link href={'/post/' + post.abbrlink}>
+                <Link href={'/post/' + post.abbrlink} className="hidden sm:block">
                     <div
-                        className="hover: mb-5 aspect-[5/2] rounded-xl border border-[--border] bg-gray-300 bg-[size:100%] duration-200 hover:bg-[size:105%] dark:bg-slate-700"
+                        className="mb-5 aspect-[5/2] rounded-xl border border-[--border] bg-gray-300 bg-[size:100%] duration-200 hover:bg-[size:105%] dark:bg-slate-700"
                         style={{
                             backgroundImage: `url(${post.cover})`,
                             backgroundPosition: 'center',
@@ -14,7 +14,7 @@ export default function Card({ post }) {
                     ></div>
                 </Link>
             )}
-            <article>
+            <article className="px-0 sm:px-2">
                 <Link href={'/post/' + post.abbrlink} className=" mb-2 inline-block">
                     <h2 className="text-2xl hover:text-[--link-hover]">{post.title}</h2>
                 </Link>
