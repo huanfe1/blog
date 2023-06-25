@@ -48,7 +48,7 @@ export default function Post({ post }) {
                                 <time dateTime={post.date}>{post.date}</time>
                                 <span className="mx-1">·</span>
                                 <span>{'约 ' + post.wordcount + ' 字'}</span>
-                                {post.categories.length !== 0 && (
+                                {post.categories && (
                                     <>
                                         <span className="mx-1">·</span>
                                         <Link className="hover:text-blue-600" href={'/categories/' + post.categories}>
