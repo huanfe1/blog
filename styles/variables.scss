@@ -8,6 +8,7 @@ html {
     --text: #000;
     --link: #3b82f6;
     --link-hover: #2563eb;
+    --pop: #f3f3f3;
 }
 
 html.dark {
@@ -18,6 +19,7 @@ html.dark {
     --border: #374151;
     --code: #374151;
     --text: hsla(0, 0%, 100%, 0.86);
+    --pop: #42474e;
     img {
         filter: brightness(0.8);
     }

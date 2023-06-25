@@ -7,6 +7,19 @@ import feed from '@/utils/feed';
 import sitemap from '@/utils/sitemap';
 import { NextSeo } from 'next-seo';
 
+export function List({ posts, current, total }) {
+    return (
+        <Layout>
+            <div className="resp space-y-16">
+                {posts.map(post => (
+                    <Card post={post} key={post.abbrlink} />
+                ))}
+                <Pagination current={current} total={total} />
+            </div>
+        </Layout>
+    );
+}
+
 export default function Home({ posts, current, total }) {
     return (
         <>
@@ -15,14 +28,7 @@ export default function Home({ posts, current, total }) {
                 canonical="https://blog.huanfei.top/"
                 description="幻非的个人博客，记录一些技术或者想法"
             />
-            <Layout>
-                <div className="space-y-4">
-                    {posts.map(post => (
-                        <Card post={post} key={post.abbrlink} />
-                    ))}
-                </div>
-                <Pagination current={current} total={total} />
-            </Layout>
+            <List posts={posts} current={current} total={total} />
         </>
     );
 }

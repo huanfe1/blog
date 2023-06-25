@@ -3,11 +3,11 @@ title: 将 Contentlayer 作为 Next.js 数据源
 date: 2023-06-03 09:20:41
 abbrlink: 7f9134c6
 author: 幻非
-cover: https://pic.bibiu.cc/2023/05/31/64775e1e45eff.png
+cover: https://pic.bibiu.cc/2023/06/24/6496fee26982e.png
 comments: true
 tags: [Next.js, React, Contentlayer, 前端]
 copyright: true
-categories: 
+categories:
 ---
 
 Hexo 是我博客创立之初时便使用的框架，在博客经过几次框架更换后，整体框架已经由 Next.js 负责，Hexo 仅作为后台数据源使用，之所以还在使用是因为一直没有找到合适的替代品。
@@ -65,7 +65,7 @@ const Post = defineDocumentType(() => ({
     },
     // 解析文章后，数据后续处理
     computedFields: {
-        url: { type: 'string', resolve: (doc) => `/posts/${doc._raw.flattenedPath}` },
+        url: { type: 'string', resolve: doc => `/posts/${doc._raw.flattenedPath}` },
     },
 }));
 
@@ -83,20 +83,20 @@ export default makeSource({
 在自动生成的 `index.mjs` 文件内通过 `import` 的方式导入这些 `JSON` 文件并将数据合并导出以便外部引用。
 
 ```javascript
-import changeMeMdx from './change-me.mdx.json' assert { type: 'json' }
-import clickMeMdx from './click-me.mdx.json' assert { type: 'json' }
-import whatIsContentlayerMdx from './what-is-contentlayer.mdx.json' assert { type: 'json' }
+import changeMeMdx from './change-me.mdx.json' assert { type: 'json' };
+import clickMeMdx from './click-me.mdx.json' assert { type: 'json' };
+import whatIsContentlayerMdx from './what-is-contentlayer.mdx.json' assert { type: 'json' };
 
-export const allPosts = [changeMeMdx, clickMeMdx, whatIsContentlayerMdx]
+export const allPosts = [changeMeMdx, clickMeMdx, whatIsContentlayerMdx];
 ```
 
 之后便可在文件内导入。
 
 ```javascript
-import { allPosts } from 'contentlayer/generated'
- 
+import { allPosts } from 'contentlayer/generated';
+
 export function getStaticProps({ params }) {
-  return { props: { posts: allPosts.find(post => post.slug === params.slug) } }
+    return { props: { posts: allPosts.find(post => post.slug === params.slug) } };
 }
 
 export function getStaticPaths() {

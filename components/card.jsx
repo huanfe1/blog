@@ -2,22 +2,27 @@ import Link from 'next/link';
 
 export default function Card({ post }) {
     return (
-        <Link href={'/post/' + post.abbrlink} className="block overflow-hidden rounded-xl bg-[--main] shadow">
+        <div>
             {post.cover && (
-                <div
-                    className="hidden items-center overflow-hidden bg-gray-200 dark:brightness-[0.8] sm:flex sm:h-56 md:h-64 lg:h-80"
-                    style={{
-                        backgroundImage: `url(${post.cover})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                    }}
-                ></div>
+                <Link href={'/post/' + post.abbrlink} className="hidden sm:block">
+                    <div
+                        className="mb-5 aspect-[5/2] rounded-xl border border-[--border] bg-gray-300 bg-[size:100%] duration-200 hover:bg-[size:105%] dark:bg-slate-700"
+                        style={{
+                            backgroundImage: `url(${post.cover})`,
+                            backgroundPosition: 'center',
+                        }}
+                    ></div>
+                </Link>
             )}
-            <article className="p-5">
-                <h2 className="mb-2 text-xl">{post.title}</h2>
-                <section className="my-2 line-clamp-2 text-sm sm:line-clamp-none">{post.excerpt}</section>
-                <time className="time text-sm">{post.date}</time>
+            <article className="px-0 sm:px-2">
+                <Link href={'/post/' + post.abbrlink} className=" mb-2 inline-block">
+                    <h2 className="text-2xl hover:text-[--link-hover]">{post.title}</h2>
+                </Link>
+                <section className="my-2 line-clamp-2 text-sm leading-8 text-gray-600 dark:text-gray-300/75 sm:line-clamp-none">
+                    {post.excerpt}
+                </section>
+                <time className="time text-sm text-gray-600 dark:text-gray-300/75">{`发布于 ${post.date}`}</time>
             </article>
-        </Link>
+        </div>
     );
 }
