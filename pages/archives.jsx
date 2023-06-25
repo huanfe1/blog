@@ -45,7 +45,7 @@ export default function Archives({ archives }) {
                 >
                     <h1 className="text-5xl">归档</h1>
                 </div>
-                <ul className="mx-auto my-10 w-full px-3 sm:w-[540px] md:w-[640px] lg:w-[768px] xl:w-[1024px] xl:p-0">
+                <ul className="resp">
                     {archives.map(categorie => (
                         <li key={categorie.year}>
                             <h2 className="py-3 text-3xl font-bold">{categorie.year}</h2>
