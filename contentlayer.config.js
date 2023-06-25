@@ -8,16 +8,17 @@ import { wordcount } from './utils/wordcount';
 
 const options = {
     fields: {
-        title: { type: 'string', required: true },
-        date: { type: 'string', required: true },
-        abbrlink: { type: 'string', required: true },
-        author: { type: 'string', required: false, default: '幻非' },
-        cover: { type: 'string', required: false, default: '' },
-        comments: { type: 'boolean', required: false, default: true },
-        tags: { type: 'list', of: { type: 'string' }, required: false, default: [] },
-        copyright: { type: 'boolean', required: false, default: true },
-        categories: { type: 'string', required: false, default: '' },
-        excerpt: { type: 'string', required: false, default: '' },
+        title: { type: 'string', required: true, description: '文章标题' },
+        date: { type: 'string', required: true, description: '发布时间' },
+        abbrlink: { type: 'string', required: true, description: '文章链接' },
+        update: { type: 'string', required: false, default: null, description: '更新时间' },
+        author: { type: 'string', required: false, default: '幻非', description: '作者' },
+        cover: { type: 'string', required: false, default: null, description: '封面图片链接' },
+        comments: { type: 'boolean', required: false, default: true, description: '是否开启评论' },
+        tags: { type: 'list', of: { type: 'string' }, required: false, default: null, description: '标签' },
+        copyright: { type: 'boolean', required: false, default: true, description: '是否显示版权' },
+        categories: { type: 'string', required: false, default: null, description: '分类' },
+        excerpt: { type: 'string', required: false, default: null, description: '摘要，为空则自动生成' },
     },
     computedFields: {
         date: { type: 'string', resolve: post => dayjs(post.date).format('YYYY-MM-DD') },
@@ -25,7 +26,7 @@ const options = {
         excerpt: {
             type: 'string',
             resolve: post => {
-                if (post.excerpt !== '') return post.excerpt;
+                if (post.excerpt) return post.excerpt;
                 return truncate(post.body.html.replace(/<[^>]+>/g, ''), { length: 120 }).replace(/[\n\r]/g, '');
             },
         },
