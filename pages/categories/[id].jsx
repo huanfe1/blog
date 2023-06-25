@@ -7,18 +7,19 @@ import { NextSeo } from 'next-seo';
 export default function Categories({ category }) {
     return (
         <>
-            <NextSeo title={`分类: ${category.name}`} />
+            <NextSeo
+                title={`分类: ${category.name}`}
+                description={`文章分类中为 ${category.name} 的文章`}
+                canonical={`https://blog.huanfei.top/categories/${category.name}`}
+            />
             <Layout>
-                <div className="flex justify-between rounded-xl bg-[--main] p-5 shadow">
-                    <div className="flex space-x-1">
-                        <div>{`分类: ${category.name}`}</div>
+                <div className="resp">
+                    <div className="my-20 text-center text-6xl">{category.name}</div>
+                    <div className="mt-3 space-y-16">
+                        {category.posts.map(post => (
+                            <Card post={post} key={post.abbrlink} />
+                        ))}
                     </div>
-                    <div>{`共 ${category.posts.length} 篇文章`}</div>
-                </div>
-                <div className="mt-3 space-y-4">
-                    {category.posts.map(post => (
-                        <Card post={post} key={post.abbrlink} />
-                    ))}
                 </div>
             </Layout>
         </>

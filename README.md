@@ -6,6 +6,10 @@
 
 本博客框架在历经 Hexo、Astro、Nuxt 的迭代后，更换为现在的 Next.js 。
 
+## Front-matter
+
+查看根目录下的 contentlayer.config.js 文件，其中的 `options` 为博客文章的 Front-matter 配置。
+
 ## 博客历史
 
 ```
