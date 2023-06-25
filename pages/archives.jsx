@@ -35,25 +35,35 @@ export default function Archives({ archives }) {
         <>
             <NextSeo title="归档页" />
             <Layout>
-                <div className="w-full">
-                    {archives.map(categorie => (
-                        <div key={categorie.year}>
-                            <div className="py-3 pl-1 text-2xl font-bold">{categorie.year}</div>
-                            <div className="space-y-3">
-                                {categorie.posts.map(post => (
-                                    <Link
-                                        href={'/post/' + post.abbrlink}
-                                        className="flex items-center justify-between rounded-lg bg-[--main] p-4 shadow"
-                                        key={post.abbrlink}
-                                    >
-                                        <div>{post.title}</div>
-                                        <div className="flex-none">{post.date}</div>
-                                    </Link>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
+                <div
+                    className="flex h-80 items-center justify-center bg-gray-300 text-white dark:bg-slate-700 dark:brightness-[0.8] sm:h-96"
+                    style={{
+                        backgroundImage: 'url(https://pic.bibiu.cc/2023/06/24/6496ed2e1e42a.jpg)',
+                        backgroundPosition: 'center',
+                        backgroundSize: 'cover',
+                    }}
+                >
+                    <h1 className="text-5xl">归档</h1>
                 </div>
+                <ul className="resp">
+                    {archives.map(categorie => (
+                        <li key={categorie.year}>
+                            <h2 className="py-3 text-3xl font-bold">{categorie.year}</h2>
+                            <ul className="space-y-3">
+                                {categorie.posts.map(post => (
+                                    <li key={post.abbrlink} className="flex items-center justify-between py-4 pl-2 ">
+                                        <Link href={'/post/' + post.abbrlink} className="overflow-hidden">
+                                            <h3 className="truncate text-base hover:text-[--link-hover] md:text-xl">
+                                                {post.title}
+                                            </h3>
+                                        </Link>
+                                        <div className="ml-3 flex-none">{post.date}</div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </li>
+                    ))}
+                </ul>
             </Layout>
         </>
     );

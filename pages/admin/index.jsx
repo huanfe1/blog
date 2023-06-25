@@ -6,6 +6,7 @@ import { Toaster } from 'react-hot-toast';
 import { allPosts, allDrafts } from '@/.contentlayer/generated';
 import { NextSeo } from 'next-seo';
 import dayjs from 'dayjs';
+import formatNumber from '@/utils/formatNumber';
 
 export default function Admin({ posts, drafts }) {
     if (process.env.NODE_ENV !== 'development') return;
@@ -13,10 +14,12 @@ export default function Admin({ posts, drafts }) {
         <>
             <NextSeo title="管理页面" />
             <Layout>
-                <Toaster />
-                <Data posts={posts} />
-                {drafts.length > 0 && <Draft posts={drafts} />}
-                <Create />
+                <div className="mx-auto w-[1280px]">
+                    <Toaster />
+                    <Data posts={posts} />
+                    <Create />
+                    {drafts.length > 0 && <Draft posts={drafts} />}
+                </div>
             </Layout>
         </>
     );
@@ -31,7 +34,17 @@ export async function getStaticProps() {
         date: post.date,
     }));
     drafts.sort((a, b) => dayjs(a.date) - dayjs(b.date));
+    allPosts.sort((a, b) => dayjs(b.date) - dayjs(a.date));
+    const wordcount =
+        allDrafts.reduce((total, post) => total + parseInt(post.wordcount), 0) +
+        allPosts.reduce((total, post) => total + parseInt(post.wordcount), 0);
+    const postData = {
+        drafts: drafts.length,
+        length: allPosts.length,
+        wordcount: formatNumber(wordcount),
+        date: dayjs().diff(dayjs(allPosts[0].date), 'days'),
+    };
     return {
-        props: { drafts, posts: allPosts },
+        props: { drafts, posts: postData },
     };
 }

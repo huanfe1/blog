@@ -4,7 +4,7 @@ author: 幻非
 abbrlink: 7ef72f18
 date: 2022-12-17 19:22:04
 tags: [前端, React]
-cover:
+cover: https://pic.bibiu.cc/2023/06/25/6497a4feaa53c.png
 ---
 
 今天在逛知乎的时候发现顶部出现了广告横幅，并且并没有被我写的油猴脚本清除掉，于是便想把它添加到油猴脚本规则中去。

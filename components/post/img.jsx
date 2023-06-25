@@ -34,7 +34,7 @@ function Mask({ props, setStatus, imgRef }) {
             ></div>
             <img
                 {...props}
-                className="absolute"
+                className="absolute rounded"
                 style={{
                     transition: 'transform 300ms cubic-bezier(.2, 0, .2, 1)',
                     top: imgRef.current.offsetTop,
