@@ -7,13 +7,14 @@ export default async function handler(req, res) {
     if (process.env.NODE_ENV !== 'development') return;
     const slug = req.query.slug;
     const draft = allDrafts.find(draft => draft._raw.sourceFilePath === slug);
-    const filePath = path.join('posts', draft._raw.sourceFilePath);
     try {
-        const data = fs.readFileSync(filePath, 'utf-8');
-        const date = data.match(/---[\s\S]*date: (.+)[\s\S]*---/)[1];
-        const title = data.match(/---[\s\S]*title: (.+)[\s\S]*---/)[1].replace(/\s+/g, '-');
-        const newContent = data.replace(date, dayjs().format('YYYY-MM-DD HH:mm:ss'));
-        const newFilePath = `./posts/${title}${path.extname(filePath)}`;
+        const filePath = path.join('posts', draft._raw.sourceFilePath);
+        const content = fs.readFileSync(filePath, 'utf-8');
+        const frontMatter = content.slice(5, content.indexOf('\n---'));
+        const frontMatterObj = parse(frontMatter);
+        frontMatterObj.date = dayjs().format('YYYY-MM-DD HH:mm:ss');
+        const newContent = content.replace(frontMatter, stringify(frontMatterObj));
+        const newFilePath = path.join('posts', frontMatterObj.title.replace(/\s+/g, '-') + path.extname(filePath));
         fs.writeFileSync(newFilePath, newContent, 'utf-8');
         fs.unlinkSync(filePath);
     } catch (e) {
@@ -21,4 +22,19 @@ export default async function handler(req, res) {
     } finally {
         res.status(200).json({ code: 0, message: 'success' });
     }
+}
+
+function parse(content) {
+    return content.split('\n').reduce((acc, cur) => {
+        const [key, ...value] = cur.split(':');
+        acc[key] = value.join(':').trim();
+        return acc;
+    }, {});
+}
+
+function stringify(frontMatterObj) {
+    return Object.entries(frontMatterObj)
+        .filter(([key, value]) => value)
+        .map(([key, value]) => `${key}: ${value}`)
+        .join('\n');
 }

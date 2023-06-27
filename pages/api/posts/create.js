@@ -31,9 +31,9 @@ export default async function handler(req, res) {
         abbrlink: abbrlink,
         author: '幻非',
         cover: '',
-        comments: true,
-        tags: [],
-        copyright: true,
+        comments: '',
+        tags: '',
+        copyright: '',
         categories: '',
     };
     let content = '---\n';
