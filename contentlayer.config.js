@@ -22,6 +22,7 @@ const options = {
     },
     computedFields: {
         date: { type: 'string', resolve: post => dayjs(post.date).format('YYYY-MM-DD') },
+        update: { type: 'string', resolve: post => (post.update ? dayjs(post.update).format('YYYY-MM-DD') : null) },
         wordcount: { type: 'number', resolve: post => wordcount(post.body.html.replace(/<[^>]+>/g, '')) },
         excerpt: {
             type: 'string',
