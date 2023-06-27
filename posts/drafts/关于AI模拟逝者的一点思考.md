@@ -1,7 +1,7 @@
 ---
 title: 关于 AI 模拟逝者的一点思考
 author: 幻非
-tags: [ChatGPT]
+tags: [ChatGPT, AI]
 cover: https://pic.bibiu.cc/2023/05/09/645a1ad7f0a80.jpg
 abbrlink: ec0ebf15
 date: 2023-05-08 15:49:05
