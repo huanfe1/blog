@@ -1,5 +1,5 @@
 ---
-title: 利用GitHub Actions实现将GitHub代码同步到Gitee
+title: 利用 GitHub Actions 实现将 GitHub 代码同步到 Gitee
 author: 幻非
 abbrlink: 2be65f67
 date: 2022-05-29 12:24:20

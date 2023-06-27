@@ -53,6 +53,8 @@ document.querySelector('.Topstory>div:not([class]) svg').dispatchEvent(
 
 至此，问题解决。
 
+油猴脚本链接 [知乎宽屏](https://greasyfork.org/zh-CN/scripts/443919)
+
 ---
 
 -   [「React 进阶」一文吃透 react 事件原理](https://www.51cto.com/article/659948.html)
