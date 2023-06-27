@@ -57,6 +57,9 @@ export default function Post({ post }) {
                                     </>
                                 )}
                             </div>
+                            {post.update && (
+                                <div className="mt-3 rounded-lg bg-blue-600 p-3 text-white">{`文章内容于 ${post.update} 进行过修改`}</div>
+                            )}
                         </header>
                         <section id="post" className="mb-20">
                             <PosthtmlToReact content={post.content} />
@@ -83,6 +86,7 @@ export function getStaticProps({ params }) {
             post: {
                 title: post.title,
                 date: post.date,
+                update: post.update,
                 abbrlink: post.abbrlink,
                 content: post.content,
                 wordcount: post.wordcount,
