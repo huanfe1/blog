@@ -3,7 +3,7 @@ title: 将 Contentlayer 作为 Next.js 数据源
 date: 2023-06-03 09:20:41
 abbrlink: 7f9134c6
 author: 幻非
-cover: https://pic.bibiu.cc/2023/06/24/6496fee26982e.png
+cover: https://pic.bibiu.cc/2023/06/29/649c5e93bb62a.png
 comments: true
 tags: [Next.js, React, Contentlayer, 前端]
 copyright: true
