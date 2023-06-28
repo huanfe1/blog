@@ -5,7 +5,7 @@ const development = process.env.NODE_ENV === 'development';
 
 export default function header() {
     return (
-        <nav className="mx-auto flex h-20 w-full items-center justify-between border-b border-[--border] px-2 xl:max-w-7xl">
+        <nav className="mx-auto flex h-20 w-full items-center justify-between border-b border-[--border] px-5 sm:px-16 xl:max-w-7xl xl:px-0">
             <h1>
                 <Link href="/" className="flex items-center hover:text-[--link-hover]">
                     <img src="/avatar.png" alt="幻非" className="hidden h-8 w-8 sm:block" />
