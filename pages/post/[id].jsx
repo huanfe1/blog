@@ -33,11 +33,9 @@ export default function Post({ post }) {
                 <div className="resp">
                     {post.cover && (
                         <div
-                            className="mt-10 hidden aspect-[5/2] rounded-xl border border-[--border] bg-gray-300 shadow-sm dark:bg-slate-700 sm:block"
+                            className="mt-10 hidden aspect-[5/2] rounded-xl border border-[--border] bg-gray-300 bg-cover bg-center shadow-sm dark:bg-slate-700 sm:block"
                             style={{
                                 backgroundImage: `url(${post.cover})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'center',
                             }}
                         ></div>
                     )}
