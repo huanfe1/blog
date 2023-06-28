@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { allPosts } from '@/.contentlayer/generated';
 import dayjs from 'dayjs';
 import { NextSeo } from 'next-seo';
+import formatNumber from '@/utils/formatNumber';
 
 function getArchives(posts) {
     const arr = [];
@@ -30,20 +31,21 @@ function getArchives(posts) {
     return arr;
 }
 
-export default function Archives({ archives }) {
+export default function Archives({ archives, data }) {
     return (
         <>
             <NextSeo title="归档页" description="文章的归档页面" canonical="https://blog.huanfei.top/archives" />
             <Layout>
                 <div
-                    className="flex h-80 items-center justify-center bg-gray-300 text-white dark:bg-slate-700 dark:brightness-[0.8] sm:h-96"
+                    className="flex h-80 items-center justify-center bg-gray-300 bg-cover bg-center text-white dark:bg-slate-700 dark:brightness-[0.8] sm:h-96"
                     style={{
-                        backgroundImage: 'url(https://pic.bibiu.cc/2023/06/24/6496ed2e1e42a.jpg)',
-                        backgroundPosition: 'center',
-                        backgroundSize: 'cover',
+                        backgroundImage: 'url(https://pic.bibiu.cc/2023/06/28/649c535573d87.jpg)',
                     }}
                 >
-                    <h1 className="text-5xl">归档</h1>
+                    <div className="my-20 text-center">
+                        <h1 className="text-5xl font-bold">归档</h1>
+                        <p className="mt-5">{`${data.length} 篇文章，共 ${data.wordcount} 字`}</p>
+                    </div>
                 </div>
                 <ul className="resp">
                     {archives.map(categorie => (
@@ -81,6 +83,10 @@ export async function getStaticProps() {
     return {
         props: {
             archives,
+            data: {
+                length: allPosts.length,
+                wordcount: formatNumber(allPosts.reduce((total, post) => total + parseInt(post.wordcount), 0)),
+            },
         },
     };
 }
