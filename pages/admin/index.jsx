@@ -14,7 +14,7 @@ export default function Admin({ posts, drafts }) {
         <>
             <NextSeo title="管理页面" />
             <Layout>
-                <div className="mx-auto w-[1280px]">
+                <div className="mx-auto my-20 w-[1280px]">
                     <Toaster />
                     <Data posts={posts} />
                     <Create />
