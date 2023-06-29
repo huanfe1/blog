@@ -57,7 +57,7 @@ export default function Img(props) {
             <img
                 {...props}
                 ref={imgRef}
-                className={`cursor-zoom-in ${status ? 'invisible' : ''}`}
+                className={status ? 'invisible' : 'cursor-zoom-in'}
                 onClick={() => {
                     setStatus(true);
                 }}
