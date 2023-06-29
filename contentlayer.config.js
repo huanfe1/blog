@@ -37,17 +37,17 @@ const options = {
 export const Post = defineDocumentType(() => ({
     ...options,
     name: 'Post',
-    filePathPattern: `./*.md`,
+    filePathPattern: `./posts/**/*.md`,
 }));
 
 export const Draft = defineDocumentType(() => ({
     ...options,
     name: 'Draft',
-    filePathPattern: `./drafts/*.md`,
+    filePathPattern: `./drafts/**/*.md`,
 }));
 
 export default makeSource({
-    contentDirPath: 'posts',
+    contentDirPath: 'source',
     documentTypes: [Post, Draft],
     markdown: {
         rehypePlugins: [

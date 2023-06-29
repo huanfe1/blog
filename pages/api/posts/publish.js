@@ -7,6 +7,8 @@ export default async function handler(req, res) {
     if (process.env.NODE_ENV !== 'development') return;
     const slug = req.query.slug;
     const draft = allDrafts.find(draft => draft._raw.sourceFilePath === slug);
+    const yearDir = path.join('posts', dayjs().format('YYYY'));
+    if (!fs.existsSync(yearDir)) fs.mkdirSync(yearDir);
     try {
         const filePath = path.join('posts', draft._raw.sourceFilePath);
         const content = fs.readFileSync(filePath, 'utf-8');
@@ -14,7 +16,11 @@ export default async function handler(req, res) {
         const frontMatterObj = parse(frontMatter);
         frontMatterObj.date = dayjs().format('YYYY-MM-DD HH:mm:ss');
         const newContent = content.replace(frontMatter, stringify(frontMatterObj));
-        const newFilePath = path.join('posts', frontMatterObj.title.replace(/\s+/g, '-') + path.extname(filePath));
+        const newFilePath = path.join(
+            'posts',
+            dayjs().format('YYYY'),
+            frontMatterObj.title.replace(/\s+/g, '-') + path.extname(filePath)
+        );
         fs.writeFileSync(newFilePath, newContent, 'utf-8');
         fs.unlinkSync(filePath);
     } catch (e) {
