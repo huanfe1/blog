@@ -1,5 +1,4 @@
 import Layout from '@/components/layout';
-import License from '@/components/post/license';
 import Code from '@/components/post/code';
 import Waline from '@/components/post/waline';
 import Img from '@/components/post/img';
@@ -63,6 +62,7 @@ export default function Post({ post }) {
                             <PosthtmlToReact content={post.content} />
                         </section>
                     </article>
+                    {post.comments && <Waline />}
                 </div>
             </Layout>
         </>
