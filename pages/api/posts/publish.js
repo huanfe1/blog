@@ -24,7 +24,6 @@ export default async function handler(req, res) {
             frontMatterObj.title.replace(/\s+/g, '-') + path.extname(filePath)
         );
         fs.writeFileSync(newFilePath, newContent, 'utf-8');
-        console.log(filePath);
         fs.unlinkSync(filePath);
     } catch (e) {
         res.status(200).json({ code: 1, message: e.message });

@@ -34,6 +34,7 @@ function Mask({ props, setStatus, imgRef }) {
             ></div>
             <img
                 {...props}
+                alt="huanfei"
                 className="absolute rounded"
                 style={{
                     transition: 'transform 300ms cubic-bezier(.2, 0, .2, 1)',
@@ -56,6 +57,7 @@ export default function Img(props) {
         <>
             <img
                 {...props}
+                alt="huanfei"
                 ref={imgRef}
                 className={status ? 'invisible' : 'cursor-zoom-in'}
                 onClick={() => {
