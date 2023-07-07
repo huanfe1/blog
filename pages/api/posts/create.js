@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 const abbrlinks = new Set([...allPosts.map(post => post.abbrlink), ...allDrafts.map(draft => draft.abbrlink)]);
 
 const getFilePath = (title, num = 0) => {
-    const path = `./source/drafts/${title}${num === 0 ? '' : '-' + num}.md`;
+    const path = `./article/drafts/${title}${num === 0 ? '' : '-' + num}.md`;
     if (fs.existsSync(path)) {
         return filePath(title, num + 1);
     }
