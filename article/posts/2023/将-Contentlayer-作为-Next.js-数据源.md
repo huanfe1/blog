@@ -4,10 +4,7 @@ date: 2023-06-03 09:20:41
 abbrlink: 7f9134c6
 author: 幻非
 cover: https://pic.bibiu.cc/2023/06/29/649c5e93bb62a.png
-comments: true
 tags: [Next.js, React, Contentlayer, 前端]
-copyright: true
-categories:
 ---
 
 Hexo 是我博客创立之初时便使用的框架，在博客经过几次框架更换后，整体框架已经由 Next.js 负责，Hexo 仅作为后台数据源使用，之所以还在使用是因为一直没有找到合适的替代品。

@@ -4,10 +4,7 @@ date: 2023-06-11 15:45:13
 abbrlink: b4f558c5
 author: 幻非
 cover: https://pic.bibiu.cc/2023/06/24/6496f8d7aaa74.png
-comments: true
 tags: [React]
-copyright: true
-categories:
 ---
 
 前几天打算给博客添加一个图片预览的效果，可在网上找了半天也没找到合适的库，于是自己干脆自己手写了个。
