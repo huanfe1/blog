@@ -62,7 +62,7 @@ export default function Post({ post }) {
                             <PosthtmlToReact content={post.content} />
                         </section>
                     </article>
-                    {post.comments && <Waline />}
+                    {post.comments && process.env.NODE_ENV !== 'development' && <Waline />}
                 </div>
             </Layout>
         </>
