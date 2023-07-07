@@ -7,10 +7,10 @@ export default async function handler(req, res) {
     if (process.env.NODE_ENV !== 'development') return;
     const slug = req.query.slug;
     const draft = allDrafts.find(draft => draft._raw.sourceFilePath === slug);
-    const yearDir = path.join('source', 'posts', dayjs().format('YYYY'));
+    const yearDir = path.join('article', 'posts', dayjs().format('YYYY'));
     if (!fs.existsSync(yearDir)) fs.mkdirSync(yearDir);
     try {
-        const filePath = path.join('source', draft._raw.sourceFilePath);
+        const filePath = path.join('article', draft._raw.sourceFilePath);
         const content = fs.readFileSync(filePath, 'utf-8');
         const frontMatter = content.slice(4, content.indexOf('\n---'));
         const frontMatterObj = parse(frontMatter);
@@ -18,12 +18,13 @@ export default async function handler(req, res) {
         frontMatterObj.date = dayjs().format('YYYY-MM-DD HH:mm:ss');
         const newContent = content.replace(frontMatter, stringify(frontMatterObj));
         const newFilePath = path.join(
-            'source',
+            'article',
             'posts',
             dayjs().format('YYYY'),
             frontMatterObj.title.replace(/\s+/g, '-') + path.extname(filePath)
         );
         fs.writeFileSync(newFilePath, newContent, 'utf-8');
+        console.log(filePath);
         fs.unlinkSync(filePath);
     } catch (e) {
         res.status(200).json({ code: 1, message: e.message });

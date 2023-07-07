@@ -47,7 +47,7 @@ export const Draft = defineDocumentType(() => ({
 }));
 
 export default makeSource({
-    contentDirPath: 'source',
+    contentDirPath: 'article',
     documentTypes: [Post, Draft],
     markdown: {
         rehypePlugins: [
