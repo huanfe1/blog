@@ -54,4 +54,19 @@
     hr {
         @apply mx-auto my-8 w-60 border-t-gray-300;
     }
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        &:hover .anchor {
+            @apply opacity-100;
+        }
+    }
+    .anchor {
+        @apply absolute -ml-6 pr-2.5 text-2xl font-bold opacity-0;
+        &:hover {
+            @apply text-[--link] no-underline;
+        }
+    }
 }

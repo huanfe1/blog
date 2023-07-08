@@ -8,8 +8,10 @@ import { NextSeo } from 'next-seo';
 import { parser } from 'posthtml-parser';
 import { posthtmlToReact } from '@/utils/posthtmlToReact';
 import formatNumber from '@/utils/formatNumber';
+import { toc } from '@/utils/posthtmlToc';
+import Toc from '@/components/post/toc';
 
-export default function Post({ post }) {
+export default function Post({ post, toc }) {
     return (
         <>
             <NextSeo
@@ -62,6 +64,7 @@ export default function Post({ post }) {
                             <PosthtmlToReact content={post.content} />
                         </section>
                     </article>
+                    {toc && <Toc content={toc} />}
                     {post.comments && process.env.NODE_ENV !== 'development' && <Waline />}
                 </div>
             </Layout>
@@ -69,8 +72,8 @@ export default function Post({ post }) {
     );
 }
 
-function PosthtmlToReact({ content: tree }) {
-    return posthtmlToReact(tree, { pre: Code, img: Img });
+function PosthtmlToReact({ content }) {
+    return posthtmlToReact(content, { pre: Code, img: Img });
 }
 
 export function getStaticProps({ params }) {
@@ -95,6 +98,7 @@ export function getStaticProps({ params }) {
                 copyright: post.copyright,
                 excerpt: post.excerpt,
             },
+            toc: toc(post.content),
         },
     };
 }
