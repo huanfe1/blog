@@ -6,6 +6,7 @@
 @import './article.scss';
 @import './waline.scss';
 @import './variables.scss';
+@import './toc.scss';
 
 body {
     @apply bg-[--main] text-[--text];

@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import truncate from './utils/truncate';
 import { wordcount } from './utils/wordcount';
 
@@ -54,6 +55,13 @@ export default makeSource({
             [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'external', 'nofollow', 'noreferrer'] }],
             [rehypeHighlight],
             [rehypeSlug],
+            [
+                rehypeAutolinkHeadings,
+                {
+                    content: { type: 'text', value: '#' },
+                    properties: { className: 'anchor', ariaHidden: true },
+                },
+            ],
         ],
     },
 });
