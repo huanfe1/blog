@@ -1,6 +1,7 @@
 export default function Top() {
     const click = () => {
         window.scrollTo({ left: 0, top: 0 });
+        history.replaceState(null, null, ' ');
     };
     return (
         <div className="fixed bottom-10 right-10 cursor-pointer rounded-xl bg-[--pop] p-2 shadow" onClick={click}>

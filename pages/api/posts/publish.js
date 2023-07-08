@@ -14,7 +14,6 @@ export default async function handler(req, res) {
         const content = fs.readFileSync(filePath, 'utf-8');
         const frontMatter = content.slice(4, content.indexOf('\n---'));
         const frontMatterObj = parse(frontMatter);
-        console.log(frontMatter);
         frontMatterObj.date = dayjs().format('YYYY-MM-DD HH:mm:ss');
         const newContent = content.replace(frontMatter, stringify(frontMatterObj));
         const newFilePath = path.join(
