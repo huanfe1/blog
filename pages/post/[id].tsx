@@ -3,9 +3,9 @@ import Code from '@/components/post/code';
 import Waline from '@/components/post/waline';
 import Img from '@/components/post/img';
 import Link from 'next/link';
-import { allPosts, allDrafts } from '@/.contentlayer/generated';
+import { allPosts, allDrafts, Markdown } from '@/.contentlayer/generated';
 import { NextSeo } from 'next-seo';
-import { parser } from 'posthtml-parser';
+import { parser, Node } from 'posthtml-parser';
 import { posthtmlToReact } from '@/utils/posthtmlToReact';
 import formatNumber from '@/utils/formatNumber';
 import { toc } from '@/utils/posthtmlToc';
@@ -72,12 +72,28 @@ export default function Post({ post, toc }) {
     );
 }
 
+interface Posts {
+    title: string;
+    date: string;
+    update: string;
+    abbrlink: string;
+    content?: Node[];
+    wordcount: string | number;
+    categories: string;
+    tags: string[];
+    cover: string;
+    comments: boolean;
+    excerpt: string;
+    copyright: boolean;
+    body?: Markdown;
+}
+
 function PosthtmlToReact({ content }) {
     return posthtmlToReact(content, { pre: Code, img: Img });
 }
 
-export function getStaticProps({ params }) {
-    const posts = [...allPosts];
+export function getStaticProps({ params }: { params: { id: string } }): { props: { post: Posts; toc: any } } {
+    const posts: Posts[] = [...allPosts];
     if (process.env.NODE_ENV === 'development') posts.push(...allDrafts);
     const post = posts.find(post => post.abbrlink === params.id);
     post.content = parser(post.body.html, { decodeEntities: true }).filter(item => item !== '\n');
@@ -104,7 +120,7 @@ export function getStaticProps({ params }) {
 }
 
 export function getStaticPaths() {
-    const posts = [...allPosts];
+    const posts: Posts[] = [...allPosts];
     if (process.env.NODE_ENV === 'development') posts.push(...allDrafts);
     return {
         paths: posts.map(post => ({ params: { id: post.abbrlink } })),

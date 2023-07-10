@@ -1,13 +1,14 @@
 import Layout from '@/components/layout';
 import Card from '@/components/card';
 import Pagination from '@/components/pagination';
-import { allPosts } from '@/.contentlayer/generated';
+import { allPosts, Post } from '@/.contentlayer/generated';
 import dayjs from 'dayjs';
 import feed from '@/utils/feed';
 import sitemap from '@/utils/sitemap';
 import { NextSeo } from 'next-seo';
+import { GetStaticProps } from 'next';
 
-export function List({ posts, current, total }) {
+export function List({ posts, current, total }: { posts: Post[]; current: number; total: number }) {
     return (
         <Layout>
             <div className="resp space-y-16">
@@ -20,7 +21,7 @@ export function List({ posts, current, total }) {
     );
 }
 
-export default function Home({ posts, current, total }) {
+export default function Home({ posts, current, total }: { posts: Post[]; current: number; total: number }) {
     return (
         <>
             <NextSeo
@@ -33,13 +34,13 @@ export default function Home({ posts, current, total }) {
     );
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
     if (process.env.NODE_ENV !== 'development') {
         sitemap();
         feed();
     }
-    const per_page = 6;
-    allPosts.sort((a, b) => dayjs(b.date) - dayjs(a.date));
+    const per_page: number = 6;
+    allPosts.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix());
     const posts = allPosts.slice(0, per_page).map(post => ({
         title: post.title,
         date: post.date,
@@ -51,4 +52,4 @@ export async function getStaticProps() {
     return {
         props: { current: 1, posts, total },
     };
-}
+};

@@ -2,7 +2,12 @@ import Link from 'next/link';
 
 const buttonStyle = 'rounded-xl bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 shadow';
 
-export function Prev({ current }) {
+interface Pagination {
+    current: number;
+    total?: number;
+}
+
+export function Prev({ current }: Pagination) {
     if (current === 1) return <div></div>;
     return (
         <Link href={current === 2 ? '/' : `/page/${current - 1}`} className={buttonStyle}>
@@ -11,7 +16,7 @@ export function Prev({ current }) {
     );
 }
 
-export function Next({ current, total }) {
+export function Next({ current, total }: Pagination) {
     if (current === total) return <div></div>;
     return (
         <Link href={`/page/${current + 1}`} className={buttonStyle}>
@@ -20,7 +25,7 @@ export function Next({ current, total }) {
     );
 }
 
-export default function Pagination({ current, total }) {
+export default function Pagination({ current, total }: Pagination) {
     return (
         <nav className="mt-6 flex items-center justify-between">
             <Prev current={current} />

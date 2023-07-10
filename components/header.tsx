@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Color from './color';
 
-const development = process.env.NODE_ENV === 'development';
+const development: boolean = process.env.NODE_ENV === 'development';
 
 export default function header() {
     return (
