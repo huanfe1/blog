@@ -2,18 +2,18 @@ import { allPosts } from '@/.contentlayer/generated';
 import dayjs from 'dayjs';
 import fs from 'fs';
 
-allPosts.sort((a, b) => dayjs(b.date) - dayjs(a.date));
+allPosts.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix());
 
-const url = 'https://blog.huanfei.top';
+const url: string = 'https://blog.huanfei.top';
 
-const header = `<?xml version="1.0" encoding="UTF-8"?>
+const header: string = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>${url}</loc>
 </url>
 `;
 
-const posts = allPosts.map(
+const posts: string[] = allPosts.map(
     post => `
 <url>
     <loc>https://blog.huanfei.top/post/${post.abbrlink}</loc>
@@ -22,13 +22,13 @@ const posts = allPosts.map(
 `
 );
 
-const mix = `
+const mix: string = `
 <url>
     <loc>${url}/archives</loc>
 </url>
 `;
 
-const categories = allPosts
+const categories: string[] = allPosts
     .filter(post => post.categories)
     .map(
         post => `
@@ -38,7 +38,7 @@ const categories = allPosts
 `
     );
 
-const txt = `${allPosts.map(post => `${url}/post/${post.abbrlink}`).join('\n')}
+const txt: string = `${allPosts.map(post => `${url}/post/${post.abbrlink}`).join('\n')}
 ${url}/archives
 ${allPosts
     .filter(post => post.categories)

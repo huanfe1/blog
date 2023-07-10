@@ -52,7 +52,7 @@ function Mask({ props, setStatus, imgRef }) {
 
 export default function Img(props) {
     const [status, setStatus] = useState(false);
-    const imgRef = useRef(null);
+    const imgRef = useRef();
     return (
         <>
             <img

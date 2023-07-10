@@ -1,6 +1,10 @@
 import Link from 'next/link';
 
-export default function Card({ post }) {
+export default function Card({
+    post,
+}: {
+    post: { cover: string; abbrlink: string; title: string; date: string; excerpt: string };
+}) {
     return (
         <div className="overflow-hidden rounded-xl border-[--border] sm:border">
             {post.cover && (

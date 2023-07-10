@@ -33,11 +33,11 @@ export async function getStaticProps() {
         abbrlink: post.abbrlink,
         date: post.date,
     }));
-    drafts.sort((a, b) => dayjs(b.date) - dayjs(a.date));
-    allPosts.sort((a, b) => dayjs(b.date) - dayjs(a.date));
+    drafts.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix());
+    allPosts.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix());
     const wordcount =
-        allDrafts.reduce((total, post) => total + parseInt(post.wordcount), 0) +
-        allPosts.reduce((total, post) => total + parseInt(post.wordcount), 0);
+        allDrafts.reduce((total, post) => total + post.wordcount, 0) +
+        allPosts.reduce((total, post) => total + post.wordcount, 0);
     const postData = {
         drafts: drafts.length,
         length: allPosts.length,

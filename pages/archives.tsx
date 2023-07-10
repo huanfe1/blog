@@ -1,6 +1,6 @@
 import Layout from '@/components/layout';
 import Link from 'next/link';
-import { allPosts } from '@/.contentlayer/generated';
+import { allPosts, Post } from '@/.contentlayer/generated';
 import dayjs from 'dayjs';
 import { NextSeo } from 'next-seo';
 import formatNumber from '@/utils/formatNumber';
@@ -72,8 +72,8 @@ export default function Archives({ archives, data }) {
 }
 
 export async function getStaticProps() {
-    const posts = allPosts
-        .sort((a, b) => dayjs(b.date) - dayjs(a.date))
+    const posts = (allPosts as Post[])
+        .sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix())
         .map(post => ({
             title: post.title,
             date: post.date,
@@ -85,7 +85,7 @@ export async function getStaticProps() {
             archives,
             data: {
                 length: allPosts.length,
-                wordcount: formatNumber(allPosts.reduce((total, post) => total + parseInt(post.wordcount), 0)),
+                wordcount: formatNumber(allPosts.reduce((total, post) => total + post.wordcount, 0)),
             },
         },
     };
