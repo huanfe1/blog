@@ -31,7 +31,7 @@ export function getStaticProps({ params }) {
         name: params.id,
         posts: allPosts
             .filter(post => post.categories === params.id)
-            .sort((a, b) => dayjs(b.date) - dayjs(a.date))
+            .sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix())
             .map(post => ({
                 title: post.title,
                 date: post.date,
@@ -43,7 +43,7 @@ export function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-    const paths = allPosts.filter(post => post.categories).map(post => post.categories);
+    const paths: string[] = allPosts.filter(post => post.categories).map(post => post.categories);
     return {
         paths: paths.map(path => ({ params: { id: path } })),
         fallback: false,

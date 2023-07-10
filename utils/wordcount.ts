@@ -1,6 +1,6 @@
 'use strict';
 
-const counter = content => {
+const counter = (content: string): number[] => {
     const cn = (content.match(/[\u4E00-\u9FA5]/g) || []).length;
     const en = (
         content
@@ -12,19 +12,19 @@ const counter = content => {
     return [cn, en];
 };
 
-export const min2read = (content, { cn = 300, en = 160 } = {}) => {
+export const min2read = (content: string, { cn = 300, en = 160 } = {}) => {
     const len = counter(content);
     const readingTime = len[0] / cn + len[1] / en;
-    return readingTime < 1 ? '1' : parseInt(readingTime, 10);
+    return readingTime < 1 ? '1' : Math.round(readingTime);
 };
 
-export const wordcount = content => {
+export const wordcount = (content: string): number => {
     const len = counter(content);
     const count = len[0] + len[1];
     return count;
 };
 
-export const totalcount = (posts, tiny = true) => {
+export const totalcount = (posts: { content: string }[], tiny = true) => {
     let count = 0;
     posts.forEach(function (post) {
         const len = counter(post.content);

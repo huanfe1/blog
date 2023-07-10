@@ -1,4 +1,4 @@
-import { defineDocumentType, makeSource } from '@contentlayer/source-files';
+import { defineDocumentType, makeSource, FieldDefs, ComputedFields } from '@contentlayer/source-files';
 import dayjs from 'dayjs';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeHighlight from 'rehype-highlight';
@@ -7,19 +7,19 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import truncate from './utils/truncate';
 import { wordcount } from './utils/wordcount';
 
-const options = {
+const options: { fields: FieldDefs; computedFields: ComputedFields } = {
     fields: {
         title: { type: 'string', required: true, description: '文章标题' },
         date: { type: 'string', required: true, description: '发布时间' },
         abbrlink: { type: 'string', required: true, description: '文章链接' },
-        update: { type: 'string', required: false, default: null, description: '更新时间' },
+        update: { type: 'string', required: false, default: '', description: '更新时间' },
         author: { type: 'string', required: false, default: '幻非', description: '作者' },
-        cover: { type: 'string', required: false, default: null, description: '封面图片链接' },
+        cover: { type: 'string', required: false, default: '', description: '封面图片链接' },
         comments: { type: 'boolean', required: false, default: true, description: '是否开启评论' },
         tags: { type: 'list', of: { type: 'string' }, required: false, default: null, description: '标签' },
         copyright: { type: 'boolean', required: false, default: true, description: '是否显示版权' },
-        categories: { type: 'string', required: false, default: null, description: '分类' },
-        excerpt: { type: 'string', required: false, default: null, description: '摘要，为空则自动生成' },
+        categories: { type: 'string', required: false, default: '', description: '分类' },
+        excerpt: { type: 'string', required: false, default: '', description: '摘要，为空则自动生成' },
     },
     computedFields: {
         date: { type: 'string', resolve: post => dayjs(post.date).format('YYYY-MM-DD') },
@@ -29,7 +29,7 @@ const options = {
             type: 'string',
             resolve: post => {
                 if (post.excerpt) return post.excerpt;
-                return truncate(post.body.html.replace(/<[^>]+>/g, ''), { length: 120 }).replace(/[\n\r]/g, '');
+                return truncate(post.body.html.replace(/<[^>]+>/g, '')).replace(/[\n\r]/g, '');
             },
         },
     },

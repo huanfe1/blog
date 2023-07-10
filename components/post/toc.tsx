@@ -7,7 +7,7 @@ export default function Toc({ content }) {
             let temp = '';
             const scroll = document.documentElement.scrollTop;
             for (const link of links) {
-                if (scroll >= document.querySelector(`#${link.id}`).offsetTop) {
+                if (scroll >= (document.querySelector(`#${link.id}`) as HTMLElement).offsetTop - 10) {
                     temp = link.id;
                 } else {
                     break;

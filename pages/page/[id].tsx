@@ -1,9 +1,9 @@
-import { allPosts } from '@/.contentlayer/generated';
+import { allPosts, Post } from '@/.contentlayer/generated';
 import dayjs from 'dayjs';
 import { NextSeo } from 'next-seo';
 import { List } from '../index';
 
-export default function Page({ posts, current, total }) {
+export default function Page({ posts, current, total }: { posts: Post[]; current: number; total: number }) {
     return (
         <>
             <NextSeo
@@ -16,11 +16,11 @@ export default function Page({ posts, current, total }) {
     );
 }
 
-const per_page = 6;
+const per_page: number = 6;
 
-export function getStaticProps({ params }) {
+export function getStaticProps({ params }: { params: { id: string } }) {
     const current = parseInt(params.id);
-    allPosts.sort((a, b) => dayjs(b.date) - dayjs(a.date));
+    allPosts.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix());
     const posts = allPosts.slice((current - 1) * per_page, per_page + (current - 1) * per_page).map(post => ({
         title: post.title,
         date: post.date,
@@ -36,7 +36,7 @@ export function getStaticPaths() {
     const num = Math.ceil(allPosts.length / per_page);
     return {
         paths: Array(num - 1)
-            .fill()
+            .fill(0)
             .map((data, index) => {
                 return { params: { id: (index + 2).toString() } };
             }),
