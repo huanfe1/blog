@@ -59,13 +59,16 @@ type Archive = {
 export async function getStaticProps() {
     const posts = allPosts.filter(post => !post.draft).sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix());
     const archives = getArchives(posts);
+    const showData = {
+        length: allPosts.filter(post => !post.draft).length,
+        wordcount: formatNumber(
+            allPosts.filter(post => !post.draft).reduce((total, post) => total + post.wordcount, 0)
+        ),
+    };
     return {
         props: {
             archives,
-            data: {
-                length: allPosts.length,
-                wordcount: formatNumber(allPosts.reduce((total, post) => total + post.wordcount, 0)),
-            },
+            data: showData,
         },
     };
 }

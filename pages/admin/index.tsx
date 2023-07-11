@@ -40,9 +40,9 @@ export async function getStaticProps() {
     const wordcount = allPosts.reduce((total, post) => total + post.wordcount, 0);
     const postData = {
         drafts: drafts.length,
-        length: allPosts.length,
+        length: allPosts.filter(post => !post.draft).length,
         wordcount: formatNumber(wordcount),
-        date: dayjs().diff(dayjs(allPosts[0].date), 'days'),
+        date: dayjs().diff(dayjs(allPosts.filter(post => !post.draft)[0].date), 'days'),
     };
     return {
         props: { drafts, posts: postData },
