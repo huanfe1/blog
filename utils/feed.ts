@@ -13,6 +13,7 @@ const feed = new Feed({
     feedLinks: {
         atom: `${url}/atom.xml`,
     },
+    copyright: `Copyright © 2022 - ${dayjs().format('YYYY')} HuanFei All Rights Reserved`,
     author: {
         name: '幻非',
         link: 'https://huanfei.top',
@@ -22,7 +23,7 @@ const feed = new Feed({
 });
 
 export default function () {
-    allPosts.sort((a, b) => dayjs(b.date) - dayjs(a.date));
+    allPosts.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix());
     allPosts.slice(0, 20).forEach(post => {
         feed.addItem({
             title: `${post.title}`,
