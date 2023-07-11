@@ -11,7 +11,7 @@ import { GetStaticProps } from 'next';
 export function List({ posts, current, total }: { posts: Post[]; current: number; total: number }) {
     return (
         <Layout>
-            <div className="resp space-y-16">
+            <div className="resp space-y-8">
                 {posts.map(post => (
                     <Card post={post} key={post.abbrlink} />
                 ))}
@@ -24,11 +24,7 @@ export function List({ posts, current, total }: { posts: Post[]; current: number
 export default function Home({ posts, current, total }: { posts: Post[]; current: number; total: number }) {
     return (
         <>
-            <NextSeo
-                title="首页"
-                canonical="https://blog.huanfei.top/"
-                description="幻非的个人博客，记录一些技术或者想法"
-            />
+            <NextSeo title="首页" description="幻非的个人博客，记录一些技术或者想法" />
             <List posts={posts} current={current} total={total} />
         </>
     );

@@ -17,10 +17,8 @@ export default function Post({ post, toc }) {
         <>
             <NextSeo
                 title={post.title}
-                canonical={'https://blog.huanfei.top/post/' + post.abbrlink}
                 description={post.excerpt}
                 openGraph={{
-                    url: 'https://blog.huanfei.top/post/' + post.abbrlink,
                     type: 'article',
                     article: {
                         publishedTime: post.date,
