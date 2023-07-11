@@ -5,33 +5,13 @@ import dayjs from 'dayjs';
 import { NextSeo } from 'next-seo';
 import formatNumber from '@/utils/formatNumber';
 
-function getArchives(posts) {
-    const arr = [];
-    posts.forEach(post => {
-        const year = dayjs(post.date).format('YYYY');
-        const index = arr.findIndex(item => item.year === year);
-        const temp = {
-            title: post.title,
-            date: dayjs(post.date).format('MM-DD'),
-            abbrlink: post.abbrlink,
-        };
-        if (index !== -1) {
-            arr[index].posts.push(temp);
-        } else {
-            arr.push({
-                year,
-                posts: [temp],
-            });
-        }
-    });
-    arr.sort((a, b) => b.year - a.year);
-    arr.forEach(item => {
-        item.posts.sort((a, b) => b.date - a.date);
-    });
-    return arr;
-}
-
-export default function Archives({ archives, data }) {
+export default function Archives({
+    archives,
+    data,
+}: {
+    archives: Archive[];
+    data: { length: number; wordcount: string };
+}) {
     return (
         <>
             <NextSeo title="归档页" description="文章的归档页面" canonical="https://blog.huanfei.top/archives" />
@@ -71,14 +51,13 @@ export default function Archives({ archives, data }) {
     );
 }
 
+type Archive = {
+    year: string;
+    posts: { title: string; date: string; abbrlink: string }[];
+};
+
 export async function getStaticProps() {
-    const posts = (allPosts as Post[])
-        .sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix())
-        .map(post => ({
-            title: post.title,
-            date: post.date,
-            abbrlink: post.abbrlink,
-        }));
+    const posts = allPosts.filter(post => !post.draft).sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix());
     const archives = getArchives(posts);
     return {
         props: {
@@ -89,4 +68,30 @@ export async function getStaticProps() {
             },
         },
     };
+}
+
+function getArchives(posts: Post[]) {
+    const arr: Archive[] = [];
+    posts.forEach(post => {
+        const year = dayjs(post.date).format('YYYY');
+        const index = arr.findIndex(item => item.year === year);
+        const temp = {
+            title: post.title,
+            date: dayjs(post.date).format('MM-DD'),
+            abbrlink: post.abbrlink,
+        };
+        if (index !== -1) {
+            arr[index].posts.push(temp);
+        } else {
+            arr.push({
+                year,
+                posts: [temp],
+            });
+        }
+    });
+    arr.sort((a, b) => parseInt(b.year) - parseInt(a.year));
+    arr.forEach(item => {
+        item.posts.sort((a, b) => parseInt(b.date) - parseInt(a.date));
+    });
+    return arr;
 }
