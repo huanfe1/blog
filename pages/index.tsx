@@ -39,17 +39,29 @@ export const getStaticProps: GetStaticProps = async () => {
         sitemap();
         feed();
     }
-    const per_page: number = 6;
-    allPosts.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix());
-    const posts = allPosts.slice(0, per_page).map(post => ({
-        title: post.title,
-        date: post.date,
-        excerpt: post.excerpt,
-        cover: post.cover,
-        abbrlink: post.abbrlink,
-    }));
-    const total = Math.ceil(posts.length / per_page) + 1;
     return {
-        props: { current: 1, posts, total },
+        props: getPagePost(1),
     };
 };
+
+export function getPagePost(current: number) {
+    // 每页显示文章数量
+    const per_page = 6;
+    allPosts.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix());
+    const posts = allPosts
+        .filter(post => !post.draft)
+        .slice((current - 1) * per_page, per_page + (current - 1) * per_page)
+        .map(post => ({
+            title: post.title,
+            date: dayjs(post.date).format('YYYY-MM-DD'),
+            excerpt: post.excerpt,
+            cover: post.cover,
+            abbrlink: post.abbrlink,
+        }));
+    const total = Math.ceil(posts.length / per_page) + 1;
+    return {
+        posts,
+        current,
+        total,
+    };
+}

@@ -7,7 +7,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import truncate from './utils/truncate';
 import { wordcount } from './utils/wordcount';
 
-const options: { fields: FieldDefs; computedFields: ComputedFields } = {
+export const Post = defineDocumentType(() => ({
     fields: {
         title: { type: 'string', required: true, description: '文章标题' },
         date: { type: 'string', required: true, description: '发布时间' },
@@ -22,9 +22,10 @@ const options: { fields: FieldDefs; computedFields: ComputedFields } = {
         excerpt: { type: 'string', required: false, default: '', description: '摘要，为空则自动生成' },
     },
     computedFields: {
-        date: { type: 'string', resolve: post => dayjs(post.date).format('YYYY-MM-DD') },
-        update: { type: 'string', resolve: post => (post.update ? dayjs(post.update).format('YYYY-MM-DD') : null) },
+        date: { type: 'string', resolve: post => dayjs(post.date) },
+        update: { type: 'string', resolve: post => (post.update ? dayjs(post.update) : null) },
         wordcount: { type: 'number', resolve: post => wordcount(post.body.html.replace(/<[^>]+>/g, '')) },
+        draft: { type: 'boolean', resolve: post => !!post._raw.sourceFilePath.match('drafts/') },
         excerpt: {
             type: 'string',
             resolve: post => {
@@ -33,23 +34,13 @@ const options: { fields: FieldDefs; computedFields: ComputedFields } = {
             },
         },
     },
-};
-
-export const Post = defineDocumentType(() => ({
-    ...options,
     name: 'Post',
-    filePathPattern: `./posts/**/*.md`,
-}));
-
-export const Draft = defineDocumentType(() => ({
-    ...options,
-    name: 'Draft',
-    filePathPattern: `./drafts/**/*.md`,
+    filePathPattern: `./**/*.md`,
 }));
 
 export default makeSource({
     contentDirPath: 'article',
-    documentTypes: [Post, Draft],
+    documentTypes: [Post],
     markdown: {
         rehypePlugins: [
             [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'external', 'nofollow', 'noreferrer'] }],

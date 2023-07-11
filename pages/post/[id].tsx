@@ -3,13 +3,14 @@ import Code from '@/components/post/code';
 import Waline from '@/components/post/waline';
 import Img from '@/components/post/img';
 import Link from 'next/link';
-import { allPosts, allDrafts, Markdown } from '@/.contentlayer/generated';
+import { allPosts } from '@/.contentlayer/generated';
 import { NextSeo } from 'next-seo';
-import { parser, Node } from 'posthtml-parser';
+import { parser } from 'posthtml-parser';
 import { posthtmlToReact } from '@/utils/posthtmlToReact';
 import formatNumber from '@/utils/formatNumber';
 import { toc } from '@/utils/posthtmlToc';
 import Toc from '@/components/post/toc';
+import dayjs from 'dayjs';
 
 export default function Post({ post, toc }) {
     return (
@@ -72,41 +73,23 @@ export default function Post({ post, toc }) {
     );
 }
 
-interface Posts {
-    title: string;
-    date: string;
-    update: string;
-    abbrlink: string;
-    content?: Node[];
-    wordcount: string | number;
-    categories: string;
-    tags: string[];
-    cover: string;
-    comments: boolean;
-    excerpt: string;
-    copyright: boolean;
-    body?: Markdown;
-}
-
 function PosthtmlToReact({ content }) {
     return posthtmlToReact(content, { pre: Code, img: Img });
 }
 
-export function getStaticProps({ params }: { params: { id: string } }): { props: { post: Posts; toc: any } } {
-    const posts: Posts[] = [...allPosts];
-    if (process.env.NODE_ENV === 'development') posts.push(...allDrafts);
-    const post = posts.find(post => post.abbrlink === params.id);
-    post.content = parser(post.body.html, { decodeEntities: true }).filter(item => item !== '\n');
-    post.wordcount = formatNumber(post.wordcount);
+export function getStaticProps({ params }: { params: { id: string } }) {
+    const post = allPosts.find(post => post.abbrlink === params.id);
+    const content = parser(post.body.html, { decodeEntities: true }).filter(item => item !== '\n');
+    const wordcount = formatNumber(post.wordcount);
     return {
         props: {
             post: {
                 title: post.title,
-                date: post.date,
+                date: dayjs(post.date).format('YYYY-MM-DD'),
                 update: post.update,
                 abbrlink: post.abbrlink,
-                content: post.content,
-                wordcount: post.wordcount,
+                content: content,
+                wordcount: wordcount,
                 categories: post.categories,
                 tags: post.tags,
                 cover: post.cover,
@@ -114,14 +97,14 @@ export function getStaticProps({ params }: { params: { id: string } }): { props:
                 copyright: post.copyright,
                 excerpt: post.excerpt,
             },
-            toc: toc(post.content),
+            toc: toc(content),
         },
     };
 }
 
 export function getStaticPaths() {
-    const posts: Posts[] = [...allPosts];
-    if (process.env.NODE_ENV === 'development') posts.push(...allDrafts);
+    const isDev = process.env.NODE_ENV === 'development';
+    const posts = isDev ? allPosts : allPosts.filter(post => !post.draft);
     return {
         paths: posts.map(post => ({ params: { id: post.abbrlink } })),
         fallback: false,
