@@ -14,7 +14,7 @@ export default function Archives({
 }) {
     return (
         <>
-            <NextSeo title="归档页" description="文章的归档页面" canonical="https://blog.huanfei.top/archives" />
+            <NextSeo title="归档页" description="文章的归档页面" />
             <Layout>
                 <div
                     className="flex h-80 items-center justify-center bg-gray-300 bg-cover bg-center text-white dark:bg-slate-700 dark:brightness-[0.8] sm:h-96"

@@ -1,14 +1,13 @@
 import { NextSeo } from 'next-seo';
 import { List, getPagePost } from '../index';
+import { useRouter } from 'next/router';
 
 export default function Page({ posts, current, total }) {
+    const router = useRouter();
+    console.log(router.asPath);
     return (
         <>
-            <NextSeo
-                title={`文章列表: 第${current}页`}
-                canonical={`https://blog.huanfei.top/page/${current}`}
-                description="幻非的个人博客，记录一些技术或者想法"
-            />
+            <NextSeo title={`文章列表: 第${current}页`} />
             <List posts={posts} current={current} total={total} />
         </>
     );
