@@ -6,7 +6,7 @@
     "description": "Huanfei's blog",
     "scripts": {
         "dev": "next dev",
-        "build": "next build",
+        "build": "contentlayer build & next build",
         "start": "next start",
         "lint": "next lint",
         "format": "prettier --write ."
