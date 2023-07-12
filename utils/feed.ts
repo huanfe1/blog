@@ -24,7 +24,8 @@ const feed = new Feed({
 
 export default function () {
     allPosts.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix());
-    allPosts.slice(0, 20).forEach(post => {
+    const posts = allPosts.filter(post => !post.draft).slice(0, 20);
+    posts.forEach(post => {
         feed.addItem({
             title: `${post.title}`,
             id: `${url}/post/${post.abbrlink}`,
