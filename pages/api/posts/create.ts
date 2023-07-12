@@ -1,10 +1,10 @@
 import fs from 'fs';
 import crc32 from '@/utils/crc32';
-import { allPosts, allDrafts } from '@/.contentlayer/generated';
+import { allPosts } from '@/.contentlayer/generated';
 import dayjs from 'dayjs';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-const abbrlinks = new Set([...allPosts.map(post => post.abbrlink), ...allDrafts.map(draft => draft.abbrlink)]);
+const abbrlinks = new Set([...allPosts.map(post => post.abbrlink)]);
 
 const getFilePath = (title: string, num: number = 0): string => {
     const path = `./article/drafts/${title}${num === 0 ? '' : '-' + num}.md`;

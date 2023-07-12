@@ -80,12 +80,12 @@ export default function Color() {
 }
 
 const Svg = {
-    Dark: ({ className }) => (
+    Dark: ({ className }: { className?: string }) => (
         <svg xmlns="http://www.w3.org/2000/svg" className={className} width="22px" height="22px" viewBox="0 0 20 20">
             <path fill="currentColor" d="M10 3.5a6.5 6.5 0 1 1 0 13v-13ZM10 2a8 8 0 1 0 0 16a8 8 0 0 0 0-16Z" />
         </svg>
     ),
-    Sun: ({ className }) => (
+    Sun: ({ className }: { className?: string }) => (
         <svg xmlns="http://www.w3.org/2000/svg" className={className} width="22px" height="22px" viewBox="0 0 256 256">
             <path
                 fill="currentColor"
@@ -93,7 +93,7 @@ const Svg = {
             />
         </svg>
     ),
-    Moon: ({ className }) => (
+    Moon: ({ className }: { className?: string }) => (
         <svg xmlns="http://www.w3.org/2000/svg" className={className} width="22px" height="22px" viewBox="0 0 256 256">
             <path
                 fill="currentColor"
@@ -101,7 +101,7 @@ const Svg = {
             />
         </svg>
     ),
-    Robot: ({ className }) => (
+    Robot: ({ className }: { className?: string }) => (
         <svg xmlns="http://www.w3.org/2000/svg" className={className} width="22px" height="22px" viewBox="0 0 24 24">
             <path
                 fill="currentColor"
