@@ -8,7 +8,7 @@
 
 ## Front-matter
 
-查看根目录下的 contentlayer.config.js 文件，其中的 `options` 为博客文章的 Front-matter 配置。
+查看 [contentlayer.config.ts](./contentlayer.config.ts) 文件
 
 ## 博客历史
 
@@ -30,8 +30,12 @@
 
 [@SukkaW](https://github.com/SukkaW)
 
-本博客在 UI 方面借鉴了其博客设计，同时其文章也给我的博客建设带来了很多灵感和帮助。
+本博客创建初期在 UI 方面借鉴了其博客设计，同时其文章也给我的博客建设带来了很多灵感和帮助。
 
 [@Kuizuo](https://github.com/kuizuo)
 
 正是看了此博主的 [Vercel 部署个人博客](https://kuizuo.cn/vercel-deploy-blog) ，使我迈出了搭建博客的第一步。
+
+## License
+
+[MIT](./LICENSE)
