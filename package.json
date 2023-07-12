@@ -2,12 +2,26 @@
     "name": "nextjs-blog",
     "version": "0.1.0",
     "private": true,
+    "license": "MIT",
+    "description": "Huanfei's blog",
     "scripts": {
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
+        "postbuild": "next-sitemap",
         "format": "prettier --write ."
+    },
+    "prettier": {
+        "plugins": [
+            "prettier-plugin-tailwindcss"
+        ],
+        "printWidth": 120,
+        "tabWidth": 4,
+        "semi": true,
+        "singleQuote": true,
+        "arrowParens": "avoid",
+        "bracketSpacing": true
     },
     "devDependencies": {
         "@types/react": "18.2.14",

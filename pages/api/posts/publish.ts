@@ -1,13 +1,13 @@
 import fs from 'fs';
 import path from 'path';
-import { allDrafts } from '@/.contentlayer/generated';
+import { allPosts } from '@/.contentlayer/generated';
 import dayjs from 'dayjs';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (process.env.NODE_ENV !== 'development') return;
     const slug = req.query.slug;
-    const draft = allDrafts.find(draft => draft._raw.sourceFilePath === slug);
+    const draft = allPosts.filter(post => !post.draft).find(draft => draft._raw.sourceFilePath === slug);
     const yearDir = path.join('article', 'posts', dayjs().format('YYYY'));
     if (!fs.existsSync(yearDir)) fs.mkdirSync(yearDir);
     try {
