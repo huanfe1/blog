@@ -6,7 +6,7 @@ export default function Card({
     post: { cover: string; abbrlink: string; title: string; date: string; excerpt: string };
 }) {
     return (
-        <Link href={`/posts/${post.abbrlink}`} className="block">
+        <Link href={`/post/${post.abbrlink}`} className="block">
             <div className="overflow-hidden rounded-xl border-[--border] duration-150 sm:border sm:hover:-translate-y-1 sm:hover:shadow-xl">
                 {post.cover && (
                     <div
