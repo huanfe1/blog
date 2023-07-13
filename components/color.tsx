@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 export default function Color() {
     const [status, setStatus] = useState(false);
-    const [theme, setTheme] = useState(null);
+    const [theme, setTheme] = useState('');
     const ref = useRef(null);
     const list = [
         { title: '跟随系统', icon: <Svg.Robot className="mr-1 h-4 w-4 fill-current" />, theme: 'system' },
@@ -12,21 +12,16 @@ export default function Color() {
     ];
     useEffect(() => {
         setTheme(localStorage['theme']);
-        const media = matchMedia('(prefers-color-scheme: dark)');
-        const listener = () => {
-            if (localStorage['theme'] !== 'system') return;
-            document.documentElement.className = media.matches ? 'dark' : 'light';
-        };
-        media.addEventListener('change', listener);
     }, []);
+
     useEffect(() => {
         if (!theme) return;
         localStorage['theme'] = theme;
-        document.documentElement.className =
-            theme === 'system' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme;
+        document.documentElement.className = theme;
     }, [theme]);
+
     useEffect(() => {
-        const click = e => {
+        const click = (e: ClipboardEvent) => {
             if (ref.current && !ref.current.contains(e.target)) setStatus(false);
         };
         if (status) {
@@ -36,6 +31,7 @@ export default function Color() {
         }
         return () => document.removeEventListener('click', click);
     }, [ref, status]);
+
     return (
         <div
             className="relative"

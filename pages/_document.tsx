@@ -1,7 +1,8 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 import Analytics from '@/components/analytics';
 
-const theme = `(()=>{void 0===localStorage.theme&&localStorage.setItem("theme","system");const e="system"!==localStorage.theme?localStorage.theme:matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.classList.add(e)})();`;
+const theme = `(() => {void 0 === localStorage.theme && localStorage.setItem('theme', 'auto');document.documentElement.classList.add(localStorage.theme);})();`;
+
 export default function Document() {
     return (
         <Html lang="zh-CN">
