@@ -28,7 +28,7 @@ export const Post = defineDocumentType(() => ({
         date: { type: 'string', resolve: post => dayjs(post.date) },
         update: { type: 'string', resolve: post => (post.update ? dayjs(post.update) : null) },
         wordcount: { type: 'number', resolve: post => wordcount(post.body.html.replace(/<[^>]+>/g, '')) },
-        draft: { type: 'boolean', resolve: post => !!post._raw.sourceFilePath.match('drafts/') },
+        draft: { type: 'boolean', resolve: post => post._raw.sourceFilePath.startsWith('drafts/') },
         excerpt: {
             type: 'string',
             resolve: post => {
