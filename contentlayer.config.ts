@@ -1,11 +1,14 @@
-import { defineDocumentType, makeSource, FieldDefs, ComputedFields } from '@contentlayer/source-files';
+import { defineDocumentType, makeSource } from '@contentlayer/source-files';
 import dayjs from 'dayjs';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import truncate from './utils/truncate';
+import rehypeRewrite from 'rehype-rewrite';
 import { wordcount } from './utils/wordcount';
+import { Element, Text } from 'hast';
+import rewrite from './utils/rewrite';
 
 export const Post = defineDocumentType(() => ({
     fields: {
@@ -51,6 +54,16 @@ export default makeSource({
                 {
                     content: { type: 'text', value: '#' },
                     properties: { className: 'anchor', ariaHidden: true },
+                },
+            ],
+            [
+                rehypeRewrite,
+                {
+                    rewrite: (node: Text, _: number, parent: Element) => {
+                        if (node.type === 'text' && /{% .*? %}/.test(node.value)) {
+                            parent.children = rewrite(node.value.match(/{% (.*) %}/)[1].split(' '));
+                        }
+                    },
                 },
             ],
         ],
