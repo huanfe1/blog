@@ -1,4 +1,4 @@
-html {
+@mixin light {
     color-scheme: light;
     --bg: #f2f5f8;
     --main: #fff;
@@ -11,7 +11,7 @@ html {
     --pop: #f5f5f5;
 }
 
-html.dark {
+@mixin dark {
     color-scheme: dark;
     --bg: #181c27;
     --main: #252d38;
@@ -23,4 +23,22 @@ html.dark {
     img {
         filter: brightness(0.8);
     }
+}
+
+html.system {
+    @media (prefers-color-scheme: light) {
+        @include light();
+    }
+
+    @media (prefers-color-scheme: dark) {
+        @include dark();
+    }
+}
+
+html.light {
+    @include light();
+}
+
+html.dark {
+    @include dark();
 }
