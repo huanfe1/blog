@@ -1,4 +1,4 @@
-function crc32_str(str) {
+function crc32_str(str: string): number {
     const crcTable = new Uint32Array(256);
     const polynomial = 0xedb88320;
 
@@ -19,7 +19,7 @@ function crc32_str(str) {
     return crc >>> 0;
 }
 
-function crc32(str) {
+function crc32(str: string): string {
     const outstr = crc32_str(str).toString(16);
     if (/^[\d|\.]*$/.test(outstr) || outstr.length < 8) {
         return crc32(str + outstr);
