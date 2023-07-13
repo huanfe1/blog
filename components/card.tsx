@@ -1,10 +1,8 @@
 import Link from 'next/link';
 
-export default function Card({
-    post,
-}: {
-    post: { cover: string; abbrlink: string; title: string; date: string; excerpt: string };
-}) {
+type Props = { cover: string; abbrlink: string; title: string; date: string; excerpt: string };
+
+export default function Card({ post }: { post: Props }) {
     return (
         <Link href={`/post/${post.abbrlink}`} className="block">
             <div className="overflow-hidden rounded-xl border-[--border] duration-150 sm:border sm:hover:-translate-y-1 sm:hover:shadow-xl">
