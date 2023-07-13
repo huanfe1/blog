@@ -4,6 +4,19 @@
  * @see https://github.com/xmsyyxx/baike/blob/aa0404ebcd45833c4d1870e281d8f5f531efa8f5/components/WikiRenderer/posthtmlToReact.jsx
  */
 
+import { type NodeTag } from 'posthtml-parser';
+import React, { ComponentPropsWithoutRef } from 'react';
+
+type Node = NodeTag & {
+    content?: Node[];
+};
+
+type HtmlTagReplaceReact = {
+    [TagName in keyof JSX.IntrinsicElements]?:
+        | keyof JSX.IntrinsicElements
+        | React.ComponentType<ComponentPropsWithoutRef<TagName>>;
+};
+
 const SINGLE_TAGS = new Set([
     'area',
     'base',
@@ -26,7 +39,7 @@ const SINGLE_TAGS = new Set([
 
 let totalIndex = 0;
 
-const isFalsyNode = node => {
+const isFalsyNode = (node: Node[] | Node | string): boolean => {
     if (node == null || node === '' || Number.isNaN(node)) {
         return true;
     }
@@ -34,7 +47,7 @@ const isFalsyNode = node => {
     return false;
 };
 
-export const posthtmlToReact = (tree, components = {}, level = 0) => {
+export const posthtmlToReact = (tree: Node[], components: HtmlTagReplaceReact = {}, level = 0): React.ReactNode[] => {
     const treeLen = tree.length;
     if (treeLen === 0) return [];
 
