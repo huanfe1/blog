@@ -1,16 +1,16 @@
+import { allPosts } from '@/.contentlayer/generated';
 import Layout from '@/components/layout';
 import Code from '@/components/post/code';
-import Waline from '@/components/post/waline';
 import Img from '@/components/post/img';
-import Link from 'next/link';
-import { allPosts } from '@/.contentlayer/generated';
-import { NextSeo } from 'next-seo';
-import { parser } from 'posthtml-parser';
-import { posthtmlToReact } from '@/utils/posthtmlToReact';
+import Toc from '@/components/post/toc';
+import Waline from '@/components/post/waline';
 import formatNumber from '@/utils/formatNumber';
 import { toc } from '@/utils/posthtmlToc';
-import Toc from '@/components/post/toc';
+import { posthtmlToReact } from '@/utils/posthtmlToReact';
 import dayjs from 'dayjs';
+import { NextSeo } from 'next-seo';
+import Link from 'next/link';
+import { parser } from 'posthtml-parser';
 
 export default function Post({ post, toc }) {
     return (

@@ -1,5 +1,5 @@
-import { Html, Head, Main, NextScript } from 'next/document';
 import Analytics from '@/components/analytics';
+import { Head, Html, Main, NextScript } from 'next/document';
 
 const theme = `(() => {void 0 === localStorage.theme && localStorage.setItem('theme', 'auto');document.documentElement.classList.add(localStorage.theme);})();`;
 

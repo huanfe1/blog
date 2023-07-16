@@ -1,12 +1,12 @@
-import Layout from '@/components/layout';
-import Create from '@/components/admin/create';
-import Draft from '@/components/admin/draft';
-import Data from '@/components/admin/data';
-import { Toaster } from 'react-hot-toast';
 import { allPosts } from '@/.contentlayer/generated';
-import { NextSeo } from 'next-seo';
-import dayjs from 'dayjs';
+import Create from '@/components/admin/create';
+import Data from '@/components/admin/data';
+import Draft from '@/components/admin/draft';
+import Layout from '@/components/layout';
 import formatNumber from '@/utils/formatNumber';
+import dayjs from 'dayjs';
+import { NextSeo } from 'next-seo';
+import { Toaster } from 'react-hot-toast';
 
 export default function Admin({ posts, drafts }) {
     if (process.env.NODE_ENV !== 'development') return;

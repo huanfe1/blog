@@ -8,17 +8,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (process.env.NODE_ENV !== 'development') return;
     const slug = req.query.slug;
     const draft = allPosts.filter(post => !post.draft).find(draft => draft._raw.sourceFilePath === slug);
-    const yearDir = path.join('article', 'posts', dayjs().format('YYYY'));
+    const yearDir = path.join('articles', 'posts', dayjs().format('YYYY'));
     if (!fs.existsSync(yearDir)) fs.mkdirSync(yearDir);
     try {
-        const filePath = path.join('article', draft._raw.sourceFilePath);
+        const filePath = path.join('articles', draft._raw.sourceFilePath);
         const content = fs.readFileSync(filePath, 'utf-8');
         const frontMatter = content.slice(4, content.indexOf('\n---'));
         const frontMatterObj = parse(frontMatter);
         frontMatterObj.date = dayjs().format('YYYY-MM-DD HH:mm:ss');
         const newContent = content.replace(frontMatter, stringify(frontMatterObj));
         const newFilePath = path.join(
-            'article',
+            'articles',
             'posts',
             dayjs().format('YYYY'),
             frontMatterObj.title.replace(/\s+/g, '-') + path.extname(filePath)

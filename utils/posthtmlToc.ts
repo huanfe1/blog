@@ -1,4 +1,4 @@
-import { type NodeTag, type Node } from 'posthtml-parser';
+import { type Node, type NodeTag } from 'posthtml-parser';
 
 export function toc(content: Node[]): { result: string; tree: { id: string; text: string; level: number }[] } {
     const tree: { id: string; text: string; level: number }[] = (content as NodeTag[])
