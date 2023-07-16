@@ -1,13 +1,13 @@
 import fs from 'fs';
-import crc32 from '@/utils/crc32';
 import { allPosts } from '@/.contentlayer/generated';
+import crc32 from '@/utils/crc32';
 import dayjs from 'dayjs';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const abbrlinks = new Set([...allPosts.map(post => post.abbrlink)]);
 
 const getFilePath = (title: string, num: number = 0): string => {
-    const path = `./article/drafts/${title}${num === 0 ? '' : '-' + num}.md`;
+    const path = `./articles/drafts/${title}${num === 0 ? '' : '-' + num}.md`;
     if (fs.existsSync(path)) {
         return getFilePath(title, num + 1);
     }

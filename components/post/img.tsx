@@ -1,5 +1,5 @@
+import { Dispatch, ImgHTMLAttributes, MutableRefObject, SetStateAction, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useState, useRef, useEffect, ImgHTMLAttributes, MutableRefObject, Dispatch, SetStateAction } from 'react';
 
 function Mask({
     props,

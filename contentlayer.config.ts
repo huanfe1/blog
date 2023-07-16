@@ -1,14 +1,14 @@
 import { defineDocumentType, makeSource } from '@contentlayer/source-files';
 import dayjs from 'dayjs';
+import { Element, Text } from 'hast';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeHighlight from 'rehype-highlight';
-import rehypeSlug from 'rehype-slug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import truncate from './utils/truncate';
 import rehypeRewrite from 'rehype-rewrite';
-import { wordcount } from './utils/wordcount';
-import { Element, Text } from 'hast';
+import rehypeSlug from 'rehype-slug';
 import rewrite from './utils/rewrite';
+import truncate from './utils/truncate';
+import { wordcount } from './utils/wordcount';
 
 export const Post = defineDocumentType(() => ({
     fields: {
@@ -42,7 +42,7 @@ export const Post = defineDocumentType(() => ({
 }));
 
 export default makeSource({
-    contentDirPath: 'article',
+    contentDirPath: 'articles',
     documentTypes: [Post],
     markdown: {
         rehypePlugins: [
