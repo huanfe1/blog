@@ -23,7 +23,7 @@ tags: [React]
 
 此处需要用到 ReactDom 的 `createPortal()` 方法，它可以将元素渲染到网页中的指定位置。因为要考虑到图片的返回，所以图片的位置不能用 `getBoundingClientRect()` 提供的相对于视图窗口的坐标，而是要用到 `offsetTop` 和 `offsetLeft` 提供的相对于 offsetParent 的坐标，所以需要将遮罩和图片渲染到 body 元素中，并且二者需要为同一级。具体实现代码如下：
 
-```javascript
+```jsx
 import { createPortal } from 'react-dom';
 import { useState, useRef } from 'react';
 
@@ -123,7 +123,7 @@ return `translate(${translateX}px, ${translateY}px) scale(${scale})`;
 
 最后加上一点滚动监听，屏幕监听，遮罩透明度变化即可得到最终函数
 
-```javascript
+```jsx
 import { createPortal } from 'react-dom';
 import { useState, useRef, useEffect } from 'react';
 

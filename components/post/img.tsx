@@ -1,7 +1,15 @@
 import { createPortal } from 'react-dom';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, ImgHTMLAttributes, MutableRefObject, Dispatch, SetStateAction } from 'react';
 
-function Mask({ props, setStatus, imgRef }) {
+function Mask({
+    props,
+    setStatus,
+    imgRef,
+}: {
+    props: ImgHTMLAttributes<HTMLImageElement>;
+    setStatus: Dispatch<SetStateAction<boolean>>;
+    imgRef: MutableRefObject<HTMLImageElement>;
+}) {
     const [transform, setTransform] = useState('');
     const [opacity, setOpacity] = useState(0.7);
     const close = () => {
@@ -50,9 +58,9 @@ function Mask({ props, setStatus, imgRef }) {
     );
 }
 
-export default function Img(props) {
+export default function Img(props: ImgHTMLAttributes<HTMLImageElement>) {
     const [status, setStatus] = useState(false);
-    const imgRef = useRef();
+    const imgRef: MutableRefObject<HTMLImageElement> = useRef();
     return (
         <>
             <img
@@ -73,7 +81,7 @@ export default function Img(props) {
 /**
  * 计算图片缩放比例
  */
-const calcFitScale = imgRef => {
+const calcFitScale = (imgRef: MutableRefObject<HTMLImageElement>) => {
     const margin = 5;
     const { top, left, width, height } = imgRef.current.getBoundingClientRect();
     const { naturalWidth, naturalHeight } = imgRef.current;
