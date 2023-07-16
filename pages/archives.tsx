@@ -1,9 +1,9 @@
-import Layout from '@/components/layout';
-import Link from 'next/link';
 import { allPosts, Post } from '@/.contentlayer/generated';
+import Layout from '@/components/layout';
+import formatNumber from '@/utils/formatNumber';
 import dayjs from 'dayjs';
 import { NextSeo } from 'next-seo';
-import formatNumber from '@/utils/formatNumber';
+import Link from 'next/link';
 
 export default function Archives({
     archives,

@@ -1,6 +1,6 @@
+import fs from 'fs';
 import { allPosts } from '@/.contentlayer/generated';
 import dayjs from 'dayjs';
-import fs from 'fs';
 
 allPosts.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix());
 const url: string = 'https://blog.huanfei.top';

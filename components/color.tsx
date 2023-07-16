@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
 import classnames from 'classnames';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Color() {
     const [status, setStatus] = useState(false);

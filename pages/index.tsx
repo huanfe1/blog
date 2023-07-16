@@ -1,12 +1,12 @@
-import Layout from '@/components/layout';
-import Card from '@/components/card';
-import Pagination from '@/components/pagination';
 import { allPosts, Post } from '@/.contentlayer/generated';
-import dayjs from 'dayjs';
+import Card from '@/components/card';
+import Layout from '@/components/layout';
+import Pagination from '@/components/pagination';
 import feed from '@/utils/feed';
 import sitemap from '@/utils/sitemap';
-import { NextSeo } from 'next-seo';
+import dayjs from 'dayjs';
 import { GetStaticProps } from 'next';
+import { NextSeo } from 'next-seo';
 
 export function List({ posts, current, total }: { posts: Post[]; current: number; total: number }) {
     return (

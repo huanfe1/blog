@@ -1,6 +1,6 @@
 import { NextSeo } from 'next-seo';
-import { List, getPagePost } from '../index';
 import { useRouter } from 'next/router';
+import { getPagePost, List } from '../index';
 
 export default function Page({ posts, current, total }) {
     const router = useRouter();
