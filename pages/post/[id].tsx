@@ -4,15 +4,16 @@ import Code from '@/components/post/code';
 import Img from '@/components/post/img';
 import Toc from '@/components/post/toc';
 import Waline from '@/components/post/waline';
+import { PostProps } from '@/types/post';
 import formatNumber from '@/utils/formatNumber';
-import { toc, TocTree } from '@/utils/posthtmlToc';
+import { toc } from '@/utils/posthtmlToc';
 import { posthtmlToReact } from '@/utils/posthtmlToReact';
 import dayjs from 'dayjs';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
-import { Node, parser } from 'posthtml-parser';
+import { parser } from 'posthtml-parser';
 
-export default function Post({ post, toc }: { post: any; toc: any }) {
+export default function Post({ post }: { post: PostProps }) {
     return (
         <>
             <NextSeo
@@ -63,7 +64,7 @@ export default function Post({ post, toc }: { post: any; toc: any }) {
                             <PosthtmlToReact content={post.content} />
                         </section>
                     </article>
-                    {toc && <Toc content={toc} />}
+                    {post.toc && <Toc content={post.toc} />}
                     {post.comments && process.env.NODE_ENV !== 'development' && <Waline />}
                 </div>
             </Layout>
@@ -75,22 +76,7 @@ function PosthtmlToReact({ content }) {
     return posthtmlToReact(content, { pre: Code, img: Img });
 }
 
-type PostProps = {
-    title: string;
-    date: string;
-    update: string;
-    abbrlink: string;
-    categories: string;
-    tags: string[];
-    cover: string;
-    comments: boolean;
-    excerpt: string;
-    content: Node[];
-    wordcount: string | number;
-    copyright: boolean;
-};
-
-export function getStaticProps({ params }: { params: { id: string } }): { props: { post: PostProps; toc: TocTree } } {
+export function getStaticProps({ params }: { params: { id: string } }) {
     const post = allPosts.find(post => post.abbrlink === params.id);
     const content = parser(post.body.html, { decodeEntities: true }).filter(item => item !== '\n');
     const wordcount = formatNumber(post.wordcount);
@@ -109,8 +95,8 @@ export function getStaticProps({ params }: { params: { id: string } }): { props:
                 comments: post.comments,
                 copyright: post.copyright,
                 excerpt: post.excerpt,
+                toc: toc(content),
             },
-            toc: toc(content),
         },
     };
 }

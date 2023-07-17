@@ -1,6 +1,7 @@
+import { TocProps } from '@/types/post';
 import { useEffect } from 'react';
 
-export default function Toc({ content }: { content: { tree: { id: string }[]; result: string } }) {
+export default function Toc({ content }: { content: TocProps }) {
     useEffect(() => {
         const links = content.tree;
         const scrollHandler = () => {
@@ -24,5 +25,5 @@ export default function Toc({ content }: { content: { tree: { id: string }[]; re
             document.removeEventListener('scroll', scrollHandler);
         };
     }, [content]);
-    return <div id="toc" dangerouslySetInnerHTML={{ __html: content.result }}></div>;
+    return <div id="toc" dangerouslySetInnerHTML={{ __html: content.content }}></div>;
 }

@@ -1,9 +1,8 @@
-import { type Node, type NodeTag } from 'posthtml-parser';
+import { TocProps } from '@/types/post';
+import { Node, NodeTag } from 'posthtml-parser';
 
-export type TocTree = { result: string; tree: { id: string; text: string; level: number }[] }[];
-
-export function toc(content: Node[]): { result: string; tree: { id: string; text: string; level: number }[] } {
-    const tree: { id: string; text: string; level: number }[] = (content as NodeTag[])
+export function toc(content: Node[]): TocProps {
+    const tree = (content as NodeTag[])
         .filter(el => /h([1-6])/.test(el.tag as string))
         .map(el => {
             const text = typeof el.content[1] === 'string' ? el.content[1] : getString(el.content[1]);
@@ -56,7 +55,7 @@ export function toc(content: Node[]): { result: string; tree: { id: string; text
     for (let i = firstLevel - 1; i < lastLevel; i++) {
         result += '</li></ul>';
     }
-    return { result, tree };
+    return { content: result, tree };
 }
 
 function getString(content: NodeTag): string {
