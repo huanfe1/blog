@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export default function Toc({ content }) {
+export default function Toc({ content }: { content: { tree: { id: string }[]; result: string } }) {
     useEffect(() => {
         const links = content.tree;
         const scrollHandler = () => {
@@ -23,6 +23,6 @@ export default function Toc({ content }) {
         return () => {
             document.removeEventListener('scroll', scrollHandler);
         };
-    }, []);
+    }, [content]);
     return <div id="toc" dangerouslySetInnerHTML={{ __html: content.result }}></div>;
 }

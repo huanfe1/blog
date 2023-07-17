@@ -5,14 +5,14 @@ import Img from '@/components/post/img';
 import Toc from '@/components/post/toc';
 import Waline from '@/components/post/waline';
 import formatNumber from '@/utils/formatNumber';
-import { toc } from '@/utils/posthtmlToc';
+import { toc, TocTree } from '@/utils/posthtmlToc';
 import { posthtmlToReact } from '@/utils/posthtmlToReact';
 import dayjs from 'dayjs';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
-import { parser } from 'posthtml-parser';
+import { Node, parser } from 'posthtml-parser';
 
-export default function Post({ post, toc }) {
+export default function Post({ post, toc }: { post: any; toc: any }) {
     return (
         <>
             <NextSeo
@@ -75,7 +75,22 @@ function PosthtmlToReact({ content }) {
     return posthtmlToReact(content, { pre: Code, img: Img });
 }
 
-export function getStaticProps({ params }: { params: { id: string } }) {
+type PostProps = {
+    title: string;
+    date: string;
+    update: string;
+    abbrlink: string;
+    categories: string;
+    tags: string[];
+    cover: string;
+    comments: boolean;
+    excerpt: string;
+    content: Node[];
+    wordcount: string | number;
+    copyright: boolean;
+};
+
+export function getStaticProps({ params }: { params: { id: string } }): { props: { post: PostProps; toc: TocTree } } {
     const post = allPosts.find(post => post.abbrlink === params.id);
     const content = parser(post.body.html, { decodeEntities: true }).filter(item => item !== '\n');
     const wordcount = formatNumber(post.wordcount);

@@ -1,5 +1,7 @@
 import { type Node, type NodeTag } from 'posthtml-parser';
 
+export type TocTree = { result: string; tree: { id: string; text: string; level: number }[] }[];
+
 export function toc(content: Node[]): { result: string; tree: { id: string; text: string; level: number }[] } {
     const tree: { id: string; text: string; level: number }[] = (content as NodeTag[])
         .filter(el => /h([1-6])/.test(el.tag as string))

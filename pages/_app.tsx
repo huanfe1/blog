@@ -1,11 +1,12 @@
 import '@/styles/globals.scss';
 import 'nprogress/nprogress.css';
 import { DefaultSeo, NextSeo } from 'next-seo';
+import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import NProgress from 'nprogress';
 import { useEffect } from 'react';
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps }: AppProps) {
     const router = useRouter();
     const is404 = Component.name === 'Custom404';
     useEffect(() => {

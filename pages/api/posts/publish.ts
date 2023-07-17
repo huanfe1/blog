@@ -42,7 +42,7 @@ function parse(content) {
 
 function stringify(frontMatterObj) {
     return Object.entries(frontMatterObj)
-        .filter(([key, value]) => value)
+        .filter(([, value]) => value)
         .map(([key, value]) => `${key}: ${value}`)
         .join('\n');
 }

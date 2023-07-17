@@ -1,8 +1,15 @@
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 
-export default function Draft({ posts }) {
-    const click = slug => {
+export type DraftProps = {
+    abbrlink: string;
+    title: string;
+    date: string;
+    path: string;
+};
+
+export default function Draft({ posts }: { posts: DraftProps[] }) {
+    const click = (slug: string) => {
         if (!confirm('是否发布该草稿')) return;
         fetch('/api/posts/publish?slug=' + slug)
             .then(res => res.json())
