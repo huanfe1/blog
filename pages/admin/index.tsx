@@ -1,14 +1,14 @@
 import { allPosts } from '@/.contentlayer/generated';
 import Create from '@/components/admin/create';
-import Data from '@/components/admin/data';
-import Draft from '@/components/admin/draft';
+import Data, { DataItem } from '@/components/admin/data';
+import Draft, { DraftProps } from '@/components/admin/draft';
 import Layout from '@/components/layout';
 import formatNumber from '@/utils/formatNumber';
 import dayjs from 'dayjs';
 import { NextSeo } from 'next-seo';
 import { Toaster } from 'react-hot-toast';
 
-export default function Admin({ posts, drafts }) {
+export default function Admin({ data, drafts }: { data: DataItem; drafts: DraftProps[] }) {
     if (process.env.NODE_ENV !== 'development') return;
     return (
         <>
@@ -16,7 +16,7 @@ export default function Admin({ posts, drafts }) {
             <Layout>
                 <div className="mx-auto my-20 w-[1280px]">
                     <Toaster />
-                    <Data posts={posts} />
+                    <Data items={data} />
                     <Create />
                     {drafts.length > 0 && <Draft posts={drafts} />}
                 </div>
@@ -27,7 +27,7 @@ export default function Admin({ posts, drafts }) {
 
 export async function getStaticProps() {
     if (process.env.NODE_ENV !== 'development') return { notFound: true };
-    const drafts = allPosts
+    const drafts: DraftProps[] = allPosts
         .filter(post => post.draft)
         .map(post => ({
             title: post.title,
@@ -38,13 +38,13 @@ export async function getStaticProps() {
     drafts.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix());
     allPosts.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix());
     const wordcount = allPosts.reduce((total, post) => total + post.wordcount, 0);
-    const postData = {
-        drafts: drafts.length,
-        length: allPosts.filter(post => !post.draft).length,
-        wordcount: formatNumber(wordcount),
-        date: dayjs().diff(dayjs(allPosts.filter(post => !post.draft)[0].date), 'days'),
-    };
+    const postData: DataItem = [
+        { title: '文章数量', data: allPosts.filter(post => !post.draft).length },
+        { title: '距上次更新天数', data: dayjs().diff(dayjs(allPosts.filter(post => !post.draft)[0].date), 'days') },
+        { title: '总字数', data: formatNumber(wordcount) },
+        { title: '草稿数量', data: drafts.length },
+    ];
     return {
-        props: { drafts, posts: postData },
+        props: { drafts, data: postData },
     };
 }

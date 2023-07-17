@@ -1,12 +1,13 @@
-export default function Data({ posts }) {
-    const items = [
-        { title: '文章数量', data: posts.length },
-        { title: '距上次更新天数', data: posts.date },
-        { title: '总字数', data: posts.wordcount },
-        { title: '草稿数量', data: posts.drafts },
-    ];
+export type DataItem = { title: string; data: string | number }[];
+
+export default function Data({ items }: { items: DataItem }) {
     return (
-        <ul className="my-20 grid grid-cols-4 gap-x-3">
+        <ul
+            className="my-20 grid gap-3 grid-cols-3"
+            style={{
+                gridTemplateColumns: `repeat(${Math.min(items.length, 4)}, minmax(0, 1fr))`,
+            }}
+        >
             {items.map(item => (
                 <li
                     key={item.title}

@@ -23,34 +23,14 @@ function xml() {
     return [header, content, '</urlset>'].join('');
 }
 
-const posts: string[] = allPosts
-    .filter(post => !post.draft)
-    .map(
-        post => `
-<url>
-    <loc>https://blog.huanfei.top/post/${post.abbrlink}</loc>
-    <lastmod>${dayjs(post.date).toISOString()}</lastmod>
-</url>
-`
-    );
-
 const txt: string = allPosts
     .filter(post => !post.draft)
     .map(post => `${url}/post/${post.abbrlink}`)
     .join('\n');
 
-const generatedXml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url>
-<loc>${url}</loc>
-</url>
-${posts.join('')}
-</urlset>
-`;
-
 const generatedTxt = [url, txt, url + '/about', url + '/archive'].join('\n');
 
-export default function () {
+export default function Sitemap() {
     // const content = [header, ...posts].join('') + '</urlset>';
     fs.writeFileSync('./public/sitemap.xml', xml());
     fs.writeFileSync('./public/sitemap.txt', generatedTxt);

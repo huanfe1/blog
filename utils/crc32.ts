@@ -21,7 +21,8 @@ function crc32_str(str: string): number {
 
 function crc32(str: string): string {
     const outstr = crc32_str(str).toString(16);
-    if (/^[\d|\.]*$/.test(outstr) || outstr.length < 8) {
+    // 8位数字开头的字符串，或者长度小于8的字符串，继续计算
+    if (/^[\d]*$/.test(outstr) || outstr.length < 8) {
         return crc32(str + outstr);
     }
     return outstr;

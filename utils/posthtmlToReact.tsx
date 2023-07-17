@@ -5,7 +5,7 @@
  */
 
 import { type NodeTag } from 'posthtml-parser';
-import React, { ComponentPropsWithoutRef } from 'react';
+import React, { ComponentPropsWithoutRef, JSX } from 'react';
 
 type Node = NodeTag & {
     content?: Node[];

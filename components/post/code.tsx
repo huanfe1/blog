@@ -1,8 +1,8 @@
 import reactToString from '@/utils/reactToString';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { HTMLAttributes, MouseEventHandler, useState } from 'react';
 
-const CopySvg = ({ status, click }) => {
+const CopySvg = ({ status, click }: { status: boolean; click: MouseEventHandler<HTMLDivElement> }) => {
     return (
         <div
             onClick={click}
@@ -22,7 +22,7 @@ const CopySvg = ({ status, click }) => {
     );
 };
 
-export default function Code(props) {
+export default function Code(props: HTMLAttributes<HTMLPreElement>) {
     const [status, setStatus] = useState(false);
     const click = () => {
         navigator.clipboard.writeText(reactToString(props.children)).then(() => {
