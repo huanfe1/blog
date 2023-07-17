@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 
-function Clear({ title, setTitle }) {
+function Clear({ title, setTitle }: { title: string; setTitle: React.Dispatch<React.SetStateAction<string>> }) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -57,10 +57,10 @@ export default function Input() {
                 type="button"
                 className={
                     'flex-none rounded-xl bg-[--link] px-10 py-2 text-white hover:bg-[--link-hover]' +
-                    (Boolean(title) ? '' : ' cursor-not-allowed')
+                    (title ? '' : ' cursor-not-allowed')
                 }
                 onClick={click}
-                disabled={!Boolean(title)}
+                disabled={!title}
             >
                 创建
             </button>

@@ -22,7 +22,7 @@ const feed = new Feed({
     generator: 'Nexj.js + Contentlayer',
 });
 
-export default function () {
+export default function generated() {
     allPosts.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix());
     const posts = allPosts.filter(post => !post.draft).slice(0, 20);
     posts.forEach(post => {
