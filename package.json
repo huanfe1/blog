@@ -33,6 +33,7 @@
         "contentlayer": "^0.3.3",
         "dayjs": "^1.11.7",
         "feed": "^4.2.2",
+        "gray-matter": "^4.0.3",
         "next": "13.3.4",
         "next-contentlayer": "^0.3.3",
         "nprogress": "^0.2.0",
