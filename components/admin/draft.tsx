@@ -9,9 +9,9 @@ export type DraftProps = {
 };
 
 export default function Draft({ posts }: { posts: DraftProps[] }) {
-    const click = (slug: string) => {
+    const click = (abbrlink: string) => {
         if (!confirm('是否发布该草稿')) return;
-        fetch('/api/posts/publish?slug=' + slug)
+        fetch('/api/posts/publish?abbrlink=' + abbrlink)
             .then(res => res.json())
             .then(res => {
                 if (res.code === 0) {
@@ -36,7 +36,7 @@ export default function Draft({ posts }: { posts: DraftProps[] }) {
                                 className="ml-3 cursor-pointer hover:text-blue-600"
                                 onClick={e => {
                                     e.preventDefault();
-                                    click(post.path);
+                                    click(post.abbrlink);
                                 }}
                             >
                                 发布
