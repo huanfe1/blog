@@ -31,7 +31,6 @@ export async function getStaticProps() {
         .filter(post => post.draft)
         .map(post => ({
             title: post.title,
-            path: post._raw.sourceFilePath,
             abbrlink: post.abbrlink,
             date: dayjs(post.date).format('YYYY-MM-DD'),
         }));
