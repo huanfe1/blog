@@ -10,7 +10,7 @@
             ]
         },
         {
-            "source": "(.*)json",
+            "source": "(.*).json",
             "headers": [
                 {
                     "key": "Content-Type",
