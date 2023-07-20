@@ -5,7 +5,6 @@ export type DraftProps = {
     abbrlink: string;
     title: string;
     date: string;
-    path: string;
 };
 
 export default function Draft({ posts }: { posts: DraftProps[] }) {
