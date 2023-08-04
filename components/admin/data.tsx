@@ -3,7 +3,7 @@ export type DataItem = { title: string; data: string | number }[];
 export default function Data({ items }: { items: DataItem }) {
     return (
         <ul
-            className="my-20 grid gap-3 grid-cols-3"
+            className="my-20 grid grid-cols-3 gap-3"
             style={{
                 gridTemplateColumns: `repeat(${Math.min(items.length, 4)}, minmax(0, 1fr))`,
             }}
