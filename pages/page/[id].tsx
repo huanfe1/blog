@@ -1,11 +1,8 @@
+import { getPagePost, List } from '../index';
 import { Post } from '@/.contentlayer/generated';
 import { NextSeo } from 'next-seo';
-import { useRouter } from 'next/router';
-import { getPagePost, List } from '../index';
 
 export default function Page({ posts, current, total }: { posts: Post[]; current: number; total: number }) {
-    const router = useRouter();
-    console.log(router.asPath);
     return (
         <>
             <NextSeo title={`文章列表: 第${current}页`} />

@@ -1,9 +1,9 @@
-import fs from 'fs';
-import path from 'path';
 import { allPosts } from '@/.contentlayer/generated';
 import dayjs from 'dayjs';
+import fs from 'fs';
 import fm from 'gray-matter';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import path from 'path';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (process.env.NODE_ENV !== 'development') return;

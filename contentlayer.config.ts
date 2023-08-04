@@ -1,3 +1,6 @@
+import rewrite from './utils/rewrite';
+import truncate from './utils/truncate';
+import { wordcount } from './utils/wordcount';
 import { defineDocumentType, makeSource } from '@contentlayer/source-files';
 import dayjs from 'dayjs';
 import { Element, Text } from 'hast';
@@ -6,9 +9,6 @@ import rehypeExternalLinks from 'rehype-external-links';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeRewrite from 'rehype-rewrite';
 import rehypeSlug from 'rehype-slug';
-import rewrite from './utils/rewrite';
-import truncate from './utils/truncate';
-import { wordcount } from './utils/wordcount';
 
 export const Post = defineDocumentType(() => ({
     fields: {
