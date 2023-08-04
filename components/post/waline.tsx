@@ -1,7 +1,7 @@
 import { init } from '@waline/client';
-import React, { useEffect, useRef } from 'react';
-import '@waline/client/dist/waline.css';
 import type { WalineInitOptions, WalineInstance } from '@waline/client';
+import '@waline/client/dist/waline.css';
+import React, { useEffect, useRef } from 'react';
 
 export type WalineOptions = Omit<WalineInitOptions, 'el'>;
 
