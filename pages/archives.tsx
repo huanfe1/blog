@@ -16,30 +16,26 @@ export default function Archives({
         <>
             <NextSeo title="归档页" description="文章的归档页面" />
             <Layout>
-                <div
-                    className="flex h-80 items-center justify-center bg-gray-300 bg-cover bg-center text-white dark:bg-slate-700 dark:brightness-[0.8] sm:h-96"
-                    style={{
-                        backgroundImage: 'url(https://pic.bibiu.cc/2023/06/28/649c535573d87.jpg)',
-                    }}
-                >
-                    <div className="my-20 text-center">
-                        <h1 className="text-5xl font-bold">归档</h1>
-                        <p className="mt-5">{`${data.length} 篇文章，共 ${data.wordcount} 字`}</p>
-                    </div>
+                <div className="my-28 flex flex-col items-center justify-center rounded-2xl">
+                    <h1 className="text-5xl font-bold">归档</h1>
+                    <div className="mt-5">{`${data.length} 篇文章，共 ${data.wordcount} 字`}</div>
                 </div>
-                <ul className="resp">
+                <ul className="resp space-y-10">
                     {archives.map(categorie => (
                         <li key={categorie.year}>
-                            <h2 className="py-3 text-3xl font-bold">{categorie.year}</h2>
-                            <ul className="space-y-3">
+                            <h2 className="pb-6 text-3xl font-bold">{categorie.year}</h2>
+                            <ul className="space-y-4">
                                 {categorie.posts.map(post => (
-                                    <li key={post.abbrlink} className="flex items-center justify-between py-4 pl-2 ">
-                                        <Link href={'/post/' + post.abbrlink} className="overflow-hidden">
-                                            <h3 className="truncate text-base hover:text-[--link-hover] md:text-xl">
-                                                {post.title}
-                                            </h3>
+                                    <li key={post.abbrlink}>
+                                        <Link
+                                            href={'/post/' + post.abbrlink}
+                                            className="flex items-center justify-between overflow-hidden rounded-xl bg-[--main] px-4 py-4 duration-100 active:scale-95"
+                                        >
+                                            <h3 className="truncate text-base md:text-lg">{post.title}</h3>
+                                            <time dateTime={post.date} title={post.date} className="ml-3 flex-none">
+                                                {dayjs(post.date).format('MM-DD')}
+                                            </time>
                                         </Link>
-                                        <div className="ml-3 flex-none">{post.date}</div>
                                     </li>
                                 ))}
                             </ul>
@@ -80,7 +76,7 @@ function getArchives(posts: Post[]) {
         const index = arr.findIndex(item => item.year === year);
         const temp = {
             title: post.title,
-            date: dayjs(post.date).format('MM-DD'),
+            date: dayjs(post.date).format('YYYY-MM-DD'),
             abbrlink: post.abbrlink,
         };
         if (index !== -1) {

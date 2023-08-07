@@ -31,10 +31,10 @@ export default function Home({ posts, current, total }: { posts: Post[]; current
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-    if (process.env.NODE_ENV !== 'development') {
-        sitemap();
-        feed();
-    }
+    // if (process.env.NODE_ENV !== 'development') {
+    sitemap();
+    feed();
+    // }
     return {
         props: getPagePost(1),
     };
@@ -54,7 +54,7 @@ export function getPagePost(current: number) {
             cover: post.cover,
             abbrlink: post.abbrlink,
         }));
-    const total = Math.ceil(posts.length / per_page) + 1;
+    const total = per_page < allPosts.filter(post => !post.draft).length ? Math.ceil(posts.length / per_page) + 1 : 1;
     return {
         posts,
         current,

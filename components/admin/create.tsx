@@ -1,3 +1,5 @@
+import { Button } from '../button';
+import classNames from 'classnames';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 
@@ -55,10 +57,10 @@ export default function Input() {
             </div>
             <button
                 type="button"
-                className={
-                    'flex-none rounded-xl bg-[--link] px-10 py-2 text-white hover:bg-[--link-hover]' +
-                    (title ? '' : ' cursor-not-allowed')
-                }
+                className={classNames(
+                    'flex-none rounded-xl px-10 py-2 text-white',
+                    title ? 'bg-[--link] hover:bg-[--link-hover]' : 'cursor-not-allowed bg-gray-500'
+                )}
                 onClick={click}
                 disabled={!title}
             >
