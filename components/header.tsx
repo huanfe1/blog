@@ -1,18 +1,18 @@
-import Link from 'next/link';
 import Color from './color';
+import Link from 'next/link';
 
 const development: boolean = process.env.NODE_ENV === 'development';
 
 export default function header() {
     return (
-        <nav className="mx-auto flex h-20 w-full items-center justify-between border-b border-[--border] px-5 sm:px-16 xl:max-w-7xl xl:px-0">
+        <nav className="mx-auto flex h-20 w-full items-center justify-between px-5 sm:px-16 xl:max-w-7xl xl:px-0">
             <h1>
                 <Link href="/" className="flex items-center hover:text-[--link-hover]">
                     <img src="/avatar.png" alt="幻非" className="hidden h-8 w-8 sm:block" />
-                    <span className="ml-3 text-lg">幻非</span>
+                    <span className="text-lg sm:ml-3 sm:hidden">幻非</span>
                 </Link>
             </h1>
-            <div className="space-x-6 lg:space-x-12">
+            <div className="space-x-6 rounded-full px-5 py-2 sm:bg-[--main] sm:shadow-sm lg:space-x-10">
                 <Link className="hover:text-[--link-hover]" href="/">
                     首页
                 </Link>
