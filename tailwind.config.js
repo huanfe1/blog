@@ -9,6 +9,14 @@ module.exports = {
     theme: {
         extend: {},
     },
-    plugins: [],
+    plugins: [
+        require('tailwindcss/plugin')(({ matchUtilities }) => {
+            matchUtilities({
+                x: value => ({
+                    [`@apply ${value.replaceAll(',', ' ')}`]: {},
+                }),
+            });
+        }),
+    ],
     darkMode: 'class',
 };

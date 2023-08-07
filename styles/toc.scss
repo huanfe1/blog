@@ -10,6 +10,6 @@
         @apply my-2 block hover:text-[--link-hover];
     }
     a.active > span {
-        @apply font-bold text-[--link-hover] underline;
+        @apply text-[--link-hover] underline;
     }
 }

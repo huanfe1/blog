@@ -41,7 +41,7 @@
     }
     // 单行代码
     :not(pre) > code {
-        @apply rounded border border-[--border] bg-[--code] px-1;
+        @apply rounded border border-[--border] bg-gray-100 p-1 dark:bg-gray-700;
     }
     // 引用框
     blockquote {

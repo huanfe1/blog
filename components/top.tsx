@@ -5,7 +5,7 @@ export default function Top() {
     };
     return (
         <div
-            className="fixed bottom-10 right-10 cursor-pointer rounded-xl border border-[--border] bg-[--pop] p-2"
+            className="fixed bottom-10 right-10 cursor-pointer rounded-xl border border-[--border] bg-[--main] p-2"
             onClick={click}
         >
             <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 24 24">

@@ -82,7 +82,7 @@ export default function Img(props: ImgHTMLAttributes<HTMLImageElement>) {
  * 计算图片缩放比例
  */
 const calcFitScale = (imgRef: MutableRefObject<HTMLImageElement>) => {
-    const margin = 5;
+    const margin = 20;
     const { top, left, width, height } = imgRef.current.getBoundingClientRect();
     const { naturalWidth, naturalHeight } = imgRef.current;
     const viewportWidth = document.documentElement.clientWidth;
