@@ -25,3 +25,5 @@ The same applies to software. I still use notepad++, I know some of the actions 
 I know something about the girl in this picture, she has a lot of bad press. But I still like this picture. This act may seem a little unbelievable to some people. But in my opinion this picture is just the work of this girl. It is not a symbol of this girl, it is just a picture, what does my liking this picture have to do with this girl?
 
 Don't associate the work with its author, liking the work doesn't mean liking the author.
+
+Don't think about anything he got to germen 

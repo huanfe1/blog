@@ -31,10 +31,10 @@ export default function Home({ posts, current, total }: { posts: Post[]; current
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-    // if (process.env.NODE_ENV !== 'development') {
-    sitemap();
-    feed();
-    // }
+    if (process.env.NODE_ENV !== 'development') {
+        sitemap();
+        feed();
+    }
     return {
         props: getPagePost(1),
     };

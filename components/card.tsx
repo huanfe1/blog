@@ -1,8 +1,7 @@
+import { PostProps } from '@/types/post';
 import Link from 'next/link';
 
-type Props = { cover: string; abbrlink: string; title: string; date: string; excerpt: string };
-
-export default function Card({ post }: { post: Props }) {
+export default function Card({ post }: { post: PostProps }) {
     return (
         <Link
             href={`/post/${post.abbrlink}`}
