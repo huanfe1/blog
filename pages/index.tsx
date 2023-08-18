@@ -1,14 +1,15 @@
-import { allPosts, Post } from '@/.contentlayer/generated';
+import { allPosts } from '@/.contentlayer/generated';
 import Card from '@/components/card';
 import Layout from '@/components/layout';
 import Pagination from '@/components/pagination';
+import { PostProps } from '@/types/post';
 import feed from '@/utils/feed';
 import sitemap from '@/utils/sitemap';
 import dayjs from 'dayjs';
 import { GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
 
-export function List({ posts, current, total }: { posts: Post[]; current: number; total: number }) {
+export function List({ posts, current, total }: { posts: PostProps[]; current: number; total: number }) {
     return (
         <Layout>
             <div className="resp space-y-8">
@@ -21,7 +22,7 @@ export function List({ posts, current, total }: { posts: Post[]; current: number
     );
 }
 
-export default function Home({ posts, current, total }: { posts: Post[]; current: number; total: number }) {
+export default function Home({ posts, current, total }: { posts: PostProps[]; current: number; total: number }) {
     return (
         <>
             <NextSeo title="首页" description="幻非的个人博客，记录一些技术或者想法" />
