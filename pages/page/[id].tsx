@@ -1,8 +1,8 @@
 import { getPagePost, List } from '../index';
-import { Post } from '@/.contentlayer/generated';
+import { PostProps } from '@/types/post';
 import { NextSeo } from 'next-seo';
 
-export default function Page({ posts, current, total }: { posts: Post[]; current: number; total: number }) {
+export default function Page({ posts, current, total }: { posts: PostProps[]; current: number; total: number }) {
     return (
         <>
             <NextSeo title={`文章列表: 第${current}页`} />
