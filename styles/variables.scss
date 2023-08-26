@@ -1,4 +1,4 @@
-@mixin light {
+html {
     color-scheme: light;
     --bg: #f5f5f5;
     --main: #fff;
@@ -9,37 +9,4 @@
     --link: #3b82f6;
     --link-hover: #2563eb;
     --pop: #f5f5f5;
-}
-
-@mixin dark {
-    color-scheme: dark;
-    --bg: #1d1e20;
-    --main: #2e2e33;
-    --main-hover: #374151;
-    --border: #374151;
-    --code: #374151;
-    --text: hsla(0, 0%, 100%, 0.86);
-    --link-hover: #1e58d4;
-    --pop: #42474e;
-    img {
-        filter: brightness(0.8);
-    }
-}
-
-html.system {
-    @media (prefers-color-scheme: light) {
-        @include light();
-    }
-
-    @media (prefers-color-scheme: dark) {
-        @include dark();
-    }
-}
-
-html.light {
-    @include light();
-}
-
-html.dark {
-    @include dark();
 }
