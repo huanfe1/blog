@@ -1,4 +1,3 @@
-import Color from './color';
 import Link from 'next/link';
 
 const development: boolean = process.env.NODE_ENV === 'development';
@@ -27,7 +26,6 @@ export default function header() {
                 <Link href="/atom.xml" target="_blank" className="hover:text-[--link-hover]">
                     <Rss />
                 </Link>
-                <Color />
                 {development && (
                     <Link href="/admin" className="hover:text-[--link-hover]">
                         <Setting />
