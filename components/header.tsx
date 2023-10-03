@@ -4,35 +4,37 @@ const development: boolean = process.env.NODE_ENV === 'development';
 
 export default function header() {
     return (
-        <nav className="mx-auto flex h-20 w-full items-center justify-between px-5 sm:px-16 xl:max-w-7xl xl:px-0">
-            <h1>
-                <Link href="/" className="flex items-center hover:text-[--link-hover]">
-                    <img src="/avatar.png" alt="幻非" className="hidden h-8 w-8 sm:block" />
-                    <span className="text-lg sm:ml-3 sm:hidden">幻非</span>
-                </Link>
-            </h1>
-            <div className="space-x-6 rounded-full px-5 py-2 sm:bg-[--main] sm:shadow-sm lg:space-x-10">
-                <Link className="hover:text-[--link-hover]" href="/">
-                    首页
-                </Link>
-                <Link className="hover:text-[--link-hover]" href="/archives">
-                    归档
-                </Link>
-                <Link className="hover:text-[--link-hover]" href="/about">
-                    关于
-                </Link>
-            </div>
-            <div className="hidden items-center space-x-4 sm:flex">
-                <Link href="/atom.xml" target="_blank" className="hover:text-[--link-hover]">
-                    <Rss />
-                </Link>
-                {development && (
-                    <Link href="/admin" className="hover:text-[--link-hover]">
-                        <Setting />
+        <div className="flex h-20 justify-center bg-white shadow-sm">
+            <nav className="flex w-full max-w-6xl items-center justify-between">
+                <h1>
+                    <Link href="/" className="flex items-center hover:text-[--link-hover]">
+                        <img src="/avatar.png" alt="幻非" className="hidden h-8 w-8 sm:block" />
+                        <span className="text-lg sm:ml-3 sm:hidden">幻非</span>
                     </Link>
-                )}
-            </div>
-        </nav>
+                </h1>
+                <div className="space-x-6 rounded-full px-5 py-2 sm:bg-[--main] lg:space-x-10">
+                    <Link className="hover:text-[--link-hover]" href="/">
+                        首页
+                    </Link>
+                    <Link className="hover:text-[--link-hover]" href="/archives">
+                        归档
+                    </Link>
+                    <Link className="hover:text-[--link-hover]" href="/about">
+                        关于
+                    </Link>
+                </div>
+                <div className="hidden items-center space-x-4 sm:flex">
+                    <Link href="/atom.xml" target="_blank" className="hover:text-[--link-hover]">
+                        <Rss />
+                    </Link>
+                    {development && (
+                        <Link href="/admin" className="hover:text-[--link-hover]">
+                            <Setting />
+                        </Link>
+                    )}
+                </div>
+            </nav>
+        </div>
     );
 }
 
