@@ -20,7 +20,7 @@ export default function Archives({
                     <h1 className="text-5xl font-bold">归档</h1>
                     <div className="mt-5">{`${data.length} 篇文章，共 ${data.wordcount} 字`}</div>
                 </div>
-                <ul className="resp space-y-10">
+                <ul className="resp mb-20 space-y-10">
                     {archives.map(categorie => (
                         <li key={categorie.year}>
                             <h2 className="pb-6 text-3xl font-bold">{categorie.year}</h2>
