@@ -2,7 +2,7 @@ import { allPosts } from '@/.contentlayer/generated';
 import Layout from '@/components/layout';
 import Code from '@/components/post/code';
 import Img from '@/components/post/img';
-import Toc from '@/components/post/toc';
+// import Toc from '@/components/post/toc';
 import Waline from '@/components/post/waline';
 import { PostProps } from '@/types/post';
 import formatNumber from '@/utils/formatNumber';
@@ -56,7 +56,7 @@ export default function Post({ post }: { post: PostProps }) {
                             <PosthtmlToReact content={post.content} />
                         </section>
                     </article>
-                    {post.toc && <Toc content={post.toc} />}
+                    {/* {post.toc && <Toc content={post.toc} />} */}
                     {post.comments && process.env.NODE_ENV !== 'development' && <Waline />}
                 </div>
             </Layout>
