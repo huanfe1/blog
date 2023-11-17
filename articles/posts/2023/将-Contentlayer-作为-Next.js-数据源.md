@@ -19,7 +19,7 @@ Hexo 作为一个博客框架，让许多人也包括我成功搭建出了属于
 
 其创立于 2022 年，目前还处于测试阶段，仅支持处理本地 **MD/MDX** 文件，且仅支持对接 Next.js，但据文档所写已经对 Next.js 完全支持，并且还很自信写出了想要成为管理 Next.js 项目内容的首选工具。
 
-![image-20230530221458703](https://pic.bibiu.cc/2023/05/31/64772d8817e24.png)
+![Snipaste_2023-11-17_19-38-38.jpg](https://img10.360buyimg.com/ddimg/jfs/t1/237043/20/3286/13645/655750dfF125bed87/49b8a24d82b531b5.jpg)
 
 目前为止项目共发布了两篇文章介绍 Contentlayer 的优点。
 
@@ -75,8 +75,6 @@ export default makeSource({
 
 紧接着 Contentlayer 会把项目目录下的 Markdown 文件转化为 JSON 文件并保存到项目根目录下的 `.contentlayer` 文件夹内。
 
-![image-20230530231638302](https://pic.bibiu.cc/2023/05/31/64772dd0bbf3a.png)
-
 在自动生成的 `index.mjs` 文件内通过 `import` 的方式导入这些 `JSON` 文件并将数据合并导出以便外部引用。
 
 ```javascript
@@ -110,6 +108,6 @@ export function getStaticPaths() {
 
 在搭建 Contentlayer 时遇到了一个中文语言的 BUG（年轻人终究还是年轻人），在提交 [PR](https://github.com/contentlayerdev/contentlayer/pull/470) 并与开发者一番交流后已成功在新版本中修复。
 
-![image-20230601100233330](https://pic.bibiu.cc/2023/06/01/6477fb5f32c86.png)
+![image.png](https://img11.360buyimg.com/ddimg/jfs/t1/222086/2/34131/54836/655751ebFcadf78b2/eb49c384b89aed9b.jpg)
 
 经过此次更新，博客的文章处理和构建速度以及使用体验都得到了较大提升。在博客框架经历了 Hexo、Astro、Nuxt.js、Next.js 的迭代后，发现还是 Next.js 更合自己胃口，其在各个方面的使用体验都感到很满意，以后可能会在很长一段时间内继续使用，不再变更。

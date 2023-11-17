@@ -11,7 +11,7 @@ tags: [React]
 
 最终实现效果如下：
 
-![gif](https://pic.bibiu.cc/2023/06/09/6483463d2131c.gif)
+![a5c007d135f3459e9f5b6d283753cb43~tplv-k3u1fbpfcp-zoom-in-crop-mark_1512_0_0_0.gif](https://s2.loli.net/2023/11/17/hFzHOiJ4TZ2Nlts.gif)
 
 ## 实现原理
 
@@ -71,7 +71,7 @@ export default function Img(props) {
 
 此时点击图片便会在 body 下生成一个遮罩和处在相同位置的图片，再次点击时则会关闭。
 
-![image-20230611151719597](https://pic.bibiu.cc/2023/06/11/64857be96d155.png)
+![image-20230611151719597](https://img12.360buyimg.com/ddimg/jfs/t1/237318/26/3241/72931/65574e51Fcdaac619/c3154d6482ca55e1.jpg)
 
 ### 添加动画效果
 
@@ -87,7 +87,7 @@ const scale = Math.min(scaleX, scaleY);
 
 `translate()` 的数值为图片在 X 和 Y 轴上的偏移量，我们需要将图片偏移到屏幕中心，所以要求出图片中心点距屏幕中心点的横纵距离
 
-![image-20230611142628123](https://pic.bibiu.cc/2023/06/11/64856cb6b30af.png)
+![2661944-20230612201650198-1233676075.png](https://img14.360buyimg.com/ddimg/jfs/t1/183416/29/41295/11118/65574e68Ff5972ec0/1a000fe297744670.jpg)
 
 ```javascript
 const translateX = ((viewportWidth - width) / 2 - left) / scale;
