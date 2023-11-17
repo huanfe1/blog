@@ -32,10 +32,10 @@ export default function Post({ post }: { post: PostProps }) {
             />
             <Layout>
                 <div className="resp">
-                    <article className="rounded-2xl bg-[--main] p-10">
-                        <header className="my-10">
-                            <h1 className="mb-3 text-center text-3xl font-bold sm:text-4xl">{post.title}</h1>
-                            <div className="text-subtitle text-center">
+                    <article className="rounded-xl border bg-[--main] p-10">
+                        <header>
+                            <h1 className="mb-3 text-center text-3xl font-bold">{post.title}</h1>
+                            <div className="text-subtitle text-center text-[#999]">
                                 <time dateTime={post.date}>{post.date}</time>
                                 <span className="mx-1">·</span>
                                 <span>{'约 ' + post.wordcount + ' 字'}</span>
