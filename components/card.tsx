@@ -1,10 +1,10 @@
-import { PostProps } from '@/types/post';
+import { PostProps } from '@/utils/notion';
 import Link from 'next/link';
 
 export default function Card({ post }: { post: PostProps }) {
     return (
         <Link
-            href={`/post/${post.abbrlink}`}
+            href={`/post/${post.slug}`}
             className="block rounded-xl border border-gray-200/75 bg-[--main] p-5 duration-100 active:scale-95 dark:border-none"
         >
             <article>

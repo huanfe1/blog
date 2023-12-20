@@ -1,7 +1,6 @@
-import { TocProps } from '@/types/post';
 import { Node, NodeTag } from 'posthtml-parser';
 
-export function toc(content: Node[]): TocProps {
+export function toc(content: Node[]) {
     const tree = (content as NodeTag[])
         .filter(el => /h([1-6])/.test(el.tag as string))
         .map(el => {

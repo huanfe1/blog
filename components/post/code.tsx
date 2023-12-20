@@ -31,7 +31,7 @@ export default function Code(props: HTMLAttributes<HTMLPreElement>) {
         });
     };
     return (
-        <pre {...props} className="group relative">
+        <pre {...props} className="group relative" id="code">
             <CopySvg status={status} click={click} />
             {props.children}
         </pre>

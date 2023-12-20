@@ -1,16 +1,11 @@
-import { allPosts } from '@/.contentlayer/generated';
 import Layout from '@/components/layout';
 import Code from '@/components/post/code';
 import Img from '@/components/post/img';
-// import Toc from '@/components/post/toc';
-import Waline from '@/components/post/waline';
-import { PostProps } from '@/types/post';
-import formatNumber from '@/utils/formatNumber';
+import { type PostProps, allPosts } from '@/utils/notion';
 import { posthtmlToReact } from '@/utils/posthtmlToReact';
-import { toc } from '@/utils/posthtmlToc';
 import dayjs from 'dayjs';
+import 'highlight.js/styles/github.css';
 import { NextSeo } from 'next-seo';
-import Link from 'next/link';
 import { parser } from 'posthtml-parser';
 
 export default function Post({ post }: { post: PostProps }) {
@@ -25,9 +20,9 @@ export default function Post({ post }: { post: PostProps }) {
                         publishedTime: post.date,
                         modifiedTime: post.date,
                         authors: ['https://huanfei.top'],
-                        tags: post.tags,
+                        tags: [...(post.tags as string[])],
                     },
-                    images: [{ url: post.cover }],
+                    // images: [{ url: post.cover }],
                 }}
             />
             <Layout>
@@ -35,29 +30,21 @@ export default function Post({ post }: { post: PostProps }) {
                     <article className="rounded-xl border bg-[--main] p-10">
                         <header>
                             <h1 className="mb-3 text-center text-3xl font-bold">{post.title}</h1>
-                            <div className="text-subtitle text-center text-[#999]">
+                            <div className="text-subtitle text-center text-gray-600">
                                 <time dateTime={post.date}>{post.date}</time>
                                 <span className="mx-1">·</span>
                                 <span>{'约 ' + post.wordcount + ' 字'}</span>
-                                {post.categories && (
-                                    <>
-                                        <span className="mx-1">·</span>
-                                        <Link className="hover:text-blue-600" href={'/categories/' + post.categories}>
-                                            {post.categories}
-                                        </Link>
-                                    </>
-                                )}
                             </div>
-                            {post.update && (
+                            {/* {post.update && (
                                 <div className="mt-3 rounded-lg bg-blue-600 p-3 text-white">{`文章内容于 ${post.update} 进行过修改`}</div>
-                            )}
+                            )} */}
                         </header>
                         <section id="post">
                             <PosthtmlToReact content={post.content} />
                         </section>
                     </article>
                     {/* {post.toc && <Toc content={post.toc} />} */}
-                    {post.comments && process.env.NODE_ENV !== 'development' && <Waline />}
+                    {/* {post.comments && process.env.NODE_ENV !== 'development' && <Waline />} */}
                 </div>
             </Layout>
         </>
@@ -68,35 +55,27 @@ function PosthtmlToReact({ content }) {
     return posthtmlToReact(content, { pre: Code, img: Img });
 }
 
-export function getStaticProps({ params }: { params: { id: string } }) {
-    const post = allPosts.find(post => post.abbrlink === params.id);
-    const content = parser(post.body.html, { decodeEntities: true }).filter(item => item !== '\n');
-    const wordcount = formatNumber(post.wordcount);
+export async function getStaticProps({ params }: { params: { id: string } }) {
+    const post = allPosts.find(post => post.slug === params.id);
+    const content = parser(post.content, { decodeEntities: true }).filter(item => item !== '\n');
     return {
         props: {
             post: {
                 title: post.title,
                 date: dayjs(post.date).format('YYYY-MM-DD'),
-                update: post.update,
-                abbrlink: post.abbrlink,
                 content: content,
-                wordcount: wordcount,
-                categories: post.categories,
+                wordcount: post.wordcount,
                 tags: post.tags,
-                comments: post.comments,
-                copyright: post.copyright,
-                excerpt: post.excerpt,
-                toc: toc(content),
+                copyright: 'post.copyright',
+                excerpt: 'post.excerpt',
             },
         },
     };
 }
 
-export function getStaticPaths() {
-    const isDev = process.env.NODE_ENV === 'development';
-    const posts = isDev ? allPosts : allPosts.filter(post => !post.draft);
+export async function getStaticPaths() {
     return {
-        paths: posts.map(post => ({ params: { id: post.abbrlink } })),
+        paths: allPosts.map(post => ({ params: { id: post.slug } })),
         fallback: false,
     };
 }
