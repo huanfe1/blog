@@ -1,4 +1,4 @@
-import { allPosts } from '@/utils/notion';
+import { getAllPosts } from '@/utils/notion';
 import dayjs from 'dayjs';
 import { Feed } from 'feed';
 import fs from 'fs';
@@ -23,7 +23,8 @@ const feed = new Feed({
 });
 
 export default async function generated() {
-    allPosts.slice(0, 20).forEach(post => {
+    const posts = getAllPosts();
+    posts.slice(0, 20).forEach(post => {
         feed.addItem({
             title: `${post.title}`,
             id: `${url}/post/${post.slug}`,
