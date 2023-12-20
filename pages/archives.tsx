@@ -1,24 +1,17 @@
 import Layout from '@/components/layout';
-import { PostProps, allPosts } from '@/utils/notion';
-import { formatNumber } from '@/utils/wordcount.mjs';
+import { archivesPostProps, getArchivesPost } from '@/utils/notion';
 import dayjs from 'dayjs';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 
-export default function Archives({
-    archives,
-    data,
-}: {
-    archives: Archive[];
-    data: { length: number; wordcount: string };
-}) {
+export default function Archives({ archives, length }: { archives: Archive[]; length: number }) {
     return (
         <>
             <NextSeo title="归档页" description="文章的归档页面" />
             <Layout>
                 <div className="my-28 flex flex-col items-center justify-center rounded-2xl">
                     <h1 className="text-5xl font-bold">归档</h1>
-                    <div className="mt-5">{`${data.length} 篇文章，共 ${data.wordcount} 字`}</div>
+                    <div className="mt-5">{`${length} 篇文章`}</div>
                 </div>
                 <ul className="resp mb-20 space-y-10">
                     {archives.map(categorie => (
@@ -47,27 +40,23 @@ export default function Archives({
     );
 }
 
+export async function getStaticProps() {
+    const posts = await getArchivesPost();
+    const archives = getArchives(posts);
+    return {
+        props: {
+            archives,
+            length: posts.length,
+        },
+    };
+}
+
 type Archive = {
     year: string;
     posts: { title: string; date: string; slug: string }[];
 };
 
-export async function getStaticProps() {
-    const posts = allPosts;
-    const archives = getArchives(posts);
-    const showData = {
-        length: posts.length,
-        wordcount: formatNumber(posts.reduce((total, post) => total + post.wordcount, 0)),
-    };
-    return {
-        props: {
-            archives,
-            data: showData,
-        },
-    };
-}
-
-function getArchives(posts: PostProps[]) {
+function getArchives(posts: archivesPostProps[]) {
     const arr: Archive[] = [];
     posts.forEach(post => {
         const year = dayjs(post.date).format('YYYY');

@@ -1,7 +1,7 @@
 import Layout from '@/components/layout';
 import Code from '@/components/post/code';
 import Img from '@/components/post/img';
-import { type PostProps, allPosts } from '@/utils/notion';
+import { type PostProps, getArchivesPost, getPostBySlug } from '@/utils/notion';
 import { posthtmlToReact } from '@/utils/posthtmlToReact';
 import dayjs from 'dayjs';
 import 'highlight.js/styles/github.css';
@@ -56,7 +56,7 @@ function PosthtmlToReact({ content }) {
 }
 
 export async function getStaticProps({ params }: { params: { id: string } }) {
-    const post = allPosts.find(post => post.slug === params.id);
+    const post = await getPostBySlug(params.id);
     const content = parser(post.content, { decodeEntities: true }).filter(item => item !== '\n');
     return {
         props: {
@@ -74,8 +74,9 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
 }
 
 export async function getStaticPaths() {
+    const posts = await getArchivesPost();
     return {
-        paths: allPosts.map(post => ({ params: { id: post.slug } })),
+        paths: posts.map(post => ({ params: { id: post.slug } })),
         fallback: false,
     };
 }

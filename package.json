@@ -5,8 +5,8 @@
     "license": "MIT",
     "description": "Huanfei's blog",
     "scripts": {
-        "dev": "node index.mjs & next dev",
-        "build": "node index.mjs & next build",
+        "dev": "next dev",
+        "build": "next build",
         "start": "next start",
         "lint": "next lint",
         "format": "prettier --write ."

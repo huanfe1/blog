@@ -1,4 +1,4 @@
-import { allPosts } from '@/utils/notion';
+import { getAllPosts } from '@/utils/notion';
 import fs from 'fs';
 import { SitemapStream, streamToPromise } from 'sitemap';
 
@@ -8,7 +8,7 @@ export default async function Sitemap() {
         xmlns: { news: false, xhtml: false, image: false, video: false },
     });
     sitemap.write({ url: '/' });
-    allPosts.map(post => sitemap.write({ url: `/post/${post.slug}`, lastmod: post.date }));
+    getAllPosts().map(post => sitemap.write({ url: `/post/${post.slug}`, lastmod: post.date }));
     sitemap.write({ url: '/about' });
     sitemap.write({ url: '/archive' });
     sitemap.end();
