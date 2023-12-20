@@ -1,5 +1,3 @@
-const { withContentlayer } = require('next-contentlayer');
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
@@ -15,6 +13,7 @@ const nextConfig = {
     experimental: {
         scrollRestoration: true,
     },
+    env: { PER_PAGE: '6' },
 };
 
-module.exports = withContentlayer(nextConfig);
+module.exports = nextConfig;

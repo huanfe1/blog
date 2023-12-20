@@ -1,11 +1,9 @@
-import { allPosts } from '@/.contentlayer/generated';
 import Card from '@/components/card';
 import Layout from '@/components/layout';
 import Pagination from '@/components/pagination';
-import { PostProps } from '@/types/post';
 import feed from '@/utils/feed';
+import { type PostProps, allPosts } from '@/utils/notion';
 import sitemap from '@/utils/sitemap';
-import dayjs from 'dayjs';
 import { GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
 
@@ -14,7 +12,7 @@ export function List({ posts, current, total }: { posts: PostProps[]; current: n
         <Layout>
             <div className="resp space-y-8">
                 {posts.map(post => (
-                    <Card post={post} key={post.abbrlink} />
+                    <Card post={post} key={post.slug} />
                 ))}
                 <Pagination current={current} total={total} />
             </div>
@@ -36,29 +34,18 @@ export const getStaticProps: GetStaticProps = async () => {
         sitemap();
         feed();
     }
+    const posts: PostProps[] = allPosts;
     return {
-        props: getPagePost(1),
+        props: getPagePost(1, posts),
     };
 };
 
-export function getPagePost(current: number) {
-    // 每页显示文章数量
-    const per_page = 6;
-    allPosts.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix());
-    const posts = allPosts
-        .filter(post => !post.draft)
-        .slice((current - 1) * per_page, per_page + (current - 1) * per_page)
-        .map(post => ({
-            title: post.title,
-            date: dayjs(post.date).format('YYYY-MM-DD'),
-            excerpt: post.excerpt,
-            cover: post.cover,
-            abbrlink: post.abbrlink,
-        }));
-    const total = per_page < allPosts.filter(post => !post.draft).length ? Math.ceil(posts.length / per_page) + 1 : 1;
+/** 每页文章显示数量 */
+export function getPagePost(current: number, posts: PostProps[]) {
+    const per_page = parseInt(process.env.PER_PAGE);
     return {
-        posts,
+        posts: posts.slice((current - 1) * per_page, per_page + (current - 1) * per_page),
         current,
-        total,
+        total: Math.ceil(posts.length / per_page),
     };
 }

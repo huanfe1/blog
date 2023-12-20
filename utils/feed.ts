@@ -1,4 +1,4 @@
-import { allPosts } from '@/.contentlayer/generated';
+import { allPosts } from '@/utils/notion';
 import dayjs from 'dayjs';
 import { Feed } from 'feed';
 import fs from 'fs';
@@ -22,16 +22,14 @@ const feed = new Feed({
     generator: 'Nexj.js + Contentlayer',
 });
 
-export default function generated() {
-    allPosts.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix());
-    const posts = allPosts.filter(post => !post.draft).slice(0, 20);
-    posts.forEach(post => {
+export default async function generated() {
+    allPosts.slice(0, 20).forEach(post => {
         feed.addItem({
             title: `${post.title}`,
-            id: `${url}/post/${post.abbrlink}`,
-            link: `${url}/post/${post.abbrlink}`,
+            id: `${url}/post/${post.slug}`,
+            link: `${url}/post/${post.slug}`,
             description: post.excerpt,
-            content: post.body.html,
+            content: post.content,
             date: dayjs(post.date).toDate(),
             published: dayjs(post.date).toDate(),
         });

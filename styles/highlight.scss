@@ -2,14 +2,14 @@ pre {
     margin: 15px 0;
 }
 
-pre code.hljs {
+#code code {
     @apply my-3 block overflow-x-auto rounded border border-[--border] bg-gray-50 p-4 dark:bg-gray-800;
 }
 
-code.hljs::-webkit-scrollbar {
+#code code::-webkit-scrollbar {
     @apply h-1;
 }
-code.hljs::-webkit-scrollbar-thumb {
+#code code::-webkit-scrollbar-thumb {
     @apply rounded-2xl;
     background-color: var(--border);
 }

@@ -1,7 +1,6 @@
-import { TocProps } from '@/types/post';
 import { useEffect } from 'react';
 
-export default function Toc({ content }: { content: TocProps }) {
+export default function Toc({ content }: { content }) {
     useEffect(() => {
         const links = content.tree;
         const scrollHandler = () => {

@@ -40,6 +40,5 @@ next-env.d.ts
 /public/sitemap.xml
 /public/sitemap.txt
 
-# Contentlayer
-.contentlayer
-articles
+
+.cache.json
