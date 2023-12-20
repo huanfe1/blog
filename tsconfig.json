@@ -22,7 +22,9 @@
         "**/*.tsx",
         ".contentlayer/generated",
         "pages/_app.tsx",
-        "pages/api/posts/create.js"
+        "pages/api/posts/create.js",
+        "index.js",
+        "utils/truncate.js"
     ],
     "exclude": ["node_modules"]
 }

@@ -1,6 +1,6 @@
-import { allPosts, Post } from '@/.contentlayer/generated';
 import Layout from '@/components/layout';
-import formatNumber from '@/utils/formatNumber';
+import { PostProps, allPosts } from '@/utils/notion';
+import { formatNumber } from '@/utils/wordcount.mjs';
 import dayjs from 'dayjs';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
@@ -26,9 +26,9 @@ export default function Archives({
                             <h2 className="pb-6 text-3xl font-bold">{categorie.year}</h2>
                             <ul className="space-y-4">
                                 {categorie.posts.map(post => (
-                                    <li key={post.abbrlink}>
+                                    <li key={post.slug}>
                                         <Link
-                                            href={'/post/' + post.abbrlink}
+                                            href={'/post/' + post.slug}
                                             className="flex items-center justify-between overflow-hidden rounded-xl bg-[--main] px-4 py-4 duration-100 active:scale-95"
                                         >
                                             <h3 className="truncate text-base md:text-lg">{post.title}</h3>
@@ -49,17 +49,15 @@ export default function Archives({
 
 type Archive = {
     year: string;
-    posts: { title: string; date: string; abbrlink: string }[];
+    posts: { title: string; date: string; slug: string }[];
 };
 
 export async function getStaticProps() {
-    const posts = allPosts.filter(post => !post.draft).sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix());
+    const posts = allPosts;
     const archives = getArchives(posts);
     const showData = {
-        length: allPosts.filter(post => !post.draft).length,
-        wordcount: formatNumber(
-            allPosts.filter(post => !post.draft).reduce((total, post) => total + post.wordcount, 0)
-        ),
+        length: posts.length,
+        wordcount: formatNumber(posts.reduce((total, post) => total + post.wordcount, 0)),
     };
     return {
         props: {
@@ -69,7 +67,7 @@ export async function getStaticProps() {
     };
 }
 
-function getArchives(posts: Post[]) {
+function getArchives(posts: PostProps[]) {
     const arr: Archive[] = [];
     posts.forEach(post => {
         const year = dayjs(post.date).format('YYYY');
@@ -77,7 +75,7 @@ function getArchives(posts: Post[]) {
         const temp = {
             title: post.title,
             date: dayjs(post.date).format('YYYY-MM-DD'),
-            abbrlink: post.abbrlink,
+            slug: post.slug,
         };
         if (index !== -1) {
             arr[index].posts.push(temp);
