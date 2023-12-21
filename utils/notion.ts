@@ -4,8 +4,7 @@ import { NotionRenderer } from '@notion-render/client';
 import hljs from '@notion-render/hljs-plugin';
 import { Client } from '@notionhq/client';
 import { BlockObjectResponse, PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
-import dayjs from 'dayjs';
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFile } from 'fs';
+import { existsSync, mkdirSync, readFileSync, writeFile } from 'fs';
 
 export type PostProps = {
     title: string;
@@ -17,7 +16,8 @@ export type PostProps = {
     wordcount: number;
 };
 
-if (!existsSync('./.temp/posts')) mkdirSync('./.temp/posts', { recursive: true });
+const postsFile = './.temp/posts';
+if (!existsSync(postsFile)) mkdirSync(postsFile, { recursive: true });
 
 export type archivesPostProps = Omit<PostProps, 'content' | 'excerpt' | 'wordcount' | 'tags'>;
 
@@ -27,7 +27,6 @@ const notion = new Client({
 
 export const getArchivesPost = async (): Promise<archivesPostProps[] | null> => {
     const filePath = './.temp/archives.json';
-    // if (archivesPost.length) return archivesPost;
     if (existsSync(filePath)) return JSON.parse(readFileSync(filePath, 'utf-8'));
     const { results } = (await notion.databases.query({
         filter: { property: '状态', status: { equals: '发布' } },
@@ -41,9 +40,7 @@ export const getArchivesPost = async (): Promise<archivesPostProps[] | null> => 
             slug: result.properties['slug']['rich_text'][0]['plain_text'],
         };
     });
-    writeFile(filePath, JSON.stringify(post), 'utf-8', () => {
-        console.log('写入成功', filePath);
-    });
+    writeFile(filePath, JSON.stringify(post), 'utf-8', () => {});
     return post;
 };
 
@@ -56,12 +53,9 @@ export const getPostBySlug = async (slug: string): Promise<PostProps> => {
         database_id: process.env.NOTION_DATABASE_ID!,
     });
     const results = data.results[0] as PageObjectResponse;
-    const content = await getPostHtml(results.id);
-    const rawContent = content
-        .replace(/[\n\r ]/g, '')
-        .match(/<p>(.*?)<\/p>/g)
-        .join()
-        .replace(/<[^>]+>/g, '');
+    let content = await getPostHtml(results.id);
+    content = content.replace(/((?<=>)[\s]+)|([\s]+(?=<))|(^\s+)|(\s+$)/g, '');
+    const rawContent = content.replace(/<[^>]+>/g, '');
     const post: PostProps = {
         title: results.properties['标题']['title'][0]['plain_text'],
         date: results.properties['日期']['date']['start'],
@@ -71,9 +65,7 @@ export const getPostBySlug = async (slug: string): Promise<PostProps> => {
         wordcount: wordcount(rawContent),
         excerpt: truncate(rawContent),
     };
-    writeFile(filePath, JSON.stringify(post), 'utf-8', () => {
-        console.log('写入成功', filePath);
-    });
+    writeFile(filePath, JSON.stringify(post), 'utf-8', () => {});
     return post;
 };
 
@@ -89,10 +81,8 @@ export const getPostHtml = async (id: string) => {
     return html;
 };
 
-export const getAllPosts = () => {
-    return readdirSync('./.temp/posts')
-        .map(file => {
-            return JSON.parse(readFileSync(`./.temp/posts/${file}`, 'utf-8'));
-        })
-        .sort((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf());
+export const getAllPosts = async (): Promise<PostProps[]> => {
+    const data = await getArchivesPost();
+    const posts = Promise.all(data.map(async post => await getPostBySlug(post.slug)));
+    return posts;
 };

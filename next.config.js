@@ -13,7 +13,10 @@ const nextConfig = {
     experimental: {
         scrollRestoration: true,
     },
-    env: { PER_PAGE: '6' },
+    env: {
+        PER_PAGE: '6',
+        ROOT_URL: !process.env.development ? './' : './public/',
+    },
 };
 
 module.exports = nextConfig;
