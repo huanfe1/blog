@@ -8,7 +8,8 @@ export default async function Sitemap() {
         xmlns: { news: false, xhtml: false, image: false, video: false },
     });
     sitemap.write({ url: '/' });
-    getAllPosts().map(post => sitemap.write({ url: `/post/${post.slug}`, lastmod: post.date }));
+    const posts = await getAllPosts();
+    posts.map(post => sitemap.write({ url: `/post/${post.slug}`, lastmod: post.date }));
     sitemap.write({ url: '/about' });
     sitemap.write({ url: '/archive' });
     sitemap.end();

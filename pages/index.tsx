@@ -4,7 +4,7 @@ import Pagination from '@/components/pagination';
 import feed from '@/utils/feed';
 import { type PostProps, getAllPosts } from '@/utils/notion';
 import sitemap from '@/utils/sitemap';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
 
 export function List({ posts, current, total }: { posts: PostProps[]; current: number; total: number }) {
@@ -29,12 +29,12 @@ export default function Home({ posts, current, total }: { posts: PostProps[]; cu
     );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
     if (process.env.NODE_ENV !== 'development') {
         sitemap();
         feed();
     }
-    const posts: PostProps[] = getAllPosts();
+    const posts: PostProps[] = await getAllPosts();
     return {
         props: getPagePost(1, posts),
     };
