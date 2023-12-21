@@ -14,7 +14,7 @@ export default function Page({ posts, current, total }: { posts: PostProps[]; cu
 
 export async function getServerSideProps({ params }: { params: { id: string } }) {
     const current = parseInt(params.id);
-    const posts: PostProps[] = getAllPosts();
+    const posts: PostProps[] = await getAllPosts();
     return { props: getPagePost(current, posts) };
 }
 
