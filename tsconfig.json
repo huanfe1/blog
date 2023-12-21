@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "baseUrl": ".",
-        "paths": { "@/*": ["./*"], "contentlayer/generated": ["./.contentlayer/generated"] },
+        "paths": { "@/*": ["./*"] },
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
         "skipLibCheck": true,
@@ -16,15 +16,6 @@
         "isolatedModules": true,
         "jsx": "preserve"
     },
-    "include": [
-        "next-env.d.ts",
-        "**/*.ts",
-        "**/*.tsx",
-        ".contentlayer/generated",
-        "pages/_app.tsx",
-        "pages/api/posts/create.js",
-        "index.js",
-        "utils/truncate.js"
-    ],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/_app.tsx", "index.js"],
     "exclude": ["node_modules"]
 }

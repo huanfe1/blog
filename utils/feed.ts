@@ -23,7 +23,7 @@ const feed = new Feed({
 });
 
 export default async function generated() {
-    const posts = getAllPosts();
+    const posts = await getAllPosts();
     posts.slice(0, 20).forEach(post => {
         feed.addItem({
             title: `${post.title}`,
