@@ -4,6 +4,7 @@ import { NotionRenderer } from '@notion-render/client';
 import hljs from '@notion-render/hljs-plugin';
 import { Client } from '@notionhq/client';
 import { BlockObjectResponse, PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 
 export type AllPostsProps = {
     title: string;
@@ -26,9 +27,15 @@ const notion = new Client({
 export const getPostBySlug = async (slug: string): Promise<PostProps> => {
     console.log('获取文章', slug);
     const data = await notion.databases.query({
-        filter: { property: 'slug', rich_text: { equals: slug } },
+        filter: {
+            and: [
+                { property: '状态', status: { equals: '发布' } },
+                { property: 'slug', rich_text: { equals: slug } },
+            ],
+        },
         database_id: process.env.NOTION_DATABASE_ID!,
     });
+    if (!data.results[0]) return;
     const result = data.results[0] as PageObjectResponse;
     let content = await getPostHtml(result.id);
     content = content.replace(/((?<=>)[\s]+)|([\s]+(?=<))|(^\s+)|(\s+$)/g, '');
@@ -58,7 +65,11 @@ export const getPostHtml = async (id: string) => {
 };
 
 export const getAllPosts = async (): Promise<AllPostsProps[]> => {
-    console.log('获取所有文章', process.env.VERCEL_ENV, process.env.VERCEL_REGION, process.env.VERCEL, process.env.CI);
+    console.log(process.env.VERCEL_REGION ? '此代码在 Vercel 上运行' : '此代码在部署阶段');
+    if (!process.env.VERCEL_REGION && existsSync('.temp.posts.json')) {
+        return JSON.parse(readFileSync('.temp.posts.json', 'utf-8'));
+    }
+    console.log('获取所有文章');
     const { results } = (await notion.databases.query({
         filter: { property: '状态', status: { equals: '发布' } },
         sorts: [{ property: '日期', direction: 'descending' }],
@@ -73,5 +84,6 @@ export const getAllPosts = async (): Promise<AllPostsProps[]> => {
             summary: truncate(summary ? summary['plain_text'] : ''),
         };
     });
+    !process.env.VERCEL_REGION && writeFileSync('.temp.posts.json', JSON.stringify(post));
     return post;
 };

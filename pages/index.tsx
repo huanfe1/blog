@@ -39,9 +39,11 @@ export const getStaticProps: GetStaticProps = async () => {
 /** 每页文章显示数量 */
 export function getPagePost(current: number, posts: AllPostsProps[]) {
     const per_page = parseInt(process.env.PER_PAGE);
+    const total = Math.ceil(posts.length / per_page);
+    if (current > total) return;
     return {
         posts: posts.slice((current - 1) * per_page, per_page + (current - 1) * per_page),
         current,
-        total: Math.ceil(posts.length / per_page),
+        total,
     };
 }
