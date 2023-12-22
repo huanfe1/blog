@@ -24,6 +24,7 @@ const notion = new Client({
 
 /** 根据 slug 获取文章 */
 export const getPostBySlug = async (slug: string): Promise<PostProps> => {
+    console.log('获取文章', slug);
     const data = await notion.databases.query({
         filter: { property: 'slug', rich_text: { equals: slug } },
         database_id: process.env.NOTION_DATABASE_ID!,
@@ -46,7 +47,6 @@ export const getPostBySlug = async (slug: string): Promise<PostProps> => {
 
 /** 根据ID获取文章内容，并转化为HTML */
 export const getPostHtml = async (id: string) => {
-    console.log(id);
     const { results } = await notion.blocks.children.list({
         block_id: id,
     });
@@ -57,6 +57,7 @@ export const getPostHtml = async (id: string) => {
 };
 
 export const getAllPosts = async (): Promise<AllPostsProps[]> => {
+    console.log('获取所有文章');
     const { results } = (await notion.databases.query({
         filter: { property: '状态', status: { equals: '发布' } },
         sorts: [{ property: '日期', direction: 'descending' }],
