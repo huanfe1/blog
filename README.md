@@ -2,13 +2,9 @@
 
 [博客链接](https://blog.huanfei.top)
 
-基于 [Next.js](https://nextjs.org/) 搭建，[Contentlayer](https://www.contentlayer.dev/) 进行后台数据处理，[Vercel](https://vercel.com/) 作为部署平台，[Tailwind CSS](https://www.tailwindcss.cn/) 作为 CSS 开发框架。
+基于 [Next.js](https://nextjs.org/) 搭建，[Notion](https://www.notion.com/) 作为后台数据源，[Vercel](https://vercel.com/) 作为部署平台，[Tailwind CSS](https://www.tailwindcss.cn/) 作为 CSS 开发框架。
 
 本博客框架在历经 Hexo、Astro、Nuxt 的迭代后，更换为现在的 Next.js 。
-
-## Front-matter
-
-查看 [contentlayer.config.ts](./contentlayer.config.ts) 文件
 
 ## 博客历史
 
@@ -21,9 +17,11 @@
 
 2023.01.28 博客框架更换为 Nuxt
 
-2023.05.02 花费 33 元在西部数码拍入 huanfei.top 域名并使用，并设置 ixory.com 重定向
+2023.05.02 花费 33 元在西部数码拍入 huanfei.top 并将主域名更换为这个
 
 2023.05.04 博客框架更换为 Next.js
+
+2023.12.22 博客 CMS 更换为 Notion，支持增值更新
 ```
 
 ## 特别鸣谢
