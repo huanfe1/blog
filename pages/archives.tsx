@@ -1,5 +1,5 @@
 import Layout from '@/components/layout';
-import { archivesPostProps, getArchivesPost } from '@/utils/notion';
+import { AllPostsProps, getAllPosts } from '@/utils/notion';
 import dayjs from 'dayjs';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
@@ -41,13 +41,14 @@ export default function Archives({ archives, length }: { archives: Archive[]; le
 }
 
 export async function getStaticProps() {
-    const posts = await getArchivesPost();
+    const posts = await getAllPosts();
     const archives = getArchives(posts);
     return {
         props: {
             archives,
             length: posts.length,
         },
+        revalidate: 1,
     };
 }
 
@@ -56,7 +57,7 @@ type Archive = {
     posts: { title: string; date: string; slug: string }[];
 };
 
-function getArchives(posts: archivesPostProps[]) {
+function getArchives(posts: AllPostsProps[]) {
     const arr: Archive[] = [];
     posts.forEach(post => {
         const year = dayjs(post.date).format('YYYY');

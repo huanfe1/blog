@@ -1,7 +1,7 @@
 import Layout from '@/components/layout';
 import Code from '@/components/post/code';
 import Img from '@/components/post/img';
-import { type PostProps, getArchivesPost, getPostBySlug } from '@/utils/notion';
+import { PostProps, getAllPosts, getPostBySlug } from '@/utils/notion';
 import { posthtmlToReact } from '@/utils/posthtmlToReact';
 import dayjs from 'dayjs';
 import 'highlight.js/styles/github.css';
@@ -13,7 +13,7 @@ export default function Post({ post }: { post: PostProps }) {
         <>
             <NextSeo
                 title={post.title}
-                description={post.excerpt}
+                description={post.summary}
                 openGraph={{
                     type: 'article',
                     article: {
@@ -70,11 +70,12 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
                 excerpt: 'post.excerpt',
             },
         },
+        revalidate: 1,
     };
 }
 
 export async function getStaticPaths() {
-    const posts = await getArchivesPost();
+    const posts = await getAllPosts();
     return {
         paths: posts.map(post => ({ params: { id: post.slug } })),
         fallback: false,

@@ -1,7 +1,7 @@
-import { PostProps } from '@/utils/notion';
+import { AllPostsProps } from '@/utils/notion';
 import Link from 'next/link';
 
-export default function Card({ post }: { post: PostProps }) {
+export default function Card({ post }: { post: AllPostsProps }) {
     return (
         <Link
             href={`/post/${post.slug}`}
@@ -10,7 +10,7 @@ export default function Card({ post }: { post: PostProps }) {
             <article>
                 <h2 className="inline-block text-2xl">{post.title}</h2>
                 <section className="my-2 line-clamp-2 text-sm leading-8 text-gray-700 dark:text-gray-300/75 ">
-                    {post.excerpt}
+                    {post.summary}
                 </section>
                 <time className="time text-sm text-gray-700 dark:text-gray-300/75">{post.date}</time>
             </article>
