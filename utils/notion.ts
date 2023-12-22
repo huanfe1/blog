@@ -4,6 +4,7 @@ import { NotionRenderer } from '@notion-render/client';
 import hljs from '@notion-render/hljs-plugin';
 import { Client } from '@notionhq/client';
 import { BlockObjectResponse, PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 
 export type AllPostsProps = {
     title: string;
@@ -33,6 +34,7 @@ export const getPostBySlug = async (slug: string): Promise<PostProps> => {
     let content = await getPostHtml(result.id);
     content = content.replace(/((?<=>)[\s]+)|([\s]+(?=<))|(^\s+)|(\s+$)/g, '');
     const rawContent = content.replace(/<[^>]+>/g, '');
+    const summary = result.properties['概括']['rich_text'][0];
     const post: PostProps = {
         title: result.properties['标题']['title'][0]['plain_text'],
         date: result.properties['日期']['date']['start'],
@@ -40,7 +42,7 @@ export const getPostBySlug = async (slug: string): Promise<PostProps> => {
         tags: result.properties['标签']['multi_select'].map(tag => tag.name),
         slug: result.properties['slug']['rich_text'][0]['plain_text'],
         wordcount: wordcount(rawContent),
-        summary: result.properties['概括']['rich_text'][0]['plain_text'] || truncate(rawContent),
+        summary: summary ? summary['plain_text'] : '',
     };
     return post;
 };
@@ -57,6 +59,7 @@ export const getPostHtml = async (id: string) => {
 };
 
 export const getAllPosts = async (): Promise<AllPostsProps[]> => {
+    if (existsSync('.temp.posts.json')) return JSON.parse(readFileSync('.temp.posts.json').toString());
     console.log('获取所有文章');
     const { results } = (await notion.databases.query({
         filter: { property: '状态', status: { equals: '发布' } },
@@ -64,12 +67,14 @@ export const getAllPosts = async (): Promise<AllPostsProps[]> => {
         database_id: process.env.NOTION_DATABASE_ID!,
     })) as { results: PageObjectResponse[] };
     const post = results.map(result => {
+        const summary = result.properties['概括']['rich_text'][0];
         return {
             title: result.properties['标题']['title'][0]['plain_text'],
             date: result.properties['日期']['date']['start'],
             slug: result.properties['slug']['rich_text'][0]['plain_text'],
-            summary: result.properties['概括']['rich_text'][0]['plain_text'] || '',
+            summary: summary ? summary['plain_text'] : '',
         };
     });
+    writeFileSync('.temp.posts.json', JSON.stringify(post));
     return post;
 };
