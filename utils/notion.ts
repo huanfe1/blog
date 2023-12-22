@@ -68,7 +68,7 @@ export const getAllPosts = async (): Promise<AllPostsProps[]> => {
             title: result.properties['标题']['title'][0]['plain_text'],
             date: result.properties['日期']['date']['start'],
             slug: result.properties['slug']['rich_text'][0]['plain_text'],
-            summary: result.properties['概括']['rich_text'][0]['plain_text'],
+            summary: result.properties['概括']['rich_text'][0]['plain_text'] || '',
         };
     });
     return post;
