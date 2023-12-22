@@ -1,8 +1,9 @@
 import { getAllPosts } from '@/utils/notion';
-import fs from 'fs';
+import { GetServerSideProps } from 'next';
 import { SitemapStream, streamToPromise } from 'sitemap';
 
-export default async function Sitemap() {
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+    if (!res) return;
     const sitemap = new SitemapStream({
         hostname: 'http://blog.huanfei.top',
         xmlns: { news: false, xhtml: false, image: false, video: false },
@@ -13,5 +14,13 @@ export default async function Sitemap() {
     sitemap.write({ url: '/about' });
     sitemap.write({ url: '/archive' });
     sitemap.end();
-    streamToPromise(sitemap).then(buffer => fs.writeFileSync('./public/sitemap.xml', buffer.toString()));
+    const data = await streamToPromise(sitemap);
+    res.setHeader('Content-Type', 'text/xml');
+    res.write(data.toString());
+    res.end();
+    return { props: {} };
+};
+
+export default function Sitemap() {
+    return null;
 }
