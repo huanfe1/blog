@@ -1,6 +1,7 @@
 import Layout from '@/components/layout';
 import Code from '@/components/post/code';
 import Img from '@/components/post/img';
+import Link from '@/components/post/link';
 import { PostProps, getAllPosts, getPostBySlug } from '@/utils/notion';
 import { posthtmlToReact } from '@/utils/posthtmlToReact';
 import dayjs from 'dayjs';
@@ -52,13 +53,13 @@ export default function Post({ post }: { post: PostProps }) {
 }
 
 function PosthtmlToReact({ content }) {
-    return posthtmlToReact(content, { pre: Code, img: Img });
+    return posthtmlToReact(content, { pre: Code, img: Img, a: Link });
 }
 
 export async function getStaticProps({ params }: { params: { id: string } }) {
     const post = await getPostBySlug(params.id);
     if (!post) return { notFound: true };
-    const content = parser(post.content, { decodeEntities: true });
+    const content = parser(post.content, { decodeEntities: true }).filter(el => typeof el === 'object');
     return {
         props: {
             post: {
