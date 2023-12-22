@@ -1,7 +1,7 @@
 import { getAllPosts } from '@/utils/notion';
 import dayjs from 'dayjs';
 import { Feed } from 'feed';
-import fs from 'fs';
+import { GetServerSideProps } from 'next';
 
 const url = 'https://blog.huanfei.top';
 
@@ -22,19 +22,26 @@ const feed = new Feed({
     generator: 'Nexj.js + Contentlayer',
 });
 
-export default async function generated() {
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+    if (!res) return;
     const posts = await getAllPosts();
     posts.slice(0, 20).forEach(post => {
         feed.addItem({
             title: `${post.title}`,
             id: `${url}/post/${post.slug}`,
             link: `${url}/post/${post.slug}`,
-            description: post.excerpt,
-            content: post.content,
+            description: post.summary,
+            // content: post.summary,
             date: dayjs(post.date).toDate(),
             published: dayjs(post.date).toDate(),
         });
     });
-    fs.writeFileSync('./public/atom.xml', feed.atom1());
-    fs.writeFileSync('./public/rss.xml', feed.rss2());
+    res.setHeader('Content-Type', 'text/xml');
+    res.write(feed.atom1());
+    res.end();
+    return { props: {} };
+};
+
+export default function Atom() {
+    return null;
 }
