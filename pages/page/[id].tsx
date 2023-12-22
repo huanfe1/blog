@@ -14,8 +14,11 @@ export default function Page({ posts, current, total }: { posts: AllPostsProps[]
 
 export async function getStaticProps({ params }: { params: { id: string } }) {
     const current = parseInt(params.id);
+    if (current === 1) return { notFound: true };
     const posts: AllPostsProps[] = await getAllPosts();
-    return { props: getPagePost(current, posts), revalidate: 1 };
+    const props = getPagePost(current, posts);
+    if (!props) return { notFound: true };
+    return { props, revalidate: 1 };
 }
 
 export async function getStaticPaths() {
