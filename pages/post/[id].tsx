@@ -57,6 +57,7 @@ function PosthtmlToReact({ content }) {
 
 export async function getStaticProps({ params }: { params: { id: string } }) {
     const post = await getPostBySlug(params.id);
+    if (!post) return { notFound: true };
     const content = parser(post.content, { decodeEntities: true });
     return {
         props: {
