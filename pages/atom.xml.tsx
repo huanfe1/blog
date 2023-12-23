@@ -31,7 +31,6 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
             id: `${url}/post/${post.slug}`,
             link: `${url}/post/${post.slug}`,
             description: post.summary,
-            // content: post.summary,
             date: dayjs(post.date).toDate(),
             published: dayjs(post.date).toDate(),
         });
