@@ -2,6 +2,7 @@ import { NotionRenderer } from '@notion-render/client';
 import hljs from '@notion-render/hljs-plugin';
 import { Client } from '@notionhq/client';
 import { BlockObjectResponse, PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import { parse } from 'node-html-parser';
 import probeImageSize from 'probe-image-size';
 
 import { Cache } from './cache';
@@ -74,30 +75,15 @@ export const getPostHtmlById = async (id: string) => {
     const renderer = new NotionRenderer();
     renderer.use(hljs({}));
     let html = await renderer.render(...(results as BlockObjectResponse[]));
-
-    // 更改标题
     html = html.replace(/<h([1-6]) .*?>\n\s+(.*?)\n\s+<\/h[1-6]>/g, '<h$1 id="$2"><span>$2</span></h$1>');
-    // // 链接前后空格
-    html = html.replace(/<a (.*?)<\/a>/g, ' <a $1</a> ');
-    // 获取图片尺寸
-
-    const images = await Promise.all(
-        html.match(/<img src="(.*?)" \/>/g).map(async content => {
-            const url = content.match(/<img src="(.*?)" \/>/)[1];
-
-            const { width, height } = await probeImageSize(url);
-            return {
-                url: content.match(/<img src="(.*?)" \/>/)[1],
-                width,
-                height,
-            };
-        })
-    );
-
-    html = html.replace(/<img.*?src="(.*?)".*?\/>/g, (_, url) => {
-        const image = images.find(item => item.url === url);
-        return `<img src="${url}" width="${image.width}" height="${image.height}" />`;
-    });
+    const document = parse(html);
+    for (const img of document.querySelectorAll('img')) {
+        const url = img.getAttribute('src');
+        const { width, height } = await probeImageSize(url);
+        img.setAttribute('width', width.toString());
+        img.setAttribute('height', height.toString());
+    }
+    html = document.toString();
     return html;
 };
 
