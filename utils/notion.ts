@@ -12,6 +12,7 @@ export type AllPostsProps = {
     slug: string;
     date: string;
     summary: string;
+    cover: string;
 };
 
 export type PostProps = AllPostsProps & {
@@ -48,6 +49,7 @@ export const getPostBySlug = async (slug: string): Promise<PostProps> => {
 
     const content = await getPostHtmlById(result.id);
     const summary = result.properties['概括']['rich_text'][0];
+    const cover = result.properties['封面']['files'][0];
 
     const post: PostProps = {
         title: result.properties['标题']['title'][0]['plain_text'],
@@ -57,6 +59,7 @@ export const getPostBySlug = async (slug: string): Promise<PostProps> => {
         slug: result.properties['slug']['rich_text'][0]['plain_text'],
         wordcount: wordcount(content.replace(/<[^>]+>/g, '')),
         summary: truncate(summary ? summary['plain_text'] : ''),
+        cover: cover ? cover[cover['type']]['url'] : '',
     };
 
     DEVELOPMENT && writeFileSync(path, JSON.stringify(post));
@@ -94,11 +97,13 @@ export const getAllPosts = async (): Promise<AllPostsProps[]> => {
     })) as { results: PageObjectResponse[] };
     const post = results.map(result => {
         const summary = result.properties['概括']['rich_text'][0];
+        const cover = result.properties['封面']['files'][0];
         return {
             title: result.properties['标题']['title'][0]['plain_text'],
             date: result.properties['日期']['date']['start'],
             slug: result.properties['slug']['rich_text'][0]['plain_text'],
             summary: truncate(summary ? summary['plain_text'] : ''),
+            cover: cover ? cover[cover['type']]['url'] : '',
         };
     });
     !process.env.VERCEL_REGION && writeFileSync(path, JSON.stringify(post));
