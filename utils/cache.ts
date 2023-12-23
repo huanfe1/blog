@@ -2,7 +2,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 export function Cache(path: string) {
-    if (!existsSync(path)) mkdirSync(path, { recursive: true });
+    if (!existsSync(path) && !process.env.VERCEL_REGION) mkdirSync(path, { recursive: true });
 
     let cache = this;
 
