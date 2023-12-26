@@ -1,7 +1,8 @@
+import { ReactNode } from 'react';
+
 import Footer from './footer';
 import Header from './header';
 import Top from './top';
-import { ReactNode } from 'react';
 
 export default function Layout({ children }: { children: ReactNode }) {
     return (

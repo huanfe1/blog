@@ -6,9 +6,7 @@ const CopySvg = ({ status, click }: { status: boolean; click: MouseEventHandler<
     return (
         <div
             onClick={click}
-            className={classNames(
-                'absolute right-3 top-3 hidden cursor-pointer rounded-lg bg-gray-200 p-2 group-hover:block dark:bg-gray-500'
-            )}
+            className="absolute right-3 top-3 hidden cursor-pointer rounded-lg bg-gray-200 p-2 group-hover:block dark:bg-gray-500"
             title="复制代码"
         >
             <svg viewBox="0 0 16 16" height="16" width="16" className={classNames({ hidden: status })}>

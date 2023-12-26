@@ -52,7 +52,7 @@ export default function Color() {
                     'absolute right-0 top-12 z-10 overflow-hidden rounded border bg-[--main] shadow-sm dark:border-none 2xl:-right-10',
                     {
                         hidden: !status,
-                    }
+                    },
                 )}
             >
                 {list.map(_ => (
@@ -63,7 +63,7 @@ export default function Color() {
                         }}
                         className={classnames(
                             'flex w-28 cursor-pointer select-none items-center justify-center p-2 hover:bg-[--main-hover]',
-                            { 'font-medium text-[--link-hover]': _.theme === theme }
+                            { 'font-medium text-[--link-hover]': _.theme === theme },
                         )}
                     >
                         {_.icon}

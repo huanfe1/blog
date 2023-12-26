@@ -54,7 +54,7 @@ function Mask({
                 }}
             />
         </div>,
-        document.body
+        document.body,
     );
 }
 
@@ -67,7 +67,7 @@ export default function Img(props: ImgHTMLAttributes<HTMLImageElement>) {
                 {...props}
                 alt=""
                 ref={imgRef}
-                className={status ? 'invisible' : 'cursor-zoom-in bg-gray-200'}
+                className={status ? 'invisible' : 'cursor-zoom-in'}
                 onClick={() => {
                     setStatus(true);
                 }}
