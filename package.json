@@ -38,7 +38,7 @@
         "next": "13.5.1",
         "node-html-parser": "^6.1.11",
         "nprogress": "^0.2.0",
-        "postcss": "8.4.31",
+        "postcss": "^8.4.31",
         "posthtml": "^0.16.6",
         "posthtml-parser": "^0.11.0",
         "probe-image-size": "^7.2.3",
