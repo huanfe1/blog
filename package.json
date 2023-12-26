@@ -22,8 +22,7 @@
         "eslint-plugin-react": "^7.32.2",
         "eslint-plugin-react-hooks": "^5.0.0-canary-7118f5dd7-20230705",
         "next-seo": "^6.0.0",
-        "prettier": "^2.8.3",
-        "prettier-plugin-tailwindcss": "^0.2.2",
+        "prettier": "^3.1.1",
         "sass": "^1.62.1",
         "typescript": "5.1.6"
     },
@@ -41,6 +40,7 @@
         "postcss": "^8.4.31",
         "posthtml": "^0.16.6",
         "posthtml-parser": "^0.11.0",
+        "prettier-plugin-tailwindcss": "^0.5.9",
         "probe-image-size": "^7.2.3",
         "react": "18.2.0",
         "react-dom": "18.2.0",
