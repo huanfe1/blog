@@ -113,7 +113,7 @@ export const posthtmlToReact = (tree: Node[], components: HtmlTagReplaceReact = 
             result.push(
                 <Comp key={key} {...compProps}>
                     {posthtmlToReact(node.content, components, level + 1)}
-                </Comp>
+                </Comp>,
             );
         }
     }

@@ -1,5 +1,6 @@
-import { Button } from './button';
 import Link from 'next/link';
+
+import { Button } from './button';
 
 export default function Pagination({ current, total }: { current: number; total: number }) {
     if (total === 1) return null;
