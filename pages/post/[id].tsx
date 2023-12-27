@@ -2,9 +2,9 @@ import Layout from '@/components/layout';
 import Code from '@/components/post/code';
 import Img from '@/components/post/img';
 import Link from '@/components/post/link';
+import Waline from '@/components/post/waline';
 import { PostProps, getAllPosts, getPostBySlug } from '@/utils/notion';
 import { posthtmlToReact } from '@/utils/posthtmlToReact';
-import dayjs from 'dayjs';
 import 'highlight.js/styles/github.css';
 import { NextSeo } from 'next-seo';
 import { parser } from 'posthtml-parser';
@@ -23,29 +23,34 @@ export default function Post({ post }: { post: PostProps }) {
                         authors: ['https://huanfei.top'],
                         tags: [...(post.tags as string[])],
                     },
-                    // images: [{ url: post.cover }],
+                    images: [{ url: post.cover }],
                 }}
             />
             <Layout>
-                <div className="resp">
-                    <article className="rounded-xl border bg-[--main] p-10">
+                <div className="bg-white">
+                    <article className="bg-white pb-20">
                         <header>
-                            <h1 className="mb-3 text-center text-3xl font-bold">{post.title}</h1>
-                            <div className="text-subtitle text-center text-gray-600">
+                            {post.cover ? (
+                                <div className="relative pt-10">
+                                    <div className="absolute left-0 top-0 h-[350px] w-full bg-[#f4f4f4]"></div>
+                                    <div className="relative top-0 flex w-full justify-center">
+                                        <img src={post.cover} width="720" className="aspect-video" alt={post.title} />
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="pt-1"></div>
+                            )}
+                            <h1 className="mt-10 text-center text-3xl font-bold">{post.title}</h1>
+                            <div className="my-5 text-center text-gray-600">
                                 <time dateTime={post.date}>{post.date}</time>
                                 <span className="mx-1">·</span>
                                 <span>{'约 ' + post.wordcount + ' 字'}</span>
                             </div>
-                            {/* {post.update && (
-                                <div className="mt-3 rounded-lg bg-blue-600 p-3 text-white">{`文章内容于 ${post.update} 进行过修改`}</div>
-                            )} */}
                         </header>
-                        <section id="post">
+                        <section id="post" className="mx-auto max-w-[664px] text-[#4c4e4d]">
                             <PosthtmlToReact content={post.content} />
                         </section>
                     </article>
-                    {/* {post.toc && <Toc content={post.toc} />} */}
-                    {/* {post.comments && process.env.NODE_ENV !== 'development' && <Waline />} */}
                 </div>
             </Layout>
         </>
@@ -63,13 +68,8 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
     return {
         props: {
             post: {
-                title: post.title,
-                date: dayjs(post.date).format('YYYY-MM-DD'),
+                ...post,
                 content: content,
-                wordcount: post.wordcount,
-                tags: post.tags,
-                copyright: 'post.copyright',
-                excerpt: 'post.excerpt',
             },
         },
         revalidate: 1,

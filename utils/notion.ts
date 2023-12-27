@@ -25,7 +25,7 @@ export type PostProps = AllPostsProps & {
 
 const cache = new Cache('.temp');
 // 是否在 Vercel 运行期间
-const IsNoVercel: boolean = !process.env.VERCEL_REGION;
+const IsVercel: boolean = !!process.env.VERCEL_REGION;
 
 const notion = new Client({
     auth: process.env.NOTION_TOKEN,
@@ -33,8 +33,8 @@ const notion = new Client({
 
 /** 根据 slug 获取文章 */
 export const getPostBySlug = async (slug: string): Promise<PostProps> => {
-    if (IsNoVercel && cache.get(`${slug}`)) return cache.get(`${slug}`);
-
+    if (!IsVercel && cache.get(`${slug}`)) return cache.get(`${slug}`);
+    console.log(slug);
     const data = await notion.databases.query({
         filter: {
             and: [
@@ -62,13 +62,14 @@ export const getPostBySlug = async (slug: string): Promise<PostProps> => {
         cover: cover ? cover[cover['type']]['url'] : '',
     };
 
-    IsNoVercel && cache.set(`${slug}`, post);
+    !IsVercel && cache.set(`${slug}`, post);
 
     return post;
 };
 
 /** 根据ID获取文章内容，并转化为HTML */
 export const getPostHtmlById = async (id: string) => {
+    console.log(id);
     const { results } = await notion.blocks.children.list({
         block_id: id,
     });
@@ -89,7 +90,7 @@ export const getPostHtmlById = async (id: string) => {
 
 /** 获取数据库文章内容 */
 export const getAllPosts = async (): Promise<AllPostsProps[]> => {
-    if (IsNoVercel && cache.get('posts')) return cache.get('posts');
+    if (!IsVercel && cache.get('posts')) return cache.get('posts');
 
     const { results } = (await notion.databases.query({
         filter: { property: '状态', status: { equals: '发布' } },
@@ -108,7 +109,7 @@ export const getAllPosts = async (): Promise<AllPostsProps[]> => {
         };
     });
 
-    IsNoVercel && cache.set('posts', post);
+    !IsVercel && cache.set('posts', post);
 
     return post;
 };

@@ -62,7 +62,7 @@ export default function Img(props: ImgHTMLAttributes<HTMLImageElement>) {
     const [status, setStatus] = useState(false);
     const imgRef: MutableRefObject<HTMLImageElement> = useRef();
     return (
-        <p>
+        <p className="overflow-hidden rounded-lg">
             <img
                 {...props}
                 alt=""
