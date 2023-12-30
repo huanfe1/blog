@@ -1,5 +1,7 @@
 import '@/styles/globals.scss';
+import { NextUIProvider } from '@nextui-org/react';
 import { DefaultSeo, NextSeo } from 'next-seo';
+import { ThemeProvider } from 'next-themes';
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import NProgress from 'nprogress';
@@ -34,7 +36,12 @@ export default function App({ Component, pageProps }: AppProps) {
                 }}
             />
             <NextSeo titleTemplate="%s - 幻非" noindex={is404 ? false : true} nofollow={is404 ? false : true} />
-            <Component {...pageProps} />
+
+            <NextUIProvider>
+                <ThemeProvider attribute="class">
+                    <Component {...pageProps} />
+                </ThemeProvider>
+            </NextUIProvider>
         </>
     );
 }

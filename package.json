@@ -27,6 +27,7 @@
         "typescript": "5.1.6"
     },
     "dependencies": {
+        "@nextui-org/react": "^2.2.9",
         "@notion-render/client": "^0.0.2",
         "@notion-render/hljs-plugin": "^0.0.2",
         "@notionhq/client": "^2.2.14",
@@ -34,7 +35,9 @@
         "classnames": "^2.3.2",
         "dayjs": "^1.11.7",
         "feed": "^4.2.2",
+        "framer-motion": "^10.16.16",
         "next": "13.5.1",
+        "next-themes": "^0.2.1",
         "node-html-parser": "^6.1.11",
         "nprogress": "^0.2.0",
         "postcss": "^8.4.31",

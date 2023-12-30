@@ -1,5 +1,6 @@
 import Layout from '@/components/layout';
 import { AllPostsProps, getAllPosts } from '@/utils/notion';
+import { Card, CardBody } from '@nextui-org/card';
 import dayjs from 'dayjs';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
@@ -19,17 +20,16 @@ export default function Archives({ archives, length }: { archives: Archive[]; le
                             <h2 className="pb-6 text-3xl font-bold">{categorie.year}</h2>
                             <ul className="space-y-4">
                                 {categorie.posts.map(post => (
-                                    <li key={post.slug}>
-                                        <Link
-                                            href={'/post/' + post.slug}
-                                            className="flex items-center justify-between overflow-hidden rounded-xl bg-[--main] px-4 py-4 duration-100 active:scale-95"
-                                        >
-                                            <h3 className="truncate text-base md:text-lg">{post.title}</h3>
-                                            <time dateTime={post.date} title={post.date} className="ml-3 flex-none">
-                                                {dayjs(post.date).format('MM-DD')}
-                                            </time>
-                                        </Link>
-                                    </li>
+                                    <Link href={'/post/' + post.slug} key={post.slug} className="block">
+                                        <Card className="w-full bg-content2 hover:text-primary">
+                                            <CardBody className="flex flex-row items-center justify-between px-4 py-4">
+                                                <h3 className="truncate text-base md:text-lg">{post.title}</h3>
+                                                <time dateTime={post.date} title={post.date} className="ml-3 flex-none">
+                                                    {dayjs(post.date).format('MM-DD')}
+                                                </time>
+                                            </CardBody>
+                                        </Card>
+                                    </Link>
                                 ))}
                             </ul>
                         </li>

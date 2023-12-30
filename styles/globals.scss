@@ -5,15 +5,10 @@
 @import './highlight.scss';
 @import './article.scss';
 @import './waline.scss';
-@import './variables.scss';
 @import './toc.scss';
-
-body {
-    @apply bg-[--main] text-[--text];
-}
 
 @layer components {
     .resp {
-        @apply mx-auto my-8 w-full px-5 sm:w-[540px] sm:px-0 md:w-[640px] lg:w-[768px] xl:w-[1024px];
+        @apply mx-auto my-8 w-full px-5 sm:w-[540px] sm:px-0 md:w-[640px] lg:w-[768px];
     }
 }

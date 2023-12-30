@@ -14,7 +14,7 @@ const nextConfig = {
         scrollRestoration: true,
     },
     env: {
-        PER_PAGE: '6',
+        PER_PAGE: '5',
         ROOT_URL: !process.env.development ? './' : './public/',
     },
 };
