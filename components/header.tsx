@@ -1,33 +1,42 @@
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@nextui-org/navbar';
 import Link from 'next/link';
 
-export default function header() {
+import Color from './color';
+
+export default function Header() {
     return (
-        <div className="flex h-20 justify-center bg-white shadow-sm">
-            <nav className="flex w-full max-w-6xl items-center justify-between">
-                <h1>
-                    <Link href="/" className="flex items-center hover:text-[--link-hover]">
-                        <img src="/avatar.png" alt="幻非" className="hidden h-8 w-8 sm:block" />
-                        <span className="text-lg sm:ml-3 sm:hidden">幻非</span>
-                    </Link>
-                </h1>
-                <div className="space-x-6 rounded-full px-5 py-2 sm:bg-[--main] lg:space-x-10">
-                    <Link className="hover:text-[--link-hover]" href="/">
+        <Navbar position="static">
+            <NavbarBrand>
+                <Link href="/" className="hover:text-primary">
+                    <img src="/avatar.png" alt="幻非" className="hidden h-8 w-8 sm:block" />
+                </Link>
+            </NavbarBrand>
+            <NavbarContent className="gap-12" justify="center">
+                <NavbarItem>
+                    <Link href="/" className="hover:text-primary">
                         首页
                     </Link>
-                    <Link className="hover:text-[--link-hover]" href="/archives">
+                </NavbarItem>
+                <NavbarItem>
+                    <Link href="/archives" className="hover:text-primary">
                         归档
                     </Link>
-                    <Link className="hover:text-[--link-hover]" href="/about">
+                </NavbarItem>
+                <NavbarItem>
+                    <Link href="/about" className="hover:text-primary">
                         关于
                     </Link>
-                </div>
-                <div className="hidden items-center space-x-4 sm:flex">
-                    <Link href="/atom.xml" target="_blank" className="hover:text-[--link-hover]">
+                </NavbarItem>
+            </NavbarContent>
+            <NavbarContent justify="end">
+                <NavbarItem className="hidden items-center space-x-2 sm:flex">
+                    <Link href="/atom.xml" target="_blank" className="hover:text-primary">
                         <Rss />
                     </Link>
-                </div>
-            </nav>
-        </div>
+                    <Color />
+                </NavbarItem>
+            </NavbarContent>
+        </Navbar>
     );
 }
 

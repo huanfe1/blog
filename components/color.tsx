@@ -1,108 +1,80 @@
-import classnames from 'classnames';
-import { useEffect, useRef, useState } from 'react';
+import { Button } from '@nextui-org/button';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/dropdown';
+import { useTheme } from 'next-themes';
 
 export default function Color() {
-    const [status, setStatus] = useState(false);
-    const [theme, setTheme] = useState('');
-    const ref = useRef(null);
-    const list = [
-        { title: '跟随系统', icon: <Svg.Robot className="mr-1 h-4 w-4 fill-current" />, theme: 'system' },
-        { title: '浅色模式', icon: <Svg.Sun className="mr-1 h-4 w-4 fill-current" />, theme: 'light' },
-        { title: '深色模式', icon: <Svg.Moon className="mr-1 h-4 w-4 fill-current" />, theme: 'dark' },
-    ];
-    useEffect(() => {
-        setTheme(localStorage['theme']);
-    }, []);
-
-    useEffect(() => {
-        if (!theme) return;
-        localStorage['theme'] = theme;
-        document.documentElement.className = theme;
-    }, [theme]);
-
-    useEffect(() => {
-        const click = (e: ClipboardEvent) => {
-            if (ref.current && !ref.current.contains(e.target)) setStatus(false);
-        };
-        if (status) {
-            document.addEventListener('click', click);
-        } else {
-            document.removeEventListener('click', click);
-        }
-        return () => document.removeEventListener('click', click);
-    }, [ref, status]);
+    const { theme, setTheme } = useTheme();
 
     return (
-        <div
-            className="relative"
-            ref={ref}
-            onClick={() => {
-                setStatus(!status);
-            }}
-        >
-            <div
-                className={classnames('flex h-full cursor-pointer items-center hover:text-[--link-hover]', {
-                    'text-[--link-hover]': status,
-                })}
+        <Dropdown className="min-w-20">
+            <DropdownTrigger>
+                <Button isIconOnly className="bg-transparent hover:text-primary" variant="flat" radius="full">
+                    <Theme />
+                </Button>
+            </DropdownTrigger>
+            <DropdownMenu
+                onSelectionChange={_ => setTheme(_['currentKey'])}
+                selectedKeys={new Set([theme])}
+                selectionMode="single"
+                aria-label="Change Theme"
             >
-                <Svg.Dark />
-            </div>
-            <ul
-                className={classnames(
-                    'absolute right-0 top-12 z-10 overflow-hidden rounded border bg-[--main] shadow-sm dark:border-none 2xl:-right-10',
-                    {
-                        hidden: !status,
-                    },
-                )}
-            >
-                {list.map(_ => (
-                    <li
-                        key={_.title}
-                        onClick={() => {
-                            setTheme(_.theme);
-                        }}
-                        className={classnames(
-                            'flex w-28 cursor-pointer select-none items-center justify-center p-2 hover:bg-[--main-hover]',
-                            { 'font-medium text-[--link-hover]': _.theme === theme },
-                        )}
-                    >
-                        {_.icon}
-                        <div>{_.title}</div>
-                    </li>
-                ))}
-            </ul>
-        </div>
+                <DropdownItem key="system" startContent={<System />}>
+                    跟随系统
+                </DropdownItem>
+                <DropdownItem key="light" startContent={<Light />}>
+                    浅色模式
+                </DropdownItem>
+                <DropdownItem key="dark" startContent={<Dark />}>
+                    深色模式
+                </DropdownItem>
+            </DropdownMenu>
+        </Dropdown>
     );
 }
 
-const Svg = {
-    Dark: ({ className }: { className?: string }) => (
-        <svg xmlns="http://www.w3.org/2000/svg" className={className} width="22px" height="22px" viewBox="0 0 20 20">
-            <path fill="currentColor" d="M10 3.5a6.5 6.5 0 1 1 0 13v-13ZM10 2a8 8 0 1 0 0 16a8 8 0 0 0 0-16Z" />
-        </svg>
-    ),
-    Sun: ({ className }: { className?: string }) => (
-        <svg xmlns="http://www.w3.org/2000/svg" className={className} width="22px" height="22px" viewBox="0 0 256 256">
-            <path
-                fill="currentColor"
-                d="M116 32V16a12 12 0 0 1 24 0v16a12 12 0 0 1-24 0Zm80 96a68 68 0 1 1-68-68a68.07 68.07 0 0 1 68 68Zm-24 0a44 44 0 1 0-44 44a44.05 44.05 0 0 0 44-44ZM51.51 68.49a12 12 0 1 0 17-17l-12-12a12 12 0 0 0-17 17Zm0 119l-12 12a12 12 0 0 0 17 17l12-12a12 12 0 1 0-17-17ZM196 72a12 12 0 0 0 8.49-3.51l12-12a12 12 0 0 0-17-17l-12 12A12 12 0 0 0 196 72Zm8.49 115.51a12 12 0 0 0-17 17l12 12a12 12 0 0 0 17-17ZM44 128a12 12 0 0 0-12-12H16a12 12 0 0 0 0 24h16a12 12 0 0 0 12-12Zm84 84a12 12 0 0 0-12 12v16a12 12 0 0 0 24 0v-16a12 12 0 0 0-12-12Zm112-96h-16a12 12 0 0 0 0 24h16a12 12 0 0 0 0-24Z"
-            />
-        </svg>
-    ),
-    Moon: ({ className }: { className?: string }) => (
-        <svg xmlns="http://www.w3.org/2000/svg" className={className} width="22px" height="22px" viewBox="0 0 256 256">
-            <path
-                fill="currentColor"
-                d="M236.37 139.4a12 12 0 0 0-12-3A84.07 84.07 0 0 1 119.6 31.59a12 12 0 0 0-15-15a108.86 108.86 0 0 0-54.91 38.48A108 108 0 0 0 136 228a107.09 107.09 0 0 0 64.93-21.69a108.86 108.86 0 0 0 38.44-54.94a12 12 0 0 0-3-11.97Zm-49.88 47.74A84 84 0 0 1 68.86 69.51a84.93 84.93 0 0 1 23.41-21.22Q92 52.13 92 56a108.12 108.12 0 0 0 108 108q3.87 0 7.71-.27a84.79 84.79 0 0 1-21.22 23.41Z"
-            />
-        </svg>
-    ),
-    Robot: ({ className }: { className?: string }) => (
-        <svg xmlns="http://www.w3.org/2000/svg" className={className} width="22px" height="22px" viewBox="0 0 24 24">
-            <path
-                fill="currentColor"
-                d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2M7.5 13A2.5 2.5 0 0 0 5 15.5A2.5 2.5 0 0 0 7.5 18a2.5 2.5 0 0 0 2.5-2.5A2.5 2.5 0 0 0 7.5 13m9 0a2.5 2.5 0 0 0-2.5 2.5a2.5 2.5 0 0 0 2.5 2.5a2.5 2.5 0 0 0 2.5-2.5a2.5 2.5 0 0 0-2.5-2.5Z"
-            />
-        </svg>
-    ),
-};
+const Theme = props => (
+    <svg width="22px" height="22px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <path
+            fill="currentColor"
+            d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10m0-1.5v-17a8.5 8.5 0 0 1 0 17"
+        ></path>
+    </svg>
+);
+
+const System = props => (
+    <svg width="22px" height="22px" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <path
+            fill="currentColor"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M5 3.5h11a2 2 0 0 1 2 2v6.049a2 2 0 0 1-1.85 1.994l-.158.006l-11-.042a2 2 0 0 1-1.992-2V5.5a2 2 0 0 1 2-2m.464 12H15.5m-8 2h6"
+        ></path>
+    </svg>
+);
+
+const Light = props => (
+    <svg width="22px" height="22px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <path
+            fill="currentColor"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M12 4V2m0 18v2M6.414 6.414L5 5m12.728 12.728l1.414 1.414M4 12H2m18 0h2m-4.271-5.586L19.143 5M6.415 17.728L5 19.142M12 17a5 5 0 1 1 0-10a5 5 0 0 1 0 10"
+        ></path>
+    </svg>
+);
+
+const Dark = props => (
+    <svg width="22px" height="22px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <path
+            fill="currentColor"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M9 6a9 9 0 0 0 9 9c.91 0 1.787-.134 2.614-.385A9.004 9.004 0 0 1 12 21A9 9 0 0 1 9.386 3.386A8.999 8.999 0 0 0 9 6"
+        ></path>
+    </svg>
+);
