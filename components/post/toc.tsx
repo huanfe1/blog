@@ -28,8 +28,8 @@ export function TocLink({ links }) {
     }, [refs]);
 
     return (
-        <ul id="toc" className="fixed right-28 top-52 hidden space-y-2 text-sm xl:block">
-            {links.map((link, _) => (
+        <ul id="toc" className="fixed right-28 top-52 hidden space-y-2 p-5 text-sm text-default-500 xl:block">
+            {links.map((link: { name: string; level: number }, _: number) => (
                 <li
                     key={link.name}
                     style={{

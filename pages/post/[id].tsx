@@ -31,10 +31,17 @@ export default function Post({ post }: { post: PostProps }) {
                     <article className="pb-12">
                         <header>
                             {post.cover ? (
-                                <div className="relative pt-10">
-                                    <div className="absolute left-0 top-0 h-[350px] w-full bg-content2"></div>
+                                <div className="relative hidden pt-10 md:block">
+                                    <div className="absolute left-0 top-0 hidden h-[350px] w-full bg-content2 md:block"></div>
                                     <div className="relative top-0 flex w-full justify-center">
-                                        <Image src={post.cover} width="720" className="aspect-video" alt={post.title} />
+                                        <Image
+                                            src={post.cover}
+                                            width="720"
+                                            radius="sm"
+                                            className="aspect-video"
+                                            alt={post.title}
+                                            isBlurred
+                                        />
                                     </div>
                                 </div>
                             ) : (
@@ -47,7 +54,7 @@ export default function Post({ post }: { post: PostProps }) {
                                 <span>{'约 ' + post.wordcount + ' 字'}</span>
                             </div>
                         </header>
-                        <section id="post" className="mx-auto max-w-[664px] text-[#4c4e4d] dark:text-[#dbdbdb]">
+                        <section id="post" className="resp max-w-[640px] text-[#4c4e4d] dark:text-[#dbdbdb]">
                             <PosthtmlToReact content={post.content} />
                         </section>
                     </article>
