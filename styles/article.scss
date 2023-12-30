@@ -1,6 +1,6 @@
 #post {
     a {
-        @apply text-[--link] hover:text-[--link-hover] hover:underline;
+        @apply text-primary hover:underline;
     }
     p {
         @apply my-3 leading-8;
