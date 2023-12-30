@@ -1,15 +1,5 @@
 #toc {
-    @apply fixed right-20 top-52 hidden 2xl:block;
-    .toc-child {
-        @apply pl-3;
-        li {
-            @apply my-1;
-        }
-    }
-    a > span {
-        @apply my-2 block hover:text-[--link-hover];
-    }
-    a.active > span {
-        @apply text-[--link-hover] underline;
+    .active {
+        @apply text-primary;
     }
 }

@@ -1,6 +1,6 @@
+// import { Button } from './button';
+import { Button } from '@nextui-org/button';
 import Link from 'next/link';
-
-import { Button } from './button';
 
 export default function Pagination({ current, total }: { current: number; total: number }) {
     if (total === 1) return null;
@@ -8,7 +8,7 @@ export default function Pagination({ current, total }: { current: number; total:
         if (current === 1) return <div></div>;
         return (
             <Link href={current === 2 ? '/' : `/page/${current - 1}`}>
-                <Button>上一页</Button>
+                <Button color="primary">上一页</Button>
             </Link>
         );
     }
@@ -16,7 +16,7 @@ export default function Pagination({ current, total }: { current: number; total:
         if (current === total) return <div></div>;
         return (
             <Link href={`/page/${current + 1}`}>
-                <Button>下一页</Button>
+                <Button color="primary">下一页</Button>
             </Link>
         );
     }

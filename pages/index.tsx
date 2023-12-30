@@ -1,19 +1,35 @@
 import Card from '@/components/card';
 import Layout from '@/components/layout';
-import Pagination from '@/components/pagination';
 import { AllPostsProps, getAllPosts } from '@/utils/notion';
+import { Pagination } from '@nextui-org/pagination';
 import { GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
 
 /** 首页文章列表 */
 export function List({ posts, current, total }: { posts: AllPostsProps[]; current: number; total: number }) {
+    const router = useRouter();
+    function jump(num: number) {
+        if (num === 1) {
+            router.push('/');
+        } else {
+            router.push(`/page/${num}`);
+        }
+    }
     return (
         <Layout>
-            <div className="resp space-y-8">
+            <div className="resp space-y-10">
                 {posts.map(post => (
                     <Card post={post} key={post.slug} />
                 ))}
-                <Pagination current={current} total={total} />
+                <Pagination
+                    onChange={jump}
+                    className="flex justify-center"
+                    size="lg"
+                    showControls
+                    initialPage={current}
+                    total={total}
+                />
             </div>
         </Layout>
     );

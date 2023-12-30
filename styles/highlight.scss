@@ -1,26 +1,12 @@
-pre {
-    margin: 15px 0;
-}
-
 #code code {
-    @apply my-3 block overflow-x-auto rounded border border-[--border] bg-gray-50 p-4 dark:bg-gray-800;
+    @apply my-3 block overflow-x-auto rounded-xl border border-content2 bg-default-100 p-4;
 }
 
 #code code::-webkit-scrollbar {
     @apply h-1;
 }
 #code code::-webkit-scrollbar-thumb {
-    @apply rounded-2xl;
-    background-color: var(--border);
-}
-
-code.hljs {
-    padding: 3px 5px;
-}
-
-.hljs {
-    color: var(--color);
-    background: var(--bg);
+    @apply rounded-2xl bg-content3;
 }
 
 .hljs-doctag,
@@ -109,7 +95,7 @@ code.hljs {
     color: var(--deletion);
     background-color: var(--deletion-bg);
 }
-.hljs {
+#code {
     --color: #24292e;
     --bg: #fafafa;
     --doctag: #d73a49;
@@ -129,7 +115,7 @@ code.hljs {
     --deletion: #b31d28;
     --deletion-bg: #ffeef0;
 }
-html.dark .hljs {
+html.dark #code {
     --color: #c9d1d9;
     --bg: #16181d;
     --doctag: #ff7b72;

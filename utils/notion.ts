@@ -76,8 +76,12 @@ export const getPostHtmlById = async (id: string) => {
     const renderer = new NotionRenderer();
     renderer.use(hljs({}));
     let html = await renderer.render(...(results as BlockObjectResponse[]));
-    html = html.replace(/<h([1-6]) .*?>\n\s+(.*?)\n\s+<\/h[1-6]>/g, '<h$1 id="$2"><span>$2</span></h$1>');
     const document = parse(html);
+    document.querySelectorAll('h1, h2, h3').forEach(el => {
+        const title = el.innerHTML.replace(/\n\s+/g, '');
+        el.setAttribute('id', encodeURI(title));
+        el.innerHTML = `<a class="anchor" href="#${title}">#</a>${title}`;
+    });
     for (const img of document.querySelectorAll('img')) {
         const url = img.getAttribute('src');
         const { width, height } = await probeImageSize(url);
