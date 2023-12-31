@@ -18,7 +18,7 @@ export default function Archives({ archives, length }: { archives: Archive[]; le
                     {archives.map(categorie => (
                         <li key={categorie.year}>
                             <h2 className="pb-6 text-3xl font-bold">{categorie.year}</h2>
-                            <ul className="space-y-4">
+                            <div className="space-y-8">
                                 {categorie.posts.map(post => (
                                     <Link href={'/post/' + post.slug} key={post.slug} className="block">
                                         <Card className="w-full bg-content2 hover:text-primary">
@@ -31,7 +31,7 @@ export default function Archives({ archives, length }: { archives: Archive[]; le
                                         </Card>
                                     </Link>
                                 ))}
-                            </ul>
+                            </div>
                         </li>
                     ))}
                 </ul>

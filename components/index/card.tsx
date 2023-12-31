@@ -6,7 +6,15 @@ export default function ListCard({ post }: { post: AllPostsProps }) {
     return (
         <Link href={`/post/${post.slug}`} className="block">
             <Card className="w-full bg-content2">
-                {post.cover && <Image isBlurred src={post.cover} alt={post.title} />}
+                {post.cover && (
+                    <Image
+                        isBlurred
+                        src={post.cover}
+                        alt={post.title}
+                        loading="lazy"
+                        className="aspect-video w-[768px]"
+                    />
+                )}
                 <CardBody>
                     <article className="p-3">
                         <h2 className="text-2xl">{post.title}</h2>
