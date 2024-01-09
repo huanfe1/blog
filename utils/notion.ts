@@ -38,7 +38,7 @@ export const getPostBySlug = async (slug: string): Promise<PostProps> => {
     const data = await notion.databases.query({
         filter: {
             and: [
-                { property: '状态', status: { equals: '发布' } },
+                { property: '状态', status: { does_not_equal: '草稿' } },
                 { property: 'slug', rich_text: { equals: slug } },
             ],
         },
@@ -62,7 +62,7 @@ export const getPostBySlug = async (slug: string): Promise<PostProps> => {
         cover: cover ? cover[cover['type']]['url'] : '',
     };
 
-    !IsVercel && cache.set(`${slug}`, post);
+    !IsVercel && result.properties['状态']['status']['name'] === '完成' && cache.set(`${slug}`, post);
 
     return post;
 };
