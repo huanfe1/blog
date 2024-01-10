@@ -1,33 +1,18 @@
+import Link from 'next/link';
 import React from 'react';
-import { parse } from 'url';
 
-/**
- * Check whether the link is external
- * @param {String} input The url to check
- * @param {String} input The hostname / url of website
- * @param {Array} input Exclude hostnames. Specific subdomain is required when applicable, including www.
- * @returns {Boolean} True if the link doesn't have protocol or link has same host with config.url
- */
-
-function isExternalLink(input: string, sitehost: string = 'https://www.huanfei.top'): boolean {
-    // Return false early for internal link
-    if (!/^(\/\/|http(s)?:)/.test(input)) return false;
-    sitehost = parse(sitehost).hostname || sitehost;
-    if (!sitehost) return false;
-    // handle relative url and invalid url
-    let data;
+function isExternalLink(url: string): boolean {
+    if (url.startsWith('#') || url.startsWith('/')) return false;
     try {
-        data = new URL(input, `http://${sitehost}`);
-    } catch (e) {
-        console.log(e);
+        const parsedUrl = new URL(url);
+
+        // 检查链接的hostname是否与当前页面的hostname不同
+        return parsedUrl.hostname !== 'www.huanfei.top';
+    } catch (error) {
+        // 处理无效链接的情况
+        console.error('Invalid URL:', url);
+        return false;
     }
-    // if input is invalid url, data should be undefined
-    if (typeof data !== 'object') return false;
-    // handle mailto: javascript: vbscript: and so on
-    if (data.origin === 'null') return false;
-    const host = data.hostname;
-    if (host !== sitehost) return true;
-    return false;
 }
 
 export default function CustomLink(props: React.AnchorHTMLAttributes<HTMLElement>) {
@@ -37,5 +22,5 @@ export default function CustomLink(props: React.AnchorHTMLAttributes<HTMLElement
         return <a {...props} target="_blank" rel="noopener noreferrer external nofollow" />;
     }
 
-    return <a {...props} />;
+    return <Link href={href} {...props} />;
 }

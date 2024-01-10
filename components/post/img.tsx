@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { Dispatch, ImgHTMLAttributes, MutableRefObject, SetStateAction, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -20,21 +21,22 @@ function Mask({
         }, 300);
     };
     useEffect(() => {
-        const handleResize = () => {
-            setTransform(calcFitScale(imgRef));
-        };
-        window.addEventListener('resize', handleResize);
-        handleResize();
-        return () => window.removeEventListener('resize', handleResize);
+        window.requestAnimationFrame(() => setTransform(calcFitScale(imgRef)));
     }, []);
+
+    // 绑定滚动跟窗口尺寸变化事件
     useEffect(() => {
         window.addEventListener('scroll', close);
-        return () => window.removeEventListener('scroll', close);
+        window.addEventListener('resize', close);
+        return () => {
+            window.removeEventListener('scroll', close);
+            window.removeEventListener('resize', close);
+        };
     }, []);
     return createPortal(
         <div onClick={close} className="cursor-zoom-out">
             <div
-                className="fixed bottom-0 left-0 right-0 top-0 bg-black"
+                className="fixed bottom-0 left-0 right-0 top-0 z-50 bg-black"
                 style={{
                     opacity,
                     transition: 'opacity 300ms cubic-bezier(0.4, 0, 0.2, 1)',
@@ -43,7 +45,7 @@ function Mask({
             <img
                 {...props}
                 alt="huanfei"
-                className="absolute rounded"
+                className="absolute z-50 rounded"
                 style={{
                     transition: 'transform 300ms cubic-bezier(.2, 0, .2, 1)',
                     top: imgRef.current.offsetTop,
@@ -62,12 +64,12 @@ export default function Img(props: ImgHTMLAttributes<HTMLImageElement>) {
     const [status, setStatus] = useState(false);
     const imgRef: MutableRefObject<HTMLImageElement> = useRef();
     return (
-        <p className="overflow-hidden rounded-lg">
+        <p>
             <img
                 {...props}
                 alt=""
                 ref={imgRef}
-                className={status ? 'invisible' : 'cursor-zoom-in'}
+                className={classNames('rounded shadow', status ? 'invisible' : 'cursor-zoom-in')}
                 onClick={() => {
                     setStatus(true);
                 }}

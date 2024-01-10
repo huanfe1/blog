@@ -6,7 +6,7 @@
         @apply my-2 leading-7;
     }
     img {
-        @apply m-auto rounded shadow;
+        @apply m-auto;
     }
     h2 {
         @apply my-2 text-2xl font-bold;
@@ -52,7 +52,7 @@
     }
     // 分割线
     hr {
-        @apply mx-auto my-8 w-60 border-t-gray-300;
+        @apply mx-auto my-8 w-60 border-t-content3;
     }
     // 标题锚点
     h2,
