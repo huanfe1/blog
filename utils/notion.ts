@@ -62,7 +62,7 @@ export const getPostBySlug = async (slug: string): Promise<PostProps> => {
         cover: cover ? cover[cover['type']]['url'] : '',
     };
 
-    !IsVercel && result.properties['状态']['status']['name'] === '完成' && cache.set(`${slug}`, post);
+    !IsVercel && result.properties['状态']['status']['name'] === '发布' && cache.set(`${slug}`, post);
 
     return post;
 };
