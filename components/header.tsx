@@ -7,8 +7,12 @@ export default function Header() {
     return (
         <Navbar position="static">
             <NavbarBrand>
-                <Link href="/" className="hover:text-primary">
-                    <img src="/avatar.png" alt="幻非" className="hidden h-8 w-8 sm:block" />
+                <Link href="/">
+                    <img
+                        src="https://pic.imgdb.cn/item/659f8199871b83018a5b4cc2.png"
+                        alt="幻非"
+                        className="hidden h-8 w-8 sm:block"
+                    />
                 </Link>
             </NavbarBrand>
             <NavbarContent className="gap-12" justify="center">
@@ -30,7 +34,7 @@ export default function Header() {
             </NavbarContent>
             <NavbarContent justify="end">
                 <NavbarItem className="hidden items-center space-x-2 sm:flex">
-                    <Link href="/atom.xml" target="_blank" className="hover:text-primary">
+                    <Link href="/atom.xml" target="_blank" className="hover:text-primary" aria-label="RSS">
                         <Rss />
                     </Link>
                     <Color />

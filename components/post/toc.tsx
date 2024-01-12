@@ -9,6 +9,7 @@ export function TocLink({ links }) {
             const links = refs.current;
             let temp = null;
             for (const i in links) {
+                if (!links[i].current.classList) continue;
                 links[i].current.classList.remove('active');
             }
             for (const i in links) {
