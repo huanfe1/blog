@@ -5,7 +5,7 @@ import { BlockObjectResponse, PageObjectResponse } from '@notionhq/client/build/
 import { parse } from 'node-html-parser';
 import probeImageSize from 'probe-image-size';
 
-import { Cache } from './cache';
+import { cache } from './cache';
 import truncate from './truncate';
 import { wordcount } from './wordcount';
 
@@ -23,18 +23,15 @@ export type PostProps = AllPostsProps & {
     wordcount: number;
 };
 
-const cache = Cache('.temp');
-// 是否在 Vercel 运行期间
-const IsVercel: boolean = !!process.env.VERCEL_REGION;
-
+const postStatus = { published: '发布', draft: '草稿', editing: '修改' };
 const notion = new Client({
     auth: process.env.NOTION_TOKEN,
 });
-const postStatus = { published: '发布', draft: '草稿', editing: '修改' };
 
 /** 根据 slug 获取文章 */
 export const getPostBySlug = async (slug: string): Promise<PostProps> => {
-    if (!IsVercel && cache.get(`${slug}`)) return cache.get(`${slug}`);
+    const cacheData = cache().get(`${slug}`);
+    if (cacheData) return cacheData;
     console.log(slug);
     const data = await notion.databases.query({
         filter: {
@@ -47,7 +44,7 @@ export const getPostBySlug = async (slug: string): Promise<PostProps> => {
     });
     if (!data.results[0]) return;
     const result = data.results[0] as PageObjectResponse;
-    cache.set(`${slug}-result`, data);
+
     const content = await getPostHtmlById(result.id);
     const summary = result.properties['summary']['rich_text'][0];
     const cover = result.properties['cover']['files'][0];
@@ -63,7 +60,7 @@ export const getPostBySlug = async (slug: string): Promise<PostProps> => {
         cover: cover ? cover[cover['type']]['url'] : '',
     };
 
-    !IsVercel && result.properties['status']['status']['name'] === postStatus.published && cache.set(`${slug}`, post);
+    if (result.properties['status']['status']['name'] === postStatus.published) cache().set(`${slug}`, post);
 
     return post;
 };
@@ -95,7 +92,8 @@ export const getPostHtmlById = async (id: string) => {
 
 /** 获取数据库文章内容 */
 export const getAllPosts = async (): Promise<AllPostsProps[]> => {
-    if (!IsVercel && cache.get('posts')) return cache.get('posts');
+    const cacheData = cache().get('posts');
+    if (cacheData) return cacheData;
 
     const { results } = (await notion.databases.query({
         filter: { property: 'status', status: { equals: postStatus.published } },
@@ -114,7 +112,7 @@ export const getAllPosts = async (): Promise<AllPostsProps[]> => {
         };
     });
 
-    !IsVercel && cache.set('posts', post);
+    cache().set('posts', post);
 
     return post;
 };
