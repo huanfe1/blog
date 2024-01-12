@@ -23,13 +23,14 @@ export type PostProps = AllPostsProps & {
     wordcount: number;
 };
 
-const cache = new Cache('.temp');
+const cache = Cache('.temp');
 // 是否在 Vercel 运行期间
 const IsVercel: boolean = !!process.env.VERCEL_REGION;
 
 const notion = new Client({
     auth: process.env.NOTION_TOKEN,
 });
+const postStatus = { published: '发布', draft: '草稿', editing: '修改' };
 
 /** 根据 slug 获取文章 */
 export const getPostBySlug = async (slug: string): Promise<PostProps> => {
@@ -38,7 +39,7 @@ export const getPostBySlug = async (slug: string): Promise<PostProps> => {
     const data = await notion.databases.query({
         filter: {
             and: [
-                { property: '状态', status: { does_not_equal: '草稿' } },
+                { property: 'status', status: { does_not_equal: postStatus.draft } },
                 { property: 'slug', rich_text: { equals: slug } },
             ],
         },
@@ -46,23 +47,23 @@ export const getPostBySlug = async (slug: string): Promise<PostProps> => {
     });
     if (!data.results[0]) return;
     const result = data.results[0] as PageObjectResponse;
-
+    cache.set(`${slug}-result`, data);
     const content = await getPostHtmlById(result.id);
-    const summary = result.properties['概括']['rich_text'][0];
-    const cover = result.properties['封面']['files'][0];
+    const summary = result.properties['summary']['rich_text'][0];
+    const cover = result.properties['cover']['files'][0];
 
     const post: PostProps = {
-        title: result.properties['标题']['title'][0]['plain_text'],
-        date: result.properties['日期']['date']['start'],
+        title: result.properties['title']['title'][0]['plain_text'],
+        date: result.properties['date']['date']['start'],
         content: content,
-        tags: result.properties['标签']['multi_select'].map(tag => tag.name),
+        tags: result.properties['tags']['multi_select'].map((tag: { name: string }) => tag.name),
         slug: result.properties['slug']['rich_text'][0]['plain_text'],
         wordcount: wordcount(content.replace(/<[^>]+>/g, '')),
         summary: truncate(summary ? summary['plain_text'] : ''),
         cover: cover ? cover[cover['type']]['url'] : '',
     };
 
-    !IsVercel && result.properties['状态']['status']['name'] === '发布' && cache.set(`${slug}`, post);
+    !IsVercel && result.properties['status']['status']['name'] === postStatus.published && cache.set(`${slug}`, post);
 
     return post;
 };
@@ -97,16 +98,16 @@ export const getAllPosts = async (): Promise<AllPostsProps[]> => {
     if (!IsVercel && cache.get('posts')) return cache.get('posts');
 
     const { results } = (await notion.databases.query({
-        filter: { property: '状态', status: { equals: '发布' } },
-        sorts: [{ property: '日期', direction: 'descending' }],
+        filter: { property: 'status', status: { equals: postStatus.published } },
+        sorts: [{ property: 'date', direction: 'descending' }],
         database_id: process.env.NOTION_DATABASE_ID!,
     })) as { results: PageObjectResponse[] };
     const post = results.map(result => {
-        const summary = result.properties['概括']['rich_text'][0];
-        const cover = result.properties['封面']['files'][0];
+        const summary = result.properties['summary']['rich_text'][0];
+        const cover = result.properties['cover']['files'][0];
         return {
-            title: result.properties['标题']['title'][0]['plain_text'],
-            date: result.properties['日期']['date']['start'],
+            title: result.properties['title']['title'][0]['plain_text'],
+            date: result.properties['date']['date']['start'],
             slug: result.properties['slug']['rich_text'][0]['plain_text'],
             summary: truncate(summary ? summary['plain_text'] : ''),
             cover: cover ? cover[cover['type']]['url'] : '',
