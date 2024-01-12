@@ -15,7 +15,6 @@ const nextConfig = {
     },
     env: {
         PER_PAGE: '5',
-        ROOT_URL: !process.env.development ? './' : './public/',
     },
 };
 
