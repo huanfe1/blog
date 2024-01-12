@@ -15,6 +15,7 @@ const nextConfig = {
     },
     env: {
         PER_PAGE: '5',
+        TEMP_DIR: '.temp',
     },
 };
 
