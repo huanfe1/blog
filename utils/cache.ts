@@ -1,19 +1,16 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
-export function Cache(path: string) {
-    if (!existsSync(path) && !process.env.VERCEL_REGION) mkdirSync(path, { recursive: true });
-
-    let cache = this;
-
-    cache.get = (name: string) => {
-        if (existsSync(join(path, `${name}.json`))) {
-            return JSON.parse(readFileSync(join(path, `${name}.json`), 'utf-8'));
-        }
-        return null;
-    };
-
-    cache.set = (name: string, data: any) => {
-        writeFileSync(join(path, `${name}.json`), JSON.stringify(data));
+export function Cache(cachePath: string) {
+    const cacheDirectory = join(cachePath, '/');
+    !existsSync(cacheDirectory) && !process.env.VERCEL_REGION && mkdirSync(cacheDirectory, { recursive: true });
+    return {
+        get: (name: string): any => {
+            const filePath = join(cacheDirectory, `${name}.json`);
+            return existsSync(filePath) ? JSON.parse(readFileSync(filePath, 'utf-8')) : null;
+        },
+        set: (name: string, data: any): void => {
+            writeFileSync(join(cacheDirectory, `${name}.json`), JSON.stringify(data));
+        },
     };
 }
