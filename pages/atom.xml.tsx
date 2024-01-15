@@ -19,7 +19,7 @@ const feed = new Feed({
         link: 'https://huanfei.top',
     },
     favicon: `${url}/favicon.ico`,
-    generator: 'Nexj.js + Contentlayer',
+    generator: 'Nexj.js + Notion',
 });
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
