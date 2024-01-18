@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://blog.huanfei.top
+Host: https://www.huanfei.top
 
 # Sitemaps
-Sitemap: https://blog.huanfei.top/sitemap.xml
+Sitemap: https://www.huanfei.top/sitemap.xml
