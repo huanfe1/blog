@@ -52,7 +52,14 @@ export default function NotionPage({ content }) {
                 break;
             }
             case 'image': {
-                result.push(<Img key={item.type + index} src={item.value.source[0][0]} />);
+                result.push(
+                    <Img
+                        key={item.type + index}
+                        src={item.value.url}
+                        width={item.value.width}
+                        height={item.value.height}
+                    />,
+                );
                 break;
             }
             case 'divider': {

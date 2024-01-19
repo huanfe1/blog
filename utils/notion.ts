@@ -1,7 +1,8 @@
 import dayjs from 'dayjs';
 import { NotionAPI } from 'notion-client';
 import { ExtendedRecordMap } from 'notion-types';
-import { getPageProperty, parsePageId } from 'notion-utils';
+import { getBlockTitle, getPageProperty, parsePageId } from 'notion-utils';
+import probe from 'probe-image-size';
 
 import { cache } from './cache';
 import truncate from './truncate';
@@ -32,9 +33,9 @@ const notion = new NotionAPI({
 /** 根据 slug 获取文章 */
 export const getPostBySlug = async (slug: string): Promise<PostProps> => {
     const posts = await getAllPosts();
-    const pageid = parsePageId('' || posts.filter(post => post.slug === slug)[0].id);
-    const recordMap: ExtendedRecordMap = cache().get(pageid) || (await notion.getPage(pageid));
-    !cache().get(pageid) && cache().set(pageid, recordMap);
+    const pageid = parsePageId(posts.filter(post => post.slug === slug)[0].id);
+    console.log(slug, pageid);
+    const recordMap: ExtendedRecordMap = cache().get(slug) || (await notion.getPage(pageid));
 
     let rawText: string = '';
     const pageBlock = Object.values(recordMap.block)[0].value;
@@ -43,11 +44,25 @@ export const getPostBySlug = async (slug: string): Promise<PostProps> => {
     for (const key in recordMap.block) {
         if (key === pageid) continue;
         if (recordMap.block[key].value.parent_id !== pageid) continue;
+
+        // 累加文本，用以计算字数
+        rawText += getBlockTitle(recordMap.block[key].value, recordMap);
+
+        // 处理图片尺寸
+        if (recordMap.block[key].value.type === 'image' && !recordMap.block[key].value.properties?.url) {
+            const url = recordMap.block[key].value.properties.source[0][0];
+            console.log(url);
+            const { width, height } = await probe(url);
+            recordMap.block[key].value.properties = { url, width, height };
+        }
+
         content.push({
             type: recordMap.block[key].value.type,
             value: recordMap.block[key].value.properties || null,
         });
     }
+
+    !cache().get(slug) && cache().set(slug, recordMap);
 
     return {
         id: pageid,
