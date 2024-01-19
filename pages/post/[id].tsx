@@ -1,13 +1,8 @@
 import Layout from '@/components/layout';
-import Code from '@/components/post/code';
-import Img from '@/components/post/img';
-import Link from '@/components/post/link';
-import Toc from '@/components/post/toc';
+import NotionPage from '@/components/notionpage';
 import { PostProps, getAllPosts, getPostBySlug } from '@/utils/notion';
-import { posthtmlToReact } from '@/utils/posthtmlToReact';
 import { Image } from '@nextui-org/image';
 import { NextSeo } from 'next-seo';
-import { parser } from 'posthtml-parser';
 
 export default function Post({ post }: { post: PostProps }) {
     return (
@@ -21,7 +16,7 @@ export default function Post({ post }: { post: PostProps }) {
                         publishedTime: post.date,
                         modifiedTime: post.date,
                         authors: ['https://huanfei.top'],
-                        tags: [...(post.tags as string[])],
+                        tags: [...((post.tags as string[]) || [])],
                     },
                     images: [{ url: post.cover }],
                 }}
@@ -55,31 +50,21 @@ export default function Post({ post }: { post: PostProps }) {
                             </div>
                         </header>
                         <section id="post" className="resp max-w-[640px] text-[#4c4e4d] dark:text-[#dbdbdb]">
-                            <PosthtmlToReact content={post.content} />
+                            <NotionPage content={post.content} />
                         </section>
                     </article>
-                    <Toc nodes={post.content} />
+                    {/* <Toc nodes={post.content} /> */}
                 </div>
             </Layout>
         </>
     );
 }
 
-function PosthtmlToReact({ content }) {
-    return posthtmlToReact(content, { pre: Code, img: Img, a: Link });
-}
-
 export async function getStaticProps({ params }: { params: { id: string } }) {
     const post = await getPostBySlug(params.id);
     if (!post) return { notFound: true };
-    const content = parser(post.content, { decodeEntities: true }).filter(el => typeof el === 'object');
     return {
-        props: {
-            post: {
-                ...post,
-                content: content,
-            },
-        },
+        props: { post },
         revalidate: 1,
     };
 }
