@@ -12,32 +12,32 @@ const counter = content => {
     return [cn, en];
 };
 
-export const min2read = (content, { cn = 300, en = 160 } = {}) => {
+export const min2read = (content: string, { cn = 300, en = 160 } = {}) => {
     const len = counter(content);
     const readingTime = len[0] / cn + len[1] / en;
     return readingTime < 1 ? '1' : Math.round(readingTime);
 };
 
-export const wordcount = content => {
+export const wordcount = (content: string) => {
     const len = counter(content);
     const count = len[0] + len[1];
     return count;
 };
 
-export const totalcount = (posts, tiny = true) => {
-    let count = 0;
-    posts.forEach(function (post) {
-        const len = counter(post.content);
-        count += len[0] + len[1];
-    });
-    if (!tiny) return count;
-    if (count < 1000) {
-        return count;
-    }
-    return Math.round(count / 100) / 10 + 'k';
-};
+// export const totalcount = (posts, tiny = true) => {
+//     let count = 0;
+//     posts.forEach(function (post) {
+//         const len = counter(post.content);
+//         count += len[0] + len[1];
+//     });
+//     if (!tiny) return count;
+//     if (count < 1000) {
+//         return count;
+//     }
+//     return Math.round(count / 100) / 10 + 'k';
+// };
 
-export function formatNumber(number) {
+export function formatNumber(number: number) {
     if (number >= 1000 && number < 1000000) {
         return (number / 1000).toFixed(1) + 'k';
     } else if (number >= 1000000) {
