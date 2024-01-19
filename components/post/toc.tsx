@@ -1,4 +1,4 @@
-import { NodeTag } from 'posthtml-parser';
+import { BlockType } from 'notion-types';
 import { useEffect, useRef } from 'react';
 
 export function TocLink({ links }) {
@@ -14,7 +14,7 @@ export function TocLink({ links }) {
             }
             for (const i in links) {
                 const ref = links[i].current;
-                if (scroll >= (document.getElementById(ref.dataset.title) as HTMLElement).offsetTop - 10) {
+                if (scroll >= (document.getElementById(ref.dataset.title) as HTMLElement).offsetTop - 50) {
                     temp = ref;
                 } else {
                     break;
@@ -52,13 +52,13 @@ export function TocLink({ links }) {
     );
 }
 
-export default function Toc({ nodes }) {
-    const links = (nodes as NodeTag[])
-        .filter(node => /h1|h2|h3/.test(node.tag as string))
-        .map(link => {
+export default function Toc({ nodes }: { nodes: { type: BlockType; value: any }[] }) {
+    const links = nodes
+        .filter(node => /header$/.test(node.type))
+        .map(node => {
             return {
-                name: link.attrs.id as string,
-                level: parseInt(link.tag[1]) - 1,
+                name: node.value.title[0][0] as string,
+                level: node.type.match(/sub/g).length,
             };
         });
     if (links.length <= 1) return null;
