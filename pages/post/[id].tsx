@@ -1,5 +1,6 @@
 import Layout from '@/components/layout';
 import NotionPage from '@/components/notionpage';
+import Toc from '@/components/post/toc';
 import { PostProps, getAllPosts, getPostBySlug } from '@/utils/notion';
 import { Image } from '@nextui-org/image';
 import { NextSeo } from 'next-seo';
@@ -53,7 +54,7 @@ export default function Post({ post }: { post: PostProps }) {
                             <NotionPage content={post.content} />
                         </section>
                     </article>
-                    {/* <Toc nodes={post.content} /> */}
+                    <Toc nodes={post.content} />
                 </div>
             </Layout>
         </>

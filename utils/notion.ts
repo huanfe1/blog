@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { NotionAPI } from 'notion-client';
-import { ExtendedRecordMap } from 'notion-types';
+import { BlockType, ExtendedRecordMap } from 'notion-types';
 import { getBlockTitle, getPageProperty, parsePageId } from 'notion-utils';
 import probe from 'probe-image-size';
 
@@ -18,7 +18,7 @@ export type AllPostsProps = {
 };
 
 export type PostProps = AllPostsProps & {
-    content: any;
+    content: { type: BlockType; value: any; format: any }[];
     tags: string[] | string;
     wordcount: number;
 };
@@ -34,7 +34,7 @@ const notion = new NotionAPI({
 export const getPostBySlug = async (slug: string): Promise<PostProps> => {
     const posts = await getAllPosts();
     const pageid = parsePageId(posts.filter(post => post.slug === slug)[0].id);
-    console.log(slug, pageid);
+
     const recordMap: ExtendedRecordMap = cache().get(slug) || (await notion.getPage(pageid));
 
     let rawText: string = '';
@@ -51,7 +51,6 @@ export const getPostBySlug = async (slug: string): Promise<PostProps> => {
         // 处理图片尺寸
         if (recordMap.block[key].value.type === 'image' && !recordMap.block[key].value.properties?.url) {
             const url = recordMap.block[key].value.properties.source[0][0];
-            console.log(url);
             const { width, height } = await probe(url);
             recordMap.block[key].value.properties = { url, width, height };
         }
@@ -59,6 +58,7 @@ export const getPostBySlug = async (slug: string): Promise<PostProps> => {
         content.push({
             type: recordMap.block[key].value.type,
             value: recordMap.block[key].value.properties || null,
+            format: recordMap.block[key].value.format || null,
         });
     }
 
