@@ -6,7 +6,7 @@ import Code from './post/code';
 import Img from './post/img';
 import Link from './post/link';
 
-export default function NotionPage({ content }) {
+export default function NotionRender({ content }) {
     const result: React.JSX.Element[] = [];
     const list = [];
     for (const [index, item] of content.entries()) {
