@@ -1,17 +1,17 @@
-import reactToString from '@/utils/reactToString';
 import { Button } from '@nextui-org/button';
-import { HTMLAttributes, useState } from 'react';
+import hljs from 'highlight.js';
+import { useState } from 'react';
 
-export default function Code(props: HTMLAttributes<HTMLPreElement>) {
+export default function Code({ content, language }) {
     const [status, setStatus] = useState(false);
     const click = () => {
-        navigator.clipboard.writeText(reactToString(props.children)).then(() => {
+        navigator.clipboard.writeText(content).then(() => {
             setStatus(true);
             setTimeout(() => setStatus(false), 1500);
         });
     };
     return (
-        <pre {...props} className="group relative" id="code">
+        <pre className="group relative" id="code">
             <Button
                 className="absolute right-3 top-3 hidden text-default-600 group-hover:flex"
                 isIconOnly
@@ -19,7 +19,7 @@ export default function Code(props: HTMLAttributes<HTMLPreElement>) {
             >
                 <Svg status={status} />
             </Button>
-            {props.children}
+            <code dangerouslySetInnerHTML={{ __html: hljs.highlight(content, { language }).value }}></code>
         </pre>
     );
 }
