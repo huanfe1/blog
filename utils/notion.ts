@@ -1,9 +1,8 @@
-import { NotionRenderer } from '@notion-render/client';
-import hljs from '@notion-render/hljs-plugin';
-import { Client } from '@notionhq/client';
-import { BlockObjectResponse, PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
-import { parse } from 'node-html-parser';
-import probeImageSize from 'probe-image-size';
+import dayjs from 'dayjs';
+import { NotionAPI } from 'notion-client';
+import { BlockType, ExtendedRecordMap } from 'notion-types';
+import { getBlockTitle, getPageProperty, parsePageId } from 'notion-utils';
+import probe from 'probe-image-size';
 
 import { cache } from './cache';
 import truncate from './truncate';
@@ -15,104 +14,89 @@ export type AllPostsProps = {
     date: string;
     summary: string;
     cover: string;
+    id: string;
 };
 
 export type PostProps = AllPostsProps & {
-    content: string;
+    content: { type: BlockType; value: any; format: any }[];
     tags: string[] | string;
     wordcount: number;
 };
 
 const postStatus = { published: '发布', draft: '草稿', editing: '修改' };
-const notion = new Client({
-    auth: process.env.NOTION_TOKEN,
+
+const notion = new NotionAPI({
+    activeUser: process.env.NOTION_ACTIVE_USER,
+    authToken: process.env.NOTION_TOKEN_V2,
 });
 
 /** 根据 slug 获取文章 */
 export const getPostBySlug = async (slug: string): Promise<PostProps> => {
-    const cacheData = cache().get(`${slug}`);
-    if (cacheData) return cacheData;
-    console.log(slug);
-    const data = await notion.databases.query({
-        filter: {
-            and: [
-                { property: 'status', status: { does_not_equal: postStatus.draft } },
-                { property: 'slug', rich_text: { equals: slug } },
-            ],
-        },
-        database_id: process.env.NOTION_DATABASE_ID!,
-    });
-    if (!data.results[0]) return;
-    const result = data.results[0] as PageObjectResponse;
+    const posts = await getAllPosts();
+    const pageid = parsePageId(posts.filter(post => post.slug === slug)[0].id);
 
-    const content = await getPostHtmlById(result.id);
-    const summary = result.properties['summary']['rich_text'][0];
-    const cover = result.properties['cover']['files'][0];
+    const recordMap: ExtendedRecordMap = cache().get(slug) || (await notion.getPage(pageid));
 
-    const post: PostProps = {
-        title: result.properties['title']['title'][0]['plain_text'],
-        date: result.properties['date']['date']['start'],
-        content: content,
-        tags: result.properties['tags']['multi_select'].map((tag: { name: string }) => tag.name),
-        slug: result.properties['slug']['rich_text'][0]['plain_text'],
-        wordcount: wordcount(content.replace(/<[^>]+>/g, '')),
-        summary: truncate(summary ? summary['plain_text'] : ''),
-        cover: cover ? cover[cover['type']]['url'] : '',
-    };
+    let rawText: string = '';
+    const pageBlock = Object.values(recordMap.block)[0].value;
 
-    if (result.properties['status']['status']['name'] === postStatus.published) cache().set(`${slug}`, post);
+    const content = [];
+    for (const key in recordMap.block) {
+        if (key === pageid) continue;
+        if (recordMap.block[key].value.parent_id !== pageid) continue;
 
-    return post;
-};
+        // 累加文本，用以计算字数
+        rawText += getBlockTitle(recordMap.block[key].value, recordMap);
 
-/** 根据ID获取文章内容，并转化为HTML */
-export const getPostHtmlById = async (id: string) => {
-    console.log(id);
-    const { results } = await notion.blocks.children.list({
-        block_id: id,
-    });
-    const renderer = new NotionRenderer();
-    renderer.use(hljs({}));
-    let html = await renderer.render(...(results as BlockObjectResponse[]));
-    const document = parse(html);
-    document.querySelectorAll('h1, h2, h3').forEach(el => {
-        const title = el.innerHTML.replace(/\n\s+/g, '');
-        el.setAttribute('id', encodeURI(title));
-        el.innerHTML = `<a class="anchor" href="#${title}">#</a>${title}`;
-    });
-    for (const img of document.querySelectorAll('img')) {
-        const url = img.getAttribute('src');
-        const { width, height } = await probeImageSize(url);
-        img.setAttribute('width', width.toString());
-        img.setAttribute('height', height.toString());
+        // 处理图片尺寸
+        if (recordMap.block[key].value.type === 'image' && !recordMap.block[key].value.properties?.url) {
+            const url = recordMap.block[key].value.properties.source[0][0];
+            const { width, height } = await probe(url);
+            recordMap.block[key].value.properties = { url, width, height };
+        }
+
+        content.push({
+            type: recordMap.block[key].value.type,
+            value: recordMap.block[key].value.properties || null,
+            format: recordMap.block[key].value.format || null,
+        });
     }
-    html = document.toString();
-    return html;
+
+    !cache().get(slug) && cache().set(slug, recordMap);
+
+    return {
+        id: pageid,
+        title: getPageProperty('title', pageBlock, recordMap),
+        slug: getPageProperty('slug', pageBlock, recordMap),
+        date: dayjs(getPageProperty('date', pageBlock, recordMap)).format('YYYY-MM-DD'),
+        summary: truncate(getPageProperty('summary', pageBlock, recordMap)),
+        cover: getPageProperty('cover', pageBlock, recordMap),
+        tags: getPageProperty('tags', pageBlock, recordMap),
+        wordcount: wordcount(rawText),
+        content: content,
+    };
 };
 
-/** 获取数据库文章内容 */
+/** 获取数据库已发布文章内容 */
 export const getAllPosts = async (): Promise<AllPostsProps[]> => {
-    const cacheData = cache().get('posts');
-    if (cacheData) return cacheData;
+    const recordMap: ExtendedRecordMap = cache().get('posts') || (await notion.getPage(process.env.NOTION_DATABASE_ID));
+    !cache().get('posts') && cache().set('posts', recordMap);
 
-    const { results } = (await notion.databases.query({
-        filter: { property: 'status', status: { equals: postStatus.published } },
-        sorts: [{ property: 'date', direction: 'descending' }],
-        database_id: process.env.NOTION_DATABASE_ID!,
-    })) as { results: PageObjectResponse[] };
-    const post = results.map(result => {
-        const summary = result.properties['summary']['rich_text'][0];
-        const cover = result.properties['cover']['files'][0];
-        return {
-            title: result.properties['title']['title'][0]['plain_text'],
-            date: result.properties['date']['date']['start'],
-            slug: result.properties['slug']['rich_text'][0]['plain_text'],
-            summary: truncate(summary ? summary['plain_text'] : ''),
-            cover: cover ? cover[cover['type']]['url'] : '',
-        };
-    });
+    const posts: AllPostsProps[] = [];
+    const pages = recordMap.block;
+    for (const i in pages) {
+        if (pages[i].value.type !== 'page') continue;
+        if (getPageProperty('status', pages[i].value, recordMap) === postStatus.published)
+            posts.push({
+                id: pages[i].value.id,
+                title: getPageProperty('title', pages[i].value, recordMap),
+                slug: getPageProperty('slug', pages[i].value, recordMap),
+                date: dayjs(getPageProperty('date', pages[i].value, recordMap)).format('YYYY-MM-DD'),
+                summary: getPageProperty('summary', pages[i].value, recordMap),
+                cover: getPageProperty('cover', pages[i].value, recordMap),
+            });
+    }
+    posts.sort((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf());
 
-    cache().set('posts', post);
-
-    return post;
+    return posts;
 };

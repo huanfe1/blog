@@ -1,5 +1,5 @@
 #post {
-    a {
+    p a {
         @apply text-primary hover:underline;
     }
     p {
@@ -38,10 +38,6 @@
     br {
         content: '';
         @apply my-2 block;
-    }
-    // 单行代码
-    :not(pre) > code {
-        @apply rounded bg-default-100 p-1;
     }
     // 引用框
     blockquote {
