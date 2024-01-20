@@ -1,5 +1,5 @@
 import Layout from '@/components/layout';
-import NotionPage from '@/components/notionpage';
+import NotionRender from '@/components/notionRender';
 import Toc from '@/components/post/toc';
 import { PostProps, getAllPosts, getPostBySlug } from '@/utils/notion';
 import { Image } from '@nextui-org/image';
@@ -51,7 +51,7 @@ export default function Post({ post }: { post: PostProps }) {
                             </div>
                         </header>
                         <section id="post" className="resp max-w-[640px] text-[#4c4e4d] dark:text-[#dbdbdb]">
-                            <NotionPage content={post.content} />
+                            <NotionRender content={post.content} />
                         </section>
                     </article>
                     <Toc nodes={post.content} />
