@@ -55,7 +55,7 @@ export default function NotionRender({ content }) {
                 break;
             }
             case 'divider': {
-                result.push(<hr key={item.type + index} />);
+                result.push(<hr className="mx-auto my-8 w-60 border-t-content3" key={item.type + index} />);
                 break;
             }
             case 'quote': {

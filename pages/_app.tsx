@@ -27,12 +27,12 @@ export default function App({ Component, pageProps }: AppProps) {
             <DefaultSeo
                 title="幻非"
                 description="幻非的个人博客，记录一些技术或者想法"
-                canonical={`https://blog.huanfei.top${router.asPath}`}
+                canonical={`https://www.huanfei.top${router.asPath}`}
                 openGraph={{
                     siteName: '幻非',
-                    url: `https://blog.huanfei.top${router.asPath}`,
+                    url: `https://www.huanfei.top${router.asPath}`,
                     type: 'website',
-                    images: [{ url: 'https://blog.huanfei.top/avatar.png' }],
+                    images: [{ url: 'https://www.huanfei.top/avatar.png' }],
                 }}
             />
             <NextSeo titleTemplate="%s - 幻非" noindex={is404 ? false : true} nofollow={is404 ? false : true} />
