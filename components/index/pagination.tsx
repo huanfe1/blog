@@ -1,29 +1,28 @@
 import { Button } from '@nextui-org/button';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function Pagination({ current, total }: { current: number; total: number }) {
-    const router = useRouter();
     if (total === 1) return null;
     function Prev() {
         const url = current === 2 ? '/' : `/page/${current - 1}`;
-        const hover = () => router.prefetch(url);
-        const click = () => router.push(url);
         if (current === 1) return <div></div>;
         return (
-            <Button color="primary" onClick={click} onMouseEnter={hover}>
-                上一页
+            <Button color="primary" className="px-0">
+                <Link href={url} className="flex h-full w-full items-center justify-center">
+                    上一页
+                </Link>
             </Button>
         );
     }
     function Next() {
         if (current === total) return <div></div>;
         const url = `/page/${current + 1}`;
-        const hover = () => router.prefetch(url);
-        const click = () => router.push(url);
         return (
             <div>
-                <Button color="primary" onClick={click} onMouseEnter={hover}>
-                    下一页
+                <Button color="primary" className="px-0">
+                    <Link href={url} className="flex h-full w-full items-center justify-center">
+                        下一页
+                    </Link>
                 </Button>
             </div>
         );
