@@ -11,15 +11,14 @@ export default function Code({ content, language }) {
         });
     };
     return (
-        <pre className="group relative" id="code">
-            <Button
-                className="absolute right-3 top-3 hidden text-default-600 group-hover:flex"
-                isIconOnly
-                onPress={click}
-            >
+        <pre className="group relative my-3" id="code">
+            <Button className="absolute right-3 top-3 hidden group-hover:flex" isIconOnly onPress={click}>
                 <Svg status={status} />
             </Button>
-            <code dangerouslySetInnerHTML={{ __html: hljs.highlight(content, { language }).value }}></code>
+            <code
+                className="block overflow-x-auto rounded-lg border border-content2 bg-default-50 p-4 text-sm"
+                dangerouslySetInnerHTML={{ __html: hljs.highlight(content, { language }).value }}
+            ></code>
         </pre>
     );
 }

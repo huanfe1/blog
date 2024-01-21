@@ -5,7 +5,7 @@ import { SitemapStream, streamToPromise } from 'sitemap';
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     if (!res) return;
     const sitemap = new SitemapStream({
-        hostname: 'http://blog.huanfei.top',
+        hostname: 'http://www.huanfei.top',
         xmlns: { news: false, xhtml: false, image: false, video: false },
     });
     sitemap.write({ url: '/' });
@@ -16,6 +16,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     sitemap.end();
     const data = await streamToPromise(sitemap);
     res.setHeader('Content-Type', 'text/xml');
+    res.setHeader('Cache-Control', 'public, s-maxage=1200, stale-while-revalidate=600');
     res.write(data.toString());
     res.end();
     return { props: {} };

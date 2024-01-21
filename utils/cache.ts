@@ -7,7 +7,10 @@ export function cache() {
     if (!IsVercel && !existsSync(cacheDirectory)) mkdirSync(cacheDirectory, { recursive: true });
     return {
         get: (name: string): any => {
-            if (IsVercel) return;
+            if (IsVercel) {
+                console.log(`get ${name}`);
+                return;
+            }
             const filePath = join(cacheDirectory, `${name}.json`);
             return existsSync(filePath) ? JSON.parse(readFileSync(filePath, 'utf-8')) : null;
         },
