@@ -11,11 +11,11 @@ export default function NotionRender({ content }) {
     const list = [];
     for (const [index, item] of content.entries()) {
         if (list['numbered_list'] && item.type !== 'numbered_list') {
-            result.push(<ol key={item.type + index}>{list['numbered_list']}</ol>);
+            result.push(<ol key={'numbered_list' + index}>{list['numbered_list']}</ol>);
             list['numbered_list'] = null;
         }
         if (list['bulleted_list'] && item.type !== 'bulleted_list') {
-            result.push(<ul key={item.type + index}>{list['bulleted_list']}</ul>);
+            result.push(<ul key={'bulleted_list' + index}>{list['bulleted_list']}</ul>);
             list['bulleted_list'] = null;
         }
         switch (item.type) {
@@ -35,31 +35,12 @@ export default function NotionRender({ content }) {
                 );
                 break;
             }
-            case 'header': {
-                const content = item.value.title[0][0];
-                result.push(
-                    <h1 key={item.type + index} id={content}>
-                        {content}
-                    </h1>,
-                );
-                break;
-            }
-            case 'sub_header': {
-                const content = item.value.title[0][0];
-                result.push(
-                    <h2 key={item.type + index} id={content}>
-                        {content}
-                    </h2>,
-                );
-                break;
-            }
+            case 'header':
+            case 'sub_header':
             case 'sub_sub_header': {
                 const content = item.value.title[0][0];
-                result.push(
-                    <h3 key={item.type + index} id={content}>
-                        {content}
-                    </h3>,
-                );
+                const tagName = 'h' + (item.type.match(/sub_/g).length + 1);
+                result.push(React.createElement(tagName, { key: item.type + index, id: content }, content));
                 break;
             }
             case 'image': {
@@ -103,14 +84,9 @@ export default function NotionRender({ content }) {
                 );
                 break;
             }
-            case 'bookmark': {
-                result.push(<Bookmark item={item} key={item.type + index} />);
-                break;
-            }
             case 'to_do': {
-                console.log(item.value);
                 result.push(
-                    <div className="my-2">
+                    <div className="my-2" key={item.type + index}>
                         <Checkbox isReadOnly lineThrough isSelected={item.value?.checked}>
                             {item.value.title[0][0]}
                         </Checkbox>
@@ -120,7 +96,6 @@ export default function NotionRender({ content }) {
             }
             default: {
                 console.log(item.type);
-                // throw new Error('unknown type: ' + item.type);
             }
         }
     }
@@ -135,7 +110,7 @@ function Text({ value }) {
             continue;
         }
         let tagName = 'span';
-        const props: any = { key: index };
+        const props: { href?: string; style?: React.CSSProperties } = {};
         const content = item[0];
         const tags = item[1];
         for (const tag of tags) {
@@ -174,35 +149,22 @@ function Text({ value }) {
             }
         }
         if (tagName === 'a') {
-            result.push(<Link {...props}>{content}</Link>);
+            result.push(
+                <Link key={'link' + index} {...props}>
+                    {content}
+                </Link>,
+            );
             continue;
         }
         if (tagName === 'code') {
-            result.push(<CodeComponent size="sm">{content}</CodeComponent>);
+            result.push(
+                <CodeComponent key={'code' + index} size="sm">
+                    {content}
+                </CodeComponent>,
+            );
             continue;
         }
-        result.push(React.createElement(tagName, props, content));
+        result.push(React.createElement(tagName, { key: index, ...props }, content));
     }
     return <p>{result}</p>;
-}
-
-function Bookmark({ item }) {
-    return (
-        <div>
-            <Link href={item.value.link[0][0]} className="text-sm">
-                <span className="flex min-h-[100px] overflow-hidden rounded border border-default-200 hover:bg-default-200/75">
-                    <span className="flex flex-[5] flex-col justify-center space-y-1 overflow-hidden p-3">
-                        <span className="line-clamp-2">{item.value.title[0][0]}</span>
-                        <span className="line-clamp-2 text-[13px] text-default-400">
-                            {item.value.description[0][0]}
-                        </span>
-                    </span>
-                    <span
-                        className="hidden flex-[3] bg-cover bg-center sm:block"
-                        style={{ backgroundImage: `url(${item.format.bookmark_cover})` }}
-                    ></span>
-                </span>
-            </Link>
-        </div>
-    );
 }

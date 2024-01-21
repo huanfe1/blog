@@ -9,12 +9,12 @@ export function TocLink({ links }) {
             const links = refs.current;
             let temp = null;
             for (const i in links) {
-                if (!links[i].current.classList) continue;
+                if (!links[i]?.current?.classList) continue;
                 links[i].current.classList.remove('active');
             }
             for (const i in links) {
                 const ref = links[i].current;
-                if (scroll >= (document.getElementById(ref.dataset.title) as HTMLElement).offsetTop - 50) {
+                if (scroll >= (document.getElementById(ref?.dataset?.title) as HTMLElement)?.offsetTop - 50) {
                     temp = ref;
                 } else {
                     break;
