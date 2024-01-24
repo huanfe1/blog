@@ -14,7 +14,7 @@ export default function Color() {
             </DropdownTrigger>
             <DropdownMenu
                 onSelectionChange={_ => setTheme(_['currentKey'])}
-                selectedKeys={new Set([theme])}
+                selectedKeys={[theme]}
                 selectionMode="single"
                 aria-label="Change Theme"
             >
