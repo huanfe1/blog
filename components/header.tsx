@@ -6,6 +6,7 @@ import Color from './color';
 export default function Header() {
     return (
         <Navbar position="static">
+            <h1 className="hidden">幻非</h1>
             <NavbarBrand>
                 <Link href="/">
                     <img
