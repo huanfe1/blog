@@ -11,6 +11,7 @@ export default function List({ posts, current }: { posts: AllPostsProps[]; curre
     const end = per_page + (current - 1) * per_page;
     return (
         <Layout>
+            <h1 className="hidden">幻非</h1>
             <div className="resp space-y-10">
                 {posts.slice(start, end).map(post => (
                     <Card post={post} key={post.slug} />

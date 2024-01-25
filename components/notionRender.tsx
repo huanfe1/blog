@@ -48,6 +48,7 @@ export default function NotionRender({ content }) {
                     <Img
                         key={item.type + index}
                         src={item.value.url}
+                        alt={`image-${index}`}
                         width={item.value.width}
                         height={item.value.height}
                     />,

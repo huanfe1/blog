@@ -67,7 +67,7 @@ export default function Img(props: ImgHTMLAttributes<HTMLImageElement>) {
         <p>
             <img
                 {...props}
-                alt=""
+                alt={props.alt || 'huanfei'}
                 ref={imgRef}
                 className={classNames('rounded shadow', status ? 'invisible' : 'cursor-zoom-in')}
                 onClick={() => {
