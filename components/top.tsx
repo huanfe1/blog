@@ -9,7 +9,7 @@ export default function Top() {
         <Button
             aria-label="回到顶部"
             isIconOnly
-            className="fixed bottom-10 right-10 z-20 hidden md:flex"
+            className="fixed bottom-10 right-10 z-20 hidden bg-default-200 shadow-sm md:flex"
             size="lg"
             onPress={click}
         >
