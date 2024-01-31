@@ -1,5 +1,4 @@
 import { Checkbox } from '@nextui-org/checkbox';
-import { Code as CodeComponent } from '@nextui-org/code';
 import React from 'react';
 
 import Code from './post/code';
@@ -159,9 +158,9 @@ function Text({ value }) {
         }
         if (tagName === 'code') {
             result.push(
-                <CodeComponent key={'code' + index} size="sm">
+                <span key={'code' + index} className="rounded bg-default-200 px-2 py-0.5">
                     {content}
-                </CodeComponent>,
+                </span>,
             );
             continue;
         }
