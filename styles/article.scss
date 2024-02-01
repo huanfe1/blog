@@ -59,4 +59,10 @@
     .anchor {
         @apply absolute -ml-5 pr-2.5 text-2xl font-bold opacity-0;
     }
+    hr {
+        @apply mx-auto my-8 w-60 border-t-content3;
+    }
+    p > code {
+        @apply rounded bg-default-200 px-2 py-0.5;
+    }
 }
