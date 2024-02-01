@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import { Dispatch, ImgHTMLAttributes, MutableRefObject, SetStateAction, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import type { Dispatch, ImgHTMLAttributes, MutableRefObject, SetStateAction } from 'react';
 import { createPortal } from 'react-dom';
 
 function Mask({
@@ -43,8 +44,8 @@ function Mask({
                 }}
             ></div>
             <img
-                {...props}
-                alt="huanfei"
+                alt={props.alt || 'images'}
+                src={props.src}
                 className="absolute z-50 rounded"
                 style={{
                     transition: 'transform 300ms cubic-bezier(.2, 0, .2, 1)',
@@ -64,10 +65,12 @@ export default function Img(props: ImgHTMLAttributes<HTMLImageElement>) {
     const [status, setStatus] = useState(false);
     const imgRef: MutableRefObject<HTMLImageElement> = useRef();
     return (
-        <p>
+        <>
             <img
-                {...props}
-                alt={props.alt || 'huanfei'}
+                alt={props.alt || 'images'}
+                src={props.src}
+                width={props.width}
+                height={props.height}
                 ref={imgRef}
                 className={classNames('rounded shadow', status ? 'invisible' : 'cursor-zoom-in')}
                 onClick={() => {
@@ -76,7 +79,7 @@ export default function Img(props: ImgHTMLAttributes<HTMLImageElement>) {
                 loading="lazy"
             />
             {status && <Mask props={props} setStatus={setStatus} imgRef={imgRef} />}
-        </p>
+        </>
     );
 }
 

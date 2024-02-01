@@ -1,4 +1,4 @@
-import { getAllPosts } from '@/utils/notion';
+import { getAllPosts } from '@/utils/data';
 import dayjs from 'dayjs';
 import { Feed } from 'feed';
 import { GetServerSideProps } from 'next';

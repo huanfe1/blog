@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
+import { ReactNode } from 'react';
 
 function isExternalLink(url: string): boolean {
     try {
@@ -14,11 +15,14 @@ function isExternalLink(url: string): boolean {
     }
 }
 
-export default function CustomLink(props: React.AnchorHTMLAttributes<HTMLElement>) {
-    const { href } = props;
-
-    if (href.startsWith('#')) return <a href={href} {...props} />;
-    if (href.startsWith('/')) return <Link href={href} {...props} />;
-    if (isExternalLink(href)) return <a {...props} target="_blank" rel="noopener noreferrer external nofollow" />;
-    return <Link href={href} {...props} />;
+export default function CustomLink({ href, children }: { href: string; children: ReactNode }) {
+    if (href.startsWith('#')) return <a href={href}>{children}</a>;
+    if (href.startsWith('/')) return <Link href={href}>{children}</Link>;
+    if (isExternalLink(href))
+        return (
+            <a target="_blank" href={href} rel="noopener noreferrer external nofollow">
+                {children}
+            </a>
+        );
+    return <Link href={href}>{children}</Link>;
 }

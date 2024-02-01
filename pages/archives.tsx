@@ -1,5 +1,5 @@
 import Layout from '@/components/layout';
-import { AllPostsProps, getAllPosts } from '@/utils/notion';
+import { AllPostsProps, getAllPosts } from '@/utils/data';
 import { Card, CardBody } from '@nextui-org/card';
 import dayjs from 'dayjs';
 import { NextSeo } from 'next-seo';
@@ -48,7 +48,6 @@ export async function getStaticProps() {
             archives,
             length: posts.length,
         },
-        revalidate: 1,
     };
 }
 

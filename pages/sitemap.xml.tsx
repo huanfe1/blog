@@ -1,4 +1,4 @@
-import { getAllPosts } from '@/utils/notion';
+import { getAllPosts } from '@/utils/data';
 import { GetServerSideProps } from 'next';
 import { SitemapStream, streamToPromise } from 'sitemap';
 

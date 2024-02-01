@@ -1,5 +1,5 @@
 import List from '@/components/index/list';
-import { type AllPostsProps, getAllPosts } from '@/utils/notion';
+import { type AllPostsProps, getAllPosts } from '@/utils/data';
 import { NextSeo } from 'next-seo';
 
 export default function Page({ posts, current }: { posts: AllPostsProps[]; current: number; total: number }) {
@@ -20,7 +20,6 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
             posts,
             current,
         },
-        revalidate: 1,
     };
 }
 
@@ -34,6 +33,6 @@ export async function getStaticPaths() {
             .map((_, index) => {
                 return { params: { id: (index + 2).toString() } };
             }),
-        fallback: 'blocking',
+        fallback: false,
     };
 }
