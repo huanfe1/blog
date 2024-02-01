@@ -33,6 +33,6 @@ export async function getStaticPaths() {
             .map((_, index) => {
                 return { params: { id: (index + 2).toString() } };
             }),
-        fallback: 'blocking',
+        fallback: false,
     };
 }
