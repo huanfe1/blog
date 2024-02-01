@@ -1,4 +1,3 @@
-import { BlockType } from 'notion-types';
 import { useEffect, useRef } from 'react';
 
 export function TocLink({ links }) {
@@ -52,16 +51,14 @@ export function TocLink({ links }) {
     );
 }
 
-export default function Toc({ nodes }: { nodes: { type: BlockType; value: any }[] }) {
-    const links = nodes
-        .filter(node => /header$/.test(node.type))
-        .map(node => {
-            return {
-                name: node.value.title[0][0] as string,
-                level: node.type.match(/sub/g).length,
-            };
-        });
-    if (links.length <= 1) return null;
+export default function Toc({ content }: { content: string }) {
+    const links = content.match(/#{1,6} (.*)/g)?.map(item => {
+        return {
+            name: item.split(' ')[1],
+            level: item.match(/#/g).length,
+        };
+    });
+    if (!links || links.length <= 1) return null;
 
     return <TocLink links={links} />;
 }

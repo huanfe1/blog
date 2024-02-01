@@ -1,5 +1,5 @@
 import Layout from '@/components/layout';
-import { AllPostsProps } from '@/utils/notion';
+import { AllPostsProps } from '@/utils/data';
 
 import Card from './card';
 import Pagination from './pagination';

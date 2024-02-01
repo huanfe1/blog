@@ -1,4 +1,4 @@
-import { AllPostsProps } from '@/utils/notion';
+import { AllPostsProps } from '@/utils/data';
 import { Card, CardBody, Image } from '@nextui-org/react';
 import Link from 'next/link';
 

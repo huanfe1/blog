@@ -1,5 +1,5 @@
 import List from '@/components/index/list';
-import { AllPostsProps, getAllPosts } from '@/utils/notion';
+import { AllPostsProps, getAllPosts } from '@/utils/data';
 import { GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
 
@@ -16,6 +16,5 @@ export const getStaticProps: GetStaticProps = async () => {
     const posts: AllPostsProps[] = await getAllPosts();
     return {
         props: { posts, current: 1 },
-        revalidate: 1,
     };
 };

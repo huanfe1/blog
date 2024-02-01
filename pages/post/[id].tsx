@@ -1,9 +1,13 @@
 import Layout from '@/components/layout';
-import NotionRender from '@/components/notionRender';
+import Code from '@/components/post/code';
+import Img from '@/components/post/img';
+import Link from '@/components/post/link';
 import Toc from '@/components/post/toc';
-import { PostProps, getAllPosts, getPostBySlug } from '@/utils/notion';
+import { PostProps, getAllPosts, getPostBySlug } from '@/utils/data';
 import { Image } from '@nextui-org/image';
 import { NextSeo } from 'next-seo';
+import { JSX, createElement } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 export default function Post({ post }: { post: PostProps }) {
     return (
@@ -51,14 +55,51 @@ export default function Post({ post }: { post: PostProps }) {
                             </div>
                         </header>
                         <section id="post" className="resp max-w-[640px] text-[#4c4e4d] dark:text-[#dbdbdb]">
-                            <NotionRender content={post.content} />
+                            <ReactMarkdown
+                                components={{
+                                    img: props => {
+                                        return <Img {...props} {...post.images[props.src]} />;
+                                    },
+                                    pre: props => {
+                                        const children = (props.children as any).props;
+                                        return (
+                                            <Code
+                                                content={children.children}
+                                                language={children.className.split('-')[1]}
+                                            />
+                                        );
+                                    },
+                                    a: props => <Link href={props.href}>{props.children}</Link>,
+                                    h2: props => {
+                                        console.log(props);
+                                        return undefined;
+                                    },
+                                    ...head(),
+                                }}
+                            >
+                                {post.content}
+                            </ReactMarkdown>
                         </section>
                     </article>
-                    <Toc nodes={post.content} />
+                    <Toc content={post.content} />
                 </div>
             </Layout>
         </>
     );
+}
+
+function head(): any {
+    const head = (props): JSX.Element => {
+        return createElement(props.node.tagName, { id: props.children }, props.children);
+    };
+    return {
+        h1: head,
+        h2: head,
+        h3: head,
+        h4: head,
+        h5: head,
+        h6: head,
+    };
 }
 
 export async function getStaticProps({ params }: { params: { id: string } }) {
@@ -66,7 +107,6 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
     if (!post) return { notFound: true };
     return {
         props: { post },
-        revalidate: 1,
     };
 }
 
@@ -74,6 +114,6 @@ export async function getStaticPaths() {
     const posts = await getAllPosts();
     return {
         paths: posts.map(post => ({ params: { id: post.slug } })),
-        fallback: 'blocking',
+        fallback: false,
     };
 }
