@@ -14,7 +14,7 @@ const cache = {
     },
     set: (name: string, data: any, time?: number): void => {
         if (IsVercel) {
-            memory.put(name, data, time);
+            memory.put(name, data, time || 0);
         } else {
             const filePath = join(cacheDirectory, `${name}.json`);
             writeFileSync(filePath, JSON.stringify(data));

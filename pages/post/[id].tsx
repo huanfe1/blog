@@ -107,6 +107,7 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
     if (!post) return { notFound: true };
     return {
         props: { post },
+        revalidate: 30,
     };
 }
 
@@ -114,6 +115,6 @@ export async function getStaticPaths() {
     const posts = await getAllPosts();
     return {
         paths: posts.map(post => ({ params: { id: post.slug } })),
-        fallback: false,
+        fallback: 'blocking',
     };
 }
