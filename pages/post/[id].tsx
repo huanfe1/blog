@@ -107,7 +107,7 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
     if (!post) return { notFound: true };
     return {
         props: { post },
-        revalidate: 30,
+        revalidate: 60,
     };
 }
 
