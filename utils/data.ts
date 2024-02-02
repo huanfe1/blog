@@ -68,6 +68,6 @@ async function fetchPosts(): Promise<PostProps[]> {
     });
     const json = await data.json();
     const posts = JSON.parse(json.files['posts.json']['content']);
-    cache.set('posts', posts, 5 * 60 * 1000);
+    cache.set('posts', posts, 3 * 60 * 1000);
     return posts;
 }

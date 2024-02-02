@@ -1,5 +1,6 @@
 import List from '@/components/index/list';
 import { type AllPostsProps, getAllPosts } from '@/utils/data';
+import type { GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
 
 export default function Page({ posts, current }: { posts: AllPostsProps[]; current: number; total: number }) {
@@ -15,11 +16,15 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
     const current = parseInt(params.id);
     if (current === 1) return { notFound: true };
     const posts: AllPostsProps[] = await getAllPosts();
+    const per_page = parseInt(process.env.PER_PAGE);
+    const total = Math.ceil(posts.length / per_page);
+    if (current > total) return { notFound: true };
     return {
         props: {
             posts,
             current,
         },
+        revalidate: 30,
     };
 }
 
@@ -33,6 +38,6 @@ export async function getStaticPaths() {
             .map((_, index) => {
                 return { params: { id: (index + 2).toString() } };
             }),
-        fallback: false,
+        fallback: 'blocking',
     };
 }
