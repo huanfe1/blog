@@ -1,5 +1,7 @@
 ## 个人博客
 
+[![update posts](https://github.com/huanfe1/posts/actions/workflows/update.yml/badge.svg)](https://github.com/huanfe1/posts/actions/workflows/update.yml)
+
 [博客链接](https://www.huanfei.top)
 
 基于 [Next.js](https://nextjs.org/) 搭建，[Notion](https://www.notion.com/) 作为后台数据源，[Vercel](https://vercel.com/) 作为部署平台，[Tailwind CSS](https://www.tailwindcss.cn/) 作为 CSS 开发框架。
