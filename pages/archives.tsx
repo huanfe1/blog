@@ -48,7 +48,7 @@ export async function getStaticProps() {
             archives,
             length: posts.length,
         },
-        revalidate: 30,
+        revalidate: 60,
     };
 }
 

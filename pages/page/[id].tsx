@@ -1,6 +1,5 @@
 import List from '@/components/index/list';
 import { type AllPostsProps, getAllPosts } from '@/utils/data';
-import type { GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
 
 export default function Page({ posts, current }: { posts: AllPostsProps[]; current: number; total: number }) {
@@ -24,7 +23,7 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
             posts,
             current,
         },
-        revalidate: 30,
+        revalidate: 60,
     };
 }
 
