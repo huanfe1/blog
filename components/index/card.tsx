@@ -1,8 +1,9 @@
-import { AllPostsProps } from '@/utils/data';
 import { Card, CardBody, Image } from '@nextui-org/react';
 import Link from 'next/link';
 
-export default function ListCard({ post }: { post: AllPostsProps }) {
+import { PostProps } from '@/utils/data';
+
+export default function ListCard({ post }: { post: PostProps }) {
     return (
         <Link href={`/post/${post.slug}`} className="block">
             <Card className="w-full bg-content2">

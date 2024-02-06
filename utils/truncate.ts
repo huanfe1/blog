@@ -1,6 +1,6 @@
 'use strict';
 
-export default function truncate(str: string, length = 120) {
+export default function truncate(str: string, length = 60) {
     if (typeof str !== 'string') return;
     const omission = '...';
     const omissionLength = omission.length;

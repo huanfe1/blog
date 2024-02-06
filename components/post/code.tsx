@@ -2,7 +2,9 @@ import { Button } from '@nextui-org/button';
 import hljs from 'highlight.js';
 import { useState } from 'react';
 
-export default function Code({ content, language }) {
+export default function Code(props) {
+    const content = props.children.props.children;
+    const language = props.children.props.className.replace('language-', '');
     const [status, setStatus] = useState(false);
     const click = () => {
         navigator.clipboard.writeText(content).then(() => {

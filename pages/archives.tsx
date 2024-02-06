@@ -1,9 +1,10 @@
-import Layout from '@/components/layout';
-import { AllPostsProps, getAllPosts } from '@/utils/data';
 import { Card, CardBody } from '@nextui-org/card';
 import dayjs from 'dayjs';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
+
+import Layout from '@/components/layout';
+import { PostProps, getAllPosts } from '@/utils/data';
 
 export default function Archives({ archives, length }: { archives: Archive[]; length: number }) {
     return (
@@ -57,7 +58,7 @@ type Archive = {
     posts: { title: string; date: string; slug: string }[];
 };
 
-function getArchives(posts: AllPostsProps[]) {
+function getArchives(posts: PostProps[]) {
     const arr: Archive[] = [];
     posts.forEach(post => {
         const year = dayjs(post.date).format('YYYY');
