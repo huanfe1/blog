@@ -1,6 +1,7 @@
-import { getAllPosts } from '@/utils/data';
 import { GetServerSideProps } from 'next';
 import { SitemapStream, streamToPromise } from 'sitemap';
+
+import { getAllPosts } from '@/utils/data';
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     if (!res) return;

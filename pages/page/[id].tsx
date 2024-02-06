@@ -1,8 +1,9 @@
-import List from '@/components/index/list';
-import { type AllPostsProps, getAllPosts } from '@/utils/data';
 import { NextSeo } from 'next-seo';
 
-export default function Page({ posts, current }: { posts: AllPostsProps[]; current: number; total: number }) {
+import List from '@/components/index/list';
+import { type PostProps, getAllPosts } from '@/utils/data';
+
+export default function Page({ posts, current }: { posts: PostProps[]; current: number; total: number }) {
     return (
         <>
             <NextSeo title={`文章列表: 第${current}页`} />
@@ -14,7 +15,7 @@ export default function Page({ posts, current }: { posts: AllPostsProps[]; curre
 export async function getStaticProps({ params }: { params: { id: string } }) {
     const current = parseInt(params.id);
     if (current === 1) return { notFound: true };
-    const posts: AllPostsProps[] = await getAllPosts();
+    const posts: PostProps[] = await getAllPosts();
     const per_page = parseInt(process.env.PER_PAGE);
     const total = Math.ceil(posts.length / per_page);
     if (current > total) return { notFound: true };
@@ -28,7 +29,7 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
 }
 
 export async function getStaticPaths() {
-    const posts: AllPostsProps[] = await getAllPosts();
+    const posts: PostProps[] = await getAllPosts();
     const per_page = parseInt(process.env.PER_PAGE);
     const total = Math.ceil(posts.length / per_page);
     return {

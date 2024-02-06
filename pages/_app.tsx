@@ -1,4 +1,3 @@
-import '@/styles/globals.scss';
 import { NextUIProvider } from '@nextui-org/react';
 import { DefaultSeo, NextSeo } from 'next-seo';
 import { ThemeProvider } from 'next-themes';
@@ -7,6 +6,8 @@ import { useRouter } from 'next/router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { useEffect } from 'react';
+
+import '@/styles/globals.scss';
 
 export default function App({ Component, pageProps }: AppProps) {
     const router = useRouter();

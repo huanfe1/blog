@@ -1,10 +1,10 @@
 import Layout from '@/components/layout';
-import { AllPostsProps } from '@/utils/data';
+import { PostProps } from '@/utils/data';
 
 import Card from './card';
 import Pagination from './pagination';
 
-export default function List({ posts, current }: { posts: AllPostsProps[]; current: number }) {
+export default function List({ posts, current }: { posts: PostProps[]; current: number }) {
     const per_page = parseInt(process.env.PER_PAGE);
     const total = Math.ceil(posts.length / per_page);
     const start = per_page * (current - 1);

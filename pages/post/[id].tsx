@@ -1,15 +1,22 @@
+import { Image } from '@nextui-org/image';
+import { NextSeo } from 'next-seo';
+import Link from 'next/link';
+import probe from 'probe-image-size';
+import ReactMarkdown from 'react-markdown';
+import { readingTime } from 'reading-time-estimator';
+import rehypeExternalLinks from 'rehype-external-links';
+import rehypeSlug from 'rehype-slug';
+import remarkGfm from 'remark-gfm';
+
 import Layout from '@/components/layout';
 import Code from '@/components/post/code';
 import Img from '@/components/post/img';
-import Link from '@/components/post/link';
 import Toc from '@/components/post/toc';
-import { PostProps, getAllPosts, getPostBySlug } from '@/utils/data';
-import { Image } from '@nextui-org/image';
-import { NextSeo } from 'next-seo';
-import { JSX, createElement } from 'react';
-import ReactMarkdown from 'react-markdown';
+import { PostProps, getAllPosts } from '@/utils/data';
 
-export default function Post({ post }: { post: PostProps }) {
+type images = { [key: string]: { width: string; height: string } };
+
+export default function Post({ post, images }: { post: PostProps; images: images }) {
     return (
         <>
             <NextSeo
@@ -51,30 +58,25 @@ export default function Post({ post }: { post: PostProps }) {
                             <div className="my-5 text-center text-default-500">
                                 <time dateTime={post.date}>{post.date}</time>
                                 <span className="mx-1">·</span>
-                                <span>{'约 ' + post.wordcount + ' 字'}</span>
+                                <span>{'约 ' + readingTime(post.content, 300, 'cn').words + ' 字'}</span>
                             </div>
                         </header>
                         <section id="post" className="resp max-w-[640px] text-[#4c4e4d] dark:text-[#dbdbdb]">
                             <ReactMarkdown
+                                rehypePlugins={[
+                                    rehypeSlug,
+                                    [
+                                        rehypeExternalLinks,
+                                        { target: '_blank', rel: ['noopener', 'external', 'nofollow', 'noreferrer'] },
+                                    ],
+                                ]}
+                                remarkPlugins={[remarkGfm]}
                                 components={{
                                     img: props => {
-                                        return <Img {...props} {...post.images[props.src]} />;
+                                        return <Img {...props} {...images[props.src]} />;
                                     },
-                                    pre: props => {
-                                        const children = (props.children as any).props;
-                                        return (
-                                            <Code
-                                                content={children.children}
-                                                language={children.className.split('-')[1]}
-                                            />
-                                        );
-                                    },
-                                    a: props => <Link href={props.href}>{props.children}</Link>,
-                                    h2: props => {
-                                        console.log(props);
-                                        return undefined;
-                                    },
-                                    ...head(),
+                                    pre: Code,
+                                    a: props => <Link {...(props as any)} />,
                                 }}
                             >
                                 {post.content}
@@ -88,25 +90,17 @@ export default function Post({ post }: { post: PostProps }) {
     );
 }
 
-function head(): any {
-    const head = (props): JSX.Element => {
-        return createElement(props.node.tagName, { id: props.children }, props.children);
-    };
-    return {
-        h1: head,
-        h2: head,
-        h3: head,
-        h4: head,
-        h5: head,
-        h6: head,
-    };
-}
-
 export async function getStaticProps({ params }: { params: { id: string } }) {
-    const post = await getPostBySlug(params.id);
+    const post = await getAllPosts().then(posts => posts.find(post => post.slug === params.id));
     if (!post) return { notFound: true };
+    const images: images = {};
+    for (const image of post.content.match(/!\[.*\]\((.*)\)/g) || []) {
+        const url = image.match(/\((.*)\)/)[1];
+        const { width, height } = await probe(url);
+        images[url] = { width, height };
+    }
     return {
-        props: { post },
+        props: { post, images },
         revalidate: 60,
     };
 }
