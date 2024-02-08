@@ -33,6 +33,10 @@ export const getAllPosts = async (): Promise<PostProps[]> => {
     return posts.sort((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf());
 };
 
+if (!process.env.GIST_ID || !process.env.GIST_TOKEN) {
+    throw new Error('GIST_ID or GIST_TOKEN is not set');
+}
+
 /** 从 Gist 获取已发布文章 */
 async function fetchPosts(): Promise<PostProps[]> {
     const temp = cache.get('posts');
