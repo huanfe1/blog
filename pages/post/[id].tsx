@@ -36,31 +36,7 @@ export default function Post({ post, images }: { post: PostProps; images: images
             <Layout>
                 <div>
                     <article className="pb-12">
-                        <header>
-                            {post.cover ? (
-                                <div className="relative hidden pt-10 md:block">
-                                    <div className="absolute left-0 top-0 hidden h-[350px] w-full bg-content2 md:block"></div>
-                                    <div className="relative top-0 flex w-full justify-center">
-                                        <Image
-                                            src={post.cover}
-                                            width="720"
-                                            radius="sm"
-                                            className="aspect-video"
-                                            alt={post.title}
-                                            isBlurred
-                                        />
-                                    </div>
-                                </div>
-                            ) : (
-                                <div className="pt-1"></div>
-                            )}
-                            <h1 className="mt-10 text-center text-3xl font-bold">{post.title}</h1>
-                            <div className="my-5 text-center text-default-500">
-                                <time dateTime={post.date}>{post.date}</time>
-                                <span className="mx-1">·</span>
-                                <span>{'约 ' + readingTime(post.content, 300, 'cn').words + ' 字'}</span>
-                            </div>
-                        </header>
+                        <Header post={post} />
                         <section id="post" className="resp max-w-[640px] text-[#4c4e4d] dark:text-[#dbdbdb]">
                             <ReactMarkdown
                                 rehypePlugins={[
@@ -87,6 +63,36 @@ export default function Post({ post, images }: { post: PostProps; images: images
                 </div>
             </Layout>
         </>
+    );
+}
+
+function Header({ post }) {
+    return (
+        <header>
+            {post.cover ? (
+                <div className="relative hidden pt-10 md:block">
+                    <div className="absolute left-0 top-0 hidden h-[350px] w-full bg-content2 md:block"></div>
+                    <div className="relative top-0 flex w-full justify-center">
+                        <Image
+                            src={post.cover}
+                            width="720"
+                            radius="sm"
+                            className="aspect-video"
+                            alt={post.title}
+                            isBlurred
+                        />
+                    </div>
+                </div>
+            ) : (
+                <div className="pt-1"></div>
+            )}
+            <h1 className="mt-10 text-center text-3xl font-bold">{post.title}</h1>
+            <div className="my-5 text-center text-default-500">
+                <time dateTime={post.date}>{post.date}</time>
+                <span className="mx-1">·</span>
+                <span>{'约 ' + readingTime(post.content, 300, 'cn').words + ' 字'}</span>
+            </div>
+        </header>
     );
 }
 
