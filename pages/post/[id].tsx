@@ -5,14 +5,17 @@ import probe from 'probe-image-size';
 import ReactMarkdown from 'react-markdown';
 import { readingTime } from 'reading-time-estimator';
 import rehypeExternalLinks from 'rehype-external-links';
+import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
+import remarkGithubAlerts from 'remark-github-alerts';
 
 import Layout from '@/components/layout';
 import Code from '@/components/post/code';
 import Img from '@/components/post/img';
 import Toc from '@/components/post/toc';
 import { PostProps, getAllPosts } from '@/utils/data';
+import rehypeEmbed from '@/utils/markdown/rehype-embed';
 
 type images = { [key: string]: { width: string; height: string } };
 
@@ -39,14 +42,15 @@ export default function Post({ post, images }: { post: PostProps; images: images
                         <Header post={post} />
                         <section id="post" className="resp max-w-[640px] text-[#4c4e4d] dark:text-[#dbdbdb]">
                             <ReactMarkdown
+                                remarkPlugins={[remarkGfm, remarkGithubAlerts, rehypeEmbed]}
                                 rehypePlugins={[
                                     rehypeSlug,
                                     [
                                         rehypeExternalLinks,
                                         { target: '_blank', rel: ['noopener', 'external', 'nofollow', 'noreferrer'] },
                                     ],
+                                    rehypeRaw,
                                 ]}
-                                remarkPlugins={[remarkGfm]}
                                 components={{
                                     img: props => {
                                         return <Img {...props} {...images[props.src]} />;
