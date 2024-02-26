@@ -39,7 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <NextSeo titleTemplate="%s - 幻非" noindex={is404 ? false : true} nofollow={is404 ? false : true} />
 
             <NextUIProvider>
-                <ThemeProvider attribute="class">
+                <ThemeProvider attribute="class" disableTransitionOnChange>
                     <Component {...pageProps} />
                 </ThemeProvider>
             </NextUIProvider>

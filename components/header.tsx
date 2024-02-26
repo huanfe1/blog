@@ -5,7 +5,7 @@ import Color from './color';
 
 export default function Header() {
     return (
-        <Navbar position="static">
+        <Navbar position="sticky">
             <NavbarBrand>
                 <Link href="/">
                     <img
