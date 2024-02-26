@@ -2,16 +2,14 @@
 
 [博客链接](https://www.huanfei.top)
 
-基于 [Next.js](https://nextjs.org/) 搭建，[Posts](https://www.github.com/huanfe1/posts) 仓库作为文章存放仓库，通过 GitHub Actions 将数据处理存放到 Gist 中作为数据源，[Vercel](https://vercel.com/) 作为部署平台，[Tailwind CSS](https://www.tailwindcss.cn/) 作为 CSS 开发框架，[NextUi](https://nextui.org/) 作为 UI 库
-
-本博客框架在历经 Hexo、Astro、Nuxt 的迭代后，更换为现在的 Next.js 。
+基于 [Next.js](https://nextjs.org/) 搭建，GitHub 仓库作为文章存放仓库，通过 GitHub Actions 将数据处理存放到 [Gist](https://gist.github.com/huanfe1/a50945482d01494f64feb93fd91dd6bc) 中作为数据源，[Vercel](https://vercel.com/) 作为部署平台，[Tailwind CSS](https://www.tailwindcss.cn/) 作为 CSS 开发框架，[NextUI](https://nextui.org/) 作为 UI 库。
 
 ## 博客历史
 
 ```
 2022.05.15 用 hexo + vercel 搭建了第一个个人博客
 
-2022.09.13 新人优惠花费18元购买了 ixory.com 域名一年的使用权
+2022.09.13 新人优惠花费 18 元购买了 ixory.com 域名一年的使用权
 
 2022.11.23 博客框架更换为 Astro
 
@@ -21,9 +19,11 @@
 
 2023.05.04 博客框架更换为 Next.js
 
-2023.12.22 博客 CMS 更换为 Notion，支持增值更新
+2023.12.22 博客数据源更换为 Notion
 
 2024.01.05 将 huanfei.top 域名转到腾讯云下，并续费一年
+
+2024.02.02 将数据源改为 Gist
 ```
 
 ## 特别鸣谢
