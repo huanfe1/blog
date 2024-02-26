@@ -4,7 +4,7 @@
 
 [博客链接](https://www.huanfei.top)
 
-基于 [Next.js](https://nextjs.org/) 搭建，[Notion](https://www.notion.com/) 作为后台数据源，[Vercel](https://vercel.com/) 作为部署平台，[Tailwind CSS](https://www.tailwindcss.cn/) 作为 CSS 开发框架。
+基于 [Next.js](https://nextjs.org/) 搭建，[Posts](https://www.github.com/huanfe1/posts) 仓库作为文章存放仓库，通过 GitHub Actions 将数据处理存放到 Gist 中作为数据源，[Vercel](https://vercel.com/) 作为部署平台，[Tailwind CSS](https://www.tailwindcss.cn/) 作为 CSS 开发框架，[NextUi](https://nextui.org/) 作为 UI 库
 
 本博客框架在历经 Hexo、Astro、Nuxt 的迭代后，更换为现在的 Next.js 。
 
