@@ -5,6 +5,8 @@ import { readingTime } from 'reading-time-estimator';
 import cache from './cache';
 import truncate from './truncate';
 
+const token = 'secret_7xnffq7pVFwEvgCvwj4F7XxhW7j4tEpmvPgY5IQdSWT'
+
 export type PostProps = {
     title: string;
     slug: string;
