@@ -1,11 +1,29 @@
 {
     "headers": [
         {
-            "source": "/(.*)",
+            "source": "/_next/static/(.*)",
             "headers": [
                 {
                     "key": "Cache-Control",
                     "value": "public, max-age=31536000, immutable"
+                }
+            ]
+        },
+        {
+            "source": "/(.*).ico",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=31536000, immutable"
+                }
+            ]
+        },
+        {
+            "source": "/_next/data/(.*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=1200, stale-while-revalidate=600"
                 }
             ]
         }
