@@ -1,3 +1,4 @@
+import { Tooltip } from '@nextui-org/tooltip';
 import dayjs from 'dayjs';
 
 export default function footer() {
@@ -26,18 +27,21 @@ export default function footer() {
     return (
         <footer className="flex items-center justify-around border-t border-content2 py-12 pt-8 text-sm duration-250">
             <span>{`© 2022 - ${dayjs().format('YYYY')} All rights reserved.`}</span>
-            <span className="hidden sm:flex">
+            <span className="hidden space-x-7 sm:flex">
                 {links.map(link => (
-                    <a
-                        href={link.link}
-                        target="_blank"
-                        key={link.title}
-                        title={link.title}
-                        rel="noopener noreferrer external nofollow"
-                        className="ml-7 block transition-transform hover:scale-110"
-                    >
-                        {link.logo}
-                    </a>
+                    <div key={link.link}>
+                        <Tooltip showArrow closeDelay={0} color="foreground" content={link.title}>
+                            <a
+                                href={link.link}
+                                target="_blank"
+                                title={link.title}
+                                rel="noopener noreferrer external nofollow"
+                                className="block transition-transform hover:scale-110"
+                            >
+                                {link.logo}
+                            </a>
+                        </Tooltip>
+                    </div>
                 ))}
             </span>
         </footer>
