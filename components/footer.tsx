@@ -34,7 +34,6 @@ export default function footer() {
                             <a
                                 href={link.link}
                                 target="_blank"
-                                title={link.title}
                                 rel="noopener noreferrer external nofollow"
                                 className="block transition-transform hover:scale-110"
                             >
