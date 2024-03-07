@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import fs from 'fs';
 import { readingTime } from 'reading-time-estimator';
 
 import cache from './cache';
@@ -19,21 +18,6 @@ export type PostProps = {
 /** 获取数据库已发布文章内容 */
 export const getAllPosts = async (): Promise<PostProps[]> => {
     const data = await fetchPosts();
-    {
-        if (process.env.NODE_ENV === 'development') {
-            const post = fs.readFileSync('./test.md', 'utf-8');
-            data.push({
-                title: '测试文章',
-                slug: 'test',
-                date: dayjs().format('YYYY-MM-DD'),
-                summary: '测试文章',
-                cover: '',
-                wordcount: readingTime(post, 300, 'cn').words,
-                content: post,
-                tags: [],
-            });
-        }
-    }
     const posts = data.map(post => {
         return {
             title: post.title,
