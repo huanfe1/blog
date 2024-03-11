@@ -15,7 +15,6 @@ import Code from '@/components/post/code';
 import Img from '@/components/post/img';
 import Toc from '@/components/post/toc';
 import { PostProps, getAllPosts } from '@/utils/data';
-import rehypeEmbed from '@/utils/markdown/rehype-embed';
 
 type images = { [key: string]: { width: string; height: string } };
 
@@ -42,7 +41,7 @@ export default function Post({ post, images }: { post: PostProps; images: images
                         <Header post={post} />
                         <section id="post" className="resp max-w-[640px] text-[#4c4e4d] dark:text-[#dbdbdb]">
                             <ReactMarkdown
-                                remarkPlugins={[remarkGfm, remarkGithubAlerts, rehypeEmbed]}
+                                remarkPlugins={[remarkGfm, remarkGithubAlerts]}
                                 rehypePlugins={[
                                     rehypeSlug,
                                     [
