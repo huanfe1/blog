@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 
 export function TocLink({ links }) {
@@ -6,7 +8,7 @@ export function TocLink({ links }) {
         const scrollHandler = () => {
             const scroll = document.documentElement.scrollTop;
             const links = refs.current;
-            let temp = null;
+            let temp: any = null;
             for (const i in links) {
                 if (!links[i]?.current?.classList) continue;
                 links[i].current.classList.remove('active');
@@ -55,7 +57,7 @@ export default function Toc({ content }: { content: string }) {
     const links = content.match(/#{1,6} (.*)/g)?.map(item => {
         return {
             name: item.split(' ')[1],
-            level: item.match(/#/g).length,
+            level: (item.match(/#/g) as string[]).length,
         };
     });
     if (!links || links.length <= 1) return null;
