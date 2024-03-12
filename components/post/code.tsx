@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@nextui-org/button';
 import hljs from 'highlight.js';
 import { useState } from 'react';

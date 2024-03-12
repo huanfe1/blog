@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@nextui-org/button';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/dropdown';
 import { useTheme } from 'next-themes';
@@ -14,7 +16,7 @@ export default function Color() {
             </DropdownTrigger>
             <DropdownMenu
                 onSelectionChange={_ => setTheme(_['currentKey'])}
-                selectedKeys={[theme]}
+                selectedKeys={[theme as string]}
                 selectionMode="single"
                 aria-label="Change Theme"
             >

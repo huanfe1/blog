@@ -1,9 +1,10 @@
+'use client';
+
 import { Button } from '@nextui-org/button';
 
 export default function Top() {
     const click = () => {
         window.scrollTo({ left: 0, top: 0 });
-        history.replaceState(null, null, ' ');
     };
     return (
         <Button
