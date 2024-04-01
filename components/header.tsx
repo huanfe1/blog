@@ -8,11 +8,7 @@ export default function Header() {
         <Navbar position="sticky">
             <NavbarBrand>
                 <Link href="/">
-                    <img
-                        src="https://pic.imgdb.cn/item/659f8199871b83018a5b4cc2.png"
-                        alt="幻非"
-                        className="hidden h-8 w-8 sm:block"
-                    />
+                    <img src="/avatar.png" alt="幻非" className="hidden h-8 w-8 sm:block" />
                 </Link>
             </NavbarBrand>
             <NavbarContent className="gap-12" justify="center">
