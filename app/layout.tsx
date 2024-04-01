@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import React from 'react';
 
 import Analytics from '@/components/analytics';
@@ -8,9 +9,19 @@ import '@/styles/globals.scss';
 
 import { Providers } from './providers';
 
-export const metadata = {
+export const metadata: Metadata = {
     title: '幻非',
     description: '幻非的个人博客，记录一些技术或者想法',
+    keywords: ['Blog', '博客', '幻非', '技术', '生活'],
+    metadataBase: new URL('https://www.huanfei.top'),
+    openGraph: {
+        title: '幻非',
+        description: '幻非的个人博客，记录一些技术或者想法',
+        url: '/',
+        siteName: '幻非',
+        locale: 'zh-CN',
+        type: 'website',
+    },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -8,6 +8,9 @@ export async function generateMetadata({ params }): Promise<Metadata> {
     const current = parseInt(params.id);
     return {
         title: `文章：第${current}页 - 幻非`,
+        alternates: {
+            canonical: '/page/' + params.id,
+        },
     };
 }
 

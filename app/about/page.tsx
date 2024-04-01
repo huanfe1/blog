@@ -3,6 +3,9 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
     title: '关于页',
     description: '幻非的个人博客，记录一些技术或者想法 - 我是幻非，一个计算机专业的学生，现居山东',
+    alternates: {
+        canonical: '/about',
+    },
 };
 
 export default function About() {

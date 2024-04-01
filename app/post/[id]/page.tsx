@@ -11,6 +11,7 @@ import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 import remarkGithubAlerts from 'remark-github-alerts';
 
+import { metadata } from '@/app/layout';
 import Code from '@/components/post/code';
 import Img from '@/components/post/img';
 import Toc from '@/components/post/toc';
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
     return {
         title: `${post?.title} - 幻非`,
         description: post?.summary,
-        keywords: post?.tags as string[],
+        keywords: [...(metadata.keywords as string[]), ...(post?.tags as string[])],
         openGraph: {
             title: post?.title,
             description: post?.summary,
@@ -34,6 +35,10 @@ export async function generateMetadata({ params }): Promise<Metadata> {
             authors: ['https://huanfei.top'],
             tags: [...((post?.tags as string[]) || [])],
             images: [{ url: post?.cover }],
+            url: '/post/' + post?.slug,
+        },
+        alternates: {
+            canonical: '/post/' + post?.slug,
         },
     };
 }
