@@ -7,30 +7,32 @@ export default function Header() {
     return (
         <Navbar position="sticky">
             <NavbarBrand>
-                <Link href="/">
+                <Link href="/" title="首页">
+                    <div className="hidden">幻非</div>
                     <img src="/avatar.png" alt="幻非" className="hidden h-8 w-8 sm:block" />
                 </Link>
             </NavbarBrand>
             <NavbarContent className="gap-12" justify="center">
                 <NavbarItem>
-                    <Link href="/" className="hover:text-primary">
+                    <Link href="/" title="首页" className="hover:text-primary">
                         首页
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
-                    <Link href="/archives" className="hover:text-primary">
+                    <Link href="/archives" title="归档" className="hover:text-primary">
                         归档
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
-                    <Link href="/about" className="hover:text-primary">
+                    <Link href="/about" title="关于" className="hover:text-primary">
                         关于
                     </Link>
                 </NavbarItem>
             </NavbarContent>
             <NavbarContent justify="end">
                 <NavbarItem className="hidden items-center space-x-2 sm:flex">
-                    <Link href="/atom.xml" target="_blank" className="hover:text-primary" aria-label="RSS">
+                    <Link href="/atom.xml" title="RSS" target="_blank" className="hover:text-primary" aria-label="RSS">
+                        <div className="hidden">RSS</div>
                         <Rss />
                     </Link>
                     <Color />
