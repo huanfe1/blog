@@ -3,12 +3,9 @@ import dayjs from 'dayjs';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-import { PostProps, getAllPosts } from '@/utils/data';
+import { type PostProps, getAllPosts } from '@/utils/data';
 
-export const metadata: Metadata = {
-    title: '归档页',
-    description: '幻非的个人博客，记录一些技术或者想法 - 文章的归档页面',
-};
+export const metadata: Metadata = { title: '归档页' };
 
 export default async function Archives() {
     const posts = await getAllPosts();
