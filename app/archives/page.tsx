@@ -6,7 +6,7 @@ import { JSX } from 'react';
 
 import { type PostProps, getAllPosts } from '@/utils/data';
 
-export const metadata: Metadata = { title: '归档页', alternates: { canonical: '/archives' } };
+export const metadata: Metadata = { title: '归档页 - 幻非', alternates: { canonical: '/archives' } };
 
 export default async function Archives() {
     const posts: PostProps[] = await getAllPosts();
@@ -24,7 +24,7 @@ export default async function Archives() {
             temp = year;
         }
         result.push(
-            <Link href={'/post/' + post.slug} key={post.slug} className="block">
+            <Link href={'/post/' + post.slug} key={post.slug} className="block" title={post.title}>
                 <Card className="w-full bg-content2 hover:text-primary">
                     <CardBody className="flex flex-row items-center justify-between px-4 py-4">
                         <h3 className="truncate text-base md:text-lg">{post.title}</h3>

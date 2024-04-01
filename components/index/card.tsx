@@ -5,7 +5,7 @@ import { PostProps } from '@/utils/data';
 
 export default function ListCard({ post }: { post: PostProps }) {
     return (
-        <Link href={`/post/${post.slug}`} className="block">
+        <Link href={`/post/${post.slug}`} className="block" title={post.title}>
             <Card className="w-full bg-content2">
                 {post.cover && (
                     <Image
