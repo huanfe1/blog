@@ -1,6 +1,7 @@
 import { Image } from '@nextui-org/image';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import probe from 'probe-image-size';
 import ReactMarkdown from 'react-markdown';
 import { readingTime } from 'reading-time-estimator';
@@ -39,7 +40,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 
 export default async function Post({ params }) {
     const post: PostProps | undefined = await getAllPosts().then(posts => posts.find(post => post.slug === params.id));
-    if (!post) return { notFound: true };
+    if (!post) notFound();
     const images: images = {};
     for (const image of post.content.match(/!\[.*\]\((.*)\)/g) || []) {
         const url = (image.match(/\((.*)\)/) as string[])[1];
@@ -108,4 +109,9 @@ function Header({ post }) {
             </div>
         </header>
     );
+}
+
+export async function generateStaticParams() {
+    const posts: PostProps[] = await getAllPosts();
+    return posts.map(post => ({ id: post.slug }));
 }

@@ -1,5 +1,7 @@
 ## 个人博客
 
+![image](https://pic.imgdb.cn/item/660a2b329f345e8d0342e996.png)
+
 [博客链接](https://www.huanfei.top)
 
 基于 [Next.js](https://nextjs.org/) 搭建，GitHub 仓库作为文章存放仓库，通过 GitHub Actions 将数据处理存放到 [Gist](https://gist.github.com/huanfe1/a50945482d01494f64feb93fd91dd6bc) 中作为数据源，[Vercel](https://vercel.com/) 作为部署平台，[Tailwind CSS](https://www.tailwindcss.cn/) 作为 CSS 开发框架，[NextUI](https://nextui.org/) 作为 UI 库。
@@ -34,7 +36,7 @@
 
 [@Kuizuo](https://github.com/kuizuo)
 
-正是看了此博主的 [Vercel 部署个人博客](https://kuizuo.cn/vercel-deploy-blog) ，使我迈出了搭建博客的第一步。
+正是看了此博主的 [Vercel 部署个人博客](https://kuizuo.cn/blog/vercel-deploy-blog/) ，使我迈出了搭建博客的第一步。
 
 ## License
 
