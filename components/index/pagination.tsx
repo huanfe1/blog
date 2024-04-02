@@ -8,7 +8,7 @@ export default function Pagination({ current, total }: { current: number; total:
         if (current === 1) return <div></div>;
         return (
             <Button color="primary" className="px-0">
-                <Link href={url} className="flex h-full w-full items-center justify-center">
+                <Link href={url} title="上一页" className="flex h-full w-full items-center justify-center">
                     上一页
                 </Link>
             </Button>
@@ -20,7 +20,7 @@ export default function Pagination({ current, total }: { current: number; total:
         return (
             <div>
                 <Button color="primary" className="px-0">
-                    <Link href={url} className="flex h-full w-full items-center justify-center">
+                    <Link href={url} title="下一页" className="flex h-full w-full items-center justify-center">
                         下一页
                     </Link>
                 </Button>

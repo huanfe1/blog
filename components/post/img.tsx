@@ -1,3 +1,5 @@
+'use client';
+
 import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
 import type { Dispatch, ImgHTMLAttributes, MutableRefObject, SetStateAction } from 'react';
@@ -63,7 +65,7 @@ function Mask({
 
 export default function Img(props: ImgHTMLAttributes<HTMLImageElement>) {
     const [status, setStatus] = useState(false);
-    const imgRef: MutableRefObject<HTMLImageElement> = useRef();
+    const imgRef = useRef() as MutableRefObject<HTMLImageElement>;
     return (
         <>
             <img

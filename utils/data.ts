@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import { readingTime } from 'reading-time-estimator';
 
-import cache from './cache';
 import truncate from './truncate';
 
 export type PostProps = {
@@ -39,10 +38,8 @@ if (!process.env.GIST_ID || !process.env.GIST_TOKEN) {
 
 /** 从 Gist 获取已发布文章 */
 async function fetchPosts(): Promise<PostProps[]> {
-    const temp = cache.get('posts');
-    if (temp) return temp;
-    console.log('fetch', dayjs().format('YYYY-MM-DD HH:mm:ss'));
     const posts = await fetch('https://api.github.com/gists/' + process.env.GIST_ID, {
+        next: { tags: ['posts'] },
         method: 'GET',
         headers: {
             'X-GitHub-Api-Version': '2022-11-28',
@@ -52,6 +49,8 @@ async function fetchPosts(): Promise<PostProps[]> {
     })
         .then(data => data.json())
         .then(data => JSON.parse(data.files['posts.json']['content']));
-    cache.set('posts', posts, 3 * 60 * 1000);
+    // const posts = await fetch('http://127.0.0.1:8080/posts.json', {
+    //     next: { tags: ['posts'] },
+    // }).then(data => data.json());
     return posts;
 }
