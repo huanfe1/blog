@@ -21,7 +21,7 @@ type images = { [key: string]: { width: string; height: string } };
 
 export async function generateMetadata({ params }): Promise<Metadata> {
     const post = await getAllPosts().then(posts => posts.find(post => post.slug === params.id));
-    if (!post) return {};
+    if (!post) notFound();
     return {
         title: `${post?.title} - 幻非`,
         description: post?.summary,
