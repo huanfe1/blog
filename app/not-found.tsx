@@ -1,3 +1,9 @@
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: '404 - 幻非',
+};
+
 export default function NotFound() {
     return (
         <div className="no-file-found flex flex-col items-center justify-center rounded-lg pt-40 text-center">
