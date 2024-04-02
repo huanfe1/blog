@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
         "baseUrl": ".",
-        "paths": { "@/*": ["./*"] },
+        "paths": {
+            "@/*": ["./*"]
+        },
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
         "skipLibCheck": true,
@@ -14,8 +16,14 @@
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "jsx": "preserve"
+        "jsx": "preserve",
+        "plugins": [
+            {
+                "name": "next"
+            }
+        ],
+        "strictNullChecks": true
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/_app.tsx", "index.js"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/_app.tsx", "index.js", ".next/types/**/*.ts"],
     "exclude": ["node_modules"]
 }
