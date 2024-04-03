@@ -49,8 +49,5 @@ async function fetchPosts(): Promise<PostProps[]> {
     })
         .then(data => data.json())
         .then(data => JSON.parse(data.files['posts.json']['content']));
-    // const posts = await fetch('http://127.0.0.1:8080/posts.json', {
-    //     next: { tags: ['posts'] },
-    // }).then(data => data.json());
     return posts;
 }
