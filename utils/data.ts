@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { existsSync, readFileSync } from 'fs';
 import { readingTime } from 'reading-time-estimator';
 
 import truncate from './truncate';
@@ -51,5 +52,17 @@ async function fetchPosts(): Promise<PostProps[]> {
     })
         .then(data => data.json())
         .then(data => JSON.parse(data.files['posts.json']['content']));
+    if (process.env.NODE_ENV === 'development' && existsSync('./test.md')) {
+        posts.push({
+            title: '测试文章',
+            slug: 'test',
+            date: dayjs().format('YYYY-MM-DD'),
+            summary: 'test',
+            cover: 'https://picsum.photos/1920/1080',
+            wordcount: 0,
+            content: readFileSync('./test.md', 'utf-8'),
+            tags: ['test1', 'test2', 'test3'],
+        });
+    }
     return posts;
 }

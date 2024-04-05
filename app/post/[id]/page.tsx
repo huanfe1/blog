@@ -24,22 +24,22 @@ export async function generateMetadata({ params }): Promise<Metadata> {
     const post = await getAllPosts().then(posts => posts.find(post => post.slug === params.id));
     if (!post) notFound();
     return {
-        title: `${post?.title} - 幻非`,
-        description: post?.summary,
-        keywords: [...(metadata.keywords as string[]), ...(post?.tags as string[])],
+        title: `${post.title} - 幻非`,
+        description: post.summary,
+        keywords: [...(metadata.keywords as string[]), ...(post.tags ? post.tags : [])],
         openGraph: {
-            title: post?.title,
-            description: post?.summary,
+            title: post.title,
+            description: post.summary,
             type: 'article',
-            publishedTime: post?.date,
-            modifiedTime: post.update || post?.date,
+            publishedTime: post.date,
+            modifiedTime: post.update || post.date,
             authors: ['https://huanfei.top'],
-            tags: [...((post?.tags as string[]) || [])],
-            images: post?.cover ? [{ url: post?.cover }] : [],
-            url: '/post/' + post?.slug,
+            tags: post.tags,
+            images: post.cover,
+            url: '/post/' + post.slug,
         },
         alternates: {
-            canonical: '/post/' + post?.slug,
+            canonical: '/post/' + post.slug,
         },
     };
 }
