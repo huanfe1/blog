@@ -1,8 +1,18 @@
 ## 个人博客
 
+使用 Next.js 搭建的个人博客
+
 [博客链接](https://www.huanfei.top)
 
-基于 [Next.js](https://nextjs.org/) 搭建，GitHub 仓库作为文章存放仓库，通过 GitHub Actions 将数据处理存放到 Gist 中作为数据源，[Vercel](https://vercel.com/) 作为部署平台，[Tailwind CSS](https://www.tailwindcss.cn/) 作为 CSS 开发框架，[NextUI](https://nextui.org/) 作为 UI 库。
+## 技术栈
+
+主体框架: [Next.js](https://nextjs.org/)
+
+样式框架: [Tailwind CSS](https://tailwindcss.com/)
+
+数据源: GitHub 仓库存放 Markdown 文件，通过 GitHub Actions 处理后存放在 Gist 中
+
+部署平台： [Vercel](https://vercel.com/)
 
 ## 博客历史
 
@@ -15,7 +25,7 @@
 
 2023.01.28 博客框架更换为 Nuxt
 
-2023.05.02 花费 33 元在西部数码拍入 huanfei.top 并将主域名更换为这个
+2023.05.02 将主域名更换为在西部数码花费 33 元拍得的 huanfei.top
 
 2023.05.04 博客框架更换为 Next.js
 
