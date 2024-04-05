@@ -8,25 +8,27 @@ export type PostProps = {
     slug: string;
     date: string;
     summary: string;
-    cover: string;
+    cover?: string;
     wordcount: number;
     content: string;
-    tags: string[] | string;
+    tags?: string[];
+    update?: string;
 };
 
 /** 获取数据库已发布文章内容 */
 export const getAllPosts = async (): Promise<PostProps[]> => {
     const data = await fetchPosts();
-    const posts = data.map(post => {
+    const posts: PostProps[] = data.map(post => {
         return {
             title: post.title,
             slug: post.slug,
             date: dayjs(post.date).format('YYYY-MM-DD'),
             summary: post.summary || truncate(post.content) || '',
-            cover: post.cover || '',
+            cover: post?.cover,
             wordcount: readingTime(post.content, 300, 'cn').words,
             content: post.content,
-            tags: post.tags || [],
+            tags: post?.tags,
+            update: post?.update,
         };
     });
     return posts.sort((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf());

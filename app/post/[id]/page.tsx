@@ -1,4 +1,5 @@
 import { Image } from '@nextui-org/image';
+import { Tooltip } from '@nextui-org/tooltip';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -31,10 +32,10 @@ export async function generateMetadata({ params }): Promise<Metadata> {
             description: post?.summary,
             type: 'article',
             publishedTime: post?.date,
-            modifiedTime: post?.date,
+            modifiedTime: post.update || post?.date,
             authors: ['https://huanfei.top'],
             tags: [...((post?.tags as string[]) || [])],
-            images: [{ url: post?.cover }],
+            images: post?.cover ? [{ url: post?.cover }] : [],
             url: '/post/' + post?.slug,
         },
         alternates: {
@@ -110,7 +111,13 @@ function Header({ post }) {
             )}
             <h1 className="mt-10 text-center text-3xl font-bold">{post.title}</h1>
             <div className="my-5 text-center text-default-500">
-                <time dateTime={post.date}>{post.date}</time>
+                {post.update ? (
+                    <Tooltip showArrow closeDelay={0} color="foreground" content={`发布于 ${post.date}`}>
+                        <time dateTime={post.update} className="cursor-default">{`更新于 ${post.update}`}</time>
+                    </Tooltip>
+                ) : (
+                    <time dateTime={post.date}>{post.date}</time>
+                )}
                 <span className="mx-1">·</span>
                 <span>{'约 ' + readingTime(post.content, 300, 'cn').words + ' 字'}</span>
             </div>
