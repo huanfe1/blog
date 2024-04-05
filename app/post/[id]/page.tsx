@@ -49,40 +49,42 @@ export default async function Post({ params }) {
     const images: images = {};
     for (const image of post.content.match(/!\[.*\]\((.*)\)/g) || []) {
         const url = (image.match(/\((.*)\)/) as string[])[1];
-        const { width, height } = await probe(url);
-        images[url] = { width, height };
+        try {
+            const { width, height } = await probe(url);
+            images[url] = { width, height };
+        } catch (e) {
+            throw new Error(`Failed to get image size: ${url}`);
+        }
     }
     return (
-        <>
-            <div>
-                <article className="pb-12">
-                    <Header post={post} />
-                    <section id="post" className="resp max-w-[640px] text-[#4c4e4d] dark:text-[#dbdbdb]">
-                        <ReactMarkdown
-                            remarkPlugins={[remarkGfm, remarkGithubAlerts]}
-                            rehypePlugins={[
-                                rehypeSlug,
-                                [
-                                    rehypeExternalLinks,
-                                    { target: '_blank', rel: ['noopener', 'external', 'nofollow', 'noreferrer'] },
-                                ],
-                                rehypeRaw,
-                            ]}
-                            components={{
-                                img: props => {
-                                    return <Img {...props} {...images[props.src as string]} />;
-                                },
-                                pre: Code,
-                                a: props => <Link {...(props as any)} />,
-                            }}
-                        >
-                            {post.content}
-                        </ReactMarkdown>
-                    </section>
-                </article>
-                <Toc content={post.content} />
-            </div>
-        </>
+        <div>
+            <article className="pb-12">
+                <Header post={post} />
+                <section id="post" className="resp max-w-[640px] text-[#4c4e4d] dark:text-[#dbdbdb]">
+                    <ReactMarkdown
+                        remarkPlugins={[remarkGfm, remarkGithubAlerts]}
+                        rehypePlugins={[
+                            rehypeSlug,
+                            [
+                                rehypeExternalLinks,
+                                { target: '_blank', rel: ['noopener', 'external', 'nofollow', 'noreferrer'] },
+                            ],
+                            rehypeRaw,
+                        ]}
+                        components={{
+                            pre: Code,
+                            img: props => {
+                                return <Img {...props} {...images[props.src as string]} />;
+                            },
+                            a: props => <Link {...(props as any)} />,
+                        }}
+                    >
+                        {post.content}
+                    </ReactMarkdown>
+                </section>
+            </article>
+            <Toc content={post.content} />
+        </div>
     );
 }
 

@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 export default function Code(props) {
     const content = props.children.props.children;
-    const language = props.children.props.className.replace('language-', '');
+    const language = props.children.props.className?.replace('language-', '');
     const [status, setStatus] = useState(false);
     const click = () => {
         navigator.clipboard.writeText(content).then(() => {
@@ -20,8 +20,10 @@ export default function Code(props) {
                 <Svg status={status} />
             </Button>
             <code
-                className="block overflow-x-auto rounded-lg border border-content2 bg-default-50 p-4 text-sm"
-                dangerouslySetInnerHTML={{ __html: hljs.highlight(content, { language }).value }}
+                className="block overflow-x-auto rounded bg-default-100 p-4"
+                dangerouslySetInnerHTML={{
+                    __html: language ? hljs.highlight(content, { language }).value : hljs.highlightAuto(content).value,
+                }}
             ></code>
         </pre>
     );

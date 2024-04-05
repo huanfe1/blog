@@ -38,7 +38,7 @@ if (!process.env.GIST_ID || !process.env.GIST_TOKEN) {
 
 /** 从 Gist 获取已发布文章 */
 async function fetchPosts(): Promise<PostProps[]> {
-    const posts = await fetch('https://api.github.com/gists/' + process.env.GIST_ID, {
+    const posts: PostProps[] = await fetch('https://api.github.com/gists/' + process.env.GIST_ID, {
         next: { tags: ['posts'] },
         method: 'GET',
         headers: {
@@ -49,8 +49,5 @@ async function fetchPosts(): Promise<PostProps[]> {
     })
         .then(data => data.json())
         .then(data => JSON.parse(data.files['posts.json']['content']));
-    // const posts = await fetch('http://127.0.0.1:8080/posts.json', {
-    //     next: { tags: ['posts'] },
-    // }).then(data => data.json());
     return posts;
 }
