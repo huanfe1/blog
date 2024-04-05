@@ -1,4 +1,4 @@
-import { Tooltip } from '@nextui-org/tooltip';
+import { Tooltip } from '@nextui-org/react';
 import dayjs from 'dayjs';
 
 export default function footer() {

@@ -1,7 +1,6 @@
 'use client';
 
-import { Button } from '@nextui-org/button';
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/dropdown';
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
 import { useTheme } from 'next-themes';
 
 export default function Color() {

@@ -1,5 +1,4 @@
-import { Image } from '@nextui-org/image';
-import { Tooltip } from '@nextui-org/tooltip';
+import { Image, Tooltip } from '@nextui-org/react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';

@@ -1,4 +1,4 @@
-import { Card, CardBody } from '@nextui-org/card';
+import { Card, CardBody } from '@nextui-org/react';
 import dayjs from 'dayjs';
 import type { Metadata } from 'next';
 import Link from 'next/link';
