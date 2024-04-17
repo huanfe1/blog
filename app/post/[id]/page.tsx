@@ -33,7 +33,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
             type: 'article',
             publishedTime: post.date,
             modifiedTime: post.update || post.date,
-            authors: ['https://huanfei.top'],
+            authors: ['https://www.huanfei.top'],
             tags: post.tags,
             images: post.cover,
             url: '/post/' + post.slug,
@@ -41,7 +41,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
         alternates: {
             canonical: '/post/' + post.slug,
         },
-        other: { 'giscus:backlink': 'https://huanfei.top/post/' + post.slug },
+        other: { 'giscus:backlink': 'https://www.huanfei.top/post/' + post.slug },
     };
 }
 

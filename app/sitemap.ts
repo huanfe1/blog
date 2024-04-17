@@ -7,19 +7,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const posts: PostProps[] = await getAllPosts();
     return [
         {
-            url: 'http://blog.huanfei.top',
+            url: 'http://www.huanfei.top',
             lastModified: dayjs().toDate(),
         },
         {
-            url: 'http://blog.huanfei.top/about',
+            url: 'http://www.huanfei.top/about',
             lastModified: dayjs().toDate(),
         },
         {
-            url: 'http://blog.huanfei.top/archives',
+            url: 'http://www.huanfei.top/archives',
             lastModified: dayjs().toDate(),
         },
         ...posts.map(post => ({
-            url: `http://blog.huanfei.top/post/${post.slug}`,
+            url: `http://www.huanfei.top/post/${post.slug}`,
             lastModified: dayjs(post.date).toDate(),
         })),
     ];
