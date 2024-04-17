@@ -13,6 +13,7 @@ import remarkGithubAlerts from 'remark-github-alerts';
 
 import { metadata } from '@/app/layout';
 import Code from '@/components/post/code';
+import Comment from '@/components/post/comment';
 import Img from '@/components/post/img';
 import Toc from '@/components/post/toc';
 import { PostProps, getAllPosts } from '@/utils/data';
@@ -40,6 +41,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
         alternates: {
             canonical: '/post/' + post.slug,
         },
+        other: { 'giscus:backlink': 'https://huanfei.top/post/' + post.slug },
     };
 }
 
@@ -57,8 +59,8 @@ export default async function Post({ params }) {
         }
     }
     return (
-        <div>
-            <article className="pb-12">
+        <div className="pb-12">
+            <article>
                 <Header post={post} />
                 <section id="post" className="resp max-w-[640px] text-[#4c4e4d] dark:text-[#dbdbdb]">
                     <ReactMarkdown
@@ -83,6 +85,7 @@ export default async function Post({ params }) {
                     </ReactMarkdown>
                 </section>
             </article>
+            <Comment />
             <Toc content={post.content} />
         </div>
     );
