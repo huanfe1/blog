@@ -24,7 +24,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
     const post = await getAllPosts().then(posts => posts.find(post => post.slug === params.id));
     if (!post) notFound();
     return {
-        title: `${post.title} - 幻非`,
+        title: `${post.title}`,
         description: post.summary,
         keywords: [...(metadata.keywords as string[]), ...(post.tags ? post.tags : [])],
         openGraph: {

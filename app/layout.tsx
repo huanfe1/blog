@@ -10,7 +10,10 @@ import '@/styles/globals.scss';
 import { Providers } from './providers';
 
 export const metadata: Metadata = {
-    title: '幻非',
+    title: {
+        template: '%s - 幻非',
+        default: '幻非',
+    },
     description: '幻非的个人博客，记录一些技术或者想法',
     keywords: ['Blog', '博客', '幻非', '技术', '生活'],
     metadataBase: new URL('https://www.huanfei.top'),
@@ -22,6 +25,7 @@ export const metadata: Metadata = {
         locale: 'zh-CN',
         type: 'website',
     },
+    archives: ['/archives'],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

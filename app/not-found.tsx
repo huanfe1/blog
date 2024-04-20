@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: '404 - 幻非',
+    title: '404',
 };
 
 export default function NotFound() {

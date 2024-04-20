@@ -6,7 +6,7 @@ import { JSX } from 'react';
 
 import { type PostProps, getAllPosts } from '@/utils/data';
 
-export const metadata: Metadata = { title: '归档页 - 幻非', alternates: { canonical: '/archives' } };
+export const metadata: Metadata = { title: '归档页', alternates: { canonical: '/archives' } };
 
 export default async function Archives() {
     const posts: PostProps[] = await getAllPosts();

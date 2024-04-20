@@ -7,7 +7,7 @@ import { type PostProps, getAllPosts } from '@/utils/data';
 export async function generateMetadata({ params }): Promise<Metadata> {
     const current = parseInt(params.id);
     return {
-        title: `文章：第${current}页 - 幻非`,
+        title: `文章：第${current}页`,
         alternates: {
             canonical: '/page/' + params.id,
         },
