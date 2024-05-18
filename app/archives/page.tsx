@@ -38,7 +38,7 @@ export default async function Archives() {
     }
     return (
         <div className="resp mb-20">
-            <div className="my-28 flex flex-col items-center justify-center rounded-2xl">
+            <div className="my-28 text-center">
                 <h1 className="text-5xl font-bold">归档</h1>
                 <div className="mt-5">{`${posts.length} 篇文章`}</div>
             </div>

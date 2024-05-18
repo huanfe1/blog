@@ -24,6 +24,11 @@ export default function Header() {
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
+                    <Link href="/links" title="归档" className="hover:text-primary">
+                        链接
+                    </Link>
+                </NavbarItem>
+                <NavbarItem>
                     <Link href="/about" title="关于" className="hover:text-primary">
                         关于
                     </Link>
