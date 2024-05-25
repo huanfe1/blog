@@ -15,6 +15,12 @@ export default function Header({ post }: { post: PostProps }) {
                 <time dateTime={post.date}>{post.date}</time>
                 <span className="mx-1">·</span>
                 <span>{'约 ' + readingTime(post.content, 300, 'cn').words + ' 字'}</span>
+                {post.update && (
+                    <>
+                        <span className="mx-1">·</span>
+                        <span>更新于 {post.update}</span>
+                    </>
+                )}
             </div>
         </header>
     );

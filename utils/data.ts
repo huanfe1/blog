@@ -24,8 +24,8 @@ export type LinkProps = {
 
 /** 获取数据库已发布文章内容 */
 export const getAllPosts = async (): Promise<PostProps[]> => {
-    const data: PostProps[] = await fetchGists().then(data => JSON.parse(data['posts.json'].content));
-    const posts = data.map(post => {
+    let posts: PostProps[] = await fetchGists().then(data => JSON.parse(data['posts.json'].content));
+    posts = posts.map(post => {
         return {
             title: post.title,
             slug: post.slug,
@@ -35,7 +35,7 @@ export const getAllPosts = async (): Promise<PostProps[]> => {
             wordcount: readingTime(post.content, 300, 'cn').words,
             content: post.content,
             tags: post?.tags,
-            update: post?.update,
+            update: post?.update && dayjs(post.update).format('YYYY-MM-DD'),
         };
     });
     return posts.sort((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf());
@@ -50,10 +50,9 @@ if (!process.env.GIST_ID || !process.env.GIST_TOKEN) {
     throw new Error('GIST_ID or GIST_TOKEN is not set');
 }
 
-/** 从 Gist 获取已发布文章 */
 async function fetchGists() {
     const data: PostProps[] = await fetch('https://api.github.com/gists/' + process.env.GIST_ID, {
-        next: { tags: ['posts'], revalidate: 60 * 60 * 24 },
+        next: { revalidate: 60 * 60 },
         method: 'GET',
         headers: {
             'X-GitHub-Api-Version': '2022-11-28',
