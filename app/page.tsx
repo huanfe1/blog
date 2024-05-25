@@ -1,8 +1,5 @@
 import type { Metadata } from 'next';
 
-import List from '@/components/index/list';
-import { PostProps, getAllPosts } from '@/utils/data';
-
 export const metadata: Metadata = {
     title: '首页 - 幻非',
     alternates: {
@@ -11,6 +8,10 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-    const posts: PostProps[] = await getAllPosts();
-    return <List posts={posts} current={1} />;
+    return (
+        <div id="post">
+            <p>你好，我是幻非</p>
+            <p>欢迎来到我的博客</p>
+        </div>
+    );
 }

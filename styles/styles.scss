@@ -1,0 +1,46 @@
+@use 'sass:meta';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './highlight.scss';
+@import './article.scss';
+
+@import 'remark-github-alerts/styles/github-base.css';
+@import 'remark-github-alerts/styles/github-colors-light.css';
+@import 'remark-github-alerts/styles/github-colors-dark-class.css';
+
+#toc .active {
+    text-decoration: underline;
+}
+
+body {
+    margin: auto;
+    max-width: 800px;
+    padding: 20px;
+    text-align: left;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    box-sizing: initial;
+}
+
+header nav a {
+    @apply flex items-center hover:opacity-70;
+    span {
+        @apply text-xl;
+    }
+}
+
+html {
+    background-color: #fcfcfc;
+}
+
+html.dark {
+    background-color: #121212;
+    color: #cecece;
+    img {
+        filter: brightness(0.9);
+    }
+}

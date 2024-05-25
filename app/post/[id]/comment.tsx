@@ -6,7 +6,7 @@ import { useTheme } from 'next-themes';
 export default function Comment() {
     const { theme } = useTheme();
     return (
-        <div className="mx-auto w-full sm:w-[540px] md:w-[640px]">
+        <div className="mt-20">
             <Giscus
                 repo="huanfe1/blog"
                 repoId="R_kgDOJfgQ9g"
@@ -15,6 +15,7 @@ export default function Comment() {
                 categoryId="DIC_kwDOJfgQ9s4Cdhrx"
                 lang="zh-CN"
                 strict="1"
+                reactionsEnabled="0"
                 emitMetadata="0"
                 inputPosition="top"
                 theme={theme === 'system' ? 'preferred_color_scheme' : theme}

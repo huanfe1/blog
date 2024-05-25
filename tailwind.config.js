@@ -1,4 +1,4 @@
-import { nextui } from '@nextui-org/react';
+import { getIconCollections, iconsPlugin } from '@egoist/tailwindcss-icons';
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -7,11 +7,14 @@ module.exports = {
         './components/**/*.{js,ts,jsx,tsx,mdx}',
         './app/**/*.{js,ts,jsx,tsx,mdx}',
         './utils/**/*.{js,ts,jsx,tsx,mdx}',
-        './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
     ],
     theme: {
         extend: {},
     },
-    plugins: [nextui()],
+    plugins: [
+        iconsPlugin({
+            collections: getIconCollections(['mingcute']),
+        }),
+    ],
     darkMode: 'class',
 };

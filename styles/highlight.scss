@@ -4,7 +4,7 @@
 }
 
 #code code::-webkit-scrollbar-thumb {
-    @apply rounded-2xl bg-content3;
+    @apply rounded-2xl bg-zinc-200 dark:bg-zinc-800;
 }
 
 html {
