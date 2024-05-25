@@ -33,12 +33,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# custom
-/public/atom.xml
-/public/rss.xml
-/public/sitemap.xml
-/public/sitemap.txt
-
-
-.cache.json

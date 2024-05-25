@@ -7,10 +7,6 @@
 @import './highlight.scss';
 @import './article.scss';
 
-@import 'remark-github-alerts/styles/github-base.css';
-@import 'remark-github-alerts/styles/github-colors-light.css';
-@import 'remark-github-alerts/styles/github-colors-dark-class.css';
-
 #toc .active {
     text-decoration: underline;
 }

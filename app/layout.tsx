@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import React from 'react';
 
 import Analytics from '@/components/analytics';
-import Footer from '@/components/footer';
 import Header from '@/components/header';
 import Top from '@/components/top';
 import '@/styles/styles.scss';
