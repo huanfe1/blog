@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 
 import { metadata } from '@/app/layout';
 import Comment from '@/app/post/[id]/comment';
-import Toc from '@/components/post/toc';
 import { PostProps, getAllPosts } from '@/utils/data';
 
 import Content from './content';
@@ -38,7 +37,7 @@ export default async function Post({ params }) {
     const post: PostProps | undefined = await getAllPosts().then(posts => posts.find(post => post.slug === params.id));
     if (!post) notFound();
     return (
-        <div>
+        <>
             <article>
                 <Header post={post} />
                 <section id="post">
@@ -46,8 +45,7 @@ export default async function Post({ params }) {
                 </section>
             </article>
             <Comment />
-            <Toc content={post.content} />
-        </div>
+        </>
     );
 }
 
