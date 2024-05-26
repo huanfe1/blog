@@ -15,7 +15,7 @@ export default function Header() {
                 <Link href="https://github.com/huanfe1" target="_blank" rel="noopener noreferrer external nofollow">
                     <span className="i-mingcute-github-line"></span>
                 </Link>
-                <Link href="/atom.xml">
+                <Link href="/atom.xml" target="_blank">
                     <span className="i-mingcute-rss-2-fill"></span>
                 </Link>
                 <Color />
