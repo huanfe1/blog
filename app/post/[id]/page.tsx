@@ -3,9 +3,9 @@ import { notFound } from 'next/navigation';
 
 import { metadata } from '@/app/layout';
 import Comment from '@/app/post/[id]/comment';
+import Markdown from '@/components/markdown';
 import { PostProps, getAllPosts } from '@/utils/data';
 
-import Content from './content';
 import Header from './header';
 
 export async function generateMetadata({ params }): Promise<Metadata> {
@@ -41,7 +41,7 @@ export default async function Post({ params }) {
             <article>
                 <Header post={post} />
                 <section id="post">
-                    <Content post={post} />
+                    <Markdown>{post.content}</Markdown>
                 </section>
             </article>
             <Comment />
