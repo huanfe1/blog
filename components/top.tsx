@@ -7,7 +7,7 @@ export default function Top() {
     return (
         <div
             aria-label="回到顶部"
-            className="fixed bottom-10 right-10 z-20 hidden cursor-pointer rounded-xl bg-zinc-200/75 p-2 dark:bg-zinc-800 md:flex"
+            className="fixed bottom-10 right-10 z-20 hidden cursor-pointer rounded-xl p-1 md:flex"
             onClick={click}
         >
             <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 24 24">
