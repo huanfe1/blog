@@ -2,10 +2,9 @@ import { Metadata } from 'next';
 import React from 'react';
 
 import Analytics from '@/components/analytics';
-import Footer from '@/components/footer';
 import Header from '@/components/header';
 import Top from '@/components/top';
-import '@/styles/globals.scss';
+import '@/styles/styles.scss';
 
 import { Providers } from './providers';
 
@@ -40,12 +39,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </head>
             <body>
                 <Providers>
-                    <div className="flex min-h-screen w-full flex-col justify-between bg-content1 text-foreground">
+                    <header>
                         <Header />
-                        <main className="mb-auto">{children}</main>
-                        <Footer />
-                        <Top />
-                    </div>
+                    </header>
+                    <main className="my-10">{children}</main>
+                    <Top />
                 </Providers>
             </body>
         </html>

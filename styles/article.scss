@@ -1,9 +1,9 @@
 #post {
-    p a {
-        @apply text-primary hover:underline;
+    a {
+        @apply text-blue-600 hover:underline;
     }
     p {
-        @apply my-2 leading-7;
+        @apply my-2 leading-8;
     }
     img {
         @apply m-auto;
@@ -16,12 +16,6 @@
     }
     h4 {
         @apply my-2 text-lg;
-    }
-    h5 {
-        @apply my-2 text-base;
-    }
-    h6 {
-        @apply my-2 text-sm;
     }
     ol {
         @apply mt-3 list-decimal pl-5;
@@ -41,7 +35,7 @@
     }
     // 引用框
     blockquote {
-        @apply space-y-3 border-l-4 border-content3 bg-content2 p-3;
+        @apply space-y-3 rounded-r border-l-4 border-zinc-300 bg-zinc-200 p-3;
         p {
             @apply m-0;
         }
@@ -60,9 +54,9 @@
         @apply absolute -ml-5 pr-2.5 text-2xl font-bold opacity-0;
     }
     hr {
-        @apply mx-auto my-8 w-60 border-t-content3;
+        @apply mx-auto my-8 w-80 border-zinc-200 dark:border-zinc-700;
     }
     p > code {
-        @apply rounded bg-default-200 px-2 py-0.5;
+        @apply rounded bg-zinc-200 px-2 py-0.5 dark:bg-zinc-800;
     }
 }

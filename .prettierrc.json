@@ -6,7 +6,6 @@
     "singleQuote": true,
     "arrowParens": "avoid",
     "bracketSpacing": true,
-    "pluginSearchDirs": false,
     "importOrderSeparation": true,
     "importOrderSortSpecifiers": true,
     "importOrder": [

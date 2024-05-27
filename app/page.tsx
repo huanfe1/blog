@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 
-import List from '@/components/index/list';
-import { PostProps, getAllPosts } from '@/utils/data';
+import Markdown from '@/components/markdown';
 
 export const metadata: Metadata = {
     title: '首页 - 幻非',
@@ -10,7 +9,18 @@ export const metadata: Metadata = {
     },
 };
 
+const text = `
+你好，我是幻非
+
+欢迎来到我的博客
+
+遨游互联网十余载，在此留下一点自己的痕迹
+`;
+
 export default async function Home() {
-    const posts: PostProps[] = await getAllPosts();
-    return <List posts={posts} current={1} />;
+    return (
+        <div id="post">
+            <Markdown>{text}</Markdown>
+        </div>
+    );
 }
