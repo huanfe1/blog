@@ -29,12 +29,7 @@ header nav a {
     }
 }
 
-html {
-    background-color: #fcfcfc;
-}
-
 html.dark {
-    background-color: #121212;
     color: #cecece;
     img {
         filter: brightness(0.9);
