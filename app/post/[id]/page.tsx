@@ -2,11 +2,12 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { metadata } from '@/app/layout';
-import Comment from '@/app/post/[id]/comment';
-import Markdown from '@/components/markdown';
 import { PostProps, getAllPosts } from '@/utils/data';
 
+import Comment from './comment';
+import Content from './content';
 import Header from './header';
+import Toc from './toc';
 
 export async function generateMetadata({ params }): Promise<Metadata> {
     const post = await getAllPosts().then(posts => posts.find(post => post.slug === params.id));
@@ -41,9 +42,10 @@ export default async function Post({ params }) {
             <article>
                 <Header post={post} />
                 <section id="post">
-                    <Markdown>{post.content}</Markdown>
+                    <Content post={post} />
                 </section>
             </article>
+            <Toc content={post.toc} />
             <Comment />
         </>
     );

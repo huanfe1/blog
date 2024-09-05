@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import GithubSlugger from 'github-slugger';
 import { readingTime } from 'reading-time-estimator';
 
 import truncate from './truncate';
@@ -13,6 +14,7 @@ export type PostProps = {
     content: string;
     tags?: string[];
     update?: string;
+    toc?: { title: string; id: string; level: number }[];
 };
 
 export type LinkProps = {
@@ -25,7 +27,9 @@ export type LinkProps = {
 /** 获取数据库已发布文章内容 */
 export const getAllPosts = async (): Promise<PostProps[]> => {
     let { posts } = await getGists();
+    const slugger = new GithubSlugger();
     posts = posts.map(post => {
+        slugger.reset();
         return {
             title: post.title,
             slug: post.slug,
@@ -36,6 +40,13 @@ export const getAllPosts = async (): Promise<PostProps[]> => {
             content: post.content,
             tags: post?.tags,
             update: post?.update && dayjs(post.update).format('YYYY-MM-DD'),
+            toc: post.content.match(/^#{1,6} (.*)$/gm)?.map(item => {
+                return {
+                    title: item.replace(/#{1,6} /g, ''),
+                    id: slugger.slug(item.replace(/#{1,6} /g, '')),
+                    level: (item.match(/#/g) as string[]).length,
+                };
+            }),
         };
     });
     return posts.sort((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf());
@@ -52,7 +63,7 @@ if (!process.env.GIST_ID || !process.env.GIST_TOKEN) {
 
 async function getGists(): Promise<{ posts: PostProps[]; links: LinkProps[] }> {
     const data = await fetch('https://api.github.com/gists/' + process.env.GIST_ID, {
-        next: { revalidate: 60 * 60 },
+        next: { revalidate: 60 * 10 },
         method: 'GET',
         headers: {
             'X-GitHub-Api-Version': '2022-11-28',

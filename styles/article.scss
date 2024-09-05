@@ -12,10 +12,10 @@
         @apply my-2 text-2xl font-bold;
     }
     h3 {
-        @apply my-2 text-xl;
+        @apply my-2 text-xl font-medium;
     }
     h4 {
-        @apply my-2 text-lg;
+        @apply my-2 text-lg font-light;
     }
     ol {
         @apply mt-3 list-decimal pl-5;
@@ -51,12 +51,29 @@
         }
     }
     .anchor {
-        @apply absolute -ml-5 pr-2.5 text-2xl font-bold opacity-0;
+        @apply ml-3 font-bold opacity-0;
     }
     hr {
         @apply mx-auto my-8 w-80 border-zinc-200 dark:border-zinc-700;
     }
     p > code {
         @apply rounded bg-zinc-200 px-2 py-0.5 dark:bg-zinc-800;
+    }
+}
+
+#toc {
+    position: fixed;
+    top: 150px;
+    transform: translate(850px);
+    @apply hidden text-gray-400 dark:text-gray-500 xl:block;
+    li {
+        @apply my-1;
+        a {
+            @apply transition-colors;
+            &.active,
+            &:hover {
+                @apply font-semibold text-blue-600;
+            }
+        }
     }
 }

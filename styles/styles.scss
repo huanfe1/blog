@@ -7,10 +7,6 @@
 @import './highlight.scss';
 @import './article.scss';
 
-#toc .active {
-    text-decoration: underline;
-}
-
 body {
     margin: auto;
     max-width: 800px;
@@ -31,6 +27,7 @@ header nav a {
 
 html.dark {
     color: #cecece;
+    background-color: #1b1b1d;
     img {
         filter: brightness(0.9);
     }

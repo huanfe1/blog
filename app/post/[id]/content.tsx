@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
@@ -15,6 +16,14 @@ export default function Content({ post }: { post: PostProps }) {
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[
                 rehypeSlug,
+                [
+                    rehypeAutolinkHeadings,
+                    {
+                        behavior: 'append',
+                        content: { type: 'text', value: '#' },
+                        properties: { className: 'anchor', ariaHidden: true, tabIndex: -1 },
+                    },
+                ],
                 [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'external', 'nofollow', 'noreferrer'] }],
                 rehypeRaw,
             ]}
@@ -23,7 +32,8 @@ export default function Content({ post }: { post: PostProps }) {
                 img: props => {
                     return <Img {...props} />;
                 },
-                a: props => <Link {...(props as any)} />,
+                // eslint-disable-next-line no-unused-vars
+                a: ({ node, ...props }) => <Link {...(props as any)} />,
             }}
         >
             {post.content}

@@ -45,7 +45,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <main className="my-10">{children}</main>
                     <Top />
                 </Providers>
-                <div className="fixed inset-0 -z-10 h-full w-full bg-[radial-gradient(#e5e7eb_1px,#fcfcfc_1px)] bg-[size:16px_16px] dark:bg-[radial-gradient(#ffffff18_1px,#121212_1px)] dark:bg-[size:20px_20px]"></div>
             </body>
         </html>
     );
