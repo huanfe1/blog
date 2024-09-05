@@ -64,15 +64,15 @@
 #toc {
     position: fixed;
     top: 150px;
-    transform: translate(850px);
-    @apply hidden text-gray-400 dark:text-gray-500 xl:block;
+    transform: translate(885px);
+    @apply hidden text-sm text-gray-400 dark:text-gray-500 xl:block;
     li {
         @apply my-1;
         a {
             @apply transition-colors;
             &.active,
             &:hover {
-                @apply font-semibold text-blue-600;
+                @apply font-semibold text-gray-700 dark:text-gray-300;
             }
         }
     }
