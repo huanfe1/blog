@@ -2,8 +2,5 @@
 User-agent: *
 Allow: /
 
-# Host
-Host: https://www.huanfei.top
-
 # Sitemaps
 Sitemap: https://www.huanfei.top/sitemap.xml

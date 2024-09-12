@@ -18,10 +18,6 @@ const nextConfig = {
     experimental: {
         scrollRestoration: true,
     },
-    env: {
-        PER_PAGE: '5',
-        TEMP_DIR: '.temp',
-    },
 };
 
 export default nextConfig;
