@@ -25,8 +25,8 @@ export default function Toc({ content }: { content: PostProps['toc'] }) {
                 }
             }
             if (closestElement) {
-                document.querySelectorAll(`#toc a.active`).forEach(item => (item.className = ''));
-                document.querySelector(`#toc a[href="#${closestElement}"`)!.className = 'active';
+                document.querySelectorAll(`#toc span.active`).forEach(item => (item.className = ''));
+                document.querySelector(`#toc span[data-link="${closestElement}"`)!.className = 'active';
             }
         };
         scrollHandler();
@@ -41,9 +41,15 @@ export default function Toc({ content }: { content: PostProps['toc'] }) {
         <ul id="toc">
             {content.map(link => (
                 <li key={link.id}>
-                    <a href={`#${link.id}`}>
-                        <span style={{ paddingLeft: `${(link.level - 2) * 15}px` }}>{link.title}</span>
-                    </a>
+                    <span
+                        onClick={() => {
+                            document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        data-link={link.id}
+                        style={{ paddingLeft: `${(link.level - 2) * 15}px` }}
+                    >
+                        {link.title}
+                    </span>
                 </li>
             ))}
         </ul>

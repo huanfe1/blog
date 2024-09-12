@@ -51,7 +51,7 @@
         }
     }
     .anchor {
-        @apply ml-3 font-bold opacity-0;
+        @apply ml-2 opacity-0;
     }
     hr {
         @apply mx-auto my-8 w-80 border-zinc-200 dark:border-zinc-700;
@@ -65,14 +65,14 @@
     position: fixed;
     top: 150px;
     transform: translate(885px);
-    @apply hidden text-sm text-gray-400 dark:text-gray-500 xl:block;
+    @apply hidden text-sm xl:block;
     li {
         @apply my-1;
-        a {
-            @apply transition-colors;
+        span {
+            @apply cursor-pointer opacity-40 transition-colors;
             &.active,
             &:hover {
-                @apply font-semibold text-gray-700 dark:text-gray-300;
+                @apply font-bold opacity-70;
             }
         }
     }
