@@ -28,6 +28,13 @@ const feed = new Feed({
     generator: 'Nexj.js',
 });
 
+const followClaim = `
+<follow_challenge>
+    <feedId>48224099084379136</feedId>
+    <userId>47261911326774272</userId>
+</follow_challenge>
+`;
+
 export async function GET() {
     const posts = await getAllPosts();
 
@@ -44,7 +51,7 @@ export async function GET() {
             published: dayjs(post.date).toDate(),
         });
     }
-    return new Response(feed.atom1(), {
+    return new Response(feed.atom1().replace('</feed>', followClaim + '</feed>'), {
         headers: {
             'content-type': 'application/xml',
         },
