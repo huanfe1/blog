@@ -11,7 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             lastModified: dayjs().toDate(),
         },
         {
-            url: 'http://www.huanfei.top/archives',
+            url: 'http://www.huanfei.top/posts',
             lastModified: dayjs().toDate(),
         },
         ...posts.map(post => ({
