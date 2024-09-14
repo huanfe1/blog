@@ -31,9 +31,7 @@ export default function Toc({ content }: { content: PostProps['toc'] }) {
         };
         scrollHandler();
         document.addEventListener('scroll', scrollHandler);
-        return () => {
-            document.removeEventListener('scroll', scrollHandler);
-        };
+        return () => document.removeEventListener('scroll', scrollHandler);
     }, []);
 
     if (!content) return null;
