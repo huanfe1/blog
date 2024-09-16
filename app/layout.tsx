@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 import React from 'react';
 
-import Analytics from '@/components/analytics';
-import Header from '@/components/header';
-import Top from '@/components/top';
+import Analytics from '@/components/layout/analytics';
+import Header from '@/components/layout/header';
+import Top from '@/components/layout/top';
 import '@/styles/styles.scss';
 
 import { Providers } from './providers';
