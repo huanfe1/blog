@@ -2,10 +2,10 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { metadata } from '@/app/layout';
+import Markdown from '@/components/markdown';
 import { PostProps, getAllPosts } from '@/utils/data';
 
 import Comment from './comment';
-import Content from './content';
 import Header from './header';
 import Toc from './toc';
 
@@ -42,7 +42,7 @@ export default async function Post({ params }) {
             <article>
                 <Header post={post} />
                 <section id="post">
-                    <Content post={post} />
+                    <Markdown post={post} />
                 </section>
             </article>
             <Toc content={post.toc} />

@@ -46,8 +46,12 @@
     h4,
     h5,
     h6 {
+        &:has(.anchor) {
+            @apply relative flex items-center;
+        }
         .anchor {
-            @apply ml-2 opacity-0;
+            @apply absolute bottom-0 top-0 flex items-center pr-1.5 opacity-0;
+            transform: translateX(calc(-100%));
         }
         &:hover .anchor {
             @apply opacity-100;
