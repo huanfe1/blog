@@ -6,12 +6,10 @@ import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 
-import { PostProps } from '@/utils/data';
-
 import Code from './code';
 import Img from './img';
 
-export default function Markdown({ post }: { post: PostProps }) {
+export default function Markdown({ children }: { children: string }) {
     return (
         <ReactMarkdown
             remarkPlugins={[remarkGfm]}
@@ -37,7 +35,7 @@ export default function Markdown({ post }: { post: PostProps }) {
                 a: ({ node, ...props }) => <Link {...(props as any)} />,
             }}
         >
-            {post.content}
+            {children}
         </ReactMarkdown>
     );
 }
@@ -55,6 +53,7 @@ function linkIconContent(): Options['content'] {
             width: '18',
             height: '18',
             ariaHidden: 'true',
+            fill: 'currentColor',
         },
         children: [{ type: 'element', tagName: 'path', properties: { d }, children: [] }],
     };

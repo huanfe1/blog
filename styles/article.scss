@@ -1,5 +1,5 @@
 #post {
-    a {
+    a:not(.anchor) {
         @apply text-blue-600 hover:underline;
     }
     p {

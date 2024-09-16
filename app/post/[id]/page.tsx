@@ -42,7 +42,7 @@ export default async function Post({ params }) {
             <article>
                 <Header post={post} />
                 <section id="post">
-                    <Markdown post={post} />
+                    <Markdown>{post.content}</Markdown>
                 </section>
             </article>
             <Toc content={post.toc} />
