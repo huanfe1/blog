@@ -46,12 +46,12 @@
     h4,
     h5,
     h6 {
+        .anchor {
+            @apply ml-2 opacity-0;
+        }
         &:hover .anchor {
             @apply opacity-100;
         }
-    }
-    .anchor {
-        @apply ml-2 opacity-0;
     }
     hr {
         @apply mx-auto my-8 w-80 border-zinc-200 dark:border-zinc-700;
