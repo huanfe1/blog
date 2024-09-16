@@ -2,10 +2,10 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { metadata } from '@/app/layout';
+import Comment from '@/components/common/comment';
 import Markdown from '@/components/markdown';
 import { PostProps, getAllPosts } from '@/utils/data';
 
-import Comment from './comment';
 import Header from './header';
 import Toc from './toc';
 
