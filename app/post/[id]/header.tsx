@@ -18,7 +18,7 @@ export default function Header({ post }: { post: PostProps }) {
                 {post.update && (
                     <>
                         <span className="mx-1">·</span>
-                        <span>更新于 {post.update}</span>
+                        <span>编辑于 {post.update}</span>
                     </>
                 )}
             </div>
