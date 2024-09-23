@@ -23,7 +23,7 @@ export default async function Post() {
             temp = year;
         }
         result.push(
-            <Link href={'/post/' + post.slug} key={post.slug} className="mb-3 block w-fit" title={post.title}>
+            <Link href={'/post/' + post.slug} key={post.slug} className="mb-3 block" title={post.title}>
                 <div className="flex hover:opacity-70">
                     <h3 className="mr-3 truncate">{post.title}</h3>
                     <time dateTime={post.date} className="text-default-400 flex-none">
