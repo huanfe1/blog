@@ -17,16 +17,8 @@ export type PostProps = {
     toc?: { title: string; id: string; level: number }[];
 };
 
-export type LinkProps = {
-    title: string;
-    url: string;
-    avatar: string;
-    slogan?: string;
-};
-
-/** 获取数据库已发布文章内容 */
 export const getAllPosts = async (): Promise<PostProps[]> => {
-    let { posts } = await getGists();
+    let posts: PostProps[] = JSON.parse((await getGistsFiles())['posts.json']['content']);
     const slugger = new GithubSlugger();
     posts = posts.map(post => {
         slugger.reset();
@@ -52,16 +44,11 @@ export const getAllPosts = async (): Promise<PostProps[]> => {
     return posts.sort((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf());
 };
 
-export const getAllLinks = async (): Promise<LinkProps[]> => {
-    const { links } = await getGists();
-    return links;
-};
-
 if (!process.env.GIST_ID || !process.env.GIST_TOKEN) {
     throw new Error('GIST_ID or GIST_TOKEN is not set');
 }
 
-async function getGists(): Promise<{ posts: PostProps[]; links: LinkProps[] }> {
+export async function getGistsFiles() {
     const data = await fetch('https://api.github.com/gists/' + process.env.GIST_ID, {
         next: { revalidate: 60 * 10 },
         method: 'GET',
@@ -73,8 +60,5 @@ async function getGists(): Promise<{ posts: PostProps[]; links: LinkProps[] }> {
     })
         .then(data => data.json())
         .then(data => data.files);
-    return {
-        posts: JSON.parse(data['posts.json'].content),
-        links: JSON.parse(data['links.json'].content),
-    };
+    return data;
 }
