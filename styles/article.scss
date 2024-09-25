@@ -35,7 +35,7 @@
     }
     // 引用框
     blockquote {
-        @apply space-y-3 rounded-r border-l-4 border-zinc-300 bg-zinc-200 p-3;
+        @apply space-y-3 rounded-r border-l-4 border-zinc-300 bg-zinc-100 p-3 dark:border-zinc-600 dark:bg-zinc-800;
         p {
             @apply m-0;
         }
