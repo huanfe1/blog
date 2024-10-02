@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import probe from 'probe-image-size';
 import ReactMarkdown from 'react-markdown';
 import rehypeAutolinkHeadings, { type Options } from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
@@ -9,7 +10,10 @@ import remarkGfm from 'remark-gfm';
 import Code from './code';
 import Img from './img';
 
-export default function Markdown({ children }: { children: string }) {
+export default async function Markdown({ children }: { children: string }) {
+    const images = {};
+    const urls = children.match(/!\[.*\]\(.*\)/g)?.map(_ => _.match(/\((.*?)\)/)![1]) || [];
+    await Promise.all(urls.map(_ => probe(_).then(({ width, height }) => (images[_] = { width, height }))));
     return (
         <ReactMarkdown
             remarkPlugins={[remarkGfm]}
@@ -29,6 +33,9 @@ export default function Markdown({ children }: { children: string }) {
             components={{
                 pre: Code,
                 img: props => {
+                    if (props.src! in images) {
+                        return <Img {...images[props.src!]} {...props} />;
+                    }
                     return <Img {...props} />;
                 },
                 // eslint-disable-next-line no-unused-vars
