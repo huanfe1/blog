@@ -11,6 +11,9 @@
         "lint": "next lint",
         "format": "prettier --write ."
     },
+    "pre-push": [
+        "lint"
+    ],
     "devDependencies": {
         "@egoist/tailwindcss-icons": "^1.8.1",
         "@iconify-json/mingcute": "^1.2.0",
@@ -20,6 +23,7 @@
         "eslint": "^8.57.1",
         "eslint-config-next": "^14.2.14",
         "eslint-config-prettier": "^8.10.0",
+        "pre-push": "^0.1.4",
         "prettier": "^3.3.3",
         "remark-gfm": "^4.0.0",
         "remark-parse": "^11.0.0",
