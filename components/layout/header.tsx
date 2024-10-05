@@ -12,12 +12,12 @@ export default function Header() {
             </div>
             <nav className="my-4 flex items-center space-x-5 font-medium">
                 <Link href="/posts">文章</Link>
-                <Link href="https://github.com/huanfe1" target="_blank" rel="noopener noreferrer external nofollow">
+                <a href="https://github.com/huanfe1" target="_blank" rel="noopener noreferrer external nofollow">
                     <span className="i-mingcute-github-line"></span>
-                </Link>
-                <Link href="/atom.xml" target="_blank">
+                </a>
+                <a href="/atom.xml" target="_blank">
                     <span className="i-mingcute-rss-2-fill"></span>
-                </Link>
+                </a>
                 <Color />
             </nav>
         </div>
