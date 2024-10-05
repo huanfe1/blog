@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import probe from 'probe-image-size';
 import ReactMarkdown from 'react-markdown';
-import rehypeAutolinkHeadings, { type Options } from 'rehype-autolink-headings';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
