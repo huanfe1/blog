@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import { Feed } from 'feed';
 import { toHtml } from 'hast-util-to-html';
-import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
@@ -39,13 +38,14 @@ export async function GET() {
     const posts = await getAllPosts();
 
     for (const post of posts.slice(0, 20)) {
-        const pipeline = unified().use(remarkParse).use(remarkGfm).use(remarkRehype).use(rehypeSlug);
-        const mdastTree = pipeline.parse(post.content);
+        const pipeline = unified().use(remarkParse).use(remarkGfm).use(remarkRehype);
+        const content = post.cover ? `![${post.slug}](${post.cover})\n${post.content}` : post.content;
+        const mdastTree = pipeline.parse(content);
         feed.addItem({
             title: `${post.title}`,
             id: `${url}/post/${post.slug}`,
             link: `${url}/post/${post.slug}`,
-            content: toHtml(pipeline.runSync(mdastTree, post.content)),
+            content: toHtml(pipeline.runSync(mdastTree)),
             description: post.summary,
             date: dayjs(post.date).toDate(),
             published: dayjs(post.date).toDate(),
