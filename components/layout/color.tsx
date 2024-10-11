@@ -9,8 +9,8 @@ export default function Color() {
         setTheme(toTheme === systemTheme ? 'system' : toTheme);
     };
     return (
-        <a className="flex cursor-pointer items-center">
-            <span className="i-mingcute-sun-line text-xl dark:i-mingcute-moon-line" onClick={click}></span>
-        </a>
+        <div aria-hidden className="flex cursor-pointer items-center" onClick={click}>
+            <span className="i-mingcute-sun-line text-xl dark:i-mingcute-moon-line"></span>
+        </div>
     );
 }

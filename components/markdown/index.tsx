@@ -26,9 +26,16 @@ export default async function Markdown({ children }: { children: string }) {
                         content: {
                             type: 'element',
                             tagName: 'span',
-                            properties: { className: 'i-mingcute-link-line -scale-x-100' },
+                            properties: { className: 'i-mingcute-link-line -scale-x-100', 'aria-hidden': 'true' },
+                            children: [],
                         },
-                        properties: { className: 'anchor', ariaHidden: true, tabIndex: -1 },
+                        properties: (el: Element) => {
+                            return {
+                                className: 'anchor',
+                                'aria-label': `Permalink: ${el.children[0]['value']}`,
+                                tabIndex: -1,
+                            };
+                        },
                     },
                 ],
                 [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'external', 'nofollow', 'noreferrer'] }],

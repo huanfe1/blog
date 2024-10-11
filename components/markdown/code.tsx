@@ -19,8 +19,10 @@ export default function Code(props) {
             <button
                 className="absolute right-2 top-2 flex rounded-xl p-2 hover:bg-zinc-200 dark:hover:bg-zinc-800"
                 onClick={click}
+                aria-label="复制代码"
             >
                 <span
+                    aria-hidden
                     className={classNames('text-lg', {
                         'i-mingcute-copy-2-line': !status,
                         'i-mingcute-check-line bg-green-600': status,
