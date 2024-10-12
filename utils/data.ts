@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import GithubSlugger from 'github-slugger';
+import probe from 'probe-image-size';
 import { readingTime } from 'reading-time-estimator';
 
 import truncate from './truncate';
@@ -15,32 +16,38 @@ export type PostProps = {
     tags?: string[];
     update?: string;
     toc?: { title: string; id: string; level: number }[];
+    images?: { [key: string]: { width: number; height: number } };
 };
 
 export const getAllPosts = async (): Promise<PostProps[]> => {
-    let posts: PostProps[] = JSON.parse((await getGistsFiles())['posts.json']['content']);
+    const content = JSON.parse((await getGistsFiles())['posts.json']['content']);
     const slugger = new GithubSlugger();
-    posts = posts.map(post => {
+    const posts: PostProps[] = [];
+    for (const item of content) {
         slugger.reset();
-        return {
-            title: post.title,
-            slug: post.slug,
-            date: dayjs(post.date).format('YYYY-MM-DD'),
-            summary: post.summary || truncate(post.content) || '',
-            cover: post?.cover,
-            wordcount: readingTime(post.content, 300, 'cn').words,
-            content: post.content,
-            tags: post?.tags,
-            update: post?.update && dayjs(post.update).format('YYYY-MM-DD'),
-            toc: post.content.match(/^#{1,6} (.*)$/gm)?.map(item => {
+        const images = {};
+        const urls: string[] = item.content.match(/!\[.*\]\(.*\)/g)?.map((_: string) => _.match(/\((.*?)\)/)![1]) || [];
+        await Promise.all(urls.map(_ => probe(_).then(({ width, height }) => (images[_] = { width, height }))));
+        posts.push({
+            title: item.title,
+            slug: item.slug,
+            date: dayjs(item.date).format('YYYY-MM-DD'),
+            summary: item.summary || truncate(item.content) || '',
+            cover: item?.cover,
+            wordcount: readingTime(item.content, 300, 'cn').words,
+            content: item.content,
+            tags: item?.tags,
+            update: item?.update && dayjs(item.update).format('YYYY-MM-DD'),
+            toc: item.content.match(/^#{1,6} (.*)$/gm)?.map(item => {
                 return {
                     title: item.replace(/#{1,6} /g, ''),
                     id: slugger.slug(item.replace(/#{1,6} /g, '')),
                     level: (item.match(/#/g) as string[]).length,
                 };
             }),
-        };
-    });
+            images,
+        });
+    }
     return posts.sort((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf());
 };
 

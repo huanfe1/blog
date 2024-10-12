@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import probe from 'probe-image-size';
 import ReactMarkdown from 'react-markdown';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
@@ -7,13 +6,14 @@ import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 
+import type { PostProps } from '@/utils/data';
+
 import Code from './code';
 import Img from './img';
 
-export default async function Markdown({ children }: { children: string }) {
-    const images = {};
-    const urls = children.match(/!\[.*\]\(.*\)/g)?.map(_ => _.match(/\((.*?)\)/)![1]) || [];
-    await Promise.all(urls.map(_ => probe(_).then(({ width, height }) => (images[_] = { width, height }))));
+type Props = { children: string; imagesSize?: PostProps['images'] };
+
+export default async function Markdown({ children, imagesSize }: Props) {
     return (
         <ReactMarkdown
             remarkPlugins={[remarkGfm]}
@@ -44,8 +44,8 @@ export default async function Markdown({ children }: { children: string }) {
             components={{
                 pre: Code,
                 img: props => {
-                    if (props.src! in images) {
-                        return <Img {...images[props.src!]} {...props} />;
+                    if (imagesSize && props.src! in imagesSize) {
+                        return <Img {...imagesSize[props.src!]} {...props} />;
                     }
                     return <Img {...props} />;
                 },
