@@ -6,14 +6,10 @@ import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 
-import type { PostProps } from '@/utils/data';
-
 import Code from './code';
 import Img from './img';
 
-type Props = { children: string; imagesSize?: PostProps['images'] };
-
-export default async function Markdown({ children, imagesSize }: Props) {
+export default async function Markdown({ children }: { children: string }) {
     return (
         <ReactMarkdown
             remarkPlugins={[remarkGfm]}
@@ -43,12 +39,7 @@ export default async function Markdown({ children, imagesSize }: Props) {
             ]}
             components={{
                 pre: Code,
-                img: props => {
-                    if (imagesSize && props.src! in imagesSize) {
-                        return <Img {...imagesSize[props.src!]} {...props} />;
-                    }
-                    return <Img {...props} />;
-                },
+                img: props => <Img {...props} />,
                 // eslint-disable-next-line no-unused-vars
                 h1: ({ node, ...props }) => <h2 {...props}></h2>,
                 // eslint-disable-next-line no-unused-vars
