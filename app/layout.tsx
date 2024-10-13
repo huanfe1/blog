@@ -13,8 +13,10 @@ export const metadata: Metadata = {
         template: '%s - 幻非',
         default: '幻非',
     },
+    authors: { url: 'https://www.huanfei.top', name: '幻非' },
+    generator: 'Nexj.js',
     description: '幻非的个人博客，记录一些技术或者想法',
-    keywords: ['Blog', '博客', '幻非', '技术', '生活'],
+    keywords: ['blog', '博客', '幻非', '技术', '生活', 'huanfei'],
     metadataBase: new URL('https://www.huanfei.top'),
     openGraph: {
         title: '幻非',
@@ -23,8 +25,8 @@ export const metadata: Metadata = {
         siteName: '幻非',
         locale: 'zh-CN',
         type: 'website',
+        images: '/og.jpg',
     },
-    archives: ['/archives'],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

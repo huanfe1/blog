@@ -21,11 +21,12 @@ export async function generateMetadata({ params }): Promise<Metadata> {
             description: post.summary,
             type: 'article',
             publishedTime: post.date,
-            modifiedTime: post.update || post.date,
+            modifiedTime: post.update,
             authors: ['https://www.huanfei.top'],
             tags: post.tags,
             images: post.cover,
             url: '/post/' + post.slug,
+            locale: 'zh-CN',
         },
         alternates: {
             canonical: '/post/' + post.slug,
