@@ -40,8 +40,7 @@ export default async function Markdown({ children }: { children: string }) {
             components={{
                 pre: Code,
                 img: props => <Img {...props} />,
-                // eslint-disable-next-line no-unused-vars
-                h1: ({ node, ...props }) => <h2 {...props}></h2>,
+                h1: 'h2',
                 // eslint-disable-next-line no-unused-vars
                 a: ({ node, ...props }) => <Link {...(props as any)} />,
             }}

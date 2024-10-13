@@ -11,9 +11,6 @@
         "lint": "next lint",
         "format": "prettier --write ."
     },
-    "simple-git-hooks": {
-        "pre-commit": "npx lint-staged --quiet"
-    },
     "devDependencies": {
         "@egoist/tailwindcss-icons": "^1.8.1",
         "@iconify-json/mingcute": "^1.2.0",
@@ -27,7 +24,6 @@
         "remark-gfm": "^4.0.0",
         "remark-parse": "^11.0.0",
         "sass": "^1.79.4",
-        "simple-git-hooks": "^2.11.1",
         "tailwindcss-radix-colors": "^1.4.1",
         "typescript": "^5.6.2",
         "unified": "^11.0.5"
