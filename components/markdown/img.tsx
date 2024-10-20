@@ -5,23 +5,19 @@ import { useEffect, useRef, useState } from 'react';
 import type { Dispatch, ImgHTMLAttributes, MutableRefObject, SetStateAction } from 'react';
 import { createPortal } from 'react-dom';
 
-function Mask({
-    props,
-    setStatus,
-    imgRef,
-}: {
+type ImgProps = {
     props: ImgHTMLAttributes<HTMLImageElement>;
     setStatus: Dispatch<SetStateAction<boolean>>;
     imgRef: MutableRefObject<HTMLImageElement>;
-}) {
+};
+
+function Mask({ props, setStatus, imgRef }: ImgProps) {
     const [transform, setTransform] = useState('');
     const [opacity, setOpacity] = useState(0.7);
     const close = () => {
         setOpacity(0);
         setTransform('');
-        setTimeout(() => {
-            setStatus(false);
-        }, 300);
+        setTimeout(() => setStatus(false), 300);
     };
     useEffect(() => {
         window.requestAnimationFrame(() => setTransform(calcFitScale(imgRef)));
@@ -66,18 +62,17 @@ function Mask({
 export default function Img(props: ImgHTMLAttributes<HTMLImageElement>) {
     const [status, setStatus] = useState(false);
     const imgRef = useRef() as MutableRefObject<HTMLImageElement>;
+    // 图片的 zoom 样式会导致预览错误，推荐使用 width 属性
+    delete props.style?.zoom;
+    delete props['node'];
     return (
         <>
             <img
+                {...props}
                 alt={props.alt || 'images'}
-                src={props.src}
-                width={props.width}
-                height={props.height}
                 ref={imgRef}
                 className={classNames('rounded shadow', status ? 'invisible' : 'cursor-zoom-in')}
-                onClick={() => {
-                    setStatus(true);
-                }}
+                onClick={() => setStatus(true)}
                 loading="lazy"
             />
             {status && <Mask props={props} setStatus={setStatus} imgRef={imgRef} />}
