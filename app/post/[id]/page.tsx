@@ -1,3 +1,4 @@
+import GithubSlugger from 'github-slugger';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -38,6 +39,14 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 export default async function Post({ params }) {
     const post: PostProps | undefined = await getAllPosts().then(posts => posts.find(post => post.slug === params.id));
     if (!post) notFound();
+    const slugger = new GithubSlugger();
+    const tocContent = post.content.match(/^#{1,6} (.*)$/gm)?.map(item => {
+        return {
+            title: item.replace(/#{1,6} /g, ''),
+            id: slugger.slug(item.replace(/#{1,6} /g, '')),
+            level: (item.match(/#/g) as string[]).length,
+        };
+    });
     return (
         <>
             <article>
@@ -46,7 +55,7 @@ export default async function Post({ params }) {
                     <Markdown>{post.content}</Markdown>
                 </section>
             </article>
-            <Toc content={post.toc} />
+            {tocContent && <Toc content={tocContent} />}
             <Comment />
         </>
     );

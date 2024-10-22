@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react';
 
-import { PostProps } from '@/utils/data';
+type TocProps = { content: { title: string; id: string; level: number }[] };
 
-export default function Toc({ content }: { content: PostProps['toc'] }) {
+export default function Toc({ content }: TocProps) {
     useEffect(() => {
         if (!content) return;
         const scrollHandler = () => {
