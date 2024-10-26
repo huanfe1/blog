@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { Feed } from 'feed';
 import { toHtml } from 'hast-util-to-html';
+import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
@@ -38,7 +39,11 @@ export async function GET() {
     const posts = await getAllPosts();
 
     for (const post of posts.slice(0, 20)) {
-        const pipeline = unified().use(remarkParse).use(remarkGfm).use(remarkRehype);
+        const pipeline = unified()
+            .use(remarkParse)
+            .use(remarkGfm)
+            .use(remarkRehype, { allowDangerousHtml: true })
+            .use(rehypeRaw);
         const content = post.cover ? `![${post.slug}](${post.cover})\n${post.content}` : post.content;
         const mdastTree = pipeline.parse(content);
         feed.addItem({
