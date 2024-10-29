@@ -4,7 +4,7 @@ import Markdown from '@/components/markdown';
 import { getGistsFiles } from '@/utils/data';
 
 export const metadata: Metadata = {
-    title: '首页 - 幻非',
+    title: '幻非',
     alternates: {
         canonical: '/',
     },
