@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeAutolinkHeadings, { type Options } from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
@@ -15,25 +15,7 @@ export default async function Markdown({ children }: { children: string }) {
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[
                 rehypeSlug,
-                [
-                    rehypeAutolinkHeadings,
-                    {
-                        behavior: 'prepend',
-                        content: {
-                            type: 'element',
-                            tagName: 'span',
-                            properties: { className: 'i-mingcute-link-line -scale-x-100', 'aria-hidden': 'true' },
-                            children: [],
-                        },
-                        properties: (el: Element) => {
-                            return {
-                                className: 'anchor',
-                                'aria-label': `Permalink: ${el.children[0]['value']}`,
-                                tabIndex: -1,
-                            };
-                        },
-                    },
-                ],
+                [rehypeAutolinkHeadings, linkHeadingsOptions],
                 [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'external', 'nofollow', 'noreferrer'] }],
                 rehypeRaw,
             ]}
@@ -49,3 +31,24 @@ export default async function Markdown({ children }: { children: string }) {
         </ReactMarkdown>
     );
 }
+
+const linkHeadingsOptions: Options = {
+    behavior: 'prepend',
+    content: {
+        type: 'element',
+        tagName: 'span',
+        properties: { className: 'i-mingcute-link-line -scale-x-100', 'aria-hidden': 'true' },
+        children: [],
+    },
+    headingProperties: {
+        className: 'relative flex items-center group',
+    },
+    properties: el => {
+        return {
+            className:
+                '-translate-x-full not-prose absolute flex items-center pr-1.5 opacity-0 group-hover:opacity-100',
+            'aria-label': `Permalink: ${el.children[0]['value']}`,
+            tabIndex: -1,
+        };
+    },
+};

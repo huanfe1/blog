@@ -1,70 +1,3 @@
-#post {
-    a:not(.anchor) {
-        @apply text-blue-600 hover:underline;
-    }
-    p {
-        @apply my-2 leading-8;
-    }
-    img {
-        @apply m-auto;
-    }
-    h2 {
-        @apply my-2 text-2xl font-bold;
-    }
-    h3 {
-        @apply my-2 text-xl font-medium;
-    }
-    h4 {
-        @apply my-2 text-lg font-light;
-    }
-    ol {
-        @apply mt-3 list-decimal pl-5;
-        li {
-            @apply my-1;
-        }
-    }
-    ul {
-        @apply mt-3 list-disc pl-5;
-        li {
-            @apply my-1;
-        }
-    }
-    br {
-        content: '';
-        @apply my-2 block;
-    }
-    // 引用框
-    blockquote {
-        @apply space-y-3 rounded-r border-l-4 border-zinc-300 bg-zinc-100 p-3 dark:border-zinc-600 dark:bg-zinc-800;
-        p {
-            @apply m-0;
-        }
-    }
-    // 标题锚点
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        &:has(.anchor) {
-            @apply relative flex items-center;
-        }
-        .anchor {
-            @apply absolute bottom-0 top-0 flex items-center pr-1.5 opacity-0;
-            transform: translateX(calc(-100%));
-        }
-        &:hover .anchor {
-            @apply opacity-100;
-        }
-    }
-    hr {
-        @apply mx-auto my-8 w-80 border-zinc-200 dark:border-zinc-700;
-    }
-    p > code {
-        @apply rounded bg-zinc-200 px-2 py-0.5 dark:bg-zinc-800;
-    }
-}
-
 #toc {
     position: fixed;
     top: 150px;
@@ -79,5 +12,13 @@
                 @apply font-bold opacity-70;
             }
         }
+    }
+}
+
+@layer components {
+    .post {
+        @apply prose dark:prose-invert max-w-none text-inherit;
+        @apply prose-p:leading-8 prose-img:mx-auto prose-hr:w-80 prose-hr:mx-auto;
+        @apply prose-a:no-underline hover:prose-a:underline prose-a:text-blue-600;
     }
 }

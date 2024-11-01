@@ -1,4 +1,5 @@
 import { getIconCollections, iconsPlugin } from '@egoist/tailwindcss-icons';
+import typography from '@tailwindcss/typography';
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -15,6 +16,7 @@ module.exports = {
         iconsPlugin({
             collections: getIconCollections(['mingcute']),
         }),
+        typography(),
     ],
     darkMode: 'class',
 };

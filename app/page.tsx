@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default async function Home() {
     const text = (await getGistsFiles())['me.md']['content'];
     return (
-        <div id="post">
+        <div className="post prose-p:my-2">
             <Markdown>{text}</Markdown>
         </div>
     );
