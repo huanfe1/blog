@@ -15,7 +15,7 @@ export default function Code(props) {
         });
     };
     return (
-        <pre className="relative my-3 overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800" id="code">
+        <pre className="not-prose relative my-3 overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800" id="code">
             <button
                 className="absolute right-2 top-2 flex rounded-xl p-2 hover:bg-zinc-200 dark:hover:bg-zinc-800"
                 onClick={click}

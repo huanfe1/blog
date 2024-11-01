@@ -51,7 +51,7 @@ export default async function Post({ params }) {
         <>
             <article>
                 <Header post={post} />
-                <section id="post">
+                <section className="article mt-5">
                     <Markdown>{post.content}</Markdown>
                 </section>
             </article>

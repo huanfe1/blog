@@ -45,6 +45,7 @@ export async function getGistsFiles() {
         },
     })
         .then(data => data.json())
-        .then(data => data.files);
+        .then(data => data.files)
+        .catch(err => console.log(err));
     return data;
 }

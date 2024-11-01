@@ -1,4 +1,5 @@
 import { getIconCollections, iconsPlugin } from '@egoist/tailwindcss-icons';
+import typography from '@tailwindcss/typography';
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -9,12 +10,28 @@ module.exports = {
         './utils/**/*.{js,ts,jsx,tsx,mdx}',
     ],
     theme: {
-        extend: {},
+        extend: {
+            typography: {
+                DEFAULT: {
+                    css: {
+                        '--tw-prose-body': 'inherit',
+                        '--tw-prose-headings': 'inherit',
+                        '--tw-prose-code': 'inherit',
+                        '--tw-prose-bold': 'inherit',
+                        '--tw-prose-invert-body': 'inherit',
+                        '--tw-prose-invert-headings': 'inherit',
+                        '--tw-prose-invert-code': 'inherit',
+                        '--tw-prose-invert-bold': 'inherit',
+                    },
+                },
+            },
+        },
     },
     plugins: [
         iconsPlugin({
             collections: getIconCollections(['mingcute']),
         }),
+        typography(),
     ],
     darkMode: 'class',
 };

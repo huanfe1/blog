@@ -4,7 +4,7 @@ import Markdown from '@/components/markdown';
 import { getGistsFiles } from '@/utils/data';
 
 export const metadata: Metadata = {
-    title: '首页 - 幻非',
+    title: '幻非',
     alternates: {
         canonical: '/',
     },
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default async function Home() {
     const text = (await getGistsFiles())['me.md']['content'];
     return (
-        <div id="post">
+        <div className="article prose-p:my-2">
             <Markdown>{text}</Markdown>
         </div>
     );
