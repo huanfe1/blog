@@ -37,16 +37,15 @@ const linkHeadingsOptions: Options = {
     content: {
         type: 'element',
         tagName: 'span',
-        properties: { className: 'i-mingcute-link-line -scale-x-100', 'aria-hidden': 'true' },
+        properties: { className: 'i-mingcute-link-line -scale-x-100 h-full', 'aria-hidden': 'true' },
         children: [],
     },
     headingProperties: {
-        className: 'relative flex items-center group',
+        className: 'relative group',
     },
     properties: el => {
         return {
-            className:
-                '-translate-x-full not-prose absolute flex items-center pr-1.5 opacity-0 group-hover:opacity-100',
+            className: '-translate-x-full not-prose inset-y-0 absolute pr-1.5 opacity-0 group-hover:opacity-100',
             'aria-label': `Permalink: ${el.children[0]['value']}`,
             tabIndex: -1,
         };
