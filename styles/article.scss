@@ -18,7 +18,9 @@
 @layer components {
     .post {
         @apply prose dark:prose-invert max-w-none text-inherit;
-        @apply prose-p:leading-8 prose-img:mx-auto prose-hr:w-80 prose-hr:mx-auto;
-        @apply prose-a:no-underline hover:prose-a:underline prose-a:text-blue-600;
+        @apply prose-p:leading-8 prose-img:mx-auto;
+        @apply prose-a:no-underline hover:prose-a:underline prose-a:text-blue-600 prose-a:font-normal;
+        @apply prose-code:text-inherit;
+        @apply prose-hr:w-80 prose-hr:mx-auto;
     }
 }
