@@ -1,3 +1,4 @@
+import { config } from '@/blog.config';
 import { Metadata } from 'next';
 import React from 'react';
 
@@ -10,19 +11,19 @@ import { Providers } from './providers';
 
 export const metadata: Metadata = {
     title: {
-        template: '%s - 幻非',
-        default: '幻非',
+        template: `%s - ${config.title}`,
+        default: config.title,
     },
-    authors: { url: 'https://www.huanfei.top', name: '幻非' },
+    authors: { url: config.url, name: config.title },
     generator: 'Nexj.js',
-    description: '幻非的个人博客，记录一些技术或者想法',
-    keywords: ['blog', '博客', '幻非', '技术', '生活', 'huanfei'],
-    metadataBase: new URL('https://www.huanfei.top'),
+    description: config.description,
+    keywords: config.keywords,
+    metadataBase: new URL(config.url),
     openGraph: {
-        title: '幻非',
-        description: '幻非的个人博客，记录一些技术或者想法',
+        title: config.title,
+        description: config.description,
         url: '/',
-        siteName: '幻非',
+        siteName: config.title,
         locale: 'zh-CN',
         type: 'website',
         images: '/og.jpg',
@@ -36,8 +37,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 {process.env.NODE_ENV !== 'development' && <Analytics />}
                 <link rel="icon" href="/favicon.ico" type="image/ico" />
                 <link rel="icon" href="/avatar.png" type="image/png" sizes="96x96" />
-                <link rel="alternate" type="application/atom+xml" title="幻非" href="/atom.xml" />
-                <link rel="sitemap" type="application/xml" title="Huanfei's Blog Site Map" href="/sitemap.xml" />
+                <link rel="alternate" type="application/atom+xml" title={config.title} href="/atom.xml" />
+                <link rel="sitemap" type="application/xml" title="Site Map" href="/sitemap.xml" />
             </head>
             <body>
                 <Providers>

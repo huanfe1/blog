@@ -1,3 +1,4 @@
+import { config } from '@/blog.config';
 import dayjs from 'dayjs';
 import { Feed } from 'feed';
 import { toHtml } from 'hast-util-to-html';
@@ -9,11 +10,11 @@ import { unified } from 'unified';
 
 import { getAllPosts } from '@/utils/data';
 
-const url = 'https://www.huanfei.top';
+const url = config.url;
 
 const feed = new Feed({
-    title: '幻非',
-    description: '幻非的个人博客',
+    title: config.title,
+    description: config.description,
     id: url,
     link: url,
     feedLinks: {
@@ -21,8 +22,8 @@ const feed = new Feed({
     },
     copyright: `Copyright © 2022 - ${dayjs().format('YYYY')} HuanFei All Rights Reserved`,
     author: {
-        name: '幻非',
-        link: 'https://www.huanfei.top',
+        name: config.title,
+        link: url,
     },
     favicon: `${url}/favicon.ico`,
     generator: 'Nexj.js',

@@ -1,3 +1,4 @@
+import { config } from '@/blog.config';
 import Link from 'next/link';
 
 import Color from './color';
@@ -7,7 +8,7 @@ export default function Header() {
         <div className="flex justify-between">
             <div>
                 <Link href="/">
-                    <h1 className="my-4 text-2xl font-bold">幻非</h1>
+                    <h1 className="my-4 text-2xl font-bold">{config.title}</h1>
                 </Link>
             </div>
             <nav className="my-4 flex items-center space-x-5 font-medium">

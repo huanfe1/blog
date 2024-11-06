@@ -1,10 +1,11 @@
+import { config } from '@/blog.config';
 import type { Metadata } from 'next';
 
 import Markdown from '@/components/markdown';
 import { getGistsFiles } from '@/utils/data';
 
 export const metadata: Metadata = {
-    title: '幻非',
+    title: config.title,
     alternates: {
         canonical: '/',
     },
