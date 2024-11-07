@@ -6,8 +6,6 @@ type Config = {
     keywords: string[];
     url: string;
     language: string;
-    gistId?: string;
-    gistToken?: string;
     comment: GiscusProps | false;
 };
 
@@ -17,8 +15,6 @@ export const config: Config = {
     keywords: ['blog', '博客', '幻非', '技术', '生活', 'huanfei'],
     url: 'https://www.huanfei.top',
     language: 'zh-CN',
-    gistId: process.env.GIST_ID,
-    gistToken: process.env.GIST_TOKEN,
     comment: {
         repo: 'huanfe1/blog',
         repoId: 'R_kgDOJfgQ9g',
