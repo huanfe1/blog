@@ -7,6 +7,10 @@ type Config = {
     url: string;
     language: string;
     comment: GiscusProps | false;
+    analytics?: {
+        google?: string;
+        la51?: string;
+    };
 };
 
 export const config: Config = {
@@ -27,5 +31,9 @@ export const config: Config = {
         emitMetadata: '0',
         inputPosition: 'top',
         loading: 'lazy',
+    },
+    analytics: {
+        google: 'G-XFQZ8KB23B',
+        la51: 'JmvyCfPiIR4wTw9W',
     },
 };
