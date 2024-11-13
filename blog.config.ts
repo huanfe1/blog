@@ -6,7 +6,7 @@ type Config = {
     keywords: string[];
     url: string;
     language: string;
-    comment: GiscusProps | false;
+    comment?: GiscusProps;
     analytics?: {
         google?: string;
         la51?: string;
