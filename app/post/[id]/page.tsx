@@ -1,3 +1,4 @@
+import { config } from '@/blog.config';
 import GithubSlugger from 'github-slugger';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
             type: 'article',
             publishedTime: post.date,
             modifiedTime: post.update,
-            authors: ['https://www.huanfei.top'],
+            authors: [config.url],
             tags: post.tags,
             images: post.cover,
             url: '/post/' + post.slug,
@@ -32,7 +33,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
         alternates: {
             canonical: '/post/' + post.slug,
         },
-        other: { 'giscus:backlink': 'https://www.huanfei.top/post/' + post.slug },
+        other: { 'giscus:backlink': `${config.url}/post/${post.slug}` },
     };
 }
 

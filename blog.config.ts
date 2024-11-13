@@ -11,6 +11,11 @@ type Config = {
         google?: string;
         la51?: string;
     };
+    // https://follow.is/
+    follow?: {
+        feedId: string;
+        userId: string;
+    };
 };
 
 export const config: Config = {
@@ -35,5 +40,9 @@ export const config: Config = {
     analytics: {
         google: 'G-XFQZ8KB23B',
         la51: 'JmvyCfPiIR4wTw9W',
+    },
+    follow: {
+        feedId: '48224099084379136',
+        userId: '47261911326774272',
     },
 };

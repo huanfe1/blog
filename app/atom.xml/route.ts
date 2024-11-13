@@ -20,7 +20,7 @@ const feed = new Feed({
     feedLinks: {
         atom: `${url}/atom.xml`,
     },
-    copyright: `Copyright © 2022 - ${dayjs().format('YYYY')} HuanFei All Rights Reserved`,
+    copyright: `Copyright © ${config.title}. All Rights Reserved`,
     author: {
         name: config.title,
         link: url,
@@ -29,12 +29,9 @@ const feed = new Feed({
     generator: 'Nexj.js',
 });
 
-const followClaim = `
-<follow_challenge>
-    <feedId>48224099084379136</feedId>
-    <userId>47261911326774272</userId>
-</follow_challenge>
-`;
+const followClaim = config.follow
+    ? `<follow_challenge><feedId>${config.follow.feedId}</feedId><userId>${config.follow.userId}</userId></follow_challenge>`
+    : '';
 
 export async function GET() {
     const posts = await getAllPosts();

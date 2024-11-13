@@ -8,7 +8,7 @@ export default function Comment() {
     const { theme } = useTheme();
     if (!config.comment) return null;
     return (
-        <div className="mt-10">
+        <div className="mt-20">
             <Giscus theme={theme === 'system' ? 'preferred_color_scheme' : theme} {...config.comment} />
         </div>
     );
