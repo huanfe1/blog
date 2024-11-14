@@ -28,7 +28,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
             tags: post.tags,
             images: post.cover,
             url: '/post/' + post.slug,
-            locale: 'zh-CN',
+            locale: config.language,
         },
         alternates: {
             canonical: '/post/' + post.slug,

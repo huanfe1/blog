@@ -24,7 +24,7 @@ export const metadata: Metadata = {
         description: config.description,
         url: '/',
         siteName: config.title,
-        locale: 'zh-CN',
+        locale: config.language,
         type: 'website',
         images: '/og.jpg',
     },
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="zh-CN" suppressHydrationWarning>
+        <html lang={config.language} suppressHydrationWarning>
             <head>
                 {process.env.NODE_ENV !== 'development' && <Analytics />}
                 <link rel="icon" href="/favicon.ico" type="image/ico" />
