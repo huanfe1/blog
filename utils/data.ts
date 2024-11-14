@@ -14,7 +14,8 @@ export type PostProps = {
 };
 
 export const getAllPosts = async (): Promise<PostProps[]> => {
-    let posts: PostProps[] = JSON.parse((await getGistsFiles())['posts.json']['content']);
+    const data = await getGistFileByParams('posts.json');
+    let posts: PostProps[] = JSON.parse(data);
     posts = posts.map(post => {
         return {
             title: post.title,
@@ -34,7 +35,13 @@ if (!process.env.GIST_ID || !process.env.GIST_TOKEN) {
     throw new Error('GIST_ID or GIST_TOKEN is not set');
 }
 
-export async function getGistsFiles() {
+export async function getGistFileByParams(params: string) {
+    const data = await fetchGistsFiles();
+    if (!data[params]) throw new Error('Gist file not found: ' + params);
+    return data[params].content;
+}
+
+async function fetchGistsFiles() {
     const data = await fetch('https://api.github.com/gists/' + process.env.GIST_ID, {
         next: { revalidate: 60 * 10 },
         method: 'GET',

@@ -42,7 +42,7 @@ function Mask({ props, setStatus, imgRef }: ImgProps) {
                 }}
             ></div>
             <img
-                alt={props.alt || 'images'}
+                alt={props.alt || 'image'}
                 src={props.src}
                 className="absolute z-50 rounded"
                 style={{
@@ -69,7 +69,7 @@ export default function Img(props: ImgHTMLAttributes<HTMLImageElement>) {
         <>
             <img
                 {...props}
-                alt={props.alt || 'images'}
+                alt={props.alt || 'image'}
                 ref={imgRef}
                 className={classNames('rounded shadow', status ? 'invisible' : 'cursor-zoom-in')}
                 onClick={() => setStatus(true)}
