@@ -6,7 +6,9 @@ type Config = {
     keywords: string[];
     url: string;
     language: string;
+    // 评论功能
     comment?: GiscusProps;
+    // 页面分析
     analytics?: {
         google?: string;
         la51?: string;
