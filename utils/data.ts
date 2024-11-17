@@ -14,8 +14,7 @@ export type PostProps = {
 };
 
 export const getAllPosts = async (): Promise<PostProps[]> => {
-    const data = await getGistFileByParams('posts.json');
-    let posts: PostProps[] = JSON.parse(data);
+    let posts: PostProps[] = await getGistFileByParams('posts.json').then(data => JSON.parse(data));
     posts = posts.map(post => {
         return {
             title: post.title,
@@ -37,7 +36,7 @@ if (!process.env.GIST_ID || !process.env.GIST_TOKEN) {
 
 export async function getGistFileByParams(params: string) {
     const data = await fetchGistsFiles();
-    if (!data[params]) throw new Error('Gist file not found: ' + params);
+    if (!(params in data)) throw new Error('Gist file not found: ' + params);
     return data[params].content;
 }
 
