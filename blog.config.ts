@@ -8,6 +8,8 @@ type Config = {
     language: string;
     // 评论功能
     comment?: GiscusProps;
+    // GitHub userid
+    github?: string;
     // 页面分析
     analytics?: {
         google?: string;
@@ -26,6 +28,7 @@ export const config: Config = {
     keywords: ['blog', '博客', '幻非', '技术', '生活', 'huanfei'],
     url: 'https://www.huanfei.top',
     language: 'zh-CN',
+    github: 'huanfe1',
     comment: {
         repo: 'huanfe1/blog',
         repoId: 'R_kgDOJfgQ9g',
