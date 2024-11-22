@@ -1,0 +1,38 @@
+@use 'sass:meta';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './highlight.scss';
+@import './article.scss';
+
+body {
+    margin: auto;
+    max-width: 800px;
+    padding: 20px;
+    text-align: left;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    box-sizing: initial;
+}
+
+header nav a {
+    @apply flex items-center hover:opacity-70;
+    span {
+        @apply text-xl;
+    }
+}
+
+html {
+    background-color: #fafafa;
+}
+
+html.dark {
+    color: #cecece;
+    background-color: #1b1b1d;
+    img {
+        filter: brightness(0.9);
+    }
+}
