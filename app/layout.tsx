@@ -5,7 +5,7 @@ import React from 'react';
 import Analytics from '@/components/layout/analytics';
 import Header from '@/components/layout/header';
 import Top from '@/components/layout/top';
-import '@/styles/styles.scss';
+import '@/styles/index.scss';
 
 import { Providers } from './providers';
 
