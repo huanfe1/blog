@@ -35,12 +35,17 @@ if (!process.env.GIST_ID || !process.env.GIST_TOKEN) {
 }
 
 export async function getGistFileByParams(params: string) {
-    const data = await fetchGistsFiles();
+    const data = await fetchGist().then(data => data.files);
     if (!(params in data)) throw new Error('Gist file not found: ' + params);
     return data[params].content;
 }
 
-async function fetchGistsFiles() {
+export async function getLastUpdateDate() {
+    const date = await fetchGist().then(data => data.updated_at);
+    return dayjs(date).toDate();
+}
+
+async function fetchGist() {
     const data = await fetch('https://api.github.com/gists/' + process.env.GIST_ID, {
         next: { revalidate: 60 * 10 },
         method: 'GET',
@@ -51,7 +56,12 @@ async function fetchGistsFiles() {
         },
     })
         .then(data => data.json())
-        .then(data => data.files)
+        .then(data => {
+            if (data.truncated) {
+                throw new Error('The current data is truncated');
+            }
+            return data;
+        })
         .catch(err => console.log(err));
     return data;
 }

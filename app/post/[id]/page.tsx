@@ -63,6 +63,11 @@ export default async function Post({ params }) {
 }
 
 export async function generateStaticParams() {
+    const slugger = new GithubSlugger();
     const posts: PostProps[] = await getAllPosts();
-    return posts.map(post => ({ id: post.slug }));
+    return posts.map(post => {
+        const slug = slugger.slug(post.slug);
+        if (slug !== post.slug) console.warn(`Slug normalized: ${post.slug} -> ${slug}`);
+        return { id: slug };
+    });
 }

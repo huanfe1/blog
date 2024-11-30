@@ -8,7 +8,7 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 
-import { getAllPosts } from '@/utils/data';
+import { getAllPosts, getLastUpdateDate } from '@/utils/data';
 
 const url = config.url;
 
@@ -35,6 +35,7 @@ const followClaim = config.follow
 
 export async function GET() {
     const posts = await getAllPosts();
+    feed.options.updated = await getLastUpdateDate();
 
     for (const post of posts.slice(0, 20)) {
         const pipeline = unified()
