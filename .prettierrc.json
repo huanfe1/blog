@@ -5,6 +5,7 @@
     "semi": true,
     "singleQuote": true,
     "arrowParens": "avoid",
+    "jsxSingleQuote": false,
     "bracketSpacing": true,
     "importOrderSeparation": true,
     "importOrderSortSpecifiers": true,
