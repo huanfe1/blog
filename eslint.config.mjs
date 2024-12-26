@@ -26,14 +26,10 @@ const config = [
         plugins: {
             react: reactPlugin,
             'react-hooks': reactHooksPlugin,
-            '@next/next': nextPlugin,
         },
         rules: {
             ...reactPlugin.configs['jsx-runtime'].rules,
             ...reactHooksPlugin.configs.recommended.rules,
-            ...nextPlugin.configs.recommended.rules,
-            ...nextPlugin.configs['core-web-vitals'].rules,
-            '@next/next/no-img-element': 'off',
             'react-hooks/exhaustive-deps': 'off',
         },
     },
@@ -49,6 +45,17 @@ const config = [
     },
     {
         ...configPrettier,
+    },
+    {
+        files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
+        plugins: {
+            '@next/next': nextPlugin,
+        },
+        rules: {
+            ...nextPlugin.configs.recommended.rules,
+            ...nextPlugin.configs['core-web-vitals'].rules,
+            '@next/next/no-img-element': 'off',
+        },
     },
 ];
 
