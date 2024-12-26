@@ -21,7 +21,7 @@ export default function Toc({ content }: TocProps) {
         scrollHandler();
         document.addEventListener('scroll', scrollHandler);
         return () => document.removeEventListener('scroll', scrollHandler);
-    }, []);
+    }, [content]);
 
     const itemStyle = 'cursor-pointer opacity-40 transition-colors text-sm';
 
