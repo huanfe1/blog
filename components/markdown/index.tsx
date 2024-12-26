@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
-import rehypeAutolinkHeadings, { type Options } from 'rehype-autolink-headings';
+import type { Options } from 'rehype-autolink-headings';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
@@ -21,10 +22,9 @@ export default async function Markdown({ children }: { children: string }) {
             ]}
             components={{
                 pre: Code,
-                img: props => <Img {...props} />,
+                img: ({ node: _, ...props }) => <Img {...props} />,
                 h1: 'h2',
-                // eslint-disable-next-line no-unused-vars
-                a: ({ node, ...props }) => <Link {...(props as any)} />,
+                a: ({ node: _, ...props }) => <Link {...props} />,
             }}
         >
             {children}

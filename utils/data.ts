@@ -54,6 +54,7 @@ async function fetchGist() {
             Authorization: 'Bearer ' + process.env.GIST_TOKEN,
             Accept: 'application/vnd.github+json',
         },
+        cache: 'force-cache',
     })
         .then(data => data.json())
         .then(data => {
