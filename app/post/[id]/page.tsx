@@ -12,7 +12,8 @@ import Header from './header';
 import Toc from './toc';
 
 export async function generateMetadata({ params }): Promise<Metadata> {
-    const post = await getAllPosts().then(posts => posts.find(post => post.slug === params.id));
+    const { id } = await params;
+    const post = await getAllPosts().then(posts => posts.find(post => post.slug === id));
     if (!post) notFound();
     return {
         title: `${post.title}`,
@@ -38,7 +39,8 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 }
 
 export default async function Post({ params }) {
-    const post: PostProps | undefined = await getAllPosts().then(posts => posts.find(post => post.slug === params.id));
+    const { id } = await params;
+    const post: PostProps | undefined = await getAllPosts().then(posts => posts.find(post => post.slug === id));
     if (!post) notFound();
     const slugger = new GithubSlugger();
     const tocContent = post.content.match(/^#{1,6} (.*)$/gm)?.map(item => {

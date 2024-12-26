@@ -1,3 +1,5 @@
+@use 'sass:meta';
+
 // 滚动条
 #code code::-webkit-scrollbar {
     @apply h-1;
