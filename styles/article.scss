@@ -1,20 +1,3 @@
-#toc {
-    position: fixed;
-    top: 150px;
-    transform: translate(885px);
-    @apply hidden text-sm xl:block;
-    li {
-        @apply my-1;
-        span {
-            @apply cursor-pointer opacity-40 transition-colors;
-            &.active,
-            &:hover {
-                @apply font-bold opacity-70;
-            }
-        }
-    }
-}
-
 @layer components {
     .article {
         @apply prose max-w-none dark:prose-invert;

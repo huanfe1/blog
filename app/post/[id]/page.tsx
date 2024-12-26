@@ -54,11 +54,17 @@ export default async function Post({ params }) {
         <>
             <article>
                 <Header post={post} />
-                <section className="article mt-5">
-                    <Markdown>{post.content}</Markdown>
-                </section>
+                <div className="relative">
+                    <section className="article mt-5">
+                        <Markdown>{post.content}</Markdown>
+                    </section>
+                    {tocContent && (
+                        <div className="absolute top-0 h-full">
+                            <Toc content={tocContent} />
+                        </div>
+                    )}
+                </div>
             </article>
-            {tocContent && <Toc content={tocContent} />}
             <Comment />
         </>
     );

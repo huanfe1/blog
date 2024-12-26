@@ -1,50 +1,41 @@
 'use client';
 
-import { useEffect } from 'react';
+import classNames from 'classnames';
+import { useEffect, useState } from 'react';
 
 type TocProps = { content: { title: string; id: string; level: number }[] };
 
 export default function Toc({ content }: TocProps) {
+    const [active, setActive] = useState<string>('');
     useEffect(() => {
-        if (!content) return;
         const scrollHandler = () => {
-            const scroll = document.documentElement.scrollTop;
-            let closestElement = '';
-            let minDistance = Infinity;
-
+            const scroll = document.documentElement.scrollTop - 200;
+            let tempActive = '';
             for (const { id } of content) {
                 const element = document.getElementById(id);
-                if (element) {
-                    const elementTop = element.offsetTop;
-                    const distance = Math.abs(elementTop - scroll);
-
-                    if (distance < minDistance) {
-                        minDistance = distance;
-                        closestElement = id;
-                    }
-                }
+                if (element!.offsetTop > scroll) break;
+                tempActive = id;
             }
-            if (closestElement) {
-                document.querySelectorAll(`#toc span.active`).forEach(item => (item.className = ''));
-                document.querySelector(`#toc span[data-link="${closestElement}"`)!.className = 'active';
-            }
+            setActive(tempActive);
         };
         scrollHandler();
         document.addEventListener('scroll', scrollHandler);
         return () => document.removeEventListener('scroll', scrollHandler);
     }, []);
 
-    if (!content) return null;
+    const itemStyle = 'cursor-pointer opacity-40 transition-colors text-sm';
+
     return (
-        <ul id="toc">
+        <ul className="sticky top-[150px] hidden translate-x-[885px] space-y-1 text-sm xl:block">
             {content.map(link => (
                 <li key={link.id}>
                     <span
-                        onClick={() => {
-                            document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth' });
-                        }}
-                        data-link={link.id}
                         style={{ paddingLeft: `${(link.level - 2) * 15}px` }}
+                        className={classNames(
+                            itemStyle,
+                            link.id === active ? 'font-bold opacity-70' : 'hover:font-bold hover:opacity-70',
+                        )}
+                        onClick={() => document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth' })}
                     >
                         {link.title}
                     </span>
