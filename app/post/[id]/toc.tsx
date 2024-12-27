@@ -9,11 +9,11 @@ export default function Toc({ content }: TocProps) {
     const [active, setActive] = useState<string>('');
     useEffect(() => {
         const scrollHandler = () => {
-            const scroll = document.documentElement.scrollTop - 200;
+            const scroll = document.documentElement.scrollTop;
             let tempActive = '';
             for (const { id } of content) {
                 const element = document.getElementById(id);
-                if (element!.offsetTop > scroll) break;
+                if (element!.offsetTop + document.documentElement.clientHeight - 100 > scroll) break;
                 tempActive = id;
             }
             setActive(tempActive);
@@ -23,19 +23,22 @@ export default function Toc({ content }: TocProps) {
         return () => document.removeEventListener('scroll', scrollHandler);
     }, [content]);
 
-    const itemStyle = 'cursor-pointer opacity-40 transition-colors text-sm';
+    const jumpId = (id: string) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const { top } = el.getBoundingClientRect();
+        window.scrollTo({ top: top + window.scrollY - 35, behavior: 'smooth' });
+        // document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    };
 
     return (
-        <ul className="sticky top-[150px] hidden translate-x-[885px] space-y-1 text-sm xl:block">
+        <ul id="toc" className="sticky top-[150px] hidden space-y-1 text-sm xl:block">
             {content.map(link => (
                 <li key={link.id}>
                     <span
                         style={{ paddingLeft: `${(link.level - 2) * 15}px` }}
-                        className={classNames(
-                            itemStyle,
-                            link.id === active ? 'font-bold opacity-70' : 'hover:font-bold hover:opacity-70',
-                        )}
-                        onClick={() => document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth' })}
+                        className={classNames({ active: link.id === active })}
+                        onClick={() => jumpId(link.id)}
                     >
                         {link.title}
                     </span>

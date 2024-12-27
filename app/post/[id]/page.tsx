@@ -59,7 +59,7 @@ export default async function Post({ params }) {
                         <Markdown>{post.content}</Markdown>
                     </section>
                     {tocContent && (
-                        <div className="absolute top-0 h-full">
+                        <div className="absolute top-0 h-full translate-x-[885px]">
                             <Toc content={tocContent} />
                         </div>
                     )}

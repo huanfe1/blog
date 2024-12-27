@@ -10,3 +10,11 @@
         @apply prose-code:rounded prose-code:bg-zinc-200 prose-code:px-2 prose-code:py-0.5 prose-code:font-normal prose-code:before:content-none prose-code:after:content-none dark:prose-code:bg-zinc-800;
     }
 }
+
+#toc span {
+    @apply cursor-pointer text-sm opacity-40 transition-colors;
+    &.active,
+    &:hover {
+        @apply font-bold opacity-70;
+    }
+}
