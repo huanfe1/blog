@@ -8,38 +8,42 @@ import { createPortal } from 'react-dom';
 type ImgProps = {
     props: ImgHTMLAttributes<HTMLImageElement>;
     setStatus: Dispatch<SetStateAction<boolean>>;
-    imgRef: RefObject<HTMLImageElement | null>;
+    imgRef: RefObject<HTMLImageElement>;
 };
 
 function Mask({ props, setStatus, imgRef }: ImgProps) {
-    const [transform, setTransform] = useState('');
     const [opacity, setOpacity] = useState(0.7);
-    const close = () => {
-        setOpacity(0);
-        setTransform('');
-        setTimeout(() => setStatus(false), 300);
+    const [transform, setTransform] = useState('');
+    const { top, left, width, height } = imgRef.current.getBoundingClientRect();
+
+    const calcTransfrom = () => {
+        window.requestAnimationFrame(() => setTransform(calcFitScale(imgRef.current)));
     };
-    useEffect(() => {
+
+    useEffect(() => calcTransfrom(), []);
+
+    const close = () => {
         window.requestAnimationFrame(() => {
-            if (imgRef === null) return;
-            setTransform(calcFitScale(imgRef as RefObject<HTMLImageElement>));
+            setOpacity(0);
+            setTransform('');
+            setTimeout(() => setStatus(false), 300);
         });
-    }, []);
+    };
 
     // 绑定滚动跟窗口尺寸变化事件
     useEffect(() => {
         window.addEventListener('scroll', close);
-        window.addEventListener('resize', close);
+        window.addEventListener('resize', calcTransfrom);
         return () => {
             window.removeEventListener('scroll', close);
-            window.removeEventListener('resize', close);
+            window.removeEventListener('resize', calcTransfrom);
         };
     }, []);
-    if (!imgRef.current) return null;
+
     return createPortal(
-        <div onClick={close} className="cursor-zoom-out">
+        <div onClick={close} className="z-50 cursor-zoom-out">
             <div
-                className="fixed bottom-0 left-0 right-0 top-0 z-50 cursor-zoom-out bg-black"
+                className="fixed inset-0 bg-black"
                 style={{
                     opacity,
                     transition: 'opacity 300ms cubic-bezier(0.4, 0, 0.2, 1)',
@@ -48,13 +52,13 @@ function Mask({ props, setStatus, imgRef }: ImgProps) {
             <img
                 alt={props.alt || 'image'}
                 src={props.src}
-                className="absolute z-50 rounded"
+                className="absolute rounded"
                 style={{
                     transition: 'transform 300ms cubic-bezier(.2, 0, .2, 1)',
-                    top: imgRef.current.offsetTop,
-                    left: imgRef.current.offsetLeft,
-                    width: imgRef.current.offsetWidth,
-                    height: imgRef.current.offsetHeight,
+                    top: top + window.scrollY,
+                    left: left + window.scrollX,
+                    width,
+                    height,
                     transform,
                 }}
             />
@@ -67,9 +71,6 @@ export default function Img(props: ImgHTMLAttributes<HTMLImageElement>) {
     const [status, setStatus] = useState(false);
     const imgRef = useRef<HTMLImageElement>(null);
 
-    // 图片的 zoom 样式会导致预览错误，推荐使用 width 属性
-    delete props.style?.zoom;
-
     return (
         <>
             <img
@@ -80,7 +81,7 @@ export default function Img(props: ImgHTMLAttributes<HTMLImageElement>) {
                 onClick={() => setStatus(true)}
                 loading="lazy"
             />
-            {status && <Mask props={props} setStatus={setStatus} imgRef={imgRef} />}
+            {status && <Mask props={props} setStatus={setStatus} imgRef={imgRef as RefObject<HTMLImageElement>} />}
         </>
     );
 }
@@ -88,10 +89,10 @@ export default function Img(props: ImgHTMLAttributes<HTMLImageElement>) {
 /**
  * 计算图片缩放比例
  */
-function calcFitScale(imgRef: RefObject<HTMLImageElement>) {
+function calcFitScale(imgRef: HTMLImageElement) {
     const margin = 20;
-    const { top, left, width, height } = imgRef.current.getBoundingClientRect();
-    const { naturalWidth, naturalHeight } = imgRef.current;
+    const { top, left, width, height } = imgRef.getBoundingClientRect();
+    const { naturalWidth, naturalHeight } = imgRef;
     const viewportWidth = document.documentElement.clientWidth;
     const viewportHeight = document.documentElement.clientHeight;
     const scaleX = Math.min(Math.max(width, naturalWidth), viewportWidth) / width;
