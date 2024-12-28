@@ -5,13 +5,13 @@ import Color from './color';
 
 export default function Header() {
     return (
-        <div className="flex justify-between">
+        <div className="flex justify-between py-4">
             <div>
                 <Link href="/">
-                    <h1 className="my-4 text-2xl font-bold">{config.title}</h1>
+                    <h1 className="text-2xl font-bold">{config.title}</h1>
                 </Link>
             </div>
-            <nav className="my-4 flex items-center space-x-5 font-medium">
+            <nav className="flex items-center space-x-5 font-medium">
                 <Link href="/posts">文章</Link>
                 {config.github && (
                     <a

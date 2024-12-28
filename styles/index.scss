@@ -20,7 +20,7 @@ body {
     box-sizing: initial;
 }
 
-header nav a {
+header nav > * {
     @apply flex items-center hover:opacity-70;
     span {
         @apply text-xl;
