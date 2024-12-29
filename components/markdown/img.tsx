@@ -41,9 +41,9 @@ function Mask({ props, setStatus, imgRef }: ImgProps) {
     }, []);
 
     return createPortal(
-        <div onClick={close} className="z-50 cursor-zoom-out">
+        <div onClick={close} className="cursor-zoom-out">
             <div
-                className="fixed inset-0 bg-black"
+                className="fixed inset-0 z-30 bg-black"
                 style={{
                     opacity,
                     transition: 'opacity 300ms cubic-bezier(0.4, 0, 0.2, 1)',
@@ -52,7 +52,7 @@ function Mask({ props, setStatus, imgRef }: ImgProps) {
             <img
                 alt={props.alt || 'image'}
                 src={props.src}
-                className="absolute rounded"
+                className="absolute z-30 rounded"
                 style={{
                     transition: 'transform 300ms cubic-bezier(.2, 0, .2, 1)',
                     top: top + window.scrollY,
