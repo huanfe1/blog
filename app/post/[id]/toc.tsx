@@ -1,6 +1,5 @@
 'use client';
 
-import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 
 type TocProps = { content: { title: string; id: string; level: number }[] };
@@ -37,7 +36,7 @@ export default function Toc({ content }: TocProps) {
                 <li key={link.id}>
                     <span
                         style={{ paddingLeft: `${(link.level - 2) * 15}px` }}
-                        className={classNames({ active: link.id === active })}
+                        className={active === link.id ? 'active' : ''}
                         onClick={() => jumpId(link.id)}
                     >
                         {link.title}

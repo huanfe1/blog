@@ -1,6 +1,6 @@
 'use client';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import hljs from 'highlight.js';
 import { useState } from 'react';
 
@@ -23,7 +23,7 @@ export default function Code(props) {
             >
                 <span
                     aria-hidden
-                    className={classNames('text-lg', {
+                    className={clsx('text-lg', {
                         'i-mingcute-copy-2-line': !status,
                         'i-mingcute-check-line bg-green-600': status,
                     })}

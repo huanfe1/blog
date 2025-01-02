@@ -1,6 +1,6 @@
 'use client';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import type { Dispatch, ImgHTMLAttributes, RefObject, SetStateAction } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -77,7 +77,7 @@ export default function Img(props: ImgHTMLAttributes<HTMLImageElement>) {
                 {...props}
                 alt={props.alt || 'image'}
                 ref={imgRef}
-                className={classNames('rounded shadow', status ? 'invisible' : 'cursor-zoom-in')}
+                className={clsx('rounded shadow', status ? 'invisible' : 'cursor-zoom-in')}
                 onClick={() => setStatus(true)}
                 loading="lazy"
             />
