@@ -1,37 +1,44 @@
 import dayjs from 'dayjs';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { JSX } from 'react';
 
-import { getAllPosts } from '@/utils/data';
+import { PostProps, getAllPosts } from '@/utils/data';
 
 export const metadata: Metadata = { title: '文章' };
 
 export default async function Post() {
     const posts = await getAllPosts();
-    posts.sort((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf());
-    const result: JSX.Element[] = [];
-    let temp = '';
-    for (const post of posts) {
+
+    const items: { year: string; posts: PostProps[] }[] = [];
+    posts.forEach(post => {
         const year = dayjs(post.date).format('YYYY');
-        if (year !== temp) {
-            result.push(
-                <h2 key={year} className="mb-5 text-2xl font-bold">
-                    {year}
-                </h2>,
-            );
-            temp = year;
+        const item = items.find(item => item.year === year);
+        if (item) {
+            item.posts.push(post);
+        } else {
+            items.push({ year, posts: [post] });
         }
-        result.push(
-            <Link href={'/post/' + post.slug} key={post.slug} className="mb-3 block" title={post.title}>
-                <div className="flex hover:opacity-70">
-                    <h3 className="mr-3 truncate">{post.title}</h3>
-                    <time dateTime={post.date} className="text-default-400 flex-none">
-                        {dayjs(post.date).format('MM-DD')}
-                    </time>
+    });
+
+    return (
+        <>
+            {items.map(item => (
+                <div key={item.year} data-year={item.year}>
+                    <h2 className="my-4 text-2xl font-bold">{item.year}</h2>
+                    <div className="space-y-3">
+                        {item.posts.map(post => (
+                            <div key={post.slug} className="w-fit hover:opacity-70">
+                                <Link href={'/post/' + post.slug} key={post.slug} className="flex" title={post.title}>
+                                    <h3 className="mr-3 truncate">{post.title}</h3>
+                                    <time dateTime={post.date} className="text-default-400 flex-none">
+                                        {dayjs(post.date).format('MM-DD')}
+                                    </time>
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            </Link>,
-        );
-    }
-    return result;
+            ))}
+        </>
+    );
 }
