@@ -7,7 +7,9 @@
         // 分割线样式
         @apply prose-hr:mx-auto prose-hr:w-80;
         // 行代码样式
-        @apply prose-code:rounded prose-code:bg-zinc-200 prose-code:px-2 prose-code:py-0.5 prose-code:font-normal prose-code:before:content-none prose-code:after:content-none dark:prose-code:bg-zinc-800;
+        @apply prose-code:rounded prose-code:px-2 prose-code:py-1;
+        @apply prose-code:bg-zinc-200 dark:prose-code:bg-zinc-800;
+        @apply prose-code:before:content-none prose-code:after:content-none;
     }
 }
 
