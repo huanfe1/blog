@@ -8,12 +8,17 @@ export default function Toc({ content }: TocProps) {
     const [active, setActive] = useState<string>('');
     useEffect(() => {
         const scrollHandler = () => {
-            const scroll = document.documentElement.scrollTop;
             let tempActive = '';
+            let minNum = Infinity;
             for (const { id } of content) {
                 const element = document.getElementById(id);
-                if (element!.offsetTop + document.documentElement.clientHeight - 100 > scroll) break;
-                tempActive = id;
+                const top = Math.abs(element!.getBoundingClientRect().top);
+                if (top < minNum) {
+                    minNum = top;
+                    tempActive = id;
+                } else {
+                    break;
+                }
             }
             setActive(tempActive);
         };
