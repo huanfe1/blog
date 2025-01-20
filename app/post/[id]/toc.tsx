@@ -12,7 +12,8 @@ export default function Toc({ content }: TocProps) {
             let minNum = Infinity;
             for (const { id } of content) {
                 const element = document.getElementById(id);
-                const top = Math.abs(element!.getBoundingClientRect().top);
+                if (!element) break;
+                const top = Math.abs(element.getBoundingClientRect().top);
                 if (top < minNum) {
                     minNum = top;
                     tempActive = id;
