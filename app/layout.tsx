@@ -1,5 +1,5 @@
 import { config } from '@/blog.config';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import React from 'react';
 
 import Analytics from '@/components/layout/analytics';

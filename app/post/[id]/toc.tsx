@@ -37,7 +37,7 @@ export default function Toc({ content }: TocProps) {
     };
 
     return (
-        <ul id="toc" className="sticky top-[150px] hidden space-y-1 text-sm xl:block">
+        <ul id="toc" className="sticky top-[150px] space-y-1 text-sm">
             {content.map(link => (
                 <li key={link.id}>
                     <span

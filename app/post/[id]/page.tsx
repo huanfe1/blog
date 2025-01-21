@@ -43,7 +43,8 @@ export default async function Post({ params }) {
     const post: PostProps | undefined = await getAllPosts().then(posts => posts.find(post => post.slug === id));
     if (!post) notFound();
     const slugger = new GithubSlugger();
-    const tocContent = post.content.match(/^#{1,6} (.*)$/gm)?.map(item => {
+
+    const headingItems = post.content.match(/^#{1,6} (.*)$/gm)?.map(item => {
         return {
             title: item.replace(/#{1,6} /g, ''),
             id: slugger.slug(item.replace(/#{1,6} /g, '')),
@@ -58,9 +59,9 @@ export default async function Post({ params }) {
                     <section className="article mt-5">
                         <Markdown>{post.content}</Markdown>
                     </section>
-                    {tocContent && (
-                        <div className="absolute top-0 h-full translate-x-[885px]">
-                            <Toc content={tocContent} />
+                    {headingItems && (
+                        <div className="absolute top-0 hidden h-full translate-x-[885px] xl:block">
+                            <Toc content={headingItems} />
                         </div>
                     )}
                 </div>

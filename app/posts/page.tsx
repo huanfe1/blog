@@ -27,7 +27,7 @@ export default async function Post() {
                     <h2 className="my-4 text-2xl font-bold">{item.year}</h2>
                     <div className="space-y-3">
                         {item.posts.map(post => (
-                            <div key={post.slug} className="w-fit hover:opacity-70">
+                            <div key={post.slug} className="max-w-fit hover:opacity-70">
                                 <Link href={'/post/' + post.slug} key={post.slug} className="flex" title={post.title}>
                                     <h3 className="mr-3 truncate">{post.title}</h3>
                                     <time dateTime={post.date} className="text-default-400 flex-none">
