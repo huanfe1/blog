@@ -15,7 +15,6 @@ export const metadata: Metadata = {
         default: config.title,
     },
     authors: { url: config.url, name: config.title },
-    generator: 'Nexj.js',
     description: config.description,
     keywords: config.keywords,
     metadataBase: new URL(config.url),
