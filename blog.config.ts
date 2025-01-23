@@ -14,6 +14,7 @@ type Config = {
     analytics?: {
         google?: string;
         la51?: string;
+        umami?: string;
     };
     // https://follow.is/
     follow?: {
@@ -45,6 +46,7 @@ export const config: Config = {
     analytics: {
         google: 'G-XFQZ8KB23B',
         la51: 'JmvyCfPiIR4wTw9W',
+        umami: '8727a795-62d6-4c79-9cb0-bdf322099374',
     },
     follow: {
         feedId: '48224099084379136',

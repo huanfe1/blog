@@ -7,11 +7,12 @@ export default function Analytics() {
         <>
             {config.analytics.la51 && <La51 />}
             {config.analytics.google && <GoogleAnalytics />}
+            {config.analytics.umami && <Umami />}
         </>
     );
 }
 
-// https://v6.51.la/
+// https://v6.51.la
 function La51() {
     const id = config.analytics?.la51;
     const string = `!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"${id}",ck:"${id}",hashMode:true});`;
@@ -28,4 +29,10 @@ function GoogleAnalytics() {
             <Script id="google-analytics" strategy="lazyOnload" dangerouslySetInnerHTML={{ __html: string }} />
         </>
     );
+}
+
+// https://umami.is
+function Umami() {
+    const id = config.analytics?.umami;
+    return <Script src="https://cloud.umami.is/script.js" defer data-website-id={id} />;
 }
