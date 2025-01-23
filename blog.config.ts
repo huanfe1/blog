@@ -44,9 +44,9 @@ export const config: Config = {
         loading: 'lazy',
     },
     analytics: {
-        google: 'G-XFQZ8KB23B',
         la51: 'JmvyCfPiIR4wTw9W',
-        umami: '8727a795-62d6-4c79-9cb0-bdf322099374',
+        // google: 'G-XFQZ8KB23B',
+        // umami: '8727a795-62d6-4c79-9cb0-bdf322099374',
     },
     follow: {
         feedId: '48224099084379136',
