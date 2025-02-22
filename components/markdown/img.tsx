@@ -12,12 +12,17 @@ type ImgProps = {
 };
 
 function Mask({ props, setStatus, imgRef }: ImgProps) {
-    const [opacity, setOpacity] = useState(0.7);
+    const duration = 300;
+
+    const [opacity, setOpacity] = useState(0);
     const [transform, setTransform] = useState('');
     const { top, left, width, height } = imgRef.current.getBoundingClientRect();
 
     const calcTransfrom = () => {
-        window.requestAnimationFrame(() => setTransform(calcFitScale(imgRef.current)));
+        window.requestAnimationFrame(() => {
+            setOpacity(0.7);
+            setTransform(calcFitScale(imgRef.current));
+        });
     };
 
     useEffect(() => calcTransfrom(), []);
@@ -26,7 +31,7 @@ function Mask({ props, setStatus, imgRef }: ImgProps) {
         window.requestAnimationFrame(() => {
             setOpacity(0);
             setTransform('');
-            setTimeout(() => setStatus(false), 300);
+            setTimeout(() => setStatus(false), duration);
         });
     };
 
@@ -43,18 +48,18 @@ function Mask({ props, setStatus, imgRef }: ImgProps) {
     return createPortal(
         <div onClick={close} className="cursor-zoom-out">
             <div
-                className="fixed inset-0 z-30 bg-black"
+                className="fixed inset-0 z-30 bg-black transition-opacity"
                 style={{
                     opacity,
-                    transition: 'opacity 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                    transitionDuration: `${duration}ms`,
                 }}
             />
             <img
                 alt={props.alt || 'image'}
                 src={props.src}
-                className="absolute z-30 rounded"
+                className="absolute z-30 rounded transition-transform"
                 style={{
-                    transition: 'transform 300ms cubic-bezier(.2, 0, .2, 1)',
+                    transitionDuration: `${duration}ms`,
                     top: top + window.scrollY,
                     left: left + window.scrollX,
                     width,
