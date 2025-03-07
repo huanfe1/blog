@@ -5,7 +5,7 @@ import Color from './color';
 
 export default function Header() {
     return (
-        <div className="flex justify-between py-4">
+        <header className="flex justify-between py-4">
             <div>
                 <Link href="/">
                     <h1 className="text-2xl font-bold">{config.title}</h1>
@@ -28,6 +28,6 @@ export default function Header() {
                 </a>
                 <Color />
             </nav>
-        </div>
+        </header>
     );
 }

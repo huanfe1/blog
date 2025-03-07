@@ -41,9 +41,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </head>
             <body>
                 <Providers>
-                    <header>
-                        <Header />
-                    </header>
+                    <Header />
                     <main className="my-10">{children}</main>
                     <Top />
                 </Providers>
