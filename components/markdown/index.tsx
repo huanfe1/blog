@@ -24,7 +24,7 @@ export default async function Markdown({ children }: { children: string }) {
                 pre: Code,
                 img: ({ node: _, ...props }) => <Img {...props} />,
                 h1: 'h2',
-                a: ({ node: _, ...props }) => <Link {...props} />,
+                a: ({ node: _, ...props }) => <Link href={props.href || ''} {...props} />,
             }}
         >
             {children}
