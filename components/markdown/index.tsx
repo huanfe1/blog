@@ -10,7 +10,7 @@ import remarkGfm from 'remark-gfm';
 import Code from './code';
 import Img from './img';
 
-export default async function Markdown({ children }: { children: string }) {
+export default function Markdown({ children }: { children: string }) {
     return (
         <ReactMarkdown
             remarkPlugins={[remarkGfm]}

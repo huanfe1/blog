@@ -1,12 +1,6 @@
 export default function NotByAI() {
     return (
-        <a
-            href="https://notbyai.fyi/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-hidden
-            className="fixed bottom-1 left-1"
-        >
+        <a href="https://notbyai.fyi/" target="_blank" rel="noopener noreferrer" aria-hidden className="fixed bottom-1 left-1">
             <DarkSvg className="hidden dark:block" />
             <LightSvg className="dark:hidden" />
         </a>
@@ -15,11 +9,7 @@ export default function NotByAI() {
 
 const DarkSvg = props => (
     <svg xmlns="http://www.w3.org/2000/svg" width={131} height={42} fill="none" {...props}>
-        <path
-            fill="#000"
-            stroke="#ACACAC"
-            d="M.5.5H116c8.008 0 14.5 6.492 14.5 14.5v26.5H15C6.992 41.5.5 35.008.5 27V.5Z"
-        />
+        <path fill="#000" stroke="#ACACAC" d="M.5.5H116c8.008 0 14.5 6.492 14.5 14.5v26.5H15C6.992 41.5.5 35.008.5 27V.5Z" />
         <path
             fill="#fff"
             d="M17.96 24.157a9.446 9.446 0 0 0 11.89 0l-1.34-1.654a7.316 7.316 0 0 1-9.21 0l-1.34 1.654ZM19.404 20.513v-2.877h2.13v2.877h-2.13ZM26.012 17.637v2.876h2.13v-2.877h-2.13Z"
@@ -76,11 +66,7 @@ const DarkSvg = props => (
 
 const LightSvg = props => (
     <svg xmlns="http://www.w3.org/2000/svg" width={131} height={42} fill="none" {...props}>
-        <path
-            fill="#fff"
-            stroke="#000"
-            d="M.5.5H116c8.008 0 14.5 6.492 14.5 14.5v26.5H15C6.992 41.5.5 35.008.5 27V.5Z"
-        />
+        <path fill="#fff" stroke="#000" d="M.5.5H116c8.008 0 14.5 6.492 14.5 14.5v26.5H15C6.992 41.5.5 35.008.5 27V.5Z" />
         <path
             fill="#000"
             d="M17.96 24.157a9.446 9.446 0 0 0 11.89 0l-1.34-1.654a7.316 7.316 0 0 1-9.21 0l-1.34 1.654ZM19.404 20.513v-2.877h2.13v2.877h-2.13ZM26.012 17.637v2.876h2.13v-2.877h-2.13Z"

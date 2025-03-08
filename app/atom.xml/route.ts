@@ -29,20 +29,14 @@ const feed = new Feed({
     generator: 'Nexj.js',
 });
 
-const followClaim = config.follow
-    ? `<follow_challenge><feedId>${config.follow.feedId}</feedId><userId>${config.follow.userId}</userId></follow_challenge>`
-    : '';
+const followClaim = config.follow ? `<follow_challenge><feedId>${config.follow.feedId}</feedId><userId>${config.follow.userId}</userId></follow_challenge>` : '';
 
 export async function GET() {
     const posts = await getAllPosts();
     feed.options.updated = await getLastUpdateDate();
 
     for (const post of posts.slice(0, 20)) {
-        const pipeline = unified()
-            .use(remarkParse)
-            .use(remarkGfm)
-            .use(remarkRehype, { allowDangerousHtml: true })
-            .use(rehypeRaw);
+        const pipeline = unified().use(remarkParse).use(remarkGfm).use(remarkRehype, { allowDangerousHtml: true }).use(rehypeRaw);
         const content = post.cover ? `![${post.slug}](${post.cover})\n${post.content}` : post.content;
         const mdastTree = pipeline.parse(content);
         feed.addItem({

@@ -40,11 +40,7 @@ export default function Toc({ content }: TocProps) {
         <ul id="toc" className="sticky top-[150px] space-y-1 text-sm">
             {content.map(link => (
                 <li key={link.id}>
-                    <span
-                        style={{ paddingLeft: `${(link.level - 2) * 15}px` }}
-                        className={active === link.id ? 'active' : ''}
-                        onClick={() => jumpId(link.id)}
-                    >
+                    <span style={{ paddingLeft: `${(link.level - 2) * 15}px` }} className={active === link.id ? 'active' : ''} onClick={() => jumpId(link.id)}>
                         {link.title}
                     </span>
                 </li>
