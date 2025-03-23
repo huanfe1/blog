@@ -6,7 +6,7 @@ export default function Header({ post }: { post: PostProps }) {
     return (
         <header>
             {post.cover && (
-                <div className="mb-8 aspect-video overflow-hidden rounded shadow">
+                <div className="mb-8 aspect-video overflow-hidden rounded bg-stone-200/75 shadow dark:bg-stone-700/25">
                     <img src={post.cover} alt={post.title} />
                 </div>
             )}

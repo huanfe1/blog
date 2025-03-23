@@ -6,7 +6,7 @@
     "description": "Huanfei's blog",
     "scripts": {
         "build": "next build",
-        "dev": "next dev",
+        "dev": "next dev --turbo",
         "format": "prettier --write . | grep -v 'unchanged'",
         "lint": "tsc || next lint",
         "start": "next start"
