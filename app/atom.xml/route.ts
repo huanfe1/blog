@@ -8,7 +8,7 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 
-import { getAllPosts, getLastUpdateDate } from '@/utils/data';
+import { getAllPosts, getLastUpdateDate } from '@/lib/data';
 
 const url = config.url;
 

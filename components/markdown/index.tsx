@@ -7,28 +7,44 @@ import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 
+import { cn } from '@/lib/utils';
+
 import Code from './code';
 import Img from './img';
 
-export default function Markdown({ children }: { children: string }) {
+const articleClassName = cn(
+    'prose max-w-none dark:prose-invert',
+    'prose-p:leading-8 prose-img:mx-auto',
+    // 超链接样式
+    'prose-a:text-inherit hover:prose-a:opacity-70',
+    // 分割线样式
+    'prose-hr:mx-auto prose-hr:w-80',
+    // 行代码块
+    'prose-code:before:content-none prose-code:after:content-none',
+    'prose-code:rounded prose-code:bg-zinc-200 prose-code:px-2 prose-code:py-1 dark:prose-code:bg-zinc-800',
+);
+
+export default function Markdown({ children, className }: { children: string; className?: string }) {
     return (
-        <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[
-                rehypeSlug,
-                [rehypeAutolinkHeadings, linkHeadingsOptions],
-                [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'external', 'nofollow', 'noreferrer'] }],
-                rehypeRaw,
-            ]}
-            components={{
-                pre: Code,
-                img: ({ node: _, ...props }) => <Img {...props} />,
-                h1: 'h2',
-                a: ({ node: _, ...props }) => <Link href={props.href || ''} {...props} />,
-            }}
-        >
-            {children}
-        </ReactMarkdown>
+        <section className={cn(articleClassName, className)}>
+            <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[
+                    rehypeSlug,
+                    [rehypeAutolinkHeadings, linkHeadingsOptions],
+                    [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'external', 'nofollow', 'noreferrer'] }],
+                    rehypeRaw,
+                ]}
+                components={{
+                    pre: Code,
+                    img: ({ node: _, ...props }) => <Img {...props} />,
+                    h1: 'h2',
+                    a: ({ node: _, ...props }) => <Link href={props.href || ''} {...props} />,
+                }}
+            >
+                {children}
+            </ReactMarkdown>
+        </section>
     );
 }
 

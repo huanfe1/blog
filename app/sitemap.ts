@@ -2,7 +2,7 @@ import { config } from '@/blog.config';
 import dayjs from 'dayjs';
 import { MetadataRoute } from 'next';
 
-import { type PostProps, getAllPosts } from '@/utils/data';
+import { type PostProps, getAllPosts } from '@/lib/data';
 
 const url = config.url;
 

@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { metadata } from '@/app/layout';
 import Comment from '@/components/common/comment';
 import Markdown from '@/components/markdown';
-import { type PostProps, getAllPosts } from '@/utils/data';
+import { type PostProps, getAllPosts } from '@/lib/data';
 
 import Header from './header';
 import Toc from './toc';
@@ -56,9 +56,7 @@ export default async function Post({ params }) {
             <article>
                 <Header post={post} />
                 <div className="relative">
-                    <section className="article mt-5">
-                        <Markdown>{post.content}</Markdown>
-                    </section>
+                    <Markdown className="mt-5">{post.content}</Markdown>
                     {headingItems && (
                         <div className="absolute top-0 hidden h-full translate-x-[885px] xl:block">
                             <Toc content={headingItems} />

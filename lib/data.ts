@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import truncate from './truncate';
+import { truncate } from '@/lib/utils';
 
 export type PostProps = {
     title: string;

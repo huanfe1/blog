@@ -1,6 +1,6 @@
 import { readingTime } from 'reading-time-estimator';
 
-import { PostProps } from '@/utils/data';
+import { PostProps } from '@/lib/data';
 
 export default function Header({ post }: { post: PostProps }) {
     return (

@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-import { PostProps, getAllPosts } from '@/utils/data';
+import { PostProps, getAllPosts } from '@/lib/data';
 
 export const metadata: Metadata = { title: '文章' };
 
