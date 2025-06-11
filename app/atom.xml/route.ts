@@ -26,7 +26,7 @@ const feed = new Feed({
         link: url,
     },
     favicon: `${url}/favicon.ico`,
-    generator: 'Nexj.js',
+    generator: 'Next.js',
 });
 
 const followClaim = config.follow ? `<follow_challenge><feedId>${config.follow.feedId}</feedId><userId>${config.follow.userId}</userId></follow_challenge>` : '';
