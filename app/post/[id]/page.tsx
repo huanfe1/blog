@@ -1,6 +1,7 @@
 import { config } from '@/blog.config';
 import GithubSlugger from 'github-slugger';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { metadata } from '@/app/layout';
@@ -64,7 +65,11 @@ export default async function Post({ params }) {
                     )}
                 </div>
             </article>
-            <Comment />
+            <Link href="/posts" className="mt-5 flex w-fit items-center opacity-70 hover:underline">
+                <span>返回文章页</span>
+                <span className="i-mingcute-arrow-left-up-line ml-1 translate-y-[1px] text-lg"></span>
+            </Link>
+            <Comment className="mt-10" />
         </>
     );
 }
