@@ -10,6 +10,7 @@ type Config = {
     comment?: GiscusProps;
     // GitHub userid
     github?: string;
+    x?: string;
     // 页面分析
     analytics?: {
         google?: string;
@@ -30,6 +31,7 @@ const config: Config = {
     url: 'https://www.huanfei.top',
     language: 'zh-CN',
     github: 'huanfe1',
+    x: 'huanfe1',
     comment: {
         repo: 'huanfe1/blog',
         repoId: 'R_kgDOJfgQ9g',

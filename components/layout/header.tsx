@@ -18,6 +18,11 @@ export default function Header() {
                         <span className="i-mingcute-github-line" aria-hidden></span>
                     </a>
                 )}
+                {config.x && (
+                    <a aria-label="X" href={`https://x.com/${config.x}`} target="_blank" rel="noopener noreferrer external nofollow">
+                        <span className="i-mingcute-social-x-line" aria-hidden></span>
+                    </a>
+                )}
                 <a aria-label="RSS" href="/atom.xml" target="_blank">
                     <span className="i-mingcute-rss-2-fill" aria-hidden></span>
                 </a>
