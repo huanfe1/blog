@@ -9,6 +9,8 @@ export const metadata: Metadata = { title: '文章' };
 export default async function Post() {
     const posts = await getAllPosts();
 
+    if (posts.length === 0) return <div>没有文章，请检查内容文件</div>;
+
     const items: { year: string; posts: PostProps[] }[] = [];
     posts.forEach(post => {
         const year = dayjs(post.date).format('YYYY');
