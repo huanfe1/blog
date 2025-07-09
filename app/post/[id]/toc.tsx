@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
+import { cn } from '@/lib/utils';
+
 type TocProps = { content: { title: string; id: string; level: number }[] };
 
 export default function Toc({ content }: TocProps) {
@@ -37,7 +39,7 @@ export default function Toc({ content }: TocProps) {
     };
 
     return (
-        <ul id="toc" className="sticky top-[150px] space-y-1 text-sm">
+        <ul id="toc" className="sticky top-[150px] max-w-[200px] space-y-1 text-sm">
             {content.map(link => (
                 <li key={link.id}>
                     <span style={{ paddingLeft: `${(link.level - 2) * 15}px` }} className={active === link.id ? 'active' : ''} onClick={() => jumpId(link.id)}>

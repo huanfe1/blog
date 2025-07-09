@@ -6,7 +6,7 @@ import { ThemeProvider } from 'next-themes';
 export function Providers({ children }) {
     return (
         <ThemeProvider attribute="class" disableTransitionOnChange>
-            <HolyLoader height={2}></HolyLoader>
+            <HolyLoader height={1.5}></HolyLoader>
             {children}
         </ThemeProvider>
     );

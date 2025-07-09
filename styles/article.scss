@@ -13,10 +13,16 @@
 //     }
 // }
 
-#toc span {
-    @apply cursor-pointer text-sm opacity-40 transition-colors;
-    &.active,
-    &:hover {
-        @apply font-bold opacity-70;
+#toc {
+    li {
+        @apply truncate;
+    }
+
+    span {
+        @apply cursor-pointer overflow-hidden text-sm opacity-40;
+        &.active,
+        &:hover {
+            @apply font-bold opacity-70;
+        }
     }
 }
