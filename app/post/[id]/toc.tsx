@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from 'react';
 
-import { cn } from '@/lib/utils';
-
 type TocProps = { content: { title: string; id: string; level: number }[] };
 
 export default function Toc({ content }: TocProps) {
