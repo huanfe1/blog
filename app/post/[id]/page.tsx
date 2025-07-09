@@ -32,6 +32,14 @@ export async function generateMetadata({ params }): Promise<Metadata> {
             url: '/post/' + post.slug,
             locale: config.language,
         },
+        twitter: {
+            site: config.url,
+            creatorId: config.x,
+            card: 'summary_large_image',
+            title: post.title,
+            description: post.summary,
+            images: post.cover,
+        },
         alternates: {
             canonical: '/post/' + post.slug,
         },

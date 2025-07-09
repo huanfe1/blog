@@ -7,10 +7,12 @@ import { useTheme } from 'next-themes';
 export default function Comment({ className }: { className?: string }) {
     const { resolvedTheme } = useTheme();
 
-    if (!config.comment) return null;
+    const gicsus = config.comment?.gicsus;
+
+    if (!gicsus) return null;
     return (
         <div className={className}>
-            <Giscus theme={resolvedTheme} {...config.comment} />
+            <Giscus theme={resolvedTheme} {...gicsus} />
         </div>
     );
 }

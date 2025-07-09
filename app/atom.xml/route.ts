@@ -29,7 +29,7 @@ const feed = new Feed({
     generator: 'Next.js',
 });
 
-const followClaim = config.follow ? `<follow_challenge><feedId>${config.follow.feedId}</feedId><userId>${config.follow.userId}</userId></follow_challenge>` : '';
+const foloClaim = config.folo ? `<follow_challenge><feedId>${config.folo.feedId}</feedId><userId>${config.folo.userId}</userId></follow_challenge>` : '';
 
 export async function GET() {
     const posts = await getAllPosts();
@@ -49,7 +49,7 @@ export async function GET() {
             published: dayjs(post.date).toDate(),
         });
     }
-    return new Response(feed.atom1().replace('</feed>', followClaim + '</feed>'), {
+    return new Response(feed.atom1().replace('</feed>', foloClaim + '</feed>'), {
         headers: {
             'content-type': 'application/xml',
         },
