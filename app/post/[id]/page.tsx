@@ -8,6 +8,7 @@ import { metadata } from '@/app/layout';
 import Comment from '@/components/common/comment';
 import Markdown from '@/components/markdown';
 import { type PostProps, getAllPosts } from '@/lib/data';
+import { extractHeadingFromMarkdown } from '@/lib/utils';
 
 import Header from './header';
 import Toc from './toc';
@@ -51,22 +52,16 @@ export default async function Post({ params }) {
     const { id } = await params;
     const post: PostProps | undefined = await getAllPosts().then(posts => posts.find(post => post.slug === id));
     if (!post) notFound();
-    const slugger = new GithubSlugger();
 
-    const headingItems = post.content.match(/^#{1,6} (.*)$/gm)?.map(item => {
-        return {
-            title: item.replace(/#{1,6} /g, ''),
-            id: slugger.slug(item.replace(/#{1,6} /g, '')),
-            level: (item.match(/#/g) as string[]).length,
-        };
-    });
+    const headingItems = extractHeadingFromMarkdown(post.content);
+
     return (
         <>
             <article>
                 <Header post={post} />
                 <div className="relative">
                     <Markdown className="mt-5">{post.content}</Markdown>
-                    {headingItems && (
+                    {!!headingItems.length && (
                         <div className="absolute top-0 hidden h-full translate-x-[885px] xl:block">
                             <Toc content={headingItems} />
                         </div>
