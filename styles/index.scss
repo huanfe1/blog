@@ -13,6 +13,13 @@
     }
 }
 
+@layer utilities {
+    .scroll-hidden {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
+
 body {
     margin: auto;
     max-width: 800px;
