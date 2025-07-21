@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
+import { cn } from '@/lib/utils';
+
 type TocProps = { content: { title: string; id: string; level: number }[] };
 
 export default function Toc({ content }: TocProps) {
@@ -28,23 +30,6 @@ export default function Toc({ content }: TocProps) {
         return () => document.removeEventListener('scroll', scrollHandler);
     }, [content]);
 
-    useEffect(() => {
-        if (!active) return;
-        const activeElement = document.querySelector(`[data-id="${active}"]`) as HTMLElement;
-        const tocContainer = document.getElementById('toc');
-        console.log(activeElement, active, tocContainer);
-        if (activeElement && tocContainer) {
-            const activeRect = activeElement.getBoundingClientRect();
-            const tocRect = tocContainer.getBoundingClientRect();
-
-            const isInTocViewport = activeRect.top >= tocRect.top && activeRect.bottom <= tocRect.bottom;
-
-            if (!isInTocViewport) {
-                tocContainer.scrollTo({ top: activeElement.offsetTop - 100, behavior: 'smooth' });
-            }
-        }
-    }, [active]);
-
     const jumpId = (id: string) => {
         const el = document.getElementById(id);
         if (!el) return;
@@ -57,7 +42,11 @@ export default function Toc({ content }: TocProps) {
         <ul id="toc" className="scroll-hidden sticky top-[150px] max-h-48 max-w-[200px] space-y-1 overflow-auto text-sm">
             {content.map(link => (
                 <li key={link.id} data-id={link.id}>
-                    <span style={{ paddingLeft: `${(link.level - 2) * 15}px` }} className={active === link.id ? 'active' : ''} onClick={() => jumpId(link.id)}>
+                    <span
+                        style={{ paddingLeft: `${(link.level - 2) * 15}px` }}
+                        className={cn({ active: active === link.id }, 'cursor-pointer overflow-hidden text-sm opacity-40')}
+                        onClick={() => jumpId(link.id)}
+                    >
                         {link.title}
                     </span>
                 </li>
