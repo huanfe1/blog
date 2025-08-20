@@ -9,7 +9,8 @@ export default function Comment({ className }: { className?: string }) {
 
     const gicsus = config.comment?.gicsus;
 
-    if (!gicsus) return null;
+    if (!gicsus || process.env.NODE_ENV === 'development') return null;
+
     return (
         <div className={className}>
             <Giscus theme={resolvedTheme} {...gicsus} />
