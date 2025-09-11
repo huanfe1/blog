@@ -5,10 +5,12 @@ import hljs from 'highlight.js';
 import { useState } from 'react';
 
 export default function Code(props) {
+    const [status, setStatus] = useState(false);
+
+    if (!props.children || !props.children.props) return null;
+
     const content = props.children.props.children;
     const language = props.children.props.className?.replace('language-', '');
-
-    const [status, setStatus] = useState(false);
 
     const click = () => {
         navigator.clipboard.writeText(content).then(() => {

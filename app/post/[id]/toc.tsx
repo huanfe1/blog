@@ -39,12 +39,12 @@ export default function Toc({ content }: TocProps) {
     };
 
     return (
-        <ul id="toc" className="scroll-hidden sticky top-[150px] max-h-48 max-w-[200px] space-y-1 overflow-auto text-sm">
+        <ul className="scroll-hidden sticky top-[150px] max-h-72 max-w-[200px] space-y-1 overflow-y-auto overflow-x-hidden text-sm">
             {content.map(link => (
-                <li key={link.id} data-id={link.id}>
+                <li key={link.id} data-id={link.id} className="truncate">
                     <span
                         style={{ paddingLeft: `${(link.level - 2) * 15}px` }}
-                        className={cn({ active: active === link.id }, 'cursor-pointer overflow-hidden text-sm opacity-40')}
+                        className={cn('cursor-pointer overflow-hidden text-sm hover:font-bold hover:opacity-70', active === link.id ? 'font-bold opacity-70' : 'opacity-40')}
                         onClick={() => jumpId(link.id)}
                     >
                         {link.title}

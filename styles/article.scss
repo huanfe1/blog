@@ -13,16 +13,16 @@
 //     }
 // }
 
-#toc {
-    li {
-        @apply truncate;
-    }
+// #toc {
+//     li {
+//         @apply truncate;
+//     }
 
-    span {
-        @apply cursor-pointer overflow-hidden text-sm opacity-40;
-        &.active,
-        &:hover {
-            @apply font-bold opacity-70;
-        }
-    }
-}
+//     span {
+//         @apply cursor-pointer overflow-hidden text-sm opacity-40;
+//         &.active,
+//         &:hover {
+//             @apply font-bold opacity-70;
+//         }
+//     }
+// }

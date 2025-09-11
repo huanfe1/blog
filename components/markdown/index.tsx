@@ -59,11 +59,9 @@ const linkHeadingsOptions: Options = {
     headingProperties: {
         className: 'relative group',
     },
-    properties: el => {
-        return {
-            className: `not-prose absolute inset-y-0 hidden -translate-x-full pr-1.5 opacity-0 group-hover:opacity-100 lg:block`,
-            'aria-label': `Permalink: ${el.children[0]['value']}`,
-            tabIndex: -1,
-        };
-    },
+    properties: el => ({
+        className: `not-prose absolute inset-y-0 hidden -translate-x-full pr-1.5 opacity-0 group-hover:opacity-100 lg:block`,
+        'aria-label': `Permalink: ${el.children[0]['value']}`,
+        tabIndex: -1,
+    }),
 };
