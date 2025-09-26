@@ -39,7 +39,10 @@ export default function Markdown({ children, className }: { children: string; cl
                     pre: Code,
                     img: ({ node: _, ...props }) => <Img {...props} />,
                     h1: 'h2',
-                    a: ({ node: _, ...props }) => <Link href={props.href || ''} {...props} />,
+                    a: ({ node: _, ...props }) => {
+                        if (props.href?.startsWith('#')) return <Link href={props.href || ''} {...props} />;
+                        return <Link href={props.href || ''} {...props} target="_blank" />;
+                    },
                 }}
             >
                 {children}
