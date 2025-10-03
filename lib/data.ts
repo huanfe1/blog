@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import GithubSlugger from 'github-slugger';
 
 import { truncate } from '@/lib/utils';
 
@@ -15,15 +16,17 @@ export type PostProps = {
 
 export const getAllPosts = async (): Promise<PostProps[]> => {
     let posts: PostProps[] = await getGistFileByParams('posts.json').then(data => JSON.parse(data));
+
+    const slugger = new GithubSlugger();
     posts = posts.map(post => {
         return {
             title: post.title,
-            slug: post.slug,
+            slug: slugger.slug(post.slug),
             content: post.content,
             cover: post.cover,
             tags: post.tags,
             date: dayjs(post.date).format('YYYY-MM-DD'),
-            summary: post.summary || truncate(post.content) || '',
+            summary: post.summary ?? truncate(post.content) ?? '',
             update: post?.update && dayjs(post.update).format('YYYY-MM-DD'),
         };
     });

@@ -29,14 +29,12 @@ export default async function Post() {
                     <h2 className="my-4 text-2xl font-bold">{item.year}</h2>
                     <div className="space-y-3">
                         {item.posts.map(post => (
-                            <div key={post.slug} className="max-w-fit hover:opacity-70">
-                                <Link href={'/post/' + post.slug} key={post.slug} className="flex space-x-3" title={post.title}>
-                                    <h3 className="truncate">{post.title}</h3>
-                                    <time dateTime={post.date} className="flex-none">
-                                        {dayjs(post.date).format('MM-DD')}
-                                    </time>
-                                </Link>
-                            </div>
+                            <Link href={'/post/' + post.slug} key={post.slug} className="flex max-w-fit space-x-3 hover:opacity-70" title={post.title}>
+                                <h3 className="truncate">{post.title}</h3>
+                                <time dateTime={post.date} className="flex-none">
+                                    {dayjs(post.date).format('MM-DD')}
+                                </time>
+                            </Link>
                         ))}
                     </div>
                 </div>

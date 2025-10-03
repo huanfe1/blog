@@ -1,5 +1,4 @@
 import { config } from '@/blog.config';
-import GithubSlugger from 'github-slugger';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -18,7 +17,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
     const post = await getAllPosts().then(posts => posts.find(post => post.slug === id));
     if (!post) notFound();
     return {
-        title: `${post.title}`,
+        title: post.title,
         description: post.summary,
         keywords: [...(metadata.keywords as string[]), ...(post.tags ? post.tags : [])],
         openGraph: {
@@ -78,11 +77,6 @@ export default async function Post({ params }) {
 }
 
 export async function generateStaticParams() {
-    const slugger = new GithubSlugger();
     const posts: PostProps[] = await getAllPosts();
-    return posts.map(post => {
-        const slug = slugger.slug(post.slug);
-        if (slug !== post.slug) console.warn(`Slug normalized: ${post.slug} -> ${slug}`);
-        return { id: slug };
-    });
+    return posts.map(post => ({ id: post.slug }));
 }
