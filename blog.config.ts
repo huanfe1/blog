@@ -8,7 +8,7 @@ type Config = {
     language: string;
     // 评论功能
     comment?: {
-        gicsus?: GiscusProps;
+        giscus?: GiscusProps;
     };
     github?: string;
     x?: string;
@@ -34,8 +34,8 @@ const config: Config = {
     github: 'huanfe1',
     x: 'huanfe1',
     comment: {
-        gicsus: {
-            repo: 'huanfe1/blog',
+        giscus: {
+            repo: 'kuizuo/blog',
             repoId: 'R_kgDOJfgQ9g',
             mapping: 'pathname',
             category: 'Announcements',
