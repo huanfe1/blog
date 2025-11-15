@@ -29,7 +29,7 @@ const config: Config = {
     title: '幻非',
     description: '幻非的个人博客，记录一些技术或者想法',
     keywords: ['blog', '博客', '幻非', '技术', '生活', 'huanfei'],
-    url: 'https://www.huanfei.top',
+    url: 'https://www.huanfe1.com',
     language: 'zh-CN',
     github: 'huanfe1',
     x: 'huanfe1',
@@ -50,12 +50,6 @@ const config: Config = {
     },
     analytics: {
         la51: 'JmvyCfPiIR4wTw9W',
-        // google: 'G-XFQZ8KB23B',
-        // umami: '8727a795-62d6-4c79-9cb0-bdf322099374',
-    },
-    folo: {
-        feedId: '48224099084379136',
-        userId: '47261911326774272',
     },
 };
 

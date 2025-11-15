@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://www.huanfei.top/sitemap.xml
+Sitemap: https://www.huanfe1.com/sitemap.xml

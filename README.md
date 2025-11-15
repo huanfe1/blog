@@ -2,7 +2,7 @@
 
 使用 Next.js 搭建的个人博客
 
-[博客链接](https://www.huanfei.top)
+[博客链接](https://www.huanfe1.com)
 
 ## 技术栈
 
