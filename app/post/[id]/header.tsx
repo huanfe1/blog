@@ -14,7 +14,7 @@ export default function Header({ post }: { post: PostProps }) {
             <div className="my-3 opacity-60">
                 <time dateTime={post.date}>{post.date}</time>
                 <span className="mx-1">·</span>
-                <span>{'约 ' + readingTime(post.content, 300, 'cn').words + ' 字'}</span>
+                <span>{'约 ' + readingTime(post.content, { language: 'zh-cn' }).words + ' 字'}</span>
                 {post.update && (
                     <>
                         <span className="mx-1">·</span>
