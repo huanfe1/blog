@@ -31,7 +31,7 @@ export default async function Post() {
                         {item.posts.map(post => (
                             <Link href={'/post/' + post.slug} key={post.slug} className="flex max-w-fit space-x-3 hover:opacity-70" title={post.title}>
                                 <h3 className="truncate">{post.title}</h3>
-                                <time dateTime={post.date} className="flex-none">
+                                <time dateTime={post.date} className="flex-none opacity-40">
                                     {dayjs(post.date).format('MM-DD')}
                                 </time>
                             </Link>

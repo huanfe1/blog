@@ -32,6 +32,8 @@ const feed = new Feed({
 const foloClaim = config.folo ? `<follow_challenge><feedId>${config.folo.feedId}</feedId><userId>${config.folo.userId}</userId></follow_challenge>` : '';
 
 export async function GET() {
+    feed.items.length = 0;
+
     const posts = await getAllPosts();
     feed.options.updated = await getLastUpdateDate();
 
