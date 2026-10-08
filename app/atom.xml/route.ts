@@ -10,6 +10,8 @@ import { unified } from 'unified';
 
 import { getAllPosts, getLastUpdateDate } from '@/lib/data';
 
+export const revalidate = 600;
+
 const url = config.url;
 
 const feed = new Feed({

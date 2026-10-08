@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { metadata } from '@/app/layout';
 import Comment from '@/components/common/comment';
 import Markdown from '@/components/markdown';
-import { type PostProps, getAllPosts } from '@/lib/data';
+import { type PostProps, getAllPosts, getContentImages } from '@/lib/data';
 import { extractHeadingFromMarkdown } from '@/lib/utils';
 
 import Header from './header';
@@ -53,13 +53,17 @@ export default async function Post({ params }) {
     if (!post) notFound();
 
     const headingItems = extractHeadingFromMarkdown(post.content);
+    const images = await getContentImages(post.content, post.cover);
+    const article = { ...post, images };
 
     return (
         <>
             <article>
-                <Header post={post} />
+                <Header post={article} />
                 <div className="relative">
-                    <Markdown className="mt-5">{post.content}</Markdown>
+                    <Markdown className="mt-5" images={images}>
+                        {post.content}
+                    </Markdown>
                     {!!headingItems.length && (
                         <div className="absolute top-0 hidden h-full translate-x-[885px] xl:block">
                             <Toc content={headingItems} />

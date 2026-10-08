@@ -2,14 +2,16 @@ import { readingTime } from 'reading-time-estimator';
 
 import { PostProps } from '@/lib/data';
 
+import Cover from './cover';
+
 export default function Header({ post }: { post: PostProps }) {
+    const cover = post.images.find(image => image.url === post.cover);
+    const width = cover?.width || undefined;
+    const height = cover?.height || undefined;
+
     return (
         <header>
-            {post.cover && (
-                <div className="mb-8 aspect-video overflow-hidden rounded bg-stone-200/75 shadow dark:bg-stone-700/25">
-                    <img src={post.cover} alt={post.title} loading="lazy" />
-                </div>
-            )}
+            {post.cover && <Cover src={post.cover} alt={post.title} width={width} height={height} blurhash={cover?.blurhash || undefined} />}
             <h1 className="text-3xl font-bold">{post.title}</h1>
             <div className="my-3 opacity-60">
                 <time dateTime={post.date}>{post.date}</time>

@@ -4,6 +4,8 @@ import { MetadataRoute } from 'next';
 
 import { type PostProps, getAllPosts } from '@/lib/data';
 
+export const revalidate = 600;
+
 const url = config.url;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

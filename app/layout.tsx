@@ -9,6 +9,8 @@ import '@/styles/index.scss';
 
 import { Providers } from './providers';
 
+export const revalidate = 600;
+
 export const metadata: Metadata = {
     title: {
         template: `%s - ${config.title}`,

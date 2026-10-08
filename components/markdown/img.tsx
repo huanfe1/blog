@@ -2,7 +2,8 @@
 
 import clsx from 'clsx';
 import type { Dispatch, ImgHTMLAttributes, RefObject, SetStateAction } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { BlurhashCanvas } from 'react-blurhash';
 import { createPortal } from 'react-dom';
 
 type ImgProps = {
@@ -72,21 +73,53 @@ function Mask({ props, setStatus, imgRef }: ImgProps) {
     );
 }
 
-export default function Img(props: ImgHTMLAttributes<HTMLImageElement>) {
+type BlogImgProps = ImgHTMLAttributes<HTMLImageElement> & {
+    blurhash?: string;
+};
+
+function toPositiveNumber(value: ImgHTMLAttributes<HTMLImageElement>['width']) {
+    const number = typeof value === 'number' ? value : typeof value === 'string' ? Number.parseInt(value, 10) : Number.NaN;
+    return Number.isFinite(number) && number > 0 ? number : undefined;
+}
+
+export default function Img({ blurhash, style, width, height, className, alt, ...props }: BlogImgProps) {
     const [status, setStatus] = useState(false);
+    const [loaded, setLoaded] = useState(false);
     const imgRef = useRef<HTMLImageElement>(null);
+    const numericWidth = toPositiveNumber(width);
+    const numericHeight = toPositiveNumber(height);
+
+    useLayoutEffect(() => {
+        setLoaded(imgRef.current?.complete ?? false);
+    }, [props.src]);
 
     return (
         <>
-            <img
-                {...props}
-                alt={props.alt || 'image'}
-                ref={imgRef}
-                className={clsx('rounded shadow', status ? 'invisible' : 'cursor-zoom-in')}
-                onClick={() => setStatus(true)}
-                loading="lazy"
-            />
-            {status && <Mask props={props} setStatus={setStatus} imgRef={imgRef as RefObject<HTMLImageElement>} />}
+            <span className={clsx('relative mx-auto my-[2em] block w-fit max-w-full overflow-hidden rounded shadow', status && 'invisible')}>
+                {blurhash && <BlurhashCanvas hash={blurhash} width={32} height={32} aria-hidden className="absolute inset-0 h-full w-full" />}
+                <img
+                    {...props}
+                    alt={alt || 'image'}
+                    ref={imgRef}
+                    width={numericWidth}
+                    height={numericHeight}
+                    className={clsx(
+                        'relative h-auto max-w-full',
+                        blurhash && 'transition-opacity duration-500',
+                        blurhash && !loaded && 'opacity-0',
+                        !status && 'cursor-zoom-in',
+                        className,
+                    )}
+                    style={{
+                        ...style,
+                        aspectRatio: numericWidth && numericHeight ? `${numericWidth} / ${numericHeight}` : undefined,
+                    }}
+                    onClick={() => setStatus(true)}
+                    onLoad={() => setLoaded(true)}
+                    loading="lazy"
+                />
+            </span>
+            {status && <Mask props={{ ...props, alt, src: props.src }} setStatus={setStatus} imgRef={imgRef as RefObject<HTMLImageElement>} />}
         </>
     );
 }
